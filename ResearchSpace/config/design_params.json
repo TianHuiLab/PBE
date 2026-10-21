@@ -1,0 +1,21 @@
+{
+  "_meta": {
+    "note": "设计/模型参数单一事实源（energy_balancer.py 启动时读取）。battery_capacity_Ah 与 solar_array_Pm 为框架初值假设，需以电源设计文档校准；v1 工具 03/05 曾用 1200W 口径，已废止。",
+    "updated": "2026-10-21",
+    "calibration_status": {
+      "battery_capacity_Ah": "假设值·待设计文档校准",
+      "solar_array_Pm": "假设值·待设计文档校准（10 号报告按 ~900W 表述）",
+      "v_soc_curve": "通用锂电曲线·未按本星蓄电池标定（见 v_soc_curve.json）"
+    }
+  },
+  "battery_capacity_Ah": 100.0,
+  "solar_array_Pm": 900.0,
+  "bus_nominal_V": 28.0,
+  "eta_charge": 0.97,
+  "eta_discharge": 0.97,
+  "soc_high": 0.95,
+  "soc_floor": 0.05,
+  "soc_unknown": 0.9,
+  "sun_I_threshold_A": 1.0,
+  "dt_seconds": 60.0
+}

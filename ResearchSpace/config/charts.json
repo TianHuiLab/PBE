@@ -1,0 +1,19 @@
+{
+  "_meta": {
+    "note": "framework_documentation.html 内嵌图表清单（顺序即文档中的顺序）。gen_charts.py 据此校验 HTML 契约并清理 charts/ 孤儿产物；增删图表只需改本文件 + main() 中对应的 write_chart 调用。",
+    "updated": "2026-10-21"
+  },
+  "charts": [
+    { "name": "chart_voltages",       "title": "母线与蓄电池电压 · TMD016 / TMD019" },
+    { "name": "chart_currents",       "title": "太阳阵总电流与负载电流 · TMD009 / TMD018" },
+    { "name": "chart_solar_panels",   "title": "太阳阵 A—F 电流 · 实测分钟均值" },
+    { "name": "chart_panel_voltages", "title": "太阳阵 A—F 电压 · 实测分钟均值" },
+    { "name": "chart_power_flow",     "title": "功率计算量 · 发电 / 负载 / 富余" },
+    { "name": "chart_shunt",          "title": "分流功率 · 模型推断值" },
+    { "name": "chart_soc_dod",        "title": "蓄电池状态 · SOC / DoD（电压映射估计）" },
+    { "name": "chart_daily_power",    "title": "观测窗口 · 按小时已有分钟平均功率" },
+    { "name": "chart_daily_soc",      "title": "观测窗口 · 按小时已有分钟平均 SOC" },
+    { "name": "chart_daily_shunt",    "title": "观测窗口 · 按小时已有分钟平均分流" },
+    { "name": "chart_energy_daily",   "title": "观测窗口 · 按小时已有分钟能量" }
+  ]
+}

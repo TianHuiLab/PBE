@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# 凭据（绝不入库）
+.env
+
+# 可再生产物（由脚本重新生成）
+out/
+**/charts/*.svg
+demo_report.md
+*.pkl
+
+# 大数据文件（由 s1_fetch.py 从 ClickHouse 重新生成，约 6.4MB）
+data_power_minute.csv
+
+# 资料区：卫星文档（xlsx/pdf/docx/yaml，约 43MB）另行归档，不入库
+Data/
+
+# 工作区记忆/会话数据
+.workbuddy/
+
+# 编辑器
+.vscode/
+.idea/

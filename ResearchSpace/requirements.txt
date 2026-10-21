@@ -1,0 +1,10 @@
+# 卫星整星能源分析项目依赖
+# 安装: pip install -r requirements.txt
+
+pandas>=1.5        # 遥测宽表处理（energy_balancer / s* / q* 脚本）
+numpy>=1.23        # 数值计算
+
+# clickhouse-driver 仅 04/05（v1 探索脚本）需要；
+# v2 工具链的 ch_http.py 只用标准库，无需安装。
+# 需要时取消下一行注释:
+# clickhouse-driver>=0.2
