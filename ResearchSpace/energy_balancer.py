@@ -76,9 +76,13 @@ def _load_design():
 
 def _load_v_soc_table():
     cfg = _load_json('v_soc_curve.json', None)
-    if cfg is None:
-        return DEFAULT_V_SOC_TABLE
-    return np.array(cfg['points'], dtype=float)
+    table = DEFAULT_V_SOC_TABLE if cfg is None else np.array(cfg['points'], dtype=float)
+    # np.interp 要求采样横坐标单调非降，否则结果静默错误——配置即代码，须校验
+    if len(table) < 2 or not np.all(np.diff(table[:, 0]) > 0):
+        raise ValueError("v_soc_curve 电压点必须严格单调递增")
+    if not np.all(np.diff(table[:, 1]) >= 0):
+        raise ValueError("v_soc_curve SOC 点必须单调非降")
+    return table
 
 
 def _load_cols():
@@ -138,7 +142,7 @@ class EnergyBalanceEvaluator:
         d['P_solar'] = d['I_solar'] * d['V_bus']
         d['I_bus'] = self._clip(w[self.cols['bus_I']], -5, 100)
         d['P_bus'] = d['I_bus'] * d['V_bus']          # 母线需求口径（交叉校验）
-        d['I_load'] = self._clip(w[self.cols['load_I']], -5, 100)
+        d['I_load'] = self._clip(w[self.cols['load_I']], 0, 100)  # 负载电流物理非负
         d['P_load'] = d['I_load'] * d['V_bus']         # 主负载（实际消耗）
         d['P_excess'] = d['P_solar'] - d['P_load']     # + 富余 / - 缺口
         return d
@@ -147,9 +151,18 @@ class EnergyBalanceEvaluator:
     def classify_phase(self, d):
         """日照/地影判定：I_solar ≥ 阈值 的样本做 5 样本中心滚动**多数表决**
         （布尔均值 ≥ 0.5，抗单点毛刺；非中值滤波——09 号文档旧表述"滚动中值"
-        已按实现修正）。"""
+        已按实现修正）。        """
         sun = d['I_solar'] >= self.design['sun_I_threshold_A']
-        roll = sun.rolling(5, center=True, min_periods=1).mean()
+        # 在时间缺口（>3×dt_seconds）处先切段，避免跨越数日的样本被同一
+        # 5 样本窗口平滑（突发采样下索引相邻 ≠ 时间相邻）。
+        dt = self.design['dt_seconds']
+        if isinstance(d.index, pd.DatetimeIndex) and len(d) >= 2:
+            gaps = d.index.to_series().diff().dt.total_seconds()
+            seg_id = (gaps > 3 * dt).fillna(False).cumsum()
+            roll = sun.groupby(seg_id.to_numpy()).transform(
+                lambda s: s.rolling(5, center=True, min_periods=1).mean())
+        else:
+            roll = sun.rolling(5, center=True, min_periods=1).mean()
         d['phase'] = np.where(roll >= 0.5, '日照', '地影')
         return d
 
@@ -159,6 +172,12 @@ class EnergyBalanceEvaluator:
 
         分流逻辑：富余 P_excess>0 时，若电压锚定 SOC ≥ soc_high 则计分流，
         否则计充电；缺口 P_excess<0 计放电。
+
+        缺测处理（重要）：
+          - V_bat 缺测：SOC 落 soc_unknown 占位，但从 SOC 派生的所有量
+            （charge/shunt/disch）清零，不臆造；
+          - P_excess 缺测（上游 V_bus/I_load/I_solar 任一缺测）：charge/shunt/disch
+            也清零，避免把 NaN 传进能量统计的 skipna 求和形成"静默 0"假象。
         """
         soc_high = self.design['soc_high']
         vb = d['V_bat'].to_numpy(dtype=float)
@@ -175,11 +194,14 @@ class EnergyBalanceEvaluator:
         p_charge = np.where(surplus & ~full, pex, 0.0)
         p_shunt = np.where(surplus & full, pex, 0.0)
         p_disch = np.where(~surplus, pex, 0.0)
-        # V_bat 缺测样本不臆造充放/分流
-        p_charge[~known] = 0.0; p_shunt[~known] = 0.0; p_disch[~known] = 0.0
+        # 缺测样本不臆造充放/分流；P_excess 缺测一并清零（否则 NaN 渗入 P_disch）
+        invalid = ~known | np.isnan(pex)
+        p_charge[invalid] = 0.0; p_shunt[invalid] = 0.0; p_disch[invalid] = 0.0
 
         d['SOC'] = soc * 100.0
         d['DoD'] = (1 - soc) * 100.0
+        # 显式记录 SOC 是否来自实测电压锚定（统计层据此剔除占位样本）
+        d['SOC_observed'] = known
         d['P_charge'] = p_charge
         d['P_shunt'] = p_shunt
         d['P_disch'] = p_disch
@@ -203,10 +225,17 @@ class EnergyBalanceEvaluator:
                 out[key + '_mean'] = float(s.mean())
                 out[key + '_p5'] = float(s.quantile(.05))
                 out[key + '_p95'] = float(s.quantile(.95))
+        # SOC 仅统计实测（V_bat 锚定）样本，剔除 soc_unknown 占位
         if 'SOC' in sub:
-            s = sub['SOC']
-            out['soc_p5'] = float(s.quantile(.05)); out['soc_p50'] = float(s.median())
-            out['soc_min'] = float(s.min())
+            if 'SOC_observed' in sub.columns:
+                obs = sub[sub['SOC_observed']]['SOC']
+            else:
+                obs = sub['SOC']
+            if len(obs):
+                out['soc_p5'] = float(obs.quantile(.05))
+                out['soc_p50'] = float(obs.median())
+                out['soc_min'] = float(obs.min())
+                out['soc_n_observed'] = int(len(obs))
         return out
 
     def energy(self, d, phase):
@@ -271,9 +300,12 @@ class EnergyBalanceEvaluator:
             if pl and pl > 0:
                 margin = (sun.get('P_solar_mean', 0) - pl) / pl * 100
         if 'SOC' in d.columns:
-            dod_p95 = float(d['DoD'].quantile(.95))          # DoD already in %
-            soc_p5 = float(d['SOC'].quantile(.05))
-            soc_min = float(d['SOC'].min())
+            # 仅用实测锚定样本统计，避免 soc_unknown 占位值污染分位数
+            observed = d[d['SOC_observed']] if 'SOC_observed' in d.columns else d
+            if len(observed):
+                dod_p95 = float(observed['DoD'].quantile(.95))  # DoD already in %
+                soc_p5 = float(observed['SOC'].quantile(.05))
+                soc_min = float(observed['SOC'].min())
         vb = pd.to_numeric(d['V_bus'], errors='coerce').dropna()
         if len(vb) >= 2:  # 至少两个有效样本才能计算 p95-p5 展宽
             vbus_stab = (vb.quantile(.95) - vb.quantile(.05)) / vb.median() * 100
@@ -303,14 +335,21 @@ class EnergyBalanceEvaluator:
 
     def _health(self):
         m = self.metrics
+        th = self.design.get('health_thresholds', {})
+        w = self.design.get('health_weights',
+                           {'power_balance': .35, 'dod': .25,
+                            'soc_low': .20, 'bus_stability': .20})
         ss = dict(
-            power_balance=self._score(m.get('margin_pct'), 20, 0),
-            dod=self._score(m.get('dod_p95_pct'), 30, 50, reverse=True),
-            soc_low=self._score(m.get('soc_p5_pct'), 50, 30),
-            bus_stability=self._score(m.get('vbus_stability_pct'), 3, 5, reverse=True),
+            power_balance=self._score(m.get('margin_pct'), *th.get('margin_pct', (20, 0))),
+            dod=self._score(m.get('dod_p95_pct'), *th.get('dod_p95_pct', (30, 50)), reverse=True),
+            soc_low=self._score(m.get('soc_p5_pct'), *th.get('soc_p5_pct', (50, 30))),
+            bus_stability=self._score(m.get('vbus_stability_pct'), *th.get('vbus_stability_pct', (3, 5)), reverse=True),
         )
-        w = {'power_balance':0.35,'dod':0.25,'soc_low':0.20,'bus_stability':0.20}
-        finals = {k:(ss[k] if ss[k] is not None else 0) for k in ss}
-        hs = sum(finals[k]*w[k] for k in w)
-        lvl = ('优秀' if hs>=90 else '良好' if hs>=75 else '一般' if hs>=60 else '较差')
-        return dict(hs=hs, level=lvl, subscores=ss)
+        # 仅对可得分项归一化加权——分项缺失（缺数据）时不再按 0 分惩罚，
+        # 并报告评分覆盖率，便于判断结论的可靠程度。
+        avail = [k for k in ss if ss[k] is not None]
+        wsum = sum(w[k] for k in avail)
+        hs = (sum(ss[k] * w[k] for k in avail) / wsum) if wsum else 0.0
+        lvl = ('优秀' if hs >= 90 else '良好' if hs >= 75 else '一般' if hs >= 60 else '较差')
+        return dict(hs=hs, level=lvl, subscores=ss,
+                    coverage=round(wsum, 3))

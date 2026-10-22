@@ -249,6 +249,7 @@ def hour_buckets(result, day):
             observed = [v for row in sample if (v := value(row.get(key))) is not None]
             avg[key].append(sum(observed) / len(observed) if observed else None)
             if key in energy:
+                # 未观测小时保持 None（折线断线），不填 0 误导读者
                 energy[key].append(sum(observed) / 60000.0 if observed else None)
     return hours, avg, energy
 

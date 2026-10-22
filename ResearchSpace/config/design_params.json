@@ -17,5 +17,10 @@
   "soc_floor": 0.05,
   "soc_unknown": 0.9,
   "sun_I_threshold_A": 1.0,
-  "dt_seconds": 60.0
+  "dt_seconds": 60.0,
+  "health_weights": { "power_balance": 0.35, "dod": 0.25, "soc_low": 0.20, "bus_stability": 0.20 },
+  "health_thresholds": {
+    "margin_pct": [20, 0], "dod_p95_pct": [30, 50],
+    "soc_p5_pct": [50, 30], "vbus_stability_pct": [3, 5]
+  }
 }

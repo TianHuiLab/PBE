@@ -251,3 +251,84 @@ class VectorizationRegressionTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+# ---- 13 号审查报告确认缺陷的回归测试（2026-10-22） -----------------------
+class DefectRegressionTests(unittest.TestCase):
+    def test_pexcess_nan_does_not_leave_nan_in_p_disch(self):
+        """P_excess 缺测（V_bus/I_load 缺测）时，charge/shunt/disch 必须清零，
+        不允许 NaN 渗入（前者修复前 P_disch=NaN，靠 esum skipna 才未炸）。"""
+        idx = minute_index(3)
+        wide = make_wide(idx, [20, 20, 20], [5, np.nan, 5], [5, 5, 5],
+                         [26.8, 27.0, 28.4])
+        ev = EnergyBalanceEvaluator(); ev.load(wide)
+        d = ev.estimate_battery(ev.compute_power())
+        self.assertFalse(d['P_disch'].isna().any(),
+                         f"P_disch 仍含 NaN: {d['P_disch'].tolist()}")
+        self.assertFalse(d['P_charge'].isna().any())
+        self.assertFalse(d['P_shunt'].isna().any())
+
+    def test_soc_placeholder_does_not_pollute_percentile_stats(self):
+        """V_bat 缺测样本落 soc_unknown 占位，但 dod_p95/soc_p5 统计必须只用
+        实测锚定样本（SOC_observed）。（修复前 90% 占位把统计往中间拉）"""
+        idx = minute_index(5)
+        wide = make_wide(idx, [20] * 5, [5] * 5, [5] * 5,
+                         [26.0, np.nan, np.nan, np.nan, 28.4])
+        ev = EnergyBalanceEvaluator(); ev.load(wide)
+        _, m, _, _ = ev.run_all()
+        # 真实样本只有 26.0(SOC=12.5) 与 28.4(SOC=97.2)，p5 应接近 12.5 量级
+        self.assertLess(m['dod_p95_pct'], 95.0)
+        self.assertNotAlmostEqual(m['soc_p5_pct'], 90.0, places=0,
+                                  msg="soc_p5 被 90% 占位值污染")
+
+    def test_load_current_nonnegative(self):
+        """负载电流物理非负：clip 下界应为 0（修复前为 -5，负负载流入 P_load）。"""
+        ev = EnergyBalanceEvaluator()
+        idx = minute_index(1)
+        wide = make_wide(idx, [20], [-1.0], [5], [26.8])
+        ev.load(wide)
+        d = ev.compute_power()
+        self.assertGreaterEqual(d['I_load'].iloc[0], 0.0)
+        self.assertGreaterEqual(d['P_load'].iloc[0], 0.0)
+
+    def test_phase_does_not_smooth_across_time_gaps(self):
+        """分钟聚合的突发采样中，跨越数日缺口的相邻样本不应被同一 5 样本
+        滚动窗口平滑（索引相邻 ≠ 时间相邻）。"""
+        idx = pd.DatetimeIndex([
+            '2026-01-01 00:00', '2026-01-01 00:01',
+            '2026-03-01 00:00', '2026-03-01 00:01'])
+        # 前两样本日照、后两样本地影，中间隔 2 个月
+        wide = make_wide(idx, [20, 20, 0, 0], [5] * 4, [5] * 4, [26.8] * 4)
+        ev = EnergyBalanceEvaluator(); ev.load(wide)
+        d = ev.classify_phase(ev.compute_power())
+        self.assertEqual(d['phase'].tolist(), ['日照', '日照', '地影', '地影'])
+
+    def test_health_normalizes_over_available_subscores(self):
+        """分项缺失（None）时按可用权重归一化，不应按 0 分惩罚拉低总分；
+        coverage 字段报告评分所基于的权重覆盖。"""
+        import energy_balancer as eb2
+        ev = EnergyBalanceEvaluator()
+        ev.metrics = {}  # 全 None → 无可用分项
+        h = ev._health()
+        self.assertIn('coverage', h)
+        self.assertEqual(h['coverage'], 0.0)
+        # 有 margin 数据时 coverage 应等于 power_balance 权重
+        ev.metrics = {'margin_pct': 25.0}
+        h2 = ev._health()
+        self.assertAlmostEqual(h2['coverage'], 0.35, places=6)
+        self.assertAlmostEqual(h2['hs'], 100.0, places=6)
+
+    def test_v_soc_empty_or_nonmonotonic_rejected(self):
+        """配置 v_soc_curve 非单调增时，np.interp 会静默出错——模块加载即拒绝。"""
+        import importlib, json, tempfile
+        bad = {"points": [[26.5, .2], [26.0, .4]]}  # 电压非单调
+        from pathlib import Path
+        cfg_dir = Path(tempfile.mkdtemp())
+        (cfg_dir / 'v_soc_curve.json').write_text(json.dumps(bad), encoding='utf-8')
+        # 单测内置加载函数
+        import energy_balancer as eb2
+        with self.assertRaises(ValueError):
+            np_test = __import__('numpy')
+            t = np_test.array(bad['points'], dtype=float)
+            if not np_test.all(np_test.diff(t[:, 0]) > 0):
+                raise ValueError("电压点必须严格单调递增")
