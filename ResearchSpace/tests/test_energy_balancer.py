@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""energy_balancer（v2 评估内核）单元测试——全部使用合成数据，无需数据库。
+"""energy_balancer（v2.1 评估内核）单元测试——全部使用合成数据，无需数据库。
 
-覆盖：输入校验、工况判定多数表决、SOC 电压锚定与截断、分流/充电/放电拆分、
-能量恒等式与母线独立通道残差、缺口诊断、健康度评分、向量化回归。
+v2.1 口径（S3R 拓扑，用户决策 2026-10-22）：
+  发电 = V_bus × I_bus(TMD017)；分流不建模，改诊断量 P_shunt_diag；
+  日照/地影判定用帆板级 I_solar(TMD009)（不受分流影响）。
+
+覆盖：输入校验、工况判定多数表决、SOC 电压锚定与截断、充放拆分、
+能量恒等式与帆板级-母线级独立差额、缺口诊断、健康度评分、向量化回归。
 """
 import sys
 import unittest
@@ -19,7 +23,12 @@ from energy_balancer import EnergyBalanceEvaluator
 
 
 def make_wide(index, solar_I, load_I, bus_I, bat_V, bus_V=28.0):
-    """构造评估器输入的宽表（列为遥测代号）。"""
+    """构造评估器输入的宽表（列为遥测代号）。
+
+    solar_I → TMD009 帆板级总电流（工况判据/分流诊断）
+    bus_I   → TMD017 S3R 送入母线的太阳阵电流（v2.1 发电口径）
+    load_I  → TMD018 负载电流
+    """
     n = len(index)
     return pd.DataFrame({
         'TMD009': np.asarray(solar_I, dtype=float),
@@ -69,6 +78,16 @@ class PhaseClassificationTests(unittest.TestCase):
         d = ev.classify_phase(ev.compute_power())
         self.assertEqual(list(d['phase']), ['地影'] * 5)
 
+    def test_phase_uses_panel_current_not_bus_current(self):
+        """满充分流时 I_bus 很小但仍是日照——工况判据必须用帆板级 TMD009。
+        这是 v2.1 的关键设计：S3R 分流使 I_bus 下降，但光照本身存在。"""
+        idx = minute_index(5)
+        # 帆板级 20A（强光照），但 S3R 分流后仅 0.5A 送入母线
+        wide = make_wide(idx, [20] * 5, [1] * 5, [0.5] * 5, [28.55] * 5)
+        ev = EnergyBalanceEvaluator(); ev.load(wide)
+        d = ev.classify_phase(ev.compute_power())
+        self.assertEqual(list(d['phase']), ['日照'] * 5)
+
 
 class SocMappingTests(unittest.TestCase):
     def setUp(self):
@@ -93,42 +112,63 @@ class SocMappingTests(unittest.TestCase):
         ev = EnergyBalanceEvaluator(); ev.load(wide)
         d = ev.estimate_battery(ev.classify_phase(ev.compute_power()))
         self.assertAlmostEqual(d['SOC'].iloc[0], ev.design['soc_unknown'] * 100, places=6)
-        # 缺测样本不臆造充电/分流/放电
+        # 缺测样本不臆造充电/放电
         self.assertEqual(d['P_charge'].iloc[0], 0.0)
-        self.assertEqual(d['P_shunt'].iloc[0], 0.0)
         self.assertEqual(d['P_disch'].iloc[0], 0.0)
+        self.assertFalse(d['SOC_observed'].iloc[0])
 
 
 class BatterySplitTests(unittest.TestCase):
-    """富余功率在充电/分流间的拆分、缺口记为放电。"""
+    """v2.1：富余全部计充电（分流由 S3R 测点隐含扣除，与 SOC 无关）；缺口计放电。"""
 
-    def test_full_battery_shunts_all_surplus(self):
-        # V_bat=28.55 → SOC=1.0 ≥ soc_high → 富余全部分流
+    def test_surplus_all_charges_regardless_of_soc(self):
+        # V_bat=28.55 → SOC=1.0（满充）：v2.1 下富余仍全部计充电——
+        # 满充后 S3R 会自动分流，母线电流随之下降，充电自然趋 0
         idx = minute_index(3)
-        wide = make_wide(idx, [20, 20, 20], [5, 5, 5], [5, 5, 5], [28.55, 28.55, 28.55])
-        ev = EnergyBalanceEvaluator(); ev.load(wide)
-        d = ev.estimate_battery(ev.classify_phase(ev.compute_power()))
-        self.assertTrue(np.allclose(d['P_shunt'], d['P_excess']))
-        self.assertTrue(np.allclose(d['P_charge'], 0.0))
-
-    def test_not_full_battery_charges_surplus(self):
-        # V_bat=26.5 → SOC=0.20 < soc_high → 富余全部充电
-        idx = minute_index(3)
-        wide = make_wide(idx, [20, 20, 20], [5, 5, 5], [5, 5, 5], [26.5, 26.5, 26.5])
+        wide = make_wide(idx, [20, 20, 20], [5, 5, 5], [15, 15, 15], [28.55, 28.55, 28.55])
         ev = EnergyBalanceEvaluator(); ev.load(wide)
         d = ev.estimate_battery(ev.classify_phase(ev.compute_power()))
         self.assertTrue(np.allclose(d['P_charge'], d['P_excess']))
-        self.assertTrue(np.allclose(d['P_shunt'], 0.0))
+        self.assertTrue(np.all(d['P_charge'] > 0))
+
+    def test_not_full_battery_charges_surplus(self):
+        # V_bat=26.5 → SOC=0.20：富余全部充电
+        idx = minute_index(3)
+        wide = make_wide(idx, [20, 20, 20], [5, 5, 5], [15, 15, 15], [26.5, 26.5, 26.5])
+        ev = EnergyBalanceEvaluator(); ev.load(wide)
+        d = ev.estimate_battery(ev.classify_phase(ev.compute_power()))
+        self.assertTrue(np.allclose(d['P_charge'], d['P_excess']))
 
     def test_eclipse_deficit_is_discharge(self):
+        # 地影：I_bus(TMD017)≈0 → P_solar≈0 → P_excess<0 全部计放电
         idx = minute_index(3)
-        wide = make_wide(idx, [0, 0, 0], [8, 8, 8], [8, 8, 8], [27.4, 27.4, 27.4])
+        wide = make_wide(idx, [0, 0, 0], [8, 8, 8], [0, 0, 0], [27.4, 27.4, 27.4])
         ev = EnergyBalanceEvaluator(); ev.load(wide)
         d = ev.estimate_battery(ev.classify_phase(ev.compute_power()))
         self.assertTrue(np.allclose(d['P_disch'], d['P_excess']))
         self.assertTrue(np.all(d['P_disch'] < 0))
         self.assertTrue(np.allclose(d['P_charge'], 0.0))
-        self.assertTrue(np.allclose(d['P_shunt'], 0.0))
+
+
+class SolarCaliberTests(unittest.TestCase):
+    """v2.1 发电功率口径：P_solar = V_bus × I_bus(TMD017)，非帆板级 TMD009。"""
+
+    def test_solar_power_uses_bus_current_not_panel(self):
+        idx = minute_index(2)
+        # 帆板级 20A 但仅 10A 送入母线 → 发电应按 10A 计（分流在 S3R 上游扣除）
+        wide = make_wide(idx, [20, 20], [5, 5], [10, 10], [27.0, 27.0])
+        ev = EnergyBalanceEvaluator(); ev.load(wide)
+        d = ev.compute_power()
+        self.assertTrue(np.allclose(d['P_solar'], 10 * 28.0))
+        # 分流诊断 = 帆板级-母线级差额
+        self.assertTrue(np.allclose(d['P_shunt_diag'], 10 * 28.0))
+
+    def test_shunt_diag_reflects_panel_bus_difference(self):
+        idx = minute_index(3)
+        wide = make_wide(idx, [20, 15, 5], [5, 5, 5], [12, 10, 5], [27.0] * 3)
+        ev = EnergyBalanceEvaluator(); ev.load(wide)
+        d = ev.compute_power()
+        self.assertTrue(np.allclose(d['P_shunt_diag'], (np.array([20, 15, 5]) - np.array([12, 10, 5])) * 28.0))
 
 
 class EnergyClosureTests(unittest.TestCase):
@@ -136,35 +176,37 @@ class EnergyClosureTests(unittest.TestCase):
         # e_residual 由构造恒等于 0——记录该性质，防止误当作校验指标
         idx = minute_index(6)
         wide = make_wide(idx, [20, 20, 0, 0, 20, 0], [5, 5, 8, 8, 5, 8],
-                         [5, 5, 8, 8, 5, 8], [26.5] * 6)
+                         [5, 5, 0, 0, 5, 0], [26.5] * 6)
         ev = EnergyBalanceEvaluator(); ev.load(wide)
         _, _, _, res = ev.run_all()
         for e in (res['e_sun'], res['e_ecl']):
             self.assertAlmostEqual(e['e_residual_kWh'], 0.0, places=9)
 
-    def test_bus_residual_zero_when_channels_consistent(self):
-        # 全光照、SOC=0.20（未满充）→ 富余全部充电；
-        # 母线电流 = 负载电流 + 充电电流 时，独立通道残差应为 0
+    def test_shunt_diag_zero_when_panel_equals_bus(self):
+        # 帆板级电流 == 母线电流（无分流）→ 独立差额应为 0
         idx = minute_index(6)
         wide = make_wide(idx, [20] * 6, [5] * 6, [20] * 6, [26.5] * 6)
         ev = EnergyBalanceEvaluator(); ev.load(wide)
         _, _, _, res = ev.run_all()
         self.assertEqual(res['sun'].get('samples'), 6)
-        self.assertAlmostEqual(res['e_sun']['e_bus_residual_kWh'], 0.0, places=6)
+        self.assertAlmostEqual(res['e_sun']['e_shunt_diag_kWh'], 0.0, places=6)
+        self.assertAlmostEqual(res['e_sun']['e_solar_panel_kWh'],
+                               res['e_sun']['e_solar_kWh'], places=6)
 
-    def test_bus_residual_nonzero_when_channels_disagree(self):
-        # 同样工况但母线电流只报负载电流（丢掉充电需求）→ 残差应显著非零
+    def test_shunt_diag_positive_when_panel_exceeds_bus(self):
+        # 帆板级 20A > 母线级 12A（S3R 分流 8A）→ 差额为正
         idx = minute_index(6)
-        wide = make_wide(idx, [20] * 6, [5] * 6, [5] * 6, [26.5] * 6)
+        wide = make_wide(idx, [20] * 6, [5] * 6, [12] * 6, [26.5] * 6)
         ev = EnergyBalanceEvaluator(); ev.load(wide)
         _, _, _, res = ev.run_all()
-        resid = res['e_sun']['e_bus_residual_kWh']
-        self.assertNotAlmostEqual(resid, 0.0, places=3)
-        self.assertLess(resid, 0.0)  # 母线需求 < 负载+充电
+        resid = res['e_sun']['e_shunt_diag_kWh']
+        self.assertGreater(resid, 0.0)
+        # 帆板级发电应大于入母线发电
+        self.assertGreater(res['e_sun']['e_solar_panel_kWh'], res['e_sun']['e_solar_kWh'])
 
     def test_energy_scales_with_dt_seconds(self):
         idx = minute_index(4)
-        wide = make_wide(idx, [20, 20, 0, 0], [5, 5, 8, 8], [5, 5, 8, 8], [26.5] * 4)
+        wide = make_wide(idx, [20, 20, 0, 0], [5, 5, 8, 8], [15, 15, 0, 0], [26.5] * 4)
         e60 = EnergyBalanceEvaluator(); e60.load(wide); e60.run_all()
         e120 = EnergyBalanceEvaluator(design={'dt_seconds': 120.0})
         e120.load(wide); e120.run_all()
@@ -179,7 +221,7 @@ class GapDiagnosticsTests(unittest.TestCase):
         idx = pd.DatetimeIndex(list(pd.date_range('2026-01-01', periods=3, freq='60s')) +
                                list(pd.date_range('2026-01-01 00:12:00', periods=3, freq='60s')))
         wide = make_wide(idx, [20, 20, 20, 0, 0, 0], [5, 5, 5, 8, 8, 8],
-                         [5, 5, 5, 8, 8, 8], [26.5, 26.5, 26.5, 27.4, 27.4, 27.4])
+                         [15, 15, 15, 0, 0, 0], [26.5, 26.5, 26.5, 27.4, 27.4, 27.4])
         ev = EnergyBalanceEvaluator(); ev.load(wide)
         _, m, _, _ = ev.run_all()
         self.assertEqual(m['sample_dt_seconds'], 60.0)
@@ -188,27 +230,27 @@ class GapDiagnosticsTests(unittest.TestCase):
 
 
 class HealthScoreTests(unittest.TestCase):
-    def _health_for(self, solar, load, bat_V):
+    def _health_for(self, solar, load, bus_I, bat_V):
         idx = minute_index(len(solar))
-        wide = make_wide(idx, solar, load, load, bat_V)
+        wide = make_wide(idx, solar, load, bus_I, bat_V)
         ev = EnergyBalanceEvaluator(); ev.load(wide)
         _, _, h, _ = ev.run_all()
         return h
 
     def test_healthy_system_scores_high(self):
-        # 裕度大、电压高（DoD 小）
-        h = self._health_for([20] * 10, [5] * 10, [28.39] * 10)
+        # 裕度大、电压高（DoD 小）：帆板 20A、负载 5A、入母线 15A
+        h = self._health_for([20] * 10, [5] * 10, [15] * 10, [28.39] * 10)
         self.assertGreaterEqual(h['hs'], 90)
         self.assertEqual(h['level'], '优秀')
 
     def test_deep_discharge_drags_score_down(self):
         # 长期地影 + 低电压 → DoD p95 高 → 评分落入一般/较差
-        h = self._health_for([0] * 10, [8] * 10, [25.6] * 10)
+        h = self._health_for([0] * 10, [8] * 10, [0] * 10, [25.6] * 10)
         self.assertLess(h['hs'], 60)
         self.assertEqual(h['level'], '较差')
 
     def test_subscores_weights_sum_to_one(self):
-        h = self._health_for([20] * 10, [5] * 10, [28.0] * 10)
+        h = self._health_for([20] * 10, [5] * 10, [15] * 10, [28.0] * 10)
         self.assertAlmostEqual(sum(h['subscores'][k] * w for k, w in
                                    {'power_balance': .35, 'dod': .25,
                                     'soc_low': .20, 'bus_stability': .20}.items()),
@@ -229,35 +271,29 @@ class VectorizationRegressionTests(unittest.TestCase):
         ev = EnergyBalanceEvaluator(); ev.load(wide)
         d = ev.estimate_battery(ev.classify_phase(ev.compute_power()))
 
-        soc_high = ev.design['soc_high']
         vb = d['V_bat'].to_numpy(); pex = d['P_excess'].to_numpy()
         soc = np.array([(ev.design['soc_unknown'] if np.isnan(v) else eb._v_soc_map(v))
                         for v in vb])
         soc = np.clip(soc, ev.design['soc_floor'], 1.0)
-        pc = np.zeros(n); ps = np.zeros(n); pd_ = np.zeros(n)
+        pc = np.zeros(n); pd_ = np.zeros(n)
         for i in range(n):
             if np.isnan(vb[i]):
                 continue
             p = pex[i]
             if p >= 0:
-                (ps if soc[i] >= soc_high else pc)[i] = p
+                pc[i] = p
             else:
                 pd_[i] = p
         self.assertTrue(np.allclose(d['SOC'], soc * 100))
         self.assertTrue(np.allclose(d['P_charge'], pc))
-        self.assertTrue(np.allclose(d['P_shunt'], ps))
         self.assertTrue(np.allclose(d['P_disch'], pd_))
-
-
-if __name__ == '__main__':
-    unittest.main()
 
 
 # ---- 13 号审查报告确认缺陷的回归测试（2026-10-22） -----------------------
 class DefectRegressionTests(unittest.TestCase):
     def test_pexcess_nan_does_not_leave_nan_in_p_disch(self):
-        """P_excess 缺测（V_bus/I_load 缺测）时，charge/shunt/disch 必须清零，
-        不允许 NaN 渗入（前者修复前 P_disch=NaN，靠 esum skipna 才未炸）。"""
+        """P_excess 缺测（V_bus/I_load/I_bus 缺测）时，charge/disch 必须清零，
+        不允许 NaN 渗入（修复前 P_disch=NaN，靠 esum skipna 才未炸）。"""
         idx = minute_index(3)
         wide = make_wide(idx, [20, 20, 20], [5, np.nan, 5], [5, 5, 5],
                          [26.8, 27.0, 28.4])
@@ -266,7 +302,6 @@ class DefectRegressionTests(unittest.TestCase):
         self.assertFalse(d['P_disch'].isna().any(),
                          f"P_disch 仍含 NaN: {d['P_disch'].tolist()}")
         self.assertFalse(d['P_charge'].isna().any())
-        self.assertFalse(d['P_shunt'].isna().any())
 
     def test_soc_placeholder_does_not_pollute_percentile_stats(self):
         """V_bat 缺测样本落 soc_unknown 占位，但 dod_p95/soc_p5 统计必须只用
@@ -298,7 +333,7 @@ class DefectRegressionTests(unittest.TestCase):
             '2026-01-01 00:00', '2026-01-01 00:01',
             '2026-03-01 00:00', '2026-03-01 00:01'])
         # 前两样本日照、后两样本地影，中间隔 2 个月
-        wide = make_wide(idx, [20, 20, 0, 0], [5] * 4, [5] * 4, [26.8] * 4)
+        wide = make_wide(idx, [20, 20, 0, 0], [5] * 4, [15, 15, 0, 0], [26.8] * 4)
         ev = EnergyBalanceEvaluator(); ev.load(wide)
         d = ev.classify_phase(ev.compute_power())
         self.assertEqual(d['phase'].tolist(), ['日照', '日照', '地影', '地影'])
@@ -306,7 +341,6 @@ class DefectRegressionTests(unittest.TestCase):
     def test_health_normalizes_over_available_subscores(self):
         """分项缺失（None）时按可用权重归一化，不应按 0 分惩罚拉低总分；
         coverage 字段报告评分所基于的权重覆盖。"""
-        import energy_balancer as eb2
         ev = EnergyBalanceEvaluator()
         ev.metrics = {}  # 全 None → 无可用分项
         h = ev._health()
@@ -320,15 +354,12 @@ class DefectRegressionTests(unittest.TestCase):
 
     def test_v_soc_empty_or_nonmonotonic_rejected(self):
         """配置 v_soc_curve 非单调增时，np.interp 会静默出错——模块加载即拒绝。"""
-        import importlib, json, tempfile
         bad = {"points": [[26.5, .2], [26.0, .4]]}  # 电压非单调
-        from pathlib import Path
-        cfg_dir = Path(tempfile.mkdtemp())
-        (cfg_dir / 'v_soc_curve.json').write_text(json.dumps(bad), encoding='utf-8')
-        # 单测内置加载函数
-        import energy_balancer as eb2
+        t = np.array(bad['points'], dtype=float)
         with self.assertRaises(ValueError):
-            np_test = __import__('numpy')
-            t = np_test.array(bad['points'], dtype=float)
-            if not np_test.all(np_test.diff(t[:, 0]) > 0):
+            if not np.all(np.diff(t[:, 0]) > 0):
                 raise ValueError("电压点必须严格单调递增")
+
+
+if __name__ == '__main__':
+    unittest.main()

@@ -1,21 +1,26 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-三体星(SCS-01-01) 整星能源平衡定量评估框架 (v2)
+三体星(SCS-01-01) 整星能源平衡定量评估框架 (v2.1)
 基于 ClickHouse chdb_3body.telemetry_raw_01 真实遥测。
 
-v2 改进（依据真实数据诊断）：
-  1) 主负载功率改用"负载电流 TMD018"(真实负载)；"母线电流 TMD017"作为
-     总线需求口径做交叉校验（见 energy() 的 e_bus_residual，这是唯一
-     非恒等式的闭合校验）；
-  2) 蓄电池 SOC 采用**逐样本电压锚定**（V_bat → SOC 分段线性映射）。
-     注：早期 docstring 所称"电压锚定+地影段安时积分混合估计"未落地，
-     自 v2b 起即为纯电压锚定（09 号文档 §5 佐证）；纯安时积分因突发采样
-     缺口会累积漂移，已废止（03 号 v1 工具仅留作方法论对照）；
-  3) 增加分流(shunt)模型：电压锚定 SOC ≥ soc_high 后，富余发电计为分流，
-     不再无限计入充电；
-  4) 指标采用稳健百分位(p5-p95)与中位数，抗遥测异常毛刺；
-  5) 评估分"日照段 / 地影段"两工况分别给出能量收支与储能状态。
+v2.1 口径变更（用户决策 2026-10-22，依据 S3R 拓扑实证）：
+  发电功率改用**母线电压 × 母线电流**（TMD016 × TMD017），不再单独建模分流：
+    1) 电源拓扑为 S3R（顺序开关分流调节，遥测大表/知识 YAML 证实：太阳阵
+       直接耦合母线，S3R 分流级在 PCU 内部消耗富余、不流经母线测点）；
+    2) TMD017 是"太阳阵经 S3R 送入母线的单向电流"测点——实证：地影时
+       TMD017≈−0.1 A（≈0）而负载电流 TMD018≈9 A，日照时 TMD017−TMD018
+       中位 +7.1 A（=充电电流）；
+    3) 故 P_solar := V_bus × I_bus 即"实际送达母线的发电"，分流已被 S3R
+       在测点上游扣除——富余全部为充电，无需 SOC 判定拆分；
+    4) 分流不再是模型量，改为**诊断量** P_shunt_diag = (I_solar_panel −
+       I_bus) × V_bus（帆板级 TMD009 与母线级 TMD017 的差额，S3R 分流+
+       PCU 变换损耗的等效值），用于独立交叉校验；
+    5) 日照/地影判定仍用帆板级电流 TMD009（光照工况判据）——不可改用
+       I_bus：满充分流时 I_bus 很小但仍是日照。
+
+其余 v2 特性保留：逐样本电压锚定 SOC、稳健百分位指标、分工况能量收支、
+恒等式/独立残差分离（见 energy() docstring）。
 
 配置外置（单一事实源，config/ 目录，JSON 无需额外依赖）：
   - design_params.json    设计/模型参数（容量、额定功率、阈值、dt 等）
@@ -39,11 +44,12 @@ DEFAULT_DESIGN = {
     'bus_nominal_V': 28.0,
     'eta_charge': 0.97,
     'eta_discharge': 0.97,
-    'soc_high': 0.95,          # 分流阈值：SOC>=95% 视为满充，多余能量分流
     'soc_floor': 0.05,         # SOC 下限截断
     'soc_unknown': 0.9,        # V_bat 缺测时的 SOC 占位
-    'sun_I_threshold_A': 1.0,  # 日照判据电流阈值
+    'sun_I_threshold_A': 1.0,  # 日照判据电流阈值（对帆板级 TMD009）
     'dt_seconds': 60.0,        # 名义采样间隔（分钟聚合数据）；能量积分按此折算
+    # 注：v2.1 起 soc_high（分流阈值）已移除——分流由 S3R 测点隐含扣除，
+    # 不再需要 SOC 判定（见模块 docstring 第 3 条）。
 }
 DEFAULT_V_SOC_TABLE = np.array([  # (V_bat, SOC) 充电后静置参考
     (25.50, 0.05), (26.50, 0.20), (27.20, 0.40), (27.60, 0.55),
@@ -133,18 +139,29 @@ class EnergyBalanceEvaluator:
 
     # ---------------------------------------------------------------- 物理量层
     def compute_power(self):
+        """计算瞬时功率物理量（全向量化）。
+
+        口径（v2.1，S3R 拓扑）：
+          P_solar     = V_bus × I_bus(TMD017)   —— 实际送达母线的发电；
+                        分流已在 S3R 测点上游扣除，故富余即充电
+          P_shunt_diag= (I_solar − I_bus) × V_bus —— 诊断量：帆板级(TMD009)与
+                        母线级(TMD017)的功率差额 ≈ S3R 分流+PCU 损耗
+          P_load      = V_bus × I_load(TMD018)   —— 主负载
+          P_excess    = P_solar − P_load          —— + 富余(充电) / − 缺口(放电)
+          I_solar(TMD009) 保留：日照/地影工况判据（光照本身，不受分流影响）
+        """
         w = self.wide
         Vb = self._clip(w[self.cols['bus_V']], 10, 45.0)
         d = pd.DataFrame(index=w.index)
         d['V_bus'] = Vb
         d['V_bat'] = self._clip(w[self.cols['bat_V']], 10, 45.0)
-        d['I_solar'] = self._clip(w[self.cols['solar_I']], 0, 100)
-        d['P_solar'] = d['I_solar'] * d['V_bus']
-        d['I_bus'] = self._clip(w[self.cols['bus_I']], -5, 100)
-        d['P_bus'] = d['I_bus'] * d['V_bus']          # 母线需求口径（交叉校验）
-        d['I_load'] = self._clip(w[self.cols['load_I']], 0, 100)  # 负载电流物理非负
-        d['P_load'] = d['I_load'] * d['V_bus']         # 主负载（实际消耗）
-        d['P_excess'] = d['P_solar'] - d['P_load']     # + 富余 / - 缺口
+        d['I_solar'] = self._clip(w[self.cols['solar_I']], 0, 100)   # 帆板级总电流（工况判据）
+        d['I_bus'] = self._clip(w[self.cols['bus_I']], -5, 100)      # S3R 送入母线的太阳阵电流
+        d['P_solar'] = d['I_bus'] * d['V_bus']          # v2.1 发电口径：母线电压×母线电流
+        d['P_shunt_diag'] = (d['I_solar'] - d['I_bus']) * d['V_bus']  # 诊断：被 S3R 分流/PCU 损耗
+        d['I_load'] = self._clip(w[self.cols['load_I']], 0, 100)     # 负载电流物理非负
+        d['P_load'] = d['I_load'] * d['V_bus']          # 主负载（实际消耗）
+        d['P_excess'] = d['P_solar'] - d['P_load']      # + 富余 / - 缺口
         return d
 
     # ---------------------------------------------------------------- 工况层
@@ -168,18 +185,20 @@ class EnergyBalanceEvaluator:
 
     # ---------------------------------------------------------------- 储能层
     def estimate_battery(self, d):
-        """逐样本电压锚定 SOC + 分流模型（全向量化，可接连续遥测）。
+        """逐样本电压锚定 SOC + 充放拆分（全向量化，可接连续遥测）。
 
-        分流逻辑：富余 P_excess>0 时，若电压锚定 SOC ≥ soc_high 则计分流，
-        否则计充电；缺口 P_excess<0 计放电。
+        v2.1 简化（S3R 拓扑）：分流不再建模——母线电流测点已在 S3R 上游
+        扣除分流，故：
+          富余 P_excess ≥ 0 → 全部计充电（不管 SOC 是否已满：满充后 S3R
+                             会自动分流，母线电流随之下降，充电自然趋 0）；
+          缺口 P_excess < 0 → 全部计放电。
 
         缺测处理（重要）：
           - V_bat 缺测：SOC 落 soc_unknown 占位，但从 SOC 派生的所有量
-            （charge/shunt/disch）清零，不臆造；
-          - P_excess 缺测（上游 V_bus/I_load/I_solar 任一缺测）：charge/shunt/disch
+            （charge/disch）清零，不臆造；
+          - P_excess 缺测（上游 V_bus/I_load/I_bus 任一缺测）：charge/disch
             也清零，避免把 NaN 传进能量统计的 skipna 求和形成"静默 0"假象。
         """
-        soc_high = self.design['soc_high']
         vb = d['V_bat'].to_numpy(dtype=float)
         pex = d['P_excess'].to_numpy(dtype=float)
         n = len(d)
@@ -190,20 +209,17 @@ class EnergyBalanceEvaluator:
         soc = np.clip(soc, self.design['soc_floor'], 1.0)
 
         surplus = pex >= 0
-        full = soc >= soc_high
-        p_charge = np.where(surplus & ~full, pex, 0.0)
-        p_shunt = np.where(surplus & full, pex, 0.0)
+        p_charge = np.where(surplus, pex, 0.0)
         p_disch = np.where(~surplus, pex, 0.0)
-        # 缺测样本不臆造充放/分流；P_excess 缺测一并清零（否则 NaN 渗入 P_disch）
+        # 缺测样本不臆造充放；P_excess 缺测一并清零（否则 NaN 渗入 P_disch）
         invalid = ~known | np.isnan(pex)
-        p_charge[invalid] = 0.0; p_shunt[invalid] = 0.0; p_disch[invalid] = 0.0
+        p_charge[invalid] = 0.0; p_disch[invalid] = 0.0
 
         d['SOC'] = soc * 100.0
         d['DoD'] = (1 - soc) * 100.0
         # 显式记录 SOC 是否来自实测电压锚定（统计层据此剔除占位样本）
         d['SOC_observed'] = known
         d['P_charge'] = p_charge
-        d['P_shunt'] = p_shunt
         d['P_disch'] = p_disch
         return d
 
@@ -214,7 +230,7 @@ class EnergyBalanceEvaluator:
             return {}
         q = lambda s: pd.to_numeric(sub[s], errors='coerce').dropna()
         out = {'samples': int(len(sub))}
-        for key in ['P_solar', 'P_load', 'P_bus', 'P_excess', 'P_shunt', 'I_load']:
+        for key in ['P_solar', 'P_load', 'P_excess', 'P_shunt_diag', 'I_load', 'I_bus']:
             s = q(key)
             if len(s):
                 out[key + '_mean'] = float(s.mean())
@@ -242,34 +258,37 @@ class EnergyBalanceEvaluator:
         """工况能量收支（kWh）。每样本按 design['dt_seconds'] 名义间隔折算，
         只计有观测的样本、不对缺口外推（与 gen_charts 同原则）。
 
-        两个残差的区别（重要）：
-          e_residual      = e_solar - e_load - e_batnet - e_shunt
-                           恒等于 0（因 P_charge+P_disch+P_shunt ≡ P_excess 由
-                           构造保证），**不具备模型校验能力**，仅保留作记账恒等式；
-          e_bus_residual  = e_bus - e_load - e_charge
-                           用 TMD017 母线需求这一**独立遥测通道**校验负载+充电
-                           拆分，是唯一有判别力的闭合校验。其绝对值/方向需结合
-                           测量点拓扑解释（充电/分流电流是否流经 TMD017 测点），
-                           当前与"含充电"叙事存在偏差，见 09 号文档 §6 待查项。
+        两个量的区别（重要，v2.1 口径）：
+          e_residual     = e_solar - e_load - e_batnet
+                           恒等于 0（因 P_charge+P_disch ≡ P_excess 且
+                           P_excess ≡ P_solar−P_load 由构造保证），
+                           **不具备模型校验能力**，仅保留作记账恒等式；
+          e_shunt_diag   = Σ[(I_solar−I_bus)×V_bus]dt，帆板级(TMD009)与
+                           母线级(TMD017)两个**独立测点**的功率差，物理上
+                           应 ≥0（S3R 分流 + PCU 变换损耗的等效值），
+                           是 v2.1 下有判别力的交叉校验量。持续为负说明
+                           电流测点间存在系统偏差（需查测点拓扑）。
         """
         sub = d[d['phase'] == phase]
         if len(sub) == 0:
-            return dict(e_solar=0, e_load=0, e_bus=0, e_batnet=0, e_shunt=0,
-                        e_charge=0, e_disch=0, e_residual=0, e_bus_residual=0)
+            return dict(e_solar=0, e_load=0, e_batnet=0, e_shunt_diag=0,
+                        e_charge=0, e_disch=0, e_residual=0, e_shunt_diag_kWh=0,
+                        e_solar_panel_kWh=0)
         def esum(col):
             return float(pd.to_numeric(sub[col], errors='coerce').sum())
         dt = self.design['dt_seconds'] / 3600.0 / 1000.0   # kWh per sample
         e_solar = esum('P_solar')*dt; e_load = esum('P_load')*dt
-        e_bus = esum('P_bus')*dt
         e_charge = esum('P_charge')*dt; e_disch = esum('P_disch')*dt
-        e_shunt = esum('P_shunt')*dt
+        e_shunt_diag = esum('P_shunt_diag')*dt
+        # 帆板级发电（诊断口径）：I_solar × V_bus
+        e_solar_panel = float((pd.to_numeric(sub['I_solar'], errors='coerce') *
+                               pd.to_numeric(sub['V_bus'], errors='coerce')).sum())*dt
         e_batnet = e_charge + e_disch          # 电池净获电（+充/-放）
-        e_residual = e_solar - e_load - e_batnet - e_shunt   # 恒等式（≡0）
-        e_bus_residual = e_bus - e_load - e_charge           # 独立通道校验
-        return dict(e_solar_kWh=e_solar, e_load_kWh=e_load, e_bus_kWh=e_bus,
-                    e_batnet_kWh=e_batnet, e_shunt_kWh=e_shunt,
+        e_residual = e_solar - e_load - e_batnet   # 恒等式（≡0）
+        return dict(e_solar_kWh=e_solar, e_load_kWh=e_load,
+                    e_batnet_kWh=e_batnet, e_shunt_diag_kWh=e_shunt_diag,
                     e_charge_kWh=e_charge, e_disch_kWh=e_disch,
-                    e_residual_kWh=e_residual, e_bus_residual_kWh=e_bus_residual)
+                    e_residual_kWh=e_residual, e_solar_panel_kWh=e_solar_panel)
 
     # ---------------------------------------------------------------- 汇总层
     def _gap_diagnostics(self, d):

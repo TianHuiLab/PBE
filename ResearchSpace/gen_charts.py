@@ -192,7 +192,7 @@ def derive_observed_energy(result):
     totals = defaultdict(lambda: defaultdict(float))
     for row in result:
         day = row['t'][:10]
-        for key in ('P_solar', 'P_load', 'P_excess', 'P_shunt'):
+        for key in ('P_solar', 'P_load', 'P_excess', 'P_shunt_diag'):
             v = value(row[key])
             if v is not None:
                 totals[day][key] += v / 60000.0
@@ -240,9 +240,9 @@ def hour_buckets(result, day):
         if row['t'][:10] == day:
             buckets[row['t'][:13]].append(row)
     hours = [f'{day} {hour:02d}:00:00' for hour in range(24)]
-    keys = ('P_solar', 'P_load', 'P_excess', 'P_shunt', 'SOC')
+    keys = ('P_solar', 'P_load', 'P_excess', 'P_shunt_diag', 'SOC')
     avg = {key: [] for key in keys}
-    energy = {key: [] for key in ('P_solar', 'P_load', 'P_shunt')}
+    energy = {key: [] for key in ('P_solar', 'P_load', 'P_shunt_diag')}
     for hour in hours:
         sample = buckets.get(hour[:13], [])
         for key in keys:
@@ -310,11 +310,11 @@ def main():
                 {'母线电压 (V)': col('V_bus'), '电池电压 (V)': col('V_bat')}, 'V', minute_gap, window_start=start, window_end=end)
     write_chart('chart_currents', '太阳阵总电流与负载电流 · TMD009 / TMD018', times,
                 {'太阳阵总电流 (A)': col('I_solar'), '负载电流 (A)': col('I_load')}, 'A', minute_gap, low=0, window_start=start, window_end=end)
-    write_chart('chart_power_flow', '功率计算量 · 发电 / 负载 / 富余', times,
+    write_chart('chart_power_flow', '功率计算量 · 发电(入母线) / 负载 / 富余', times,
                 {'发电功率 (W)': col('P_solar'), '负载功率 (W)': col('P_load'),
                  '富余功率 (W)': col('P_excess')}, 'W', minute_gap, window_start=start, window_end=end)
-    write_chart('chart_shunt', '分流功率 · 模型推断值', times,
-                {'分流功率 (W)': col('P_shunt')}, 'W', minute_gap, low=0, window_start=start, window_end=end)
+    write_chart('chart_shunt', 'S3R 分流消耗 · 诊断量（帆板级−母线级差额）', times,
+                {'分流诊断 (W)': col('P_shunt_diag')}, 'W', minute_gap, low=0, window_start=start, window_end=end)
     write_chart('chart_soc_dod', '蓄电池状态 · SOC / DoD（电压映射估计）', times,
                 {'SOC (%)': col('SOC'), 'DoD (%)': col('DoD')}, '%', minute_gap, low=0, high=100,
                 reference=50, window_start=start, window_end=end)
@@ -338,11 +338,11 @@ def main():
                  '富余 (W)': hourly['P_excess']}, 'W', hourly_gap, window_start=start, window_end=end)
     write_chart('chart_daily_soc', '观测窗口 · 按小时已有分钟平均 SOC', hour_times,
                 {'SOC (%)': hourly['SOC']}, '%', hourly_gap, low=0, high=100, window_start=start, window_end=end)
-    write_chart('chart_daily_shunt', '观测窗口 · 按小时已有分钟平均分流', hour_times,
-                {'分流 (W)': hourly['P_shunt']}, 'W', hourly_gap, low=0, window_start=start, window_end=end)
+    write_chart('chart_daily_shunt', '观测窗口 · 按小时 S3R 分流诊断（帆板级−母线级）', hour_times,
+                {'分流诊断 (W)': hourly['P_shunt_diag']}, 'W', hourly_gap, low=0, window_start=start, window_end=end)
     write_chart('chart_energy_daily', '观测窗口 · 按小时已有分钟能量', hour_times,
                 {'发电 (kWh)': energy['P_solar'], '负载 (kWh)': energy['P_load'],
-                 '分流 (kWh)': energy['P_shunt']}, 'kWh', hourly_gap, low=0, window_start=start, window_end=end)
+                 '分流诊断 (kWh)': energy['P_shunt_diag']}, 'kWh', hourly_gap, low=0, window_start=start, window_end=end)
     clean_orphan_svgs()
     embed_charts_in_html()
 
