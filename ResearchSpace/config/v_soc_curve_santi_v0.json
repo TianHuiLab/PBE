@@ -1,13 +1,22 @@
 {
   "_meta": {
-    "note": "三体星专属蓄电池放电特性表（V_bat → SOC 分段线性）。来源：satellite_autonomy 项目知识库 volt_capacity_santi_v0.csv（10A 恒流放电，40Ah 标称，22.82–29.31V ↔ 10%–100% SoC）。v0 状态；相较通用曲线更贴近本星（7S 锂电：29.31V=4.19V/节 满充，22.82V=3.26V/节 放空）。",
-    "source": "D:/Tianji/project/satellite_autonomy/scripts/knowledge/volt_capacity_santi_v0.csv",
-    "source_status": "v0（待用户确认出处是否为 SCS-01-01 设计值；容量口径 40Ah 与框架假设 100Ah 的差异待设计 PDF 确认，TC3/TC4）",
+    "note": "三体星专属蓄电池放电特性表（V_bat → SOC 分段线性）。来源：satellite_autonomy 项目知识库 volt_capacity_santi_v0.csv（10A 恒流放电，7s13p 5Ah 单体 = 65Ah 标称，22.82–29.31V ↔ 10%–100% SoC）。2026-10-22 用户确认为 SCS-01-01 设计值；同批确认设计约束：一次母线电压 23.1–29.2V、蓄电池容量下限 60.3Ah（放电深度限制要求，13p 设计即为此满足）。曲线为 7S 锂电：29.31V=4.19V/节 满充，22.82V=3.26V/节 放空。",
+    "source": "D:/Tianji/project/satellite_autonomy/scripts/knowledge/volt_capacity_santi_v0.csv（2026-10-22 已按 65Ah 设计更新容量列）",
+    "source_status": "设计值·已确认（用户 2026-10-22）；容量口径 65Ah 已取代框架原假设 100Ah",
     "updated": "2026-10-22",
     "calibration_status": "三体星设计表·待激活",
+    "design": {
+      "pack_config": "7s13p（5Ah 单体 × 13 并）",
+      "rated_capacity_Ah": 65.0,
+      "capacity_min_Ah": 60.3,
+      "discharge_current_A": 10.0,
+      "bus_voltage_range_V": [23.1, 29.2],
+      "confirmed_by_user": "2026-10-22"
+    },
     "caveats": [
       "本表为 10A 放电曲线：实测地影负载 ~11.7A（接近），但充电段（日照）电压偏高，用放电曲线锚定会高估充电期 SOC（滞回，方向已知、量级约数个百分点）",
-      "实测 V_bat 最大 29.33V 略高于本表上限 29.31V——恰为充电滞回预期方向，佐证本表适配本星"
+      "实测 V_bat 最大 29.33V 略高于本表上限 29.31V——恰为充电滞回预期方向，佐证本表适配本星",
+      "设计约束备忘：一次母线 23.1–29.2V（本表电压列为蓄电池侧，略宽于母线区间，正常）；容量下限 60.3Ah（SOH/P4 阈值）"
     ]
   },
   "points": [
@@ -21,5 +30,9 @@
     [27.60, 0.80],
     [28.23, 0.90],
     [29.31, 1.00]
+  ],
+  "capacity_map_Ah": [
+    [0.10, 58.5], [0.20, 52.0], [0.30, 45.5], [0.40, 39.0], [0.50, 32.5],
+    [0.60, 26.0], [0.70, 19.5], [0.80, 13.0], [0.90, 6.5], [1.00, 0.0]
   ]
 }
