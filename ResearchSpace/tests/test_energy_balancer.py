@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""energy_balancer（v2.1 评估内核）单元测试——全部使用合成数据，无需数据库。
+"""energy_balancer（v2.2 评估内核）单元测试——全部使用合成数据，无需数据库。
 
 v2.1 口径（S3R 拓扑，用户决策 2026-10-22）：
   发电 = V_bus × I_bus(TMD017)；分流不建模，改诊断量 P_shunt_diag；
   日照/地影判定用帆板级 I_solar(TMD009)（不受分流影响）。
+
+v2.2 口径（用户决策 2026-10-23）：
+  V-SOC 主曲线切换为三体星设计放电表（22.82–29.31V ↔ 10%–100% SOC）。
 
 覆盖：输入校验、工况判定多数表决、SOC 电压锚定与截断、充放拆分、
 能量恒等式与帆板级-母线级独立差额、缺口诊断、健康度评分、向量化回归。
@@ -90,10 +93,12 @@ class PhaseClassificationTests(unittest.TestCase):
 
 
 class SocMappingTests(unittest.TestCase):
+    """v2.2：V-SOC 主曲线为三体星设计放电表（22.82–29.31V ↔ 10%–100%）。"""
+
     def setUp(self):
         self.idx = minute_index(6)
         self.wide = make_wide(self.idx, [0] * 6, [5] * 6, [5] * 6,
-                              [25.0, 26.5, 27.2, 27.6, 28.39, 29.0])
+                              [20.0, 25.0, 26.5, 27.6, 28.39, 30.0])
         self.ev = EnergyBalanceEvaluator(); self.ev.load(self.wide)
         self.d = self.ev.estimate_battery(self.ev.classify_phase(self.ev.compute_power()))
 
@@ -103,8 +108,10 @@ class SocMappingTests(unittest.TestCase):
 
     def test_clipping_floor_and_ceiling(self):
         soc = self.d['SOC'].to_numpy()
-        self.assertAlmostEqual(soc[0], self.ev.design['soc_floor'] * 100, places=6)  # 25.0V → 下限
-        self.assertAlmostEqual(soc[-1], 100.0, places=6)                            # 29.0V → 饱和
+        # 20.0V 低于表下限 22.82V → 截断到表最小值 10%（通用曲线时代的 soc_floor=5%
+        # 截断语义由设计表下限取代；soc_floor 仍是 estimate_battery 的安全网）
+        self.assertAlmostEqual(soc[0], 10.0, places=6)
+        self.assertAlmostEqual(soc[-1], 100.0, places=6)                 # 30.0V 高于表上限 29.31V → 饱和
 
     def test_nan_voltage_uses_placeholder_and_no_charge(self):
         idx = minute_index(3)
@@ -122,17 +129,17 @@ class BatterySplitTests(unittest.TestCase):
     """v2.1：富余全部计充电（分流由 S3R 测点隐含扣除，与 SOC 无关）；缺口计放电。"""
 
     def test_surplus_all_charges_regardless_of_soc(self):
-        # V_bat=28.55 → SOC=1.0（满充）：v2.1 下富余仍全部计充电——
+        # V_bat=29.31 → SOC=1.0（满充，设计表上限）：v2.1 下富余仍全部计充电——
         # 满充后 S3R 会自动分流，母线电流随之下降，充电自然趋 0
         idx = minute_index(3)
-        wide = make_wide(idx, [20, 20, 20], [5, 5, 5], [15, 15, 15], [28.55, 28.55, 28.55])
+        wide = make_wide(idx, [20, 20, 20], [5, 5, 5], [15, 15, 15], [29.31, 29.31, 29.31])
         ev = EnergyBalanceEvaluator(); ev.load(wide)
         d = ev.estimate_battery(ev.classify_phase(ev.compute_power()))
         self.assertTrue(np.allclose(d['P_charge'], d['P_excess']))
         self.assertTrue(np.all(d['P_charge'] > 0))
 
     def test_not_full_battery_charges_surplus(self):
-        # V_bat=26.5 → SOC=0.20：富余全部充电
+        # V_bat=26.5 → SOC≈0.63（设计表插值）：富余全部充电
         idx = minute_index(3)
         wide = make_wide(idx, [20, 20, 20], [5, 5, 5], [15, 15, 15], [26.5, 26.5, 26.5])
         ev = EnergyBalanceEvaluator(); ev.load(wide)
@@ -245,7 +252,8 @@ class HealthScoreTests(unittest.TestCase):
 
     def test_deep_discharge_drags_score_down(self):
         # 长期地影 + 低电压 → DoD p95 高 → 评分落入一般/较差
-        h = self._health_for([0] * 10, [8] * 10, [0] * 10, [25.6] * 10)
+        # （v2.2：23.5V 对设计表 ≈ SOC 16%——通用曲线时代的 25.6V 在新曲线下已非深放电）
+        h = self._health_for([0] * 10, [8] * 10, [0] * 10, [23.5] * 10)
         self.assertLess(h['hs'], 60)
         self.assertEqual(h['level'], '较差')
 

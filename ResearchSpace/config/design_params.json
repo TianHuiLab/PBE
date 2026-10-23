@@ -12,7 +12,7 @@
       "battery_capacity_Ah": "设计值·已确认（2026-10-22 用户提供：7s13p×5Ah 单体=65Ah，满足放电深度限制要求的容量下限 60.3Ah）",
       "battery_capacity_min_Ah": "设计约束·放电深度限制要求的最低容量（用户提供 2026-10-22）；P4 容量/SOH 估算低于此值即违反设计要求",
       "solar_array_Pm": "假设值·待设计文档校准（10 号报告按 ~900W 表述）",
-      "v_soc_curve": "三体星设计表候选待激活（volt_capacity_santi_v0.csv，10A 放电，用户 2026-10-22 确认为 SCS-01-01 设计值；见 v_soc_curve_santi_v0.json 与 13 号报告附录 A.7）"
+      "v_soc_curve": "三体星设计表·已激活（volt_capacity_santi_v0.csv，10A 放电，用户 2026-10-22 确认为 SCS-01-01 设计值，2026-10-23 决策切换为主曲线；敏感性实测见 13 号报告附录 A.7）"
     },
     "design_reference": {
       "battery_config": "7s13p（5Ah 单体 × 13 并），额定 65Ah",

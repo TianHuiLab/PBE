@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-三体星(SCS-01-01) 整星能源平衡定量评估框架 (v2.1)
+三体星(SCS-01-01) 整星能源平衡定量评估框架 (v2.2)
 基于 ClickHouse chdb_3body.telemetry_raw_01 真实遥测。
 
 v2.1 口径变更（用户决策 2026-10-22，依据 S3R 拓扑实证）：
@@ -19,12 +19,18 @@ v2.1 口径变更（用户决策 2026-10-22，依据 S3R 拓扑实证）：
     5) 日照/地影判定仍用帆板级电流 TMD009（光照工况判据）——不可改用
        I_bus：满充分流时 I_bus 很小但仍是日照。
 
+v2.2 口径变更（用户决策 2026-10-23）：
+  V-SOC 主曲线由通用锂电假设曲线切换为**三体星蓄电池设计放电表**
+  （10A 恒流放电，22.82–29.31V ↔ 10%–100% SOC，65Ah 设计构型）——
+  该表经用户确认为 SCS-01-01 设计值；切换后 SOC/DoD/健康度结论按
+  新曲线刷新（敏感性实测见 13 号报告附录 A.7）。
+
 其余 v2 特性保留：逐样本电压锚定 SOC、稳健百分位指标、分工况能量收支、
 恒等式/独立残差分离（见 energy() docstring）。
 
 配置外置（单一事实源，config/ 目录，JSON 无需额外依赖）：
   - design_params.json    设计/模型参数（容量、额定功率、阈值、dt 等）
-  - v_soc_curve.json      电压→SOC 校准曲线（未标定，见文件内 calibration_status）
+  - v_soc_curve.json      电压→SOC 校准曲线（三体星设计表·已激活）
   - telemetry_params.json 遥测代号 ↔ 逻辑名映射
 文件缺失时回退到模块内 DEFAULT_*（与配置文件保持一致），并在 stderr 提示。
 """
@@ -39,7 +45,8 @@ CONFIG_DIR = Path(__file__).resolve().parent / 'config'
 
 # ---- 内置默认值（与 config/*.json 保持一致；配置文件优先） --------------------
 DEFAULT_DESIGN = {
-    'battery_capacity_Ah': 100.0,
+    'battery_capacity_Ah': 65.0,
+    'battery_capacity_min_Ah': 60.3,  # 设计下限（放电深度限制要求）；P4 容量/SOH 低于此值即违规
     'solar_array_Pm': 900.0,
     'bus_nominal_V': 28.0,
     'eta_charge': 0.97,
@@ -51,9 +58,10 @@ DEFAULT_DESIGN = {
     # 注：v2.1 起 soc_high（分流阈值）已移除——分流由 S3R 测点隐含扣除，
     # 不再需要 SOC 判定（见模块 docstring 第 3 条）。
 }
-DEFAULT_V_SOC_TABLE = np.array([  # (V_bat, SOC) 充电后静置参考
-    (25.50, 0.05), (26.50, 0.20), (27.20, 0.40), (27.60, 0.55),
-    (27.90, 0.70), (28.10, 0.82), (28.25, 0.90), (28.39, 0.97), (28.55, 1.0),
+# (V_bat, SOC) 三体星设计放电表（10A 恒流放电，7s13p/65Ah 构型，用户 2026-10-23 确认激活）
+DEFAULT_V_SOC_TABLE = np.array([
+    (22.82, 0.10), (23.90, 0.20), (24.49, 0.30), (25.01, 0.40), (25.65, 0.50),
+    (26.32, 0.60), (26.90, 0.70), (27.60, 0.80), (28.23, 0.90), (29.31, 1.0),
 ])
 DEFAULT_COLS = dict(
     solar_I='TMD009', bus_V='TMD016', bus_I='TMD017',

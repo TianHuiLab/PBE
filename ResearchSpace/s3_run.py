@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Step 3: 在真实遥测上运行 v2.1 能源平衡评估，生成报告并保存结果。
+"""Step 3: 在真实遥测上运行 v2.2 能源平衡评估，生成报告并保存结果。
 
 v2.1 口径：发电 = 母线电压 × 母线电流（TMD016×TMD017，S3R 送入母线的
 有效发电）；分流不建模，改为诊断量 P_shunt_diag（帆板级-母线级差额）。
+
+v2.2 口径（2026-10-23）：V-SOC 主曲线切换为三体星设计放电表
+（10A 恒流放电，22.82–29.31V ↔ 10%–100% SOC，65Ah 设计构型）——
+SOC/DoD/健康度按设计曲线锚定；发电/负载/能量口径不变。
 """
 import pandas as pd, os, json, sys
 from pathlib import Path
@@ -20,8 +24,9 @@ ev.load(wide)
 df, m, h, phase = ev.run_all()
 
 print("=" * 72)
-print("SCS-01-01 整星能源平衡定量评估 (v2.1, 真实遥测)")
+print("SCS-01-01 整星能源平衡定量评估 (v2.2, 真实遥测)")
 print("  口径: 发电 = V_bus(TMD016) × I_bus(TMD017, S3R送入母线); 负载 = V_bus × I_load(TMD018)")
+print("  SOC锚定: 三体星设计放电表 (22.82-29.31V <-> 10%-100%, 65Ah构型; v2.2切换)")
 print("=" * 72)
 for k, v in m.items():
     print(f"  {k:22s}: {v}")

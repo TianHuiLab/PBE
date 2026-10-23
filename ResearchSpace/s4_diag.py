@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""诊断（v2.1 口径）：母线电流(TMD017) vs 负载电流(TMD018) vs 帆板总电流(TMD009)。
+"""诊断（v2.2 口径：发电母线口径 v2.1 + SOC 设计表 v2.2）：母线电流(TMD017) vs 负载电流(TMD018) vs 帆板总电流(TMD009)。
 
 S3R 拓扑实证：TMD017 是"太阳阵经 S3R 送入母线的单向电流"，
   - 日照: I_bus(TMD017) = I_load(TMD018) + I_charge（母线闭合）
