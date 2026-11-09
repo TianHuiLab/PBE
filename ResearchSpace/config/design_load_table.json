@@ -1,0 +1,556 @@
+{
+  "_meta": {
+    "note": "《表 5-32 供配电设计表》与《图 5-38 供配电框图》的机器可读转录。2026-11-03 修正：功耗/W 列为单台功耗，供电路数只是并联/冗余通道数，不作为倍乘；同一单机列多行功耗表示不同工作模式（智算机-智加 NX1 的 93.5 W 与 49 W），不叠加。多台同型单机（微波 2 端机、激光 2 台、高性能 2/3 模块、飞轮 4 台）按单台比较，取实测最大的那一台。电路图给出的供电电压分为一次母线 23.1–29.2 V 与经 DC/DC 的 12 V / 5 V 三类，遥测电流按对应电压折算，不得一律乘母线电压。测传一体机与测控应答机 A/B 机经用户确认均由 12 V 二次电源供电（实测 11.65–11.75 V），设计表这三处“电压”列写 23.1~29.2 V 与实际不符，待勘误；电压取各自分系统遥测而非 TMD016。",
+    "updated": "2026-11-03",
+    "sources": {
+      "design_table": "表 5-32 供配电设计表（用户 2026-11-03 提供截图）",
+      "design_diagram": "图 5-38 供配电框图（用户 2026-11-03 提供截图）",
+      "telemetry": "chdb_3body.telemetry_raw_01 · SCS-01-01 · 分钟均值"
+    },
+    "working_state_ratio": 0.1,
+    "working_state_note": "工作态 = 该分钟实测功率 ≥ 设计比较值 × 10%，用于把开关型/占空比工作的单机（如电推进）与常开单机分开统计",
+    "design_rows": 22,
+    "blocked_note": "“不可对照”不是一句“无遥测”：blocked 字段按行给出类型、现存的相近遥测、缺失的测点与补测建议。六类：no_port_current 配电端口无电流测点；secondary_no_branch 二次电源只有合路电压无分路电流；voltage_only 仅工作电压；switch_only 仅开关状态；defined_not_downlinked 表内有定义但库中无数据；candidate_unconfirmed 有候选测点但语义或统计口径未确认。",
+    "unmatched_telemetry": [
+      {
+        "code": "TMC021",
+        "name": "测控应答机 A 机工作电流",
+        "voltage_code": "TMC020",
+        "note": "12 V 二次电源供电（用户 2026-11-04 确认）；TMC020 实测 11.65 V"
+      },
+      {
+        "code": "TMC051",
+        "name": "测控应答机 B 机工作电流",
+        "voltage_code": "TMC050",
+        "note": "备份机，多数时间待机；12 V 供电，TMC050 实测 11.75 V"
+      },
+      {
+        "code": "TMD056",
+        "name": "测控数传上注工作电流",
+        "voltage_code": "TMD055",
+        "note": "TMD055 中位 0.2 V，为上注通道而非整机供电"
+      },
+      {
+        "code": "TMD066",
+        "name": "CXPD 载荷工作电流",
+        "voltage_code": "TMD016",
+        "note": "设计表无 CXPD 载荷行"
+      },
+      {
+        "code": "TMX021",
+        "name": "科学载荷总电源电流",
+        "voltage_code": "TMX020",
+        "note": "科学载荷 5.03 V 供电，设计表无该行"
+      }
+    ],
+    "stat_note": "measure.stat=\"abs_current\" 的测点不用分钟表的 avg（有符号平均），改读 s6_fetch_abs_current.py 生成的 data_abs_current_minute.csv（mean(|I|)），用于磁力矩器这类双向电流。"
+  },
+  "satellite_id": "SCS-01-01",
+  "rails": {
+    "bus": {
+      "name": "一次母线 23.1–29.2 V",
+      "voltage_code": "TMD016",
+      "nominal_V": null,
+      "note": "按分钟实测母线电压折算，不用额定值"
+    },
+    "rail_12v": {
+      "name": "12 V 二次电源",
+      "voltage_code": "TMD062",
+      "nominal_V": 12.0,
+      "note": "图 5-38 经 DC/DC 输出 12 V；同时刻遥测 TMD062 中位约 12.24 V"
+    },
+    "rail_5v": {
+      "name": "5 V 二次电源",
+      "voltage_code": "TMD059",
+      "nominal_V": 5.0,
+      "note": "图 5-38 经 DC/DC 输出 5 V；同时刻遥测 TMD059 中位约 5.18 V"
+    }
+  },
+  "rows": [
+    {
+      "no": "1–2",
+      "subsystem": "载荷系统",
+      "name": "智算机-智加 NX1",
+      "rail": "bus",
+      "routes": 2,
+      "modes": [
+        {
+          "label": "高性能模式",
+          "W": 93.5
+        },
+        {
+          "label": "常规模式",
+          "W": 49.0
+        }
+      ],
+      "design_W": 93.5,
+      "switch": "开关控制",
+      "measure": {
+        "mode": "rail_current",
+        "devices": [
+          [
+            "TMD025",
+            "TMD028"
+          ]
+        ]
+      },
+      "match": "exact",
+      "note": "设计表两行是同一台单机的两种工作模式（93.5 W 高性能 / 49 W 常规），不叠加；TMD025+TMD028 为该机两路供电支路，实测按两路合计后与两种模式分别比较：主比值取更接近的常规 49 W，高性能 93.5 W 同时列出"
+    },
+    {
+      "no": "3",
+      "subsystem": "载荷系统",
+      "name": "高性能计算模块",
+      "rail": "bus",
+      "routes": 3,
+      "design_W": 103.3,
+      "switch": "开关控制",
+      "measure": {
+        "mode": "rail_current",
+        "devices": [
+          [
+            "TMD029"
+          ],
+          [
+            "TMD030"
+          ]
+        ]
+      },
+      "match": "partial",
+      "note": "设计 3 路、表列单台 103.3 W；遥测只有智加 G1/G2 两台（名称近似归入本行），第 3 台无电流测点，按单台比较取较大者。注意：若 103.3 W 实为 3 路合计（≈34.4 W/台），则实测 34.7 W 与之一致（101%），两种读法相差 3 倍，需以设计原文确认"
+    },
+    {
+      "no": "4",
+      "subsystem": "载荷系统",
+      "name": "路由器",
+      "rail": "bus",
+      "routes": 2,
+      "design_W": 65.0,
+      "switch": "开关控制",
+      "measure": {
+        "mode": "rail_current",
+        "devices": [
+          [
+            "TMD026",
+            "TMD027"
+          ]
+        ]
+      },
+      "match": "exact",
+      "note": "智链 R1 主份 + 备份两路供电合为同一台路由器，实测按两路合计；正常只一路工作"
+    },
+    {
+      "no": "5",
+      "subsystem": "载荷系统",
+      "name": "星间激光光学头",
+      "rail": "bus",
+      "routes": 2,
+      "design_W": 32.0,
+      "switch": "开关控制",
+      "measure": {
+        "mode": "rail_current",
+        "devices": []
+      },
+      "match": "none",
+      "note": "PCDU 遥测无光机头 a/b 支路电流，仅有加热器开关状态",
+      "blocked": {
+        "category": "no_port_current",
+        "detail": "PCDU 只给“集成化处理机”配了 TMD043/044 电流，光学头这一路没有电流采集",
+        "seen": [
+          "TMU235/236 光学头 A/B 温度",
+          "TMU110_b31/b35 加热器开关状态",
+          "TMU109_b31/b35 加热器自主准禁"
+        ],
+        "fix": "在该路配电输出增设电流遥测；或由激光终端下传光学头分路功率"
+      }
+    },
+    {
+      "no": "6",
+      "subsystem": "载荷系统",
+      "name": "星间激光集成化处理机",
+      "rail": "bus",
+      "routes": 2,
+      "design_W": 68.0,
+      "switch": "开关控制",
+      "measure": {
+        "mode": "rail_current",
+        "devices": [
+          [
+            "TMD043"
+          ],
+          [
+            "TMD044"
+          ]
+        ]
+      },
+      "match": "exact",
+      "note": "TMD043/044 为处理机 1/2 两台；按单台 68 W 比较，取实测较大的一台"
+    },
+    {
+      "no": "7",
+      "subsystem": "载荷系统",
+      "name": "星间微波通信终端-天线",
+      "rail": "rail_12v",
+      "routes": 2,
+      "design_W": 12.0,
+      "switch": "开关控制",
+      "measure": {
+        "mode": "rail_current",
+        "devices": []
+      },
+      "match": "none",
+      "note": "遥测无天线 12 V 支路电流；微动天线驱动机构亦无独立电流测点",
+      "blocked": {
+        "category": "secondary_no_branch",
+        "detail": "12 V 二次电源只测合路输出电压 TMD062，没有到天线的分路电流",
+        "seen": [
+          "TMD062 12 V 合路电压",
+          "TMK6C16/6C17、TMK7904–7907 微波俯仰/偏航角修正（指向指令）"
+        ],
+        "fix": "增设 12 V 天线支路电流；若天线与伺服共用一路，需在配电端分设两路采样"
+      }
+    },
+    {
+      "no": "8",
+      "subsystem": "载荷系统",
+      "name": "星间微波通信终端-伺服控制器",
+      "rail": "bus",
+      "routes": 2,
+      "design_W": 9.43,
+      "switch": "开关控制",
+      "measure": {
+        "mode": "rail_current",
+        "devices": []
+      },
+      "match": "none",
+      "note": "PCDU 无伺服控制器 a/b 电流测点",
+      "blocked": {
+        "category": "no_port_current",
+        "detail": "伺服控制器没有输入电流测点，只有指向角度指令与电机加热器状态",
+        "seen": [
+          "TMK6C16/6C17/6D13/6D14 俯仰/偏航角修正",
+          "TMU110_b39/b43/b46/b47 微波电机加热器开关"
+        ],
+        "fix": "在伺服控制器输入端增设电流遥测"
+      }
+    },
+    {
+      "no": "9",
+      "subsystem": "载荷系统",
+      "name": "星间微波通信终端-处理端机",
+      "rail": "bus",
+      "routes": 2,
+      "design_W": 104.45,
+      "switch": "开关控制",
+      "measure": {
+        "mode": "rail_current",
+        "devices": [
+          [
+            "TMD031",
+            "TMD032"
+          ],
+          [
+            "TMD033",
+            "TMD034"
+          ]
+        ]
+      },
+      "match": "exact",
+      "note": "两台端机、每台 A/B 双支路（1A/1B、2A/2B）；按单台 104.45 W 比较，取实测较大的一台。两台合计工作态 p95 208.6 W ≈ 2×104.45，佐证表列 104.45 W 是单台值而不是两路合计"
+    },
+    {
+      "no": "10",
+      "subsystem": "综电系统",
+      "name": "综合电子",
+      "rail": "bus",
+      "routes": 1,
+      "design_W": 25.0,
+      "switch": "无",
+      "measure": {
+        "mode": "rail_current",
+        "devices": []
+      },
+      "match": "none",
+      "note": "图 5-38 另有 12 V 指令电压供电，遥测无综合电子电流测点",
+      "blocked": {
+        "category": "defined_not_downlinked",
+        "detail": "遥测表定义了 TMU142 负载电流 / TMU143 母线电流 / TMU145 母线电压 / TMU146 蓄电池母线电流，但库中这 4 个代号 0 条记录；且它们是整星级检测，不是综合电子单机功耗",
+        "seen": [
+          "综合电子遥测表：TMU142/143/145/146（库中缺失）",
+          "TMU001–006 板内 5 V 电压"
+        ],
+        "fix": "确认 TMU142/143/145/146 是否在遥测帧内；另给综合电子配电支路设电流"
+      }
+    },
+    {
+      "no": "11",
+      "subsystem": "测控数传",
+      "name": "X 频段数传下行相控阵天线",
+      "rail": "bus",
+      "routes": 1,
+      "design_W": 45.0,
+      "switch": "无",
+      "measure": {
+        "mode": "vi_pair",
+        "voltage": "TMD053",
+        "current": "TMD054"
+      },
+      "match": "approx",
+      "note": "遥测为“测控相控阵工作电压/电流”（TMD053/054）；与数传下行相控阵是否同一台设备未核实，按近似对应处理"
+    },
+    {
+      "no": "12",
+      "subsystem": "测控数传",
+      "name": "X 频段数传上行螺旋天线",
+      "rail": "rail_12v",
+      "routes": 1,
+      "design_W": 3.0,
+      "switch": "无",
+      "measure": {
+        "mode": "rail_current",
+        "devices": []
+      },
+      "match": "none",
+      "note": "遥测 TMD055/056“测控数传上注”电压中位于 26.5 V（母线侧），不是本行 12 V 支路，不并入",
+      "blocked": {
+        "category": "secondary_no_branch",
+        "detail": "12 V 二次电源无分路电流；该路仅 3 W（12 V 下约 0.25 A），接近零点偏置量级，即使有测点也需先标定零点",
+        "seen": [
+          "TMD062 12 V 合路电压"
+        ],
+        "fix": "与微波天线分路时需单独采样；3 W 量级建议用带零位校准的电流传感器"
+      }
+    },
+    {
+      "no": "13",
+      "subsystem": "测控数传",
+      "name": "测传一体机",
+      "rail": "rail_12v",
+      "routes": 1,
+      "design_W": 46.0,
+      "switch": "无",
+      "measure": {
+        "mode": "vi_pair",
+        "voltage": "TMC121",
+        "current": "TMC122"
+      },
+      "match": "exact",
+      "note": "按用户 2026-11-04 确认：该机由 12 V 二次电源供电，电压/电流取测传分系统 TMC121/TMC122（实测 11.73 V × 1.38 A = 16.2 W），46 W 即按 12 V 侧功耗记账。设计表该行“电压”列写 23.1~29.2 V（一次母线），与实际供电不符，以本确认为准，建议设计方勘误该列"
+    },
+    {
+      "no": "14",
+      "subsystem": "供配电系统",
+      "name": "SADM",
+      "rail": "bus",
+      "routes": 1,
+      "design_W": 15.0,
+      "switch": "无",
+      "measure": {
+        "mode": "rail_current",
+        "devices": []
+      },
+      "match": "none",
+      "note": "无 SADM 驱动电流测点",
+      "blocked": {
+        "category": "no_port_current",
+        "detail": "SADM 只有机构角度、转速、模式、温度与加热器状态，驱动电机没有供电电流测点",
+        "seen": [
+          "TMK6719–6725 SADM 模式/角度/速度/状态字",
+          "TMK4323–4325 帆板驱动角/角速度",
+          "TMU213/214 SADM 温度"
+        ],
+        "fix": "在 SADM 驱动电机供电端增设电流遥测"
+      }
+    },
+    {
+      "no": "15",
+      "subsystem": "姿轨控系统",
+      "name": "光纤陀螺",
+      "rail": "rail_5v",
+      "routes": 1,
+      "design_W": 2.2,
+      "switch": "无",
+      "measure": {
+        "mode": "rail_current",
+        "devices": [
+          [
+            "TMD067"
+          ]
+        ]
+      },
+      "match": "exact",
+      "note": "图 5-38 中光纤陀螺接 5 V 二次电源，按 TMD059 实测 5 V 折算；若误乘母线电压将高估约 5.5 倍"
+    },
+    {
+      "no": "16",
+      "subsystem": "姿轨控系统",
+      "name": "MEMS 陀螺",
+      "rail": "rail_5v",
+      "routes": 1,
+      "design_W": 1.5,
+      "switch": "无",
+      "measure": {
+        "mode": "rail_current",
+        "devices": []
+      },
+      "match": "none",
+      "note": "仅有工作电压 TMD065，无电流测点",
+      "blocked": {
+        "category": "voltage_only",
+        "detail": "只有 TMD065 工作电压，没有电流测点",
+        "seen": [
+          "TMD065 MEMS 陀螺工作电压（仅电压）"
+        ],
+        "fix": "5 V 分路增设电流遥测"
+      }
+    },
+    {
+      "no": "17",
+      "subsystem": "姿轨控系统",
+      "name": "星敏感器",
+      "rail": "rail_5v",
+      "routes": 2,
+      "design_W": 0.8,
+      "switch": "无",
+      "measure": {
+        "mode": "rail_current",
+        "devices": []
+      },
+      "match": "none",
+      "note": "仅有星敏 1/2 工作电压 TMD063/064，无电流测点；0.8 W 按单台记，不乘 2 路",
+      "blocked": {
+        "category": "voltage_only",
+        "detail": "只有 TMD063/064 两台工作电压，没有电流测点",
+        "seen": [
+          "TMD063/064 星敏感器 1/2 工作电压（仅电压）"
+        ],
+        "fix": "5 V 分路增设电流遥测"
+      }
+    },
+    {
+      "no": "18",
+      "subsystem": "姿轨控系统",
+      "name": "反作用轮",
+      "rail": "bus",
+      "routes": 4,
+      "design_W": 4.0,
+      "switch": "开关控制",
+      "measure": {
+        "mode": "rail_current",
+        "devices": [
+          [
+            "TMD045"
+          ],
+          [
+            "TMD046"
+          ],
+          [
+            "TMD047"
+          ],
+          [
+            "TMD048"
+          ]
+        ]
+      },
+      "match": "exact",
+      "note": "4 台飞轮各 1 路，按单台 4 W 比较，取实测较大的一台。4 台合计实测中位 6.8 W、p95 9.7 W（97% 的分钟在 16 W 以下）；若 4 W 是整组设计值，空闲即已超设计，故按单台 4 W 解读更合理——整组包络应为 4×4=16 W"
+    },
+    {
+      "no": "19",
+      "subsystem": "姿轨控系统",
+      "name": "磁力矩器",
+      "rail": "rail_12v",
+      "routes": 4,
+      "design_W": 1.5,
+      "switch": "无",
+      "measure": {
+        "mode": "rail_current",
+        "stat": "abs_current",
+        "devices": [
+          [
+            "TMK6821"
+          ],
+          [
+            "TMK6822"
+          ],
+          [
+            "TMK6823"
+          ],
+          [
+            "TMK6824"
+          ]
+        ]
+      },
+      "match": "exact",
+      "note": "按用户 2026-11-04 确认：该路由 12 V 二次电源供电，电压取 12 V 轨。电流用姿轨控 TMK6821–6824 四路线圈电流。线圈电流为双向方波，分钟均值会正负抵消（中位 −0.004 A），故按 |I| 的分钟均值折算；原始采样先剔除 |I|>5 A 的拼帧异常（实测有 946 A、1e36 跳点）。四路各算各的，取实测最大的一台与单台 1.5 W 比较"
+    },
+    {
+      "no": "20",
+      "subsystem": "姿轨控系统",
+      "name": "磁强计",
+      "rail": "rail_5v",
+      "routes": 1,
+      "design_W": 1.0,
+      "switch": "无",
+      "measure": {
+        "mode": "rail_current",
+        "devices": []
+      },
+      "match": "none",
+      "note": "仅有 12 V 磁强计电压 TMD069 作上下文，无 5 V 电流测点",
+      "blocked": {
+        "category": "voltage_only",
+        "detail": "只有 TMD069“12 V 磁强计工作电压”，名称标 12 V 与设计表 5 V 冲突；TMK5A17–5A19 是磁场测量模拟电压，不是供电",
+        "seen": [
+          "TMD069 磁强计工作电压（名称标 12 V，与设计 5 V 不符）",
+          "TMK5A17–5A19 磁场测量 V1/V2/V3"
+        ],
+        "fix": "先确认磁强计供电轨，再在该轨增设电流遥测"
+      }
+    },
+    {
+      "no": "21",
+      "subsystem": "姿轨控系统",
+      "name": "电推进",
+      "rail": "bus",
+      "routes": 1,
+      "design_W": 460.0,
+      "switch": "开关控制",
+      "measure": {
+        "mode": "rail_current",
+        "devices": [
+          [
+            "TMD023",
+            "TMD024"
+          ]
+        ]
+      },
+      "match": "exact",
+      "note": "遥测含电推进配电 A/B 两路；观测期内约 0.7% 分钟在工作，按两路合计与 460 W 比较"
+    },
+    {
+      "no": "22",
+      "subsystem": "热控",
+      "name": "加热回路",
+      "rail": "bus",
+      "routes": 1,
+      "design_W": 250.0,
+      "switch": "无",
+      "measure": {
+        "mode": "rail_current",
+        "devices": []
+      },
+      "match": "none",
+      "note": "仅有 48 路加热器开关状态 TMU110_b0–b47，无加热电流或功率测点，不能折算功耗",
+      "blocked": {
+        "category": "switch_only",
+        "detail": "48 路加热器只有开关状态与自主准禁状态，没有电流或功率遥测，也没有各路阻值，无法折算",
+        "seen": [
+          "TMU110_b0–b47 加热器开关状态",
+          "TMU109_b0–b47 加热器自主准禁状态"
+        ],
+        "fix": "增设加热器母线总电流，或每路功率遥测；仅有开关状态时需提供各路阻值"
+      }
+    }
+  ]
+}

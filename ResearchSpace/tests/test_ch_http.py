@@ -36,19 +36,19 @@ class QueryParsingTests(unittest.TestCase):
         body = b'{"a": 1, "b": "x"}\n{"a": 2, "b": "y"}\n'
         with mock.patch.object(ch_http.urllib.request, 'urlopen',
                                return_value=_Resp(body)):
-            rows = ch_http.query("SELECT 1")
+            rows = ch_http.query("SELECT 1", scheme='https')
         self.assertEqual(rows, [{"a": 1, "b": "x"}, {"a": 2, "b": "y"}])
 
     def test_tabseparated_passthrough(self):
         with mock.patch.object(ch_http.urllib.request, 'urlopen',
                                return_value=_Resp(b"default\nsystem\n")):
-            out = ch_http.query("SHOW DATABASES", fmt='TabSeparated')
+            out = ch_http.query("SHOW DATABASES", fmt='TabSeparated', scheme='https')
         self.assertEqual(out, "default\nsystem\n")
 
     def test_json_format(self):
         with mock.patch.object(ch_http.urllib.request, 'urlopen',
                                return_value=_Resp(b'{"meta": [], "data": []}')):
-            out = ch_http.query("SELECT 1", fmt='JSON')
+            out = ch_http.query("SELECT 1", fmt='JSON', scheme='https')
         self.assertEqual(out, {"meta": [], "data": []})
 
 
@@ -61,7 +61,7 @@ class CredentialHandlingTests(unittest.TestCase):
             return _Resp(body)
 
         with mock.patch.object(ch_http.urllib.request, 'urlopen', fake_urlopen):
-            ch_http.query("SELECT 1", password='s3cret!')
+            ch_http.query("SELECT 1", password='s3cret!', scheme='https')
         return captured['req']
 
     def test_password_not_in_url(self):
@@ -80,13 +80,28 @@ class CredentialHandlingTests(unittest.TestCase):
         self.assertIn('database=chdb_3body', req.full_url)
         self.assertIn('default_format=JSONEachRow', req.full_url)
 
+    def test_password_requires_tls_or_explicit_plaintext_opt_in(self):
+        with self.assertRaises(ch_http.ClickHouseError):
+            ch_http.query('SELECT 1', password='secret', scheme='http',
+                          allow_plaintext=False)
+
+    def test_https_and_bound_parameters(self):
+        with mock.patch.object(ch_http.urllib.request, 'urlopen',
+                               return_value=_Resp(b'{"ok":1}\n')) as opened:
+            ch_http.query('SELECT {sat:String}', password='secret', scheme='https',
+                          params={'sat': 'SCS-01-01'})
+        url = opened.call_args.args[0].full_url
+        self.assertTrue(url.startswith('https://'))
+        self.assertIn('param_sat=SCS-01-01', url)
+        self.assertNotIn('secret', url)
+
 
 class ErrorHandlingTests(unittest.TestCase):
     def test_http_error_raises_clickhouse_error(self):
         err = HTTPError('http://x/', 403, 'Forbidden', {}, io.BytesIO(b'denied'))
         with mock.patch.object(ch_http.urllib.request, 'urlopen', side_effect=err):
             with self.assertRaises(ch_http.ClickHouseError) as ctx:
-                ch_http.query("SELECT 1")
+                ch_http.query("SELECT 1", scheme='https')
         self.assertIn('403', str(ctx.exception))
         self.assertIn('denied', str(ctx.exception))
 
@@ -94,7 +109,7 @@ class ErrorHandlingTests(unittest.TestCase):
         with mock.patch.object(ch_http.urllib.request, 'urlopen',
                                side_effect=URLError('no route')):
             with self.assertRaises(ch_http.ClickHouseError) as ctx:
-                ch_http.query("SELECT 1")
+                ch_http.query("SELECT 1", scheme='https')
         self.assertIn('连接失败', str(ctx.exception))
 
 

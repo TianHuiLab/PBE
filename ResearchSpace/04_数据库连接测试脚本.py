@@ -5,11 +5,12 @@
 用于验证能否成功连接到三体星ClickHouse数据库
 
 使用方法:
-    python3 test_db_connection.py
+    python "04_数据库连接测试脚本.py"
 """
 
 import sys
 import os
+import re
 
 
 def _config():
@@ -19,7 +20,9 @@ def _config():
         'port': int(os.environ.get('CH_PORT', '9000')),
         'user': os.environ.get('CH_USER', 'default'),
         'password': os.environ.get('CH_PASSWORD', ''),
-        'database': os.environ.get('CH_DB', 'chdb_3body') + '.master_satellite_01',
+        'database': os.environ.get('CH_DB', 'chdb_3body'),
+        'table': os.environ.get('CH_TABLE', 'master_satellite_01'),
+        'secure': os.environ.get('CH_NATIVE_SECURE', '').lower() in ('1', 'true', 'yes'),
     }
 
 
@@ -32,11 +35,18 @@ def test_connection():
 
     # 数据库配置
     config = _config()
+    if not re.fullmatch(r'[A-Za-z_][A-Za-z0-9_]*', config['table']):
+        print('指定表名不是合法标识符')
+        return False
+    if (config['password'] and not config['secure'] and
+            os.environ.get('CH_ALLOW_PLAINTEXT', '').lower() not in ('1', 'true', 'yes')):
+        print('携带口令的原生明文连接已禁用；请使用 TLS 端点或加密隧道')
+        return False
 
     print("连接配置:")
     for k, v in config.items():
         # 口令一律脱敏，不打印明文
-        shown = '******' if k == 'password' and v else '(未设置，请配置 CH_PASSWORD)'
+        shown = ('******' if v else '(未设置，请配置 CH_PASSWORD)') if k == 'password' else v
         print(f"  {k}: {shown}")
     print()
 
@@ -81,6 +91,7 @@ def test_connection():
             user=config['user'],
             password=config['password'],
             database=config['database'],
+            secure=config['secure'],
             settings={'connect_timeout': 10}
         )
         print(f"  ✅ 数据库连接成功")
@@ -106,12 +117,13 @@ def test_connection():
             if len(tables) > 10:
                 print(f"    ... (共 {len(tables)} 张表)")
 
-        # 查询第一张表的数据
-        if tables:
-            table_name = tables[0][0]
-            cursor.execute(f"SELECT COUNT(*) FROM {table_name}")
-            count = cursor.fetchone()[0]
-            print(f"\n  第一张表 '{table_name}' 的数据量: {count:,} 条")
+        # 只检查指定表的结构，避免对任意大表做全量 COUNT。
+        if config['table'] in {row[0] for row in tables}:
+            cursor.execute(f"DESCRIBE TABLE `{config['table']}`")
+            columns = cursor.fetchall()
+            print(f"\n  指定表 '{config['table']}' 的字段数: {len(columns)}")
+        else:
+            print(f"\n  指定表 '{config['table']}' 不在当前数据库的表列表中")
 
         conn.close()
         print("\n" + "=" * 60)
@@ -144,8 +156,7 @@ def print_usage():
    - 确认数据库服务是否正常运行
    - 确认用户权限是否正确
 
-如果测试成功，可以运行完整的能源分析:
-   python3 clickhouse_energy_analyzer.py
+正式评估请按 README 运行 s1_fetch.py → s3_run.py → gen_charts.py。
 """)
 
 
@@ -160,5 +171,5 @@ if __name__ == "__main__":
         sys.exit(1)
     else:
         print("\n下一步:")
-        print("  运行完整分析: python3 clickhouse_energy_analyzer.py")
+        print('  正式评估请按 README 运行 s1_fetch.py → s3_run.py → gen_charts.py')
         sys.exit(0)

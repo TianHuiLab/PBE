@@ -1,0 +1,827 @@
+{
+  "source": "chdb_3D.yc_history",
+  "window_start_utc": "2026-07-23T16:00:00+00:00",
+  "window_end_exclusive_utc": "2026-10-27T16:00:00+00:00",
+  "inventory_sha256": "b7cf45b743b3e2d2ce4433b37263f5dfafe95ca938aa5214d244c6284f476b9b",
+  "workbook_sha256": "e13e3d682dd93f426a0deddce5dbc3c804bfe35e307604ed5da5c51fa8fe0e45",
+  "fetched_at_utc": "2026-10-28T07:43:56.681158+00:00",
+  "basis": "Each PL bank is summarized separately. Power is same-source-row channel voltage times current, filtered by workbook voltage working/off intervals and current limits where given; source-row duplicates may affect quantiles. A/B physical relation is unverified, so bank powers and medians are not summed into a bus energy balance.",
+  "banks": {
+    "A": {
+      "source_rows": 29571263,
+      "pl_paired_channels_in_sum": 21,
+      "pl_complete_source_rows": 6124201,
+      "pl_complete_sum_p05_p50_p95_W": [
+        32.0666618347168,
+        43.384918212890625,
+        70.99856567382812
+      ],
+      "channels": [
+        {
+          "pl_channel": 0,
+          "name": "磁强计 A",
+          "voltage_code": "TMPA001",
+          "voltage_numeric_source_rows": 6245613,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPA002",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245613,
+          "valid_paired_source_rows": 6244047,
+          "power_p50_p95_W": [
+            0.0,
+            0.06598803400993347
+          ],
+          "workbook_voltage_upper_V": 13.0,
+          "workbook_current_upper_A": 1.0
+        },
+        {
+          "pl_channel": 1,
+          "name": "光纤陀螺",
+          "voltage_code": "TMPA003",
+          "voltage_numeric_source_rows": 6245611,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPA004",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245611,
+          "valid_paired_source_rows": 6243978,
+          "power_p50_p95_W": [
+            1.6546614170074463,
+            1.7671762704849243
+          ],
+          "workbook_voltage_upper_V": 5.5,
+          "workbook_current_upper_A": 1.0
+        },
+        {
+          "pl_channel": 3,
+          "name": "星敏 A",
+          "voltage_code": "TMPA007",
+          "voltage_numeric_source_rows": 6245609,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPA008",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245609,
+          "valid_paired_source_rows": 6243989,
+          "power_p50_p95_W": [
+            0.4380766451358795,
+            0.5371155738830566
+          ],
+          "workbook_voltage_upper_V": 5.5,
+          "workbook_current_upper_A": 1.0
+        },
+        {
+          "pl_channel": 5,
+          "name": "GNSS 接收机主",
+          "voltage_code": "TMPA011",
+          "voltage_numeric_source_rows": 6245603,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPA012",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245603,
+          "valid_paired_source_rows": 6243898,
+          "power_p50_p95_W": [
+            1.3663301467895508,
+            1.5733263492584229
+          ],
+          "workbook_voltage_upper_V": 5.5,
+          "workbook_current_upper_A": 1.0
+        },
+        {
+          "pl_channel": 6,
+          "name": "星敏 B",
+          "voltage_code": "TMPA013",
+          "voltage_numeric_source_rows": 6245603,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPA014",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245603,
+          "valid_paired_source_rows": 6243938,
+          "power_p50_p95_W": [
+            0.4994902014732361,
+            0.6347142457962036
+          ],
+          "workbook_voltage_upper_V": 5.5,
+          "workbook_current_upper_A": 1.0
+        },
+        {
+          "pl_channel": 8,
+          "name": "飞轮 X",
+          "voltage_code": "TMPA030",
+          "voltage_numeric_source_rows": 6245472,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPA029",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245472,
+          "valid_paired_source_rows": 6243753,
+          "power_p50_p95_W": [
+            1.3530882596969604,
+            1.6868853569030762
+          ],
+          "workbook_voltage_upper_V": 29.2,
+          "workbook_current_upper_A": 1.0
+        },
+        {
+          "pl_channel": 9,
+          "name": "飞轮 Y",
+          "voltage_code": "TMPA032",
+          "voltage_numeric_source_rows": 6245466,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPA031",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245466,
+          "valid_paired_source_rows": 6244029,
+          "power_p50_p95_W": [
+            2.277439832687378,
+            3.0429039001464844
+          ],
+          "workbook_voltage_upper_V": 29.2,
+          "workbook_current_upper_A": 1.0
+        },
+        {
+          "pl_channel": 10,
+          "name": "飞轮 Z",
+          "voltage_code": "TMPA034",
+          "voltage_numeric_source_rows": 6245405,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPA033",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245405,
+          "valid_paired_source_rows": 6243676,
+          "power_p50_p95_W": [
+            1.3398562669754028,
+            2.2822623252868652
+          ],
+          "workbook_voltage_upper_V": 29.2,
+          "workbook_current_upper_A": 1.0
+        },
+        {
+          "pl_channel": 11,
+          "name": "飞轮 S",
+          "voltage_code": "TMPA036",
+          "voltage_numeric_source_rows": 6245405,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPA035",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245405,
+          "valid_paired_source_rows": 6243554,
+          "power_p50_p95_W": [
+            1.3272595405578613,
+            1.6833356618881226
+          ],
+          "workbook_voltage_upper_V": 29.2,
+          "workbook_current_upper_A": 1.0
+        },
+        {
+          "pl_channel": 12,
+          "name": "磁力矩器",
+          "voltage_code": "TMPA038",
+          "voltage_numeric_source_rows": 6245404,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPA037",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245404,
+          "valid_paired_source_rows": 6243986,
+          "power_p50_p95_W": [
+            0.03968845307826996,
+            0.10387761890888214
+          ],
+          "workbook_voltage_upper_V": 5.5,
+          "workbook_current_upper_A": 1.0
+        },
+        {
+          "pl_channel": 13,
+          "name": "X 测控主机",
+          "voltage_code": "TMPA018",
+          "voltage_numeric_source_rows": 6245599,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPA017",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245599,
+          "valid_paired_source_rows": 6244021,
+          "power_p50_p95_W": [
+            1.8946354389190674,
+            1.963249683380127
+          ],
+          "workbook_voltage_upper_V": 13.0,
+          "workbook_current_upper_A": 1.0
+        },
+        {
+          "pl_channel": 16,
+          "name": "红外相机",
+          "voltage_code": "TMPA024",
+          "voltage_numeric_source_rows": 6245588,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPA023",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245588,
+          "valid_paired_source_rows": 6213709,
+          "power_p50_p95_W": [
+            0.0,
+            0.00027956394478678703
+          ],
+          "workbook_voltage_upper_V": 13.0,
+          "workbook_current_upper_A": 1.0
+        },
+        {
+          "pl_channel": 17,
+          "name": "测控备",
+          "voltage_code": "TMPA026",
+          "voltage_numeric_source_rows": 6245491,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPA025",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245491,
+          "valid_paired_source_rows": 6159905,
+          "power_p50_p95_W": [
+            3.687268018722534,
+            11.98635196685791
+          ],
+          "workbook_voltage_upper_V": 13.0,
+          "workbook_current_upper_A": 1.0
+        },
+        {
+          "pl_channel": 19,
+          "name": "扩展板",
+          "voltage_code": "TMPA040",
+          "voltage_numeric_source_rows": 6245367,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPA039",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245367,
+          "valid_paired_source_rows": 6244026,
+          "power_p50_p95_W": [
+            0.9870399832725525,
+            16.126432418823242
+          ],
+          "workbook_voltage_upper_V": 29.2,
+          "workbook_current_upper_A": 2.0
+        },
+        {
+          "pl_channel": 20,
+          "name": "智算机 YX 28V1",
+          "voltage_code": "TMPA042",
+          "voltage_numeric_source_rows": 6245367,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPA041",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245367,
+          "valid_paired_source_rows": 6243785,
+          "power_p50_p95_W": [
+            0.0,
+            8.702032209839672e-05
+          ],
+          "workbook_voltage_upper_V": 29.2,
+          "workbook_current_upper_A": 2.0
+        },
+        {
+          "pl_channel": 21,
+          "name": "星间激光终端",
+          "voltage_code": "TMPA044",
+          "voltage_numeric_source_rows": 6245363,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPA043",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245363,
+          "valid_paired_source_rows": 6243810,
+          "power_p50_p95_W": [
+            0.0,
+            0.0001528793654870242
+          ],
+          "workbook_voltage_upper_V": 29.2,
+          "workbook_current_upper_A": 3.0
+        },
+        {
+          "pl_channel": 22,
+          "name": "星间激光头",
+          "voltage_code": "TMPA046",
+          "voltage_numeric_source_rows": 6245361,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPA045",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245361,
+          "valid_paired_source_rows": 6244030,
+          "power_p50_p95_W": [
+            22.488197326660156,
+            26.919471740722656
+          ],
+          "workbook_voltage_upper_V": 29.2,
+          "workbook_current_upper_A": 3.0
+        },
+        {
+          "pl_channel": 25,
+          "name": "推进供电",
+          "voltage_code": "TMPA051",
+          "voltage_numeric_source_rows": 6245288,
+          "voltage_type": "Nullable(String)",
+          "voltage_p50_p95_V": [
+            2.658827270352049e-06,
+            0.01777718961238861
+          ]
+        },
+        {
+          "pl_channel": 26,
+          "name": "路由器主",
+          "voltage_code": "TMPA053",
+          "voltage_numeric_source_rows": 6245232,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPA054",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245232,
+          "valid_paired_source_rows": 6243653,
+          "power_p50_p95_W": [
+            0.0,
+            0.00010192149056820199
+          ],
+          "workbook_voltage_upper_V": 29.2,
+          "workbook_current_upper_A": 1.0
+        },
+        {
+          "pl_channel": 27,
+          "name": "智算机 G1",
+          "voltage_code": "TMPA055",
+          "voltage_numeric_source_rows": 6245224,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPA056",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245218,
+          "valid_paired_source_rows": 6242329,
+          "power_p50_p95_W": [
+            0.0,
+            13.427799224853516
+          ],
+          "workbook_voltage_upper_V": 29.2,
+          "workbook_current_upper_A": 1.0
+        },
+        {
+          "pl_channel": 28,
+          "name": "液冷回路",
+          "voltage_code": "TMPA057",
+          "voltage_numeric_source_rows": 6245112,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPA058",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245110,
+          "valid_paired_source_rows": 6243606,
+          "power_p50_p95_W": [
+            0.0,
+            6.206400576047599e-05
+          ],
+          "workbook_voltage_upper_V": 29.2,
+          "workbook_current_upper_A": 2.0
+        },
+        {
+          "pl_channel": 29,
+          "name": "智算机 YX 28V2",
+          "voltage_code": "TMPA052",
+          "voltage_numeric_source_rows": 6245235,
+          "voltage_type": "Nullable(String)",
+          "voltage_p50_p95_V": [
+            0.008852999657392502,
+            0.018159784376621246
+          ]
+        },
+        {
+          "pl_channel": 30,
+          "name": "路由器备",
+          "voltage_code": "TMPA059",
+          "voltage_numeric_source_rows": 6245110,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPA060",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245110,
+          "valid_paired_source_rows": 6243709,
+          "power_p50_p95_W": [
+            0.0,
+            5.0957867642864585e-05
+          ],
+          "workbook_voltage_upper_V": 29.2,
+          "workbook_current_upper_A": 1.0
+        },
+        {
+          "pl_channel": 33,
+          "name": "GNSS 接收机备",
+          "voltage_code": "TMBA029",
+          "voltage_numeric_source_rows": 6246837,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMBA030",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6246837,
+          "valid_paired_source_rows": 6246837,
+          "power_p50_p95_W": [
+            0.0,
+            0.0
+          ],
+          "workbook_voltage_upper_V": null,
+          "workbook_current_upper_A": null
+        }
+      ]
+    },
+    "B": {
+      "source_rows": 29571263,
+      "pl_paired_channels_in_sum": 21,
+      "pl_complete_source_rows": 6238892,
+      "pl_complete_sum_p05_p50_p95_W": [
+        20.255800247192383,
+        26.722774505615234,
+        44.1138916015625
+      ],
+      "channels": [
+        {
+          "pl_channel": 0,
+          "name": "磁强计 A",
+          "voltage_code": "TMPB001",
+          "voltage_numeric_source_rows": 6245874,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPB002",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245874,
+          "valid_paired_source_rows": 6244138,
+          "power_p50_p95_W": [
+            0.5575472116470337,
+            0.664054811000824
+          ],
+          "workbook_voltage_upper_V": 13.0,
+          "workbook_current_upper_A": 1.0
+        },
+        {
+          "pl_channel": 1,
+          "name": "光纤陀螺",
+          "voltage_code": "TMPB003",
+          "voltage_numeric_source_rows": 6245874,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPB004",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245874,
+          "valid_paired_source_rows": 6244078,
+          "power_p50_p95_W": [
+            1.9753557443618774,
+            2.0809552669525146
+          ],
+          "workbook_voltage_upper_V": 5.5,
+          "workbook_current_upper_A": 1.0
+        },
+        {
+          "pl_channel": 3,
+          "name": "星敏 A",
+          "voltage_code": "TMPB007",
+          "voltage_numeric_source_rows": 6245874,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPB008",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245874,
+          "valid_paired_source_rows": 6244030,
+          "power_p50_p95_W": [
+            0.7020790576934814,
+            0.7934058308601379
+          ],
+          "workbook_voltage_upper_V": 5.5,
+          "workbook_current_upper_A": 1.0
+        },
+        {
+          "pl_channel": 5,
+          "name": "GNSS 接收机主",
+          "voltage_code": "TMPB011",
+          "voltage_numeric_source_rows": 6245868,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPB012",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245868,
+          "valid_paired_source_rows": 6243840,
+          "power_p50_p95_W": [
+            1.2175030708312988,
+            1.3730287551879883
+          ],
+          "workbook_voltage_upper_V": 5.5,
+          "workbook_current_upper_A": 1.0
+        },
+        {
+          "pl_channel": 6,
+          "name": "星敏 B",
+          "voltage_code": "TMPB013",
+          "voltage_numeric_source_rows": 6245868,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPB014",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245868,
+          "valid_paired_source_rows": 6244039,
+          "power_p50_p95_W": [
+            0.0,
+            0.07171381264925003
+          ],
+          "workbook_voltage_upper_V": 5.5,
+          "workbook_current_upper_A": 1.0
+        },
+        {
+          "pl_channel": 8,
+          "name": "飞轮 X",
+          "voltage_code": "TMPB030",
+          "voltage_numeric_source_rows": 6245718,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPB029",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245718,
+          "valid_paired_source_rows": 6243887,
+          "power_p50_p95_W": [
+            0.1922929286956787,
+            0.21995492279529572
+          ],
+          "workbook_voltage_upper_V": 29.2,
+          "workbook_current_upper_A": 1.0
+        },
+        {
+          "pl_channel": 9,
+          "name": "飞轮 Y",
+          "voltage_code": "TMPB032",
+          "voltage_numeric_source_rows": 6245715,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPB031",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245715,
+          "valid_paired_source_rows": 6244000,
+          "power_p50_p95_W": [
+            0.5781550407409668,
+            1.0990155935287476
+          ],
+          "workbook_voltage_upper_V": 29.2,
+          "workbook_current_upper_A": 1.0
+        },
+        {
+          "pl_channel": 10,
+          "name": "飞轮 Z",
+          "voltage_code": "TMPB034",
+          "voltage_numeric_source_rows": 6245651,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPB033",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245651,
+          "valid_paired_source_rows": 6243747,
+          "power_p50_p95_W": [
+            0.19571156799793243,
+            0.6410272121429443
+          ],
+          "workbook_voltage_upper_V": 29.2,
+          "workbook_current_upper_A": 1.0
+        },
+        {
+          "pl_channel": 11,
+          "name": "飞轮 S",
+          "voltage_code": "TMPB036",
+          "voltage_numeric_source_rows": 6245647,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPB035",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245647,
+          "valid_paired_source_rows": 6243662,
+          "power_p50_p95_W": [
+            0.6879854202270508,
+            0.716598629951477
+          ],
+          "workbook_voltage_upper_V": 29.2,
+          "workbook_current_upper_A": 1.0
+        },
+        {
+          "pl_channel": 12,
+          "name": "磁力矩器",
+          "voltage_code": "TMPB038",
+          "voltage_numeric_source_rows": 6245647,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPB037",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245647,
+          "valid_paired_source_rows": 6243944,
+          "power_p50_p95_W": [
+            0.12368951737880707,
+            0.23436251282691956
+          ],
+          "workbook_voltage_upper_V": 5.5,
+          "workbook_current_upper_A": 1.0
+        },
+        {
+          "pl_channel": 13,
+          "name": "X 测控主机",
+          "voltage_code": "TMPB018",
+          "voltage_numeric_source_rows": 6245864,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPB017",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245864,
+          "valid_paired_source_rows": 6244060,
+          "power_p50_p95_W": [
+            1.8886209726333618,
+            1.998481273651123
+          ],
+          "workbook_voltage_upper_V": 13.0,
+          "workbook_current_upper_A": 1.0
+        },
+        {
+          "pl_channel": 16,
+          "name": "红外相机",
+          "voltage_code": "TMPB024",
+          "voltage_numeric_source_rows": 6245850,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPB023",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245850,
+          "valid_paired_source_rows": 6243753,
+          "power_p50_p95_W": [
+            0.0,
+            0.00021287774143274873
+          ],
+          "workbook_voltage_upper_V": 13.0,
+          "workbook_current_upper_A": 1.0
+        },
+        {
+          "pl_channel": 17,
+          "name": "测控备",
+          "voltage_code": "TMPB026",
+          "voltage_numeric_source_rows": 6245732,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPB025",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245732,
+          "valid_paired_source_rows": 6243816,
+          "power_p50_p95_W": [
+            0.0,
+            0.24203866720199585
+          ],
+          "workbook_voltage_upper_V": 13.0,
+          "workbook_current_upper_A": 1.0
+        },
+        {
+          "pl_channel": 19,
+          "name": "扩展板",
+          "voltage_code": "TMPB040",
+          "voltage_numeric_source_rows": 6245591,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPB039",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245591,
+          "valid_paired_source_rows": 6244048,
+          "power_p50_p95_W": [
+            1.0693007707595825,
+            13.080560684204102
+          ],
+          "workbook_voltage_upper_V": 29.2,
+          "workbook_current_upper_A": 2.0
+        },
+        {
+          "pl_channel": 20,
+          "name": "智算机 YX 28V1",
+          "voltage_code": "TMPB042",
+          "voltage_numeric_source_rows": 6245589,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPB041",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245589,
+          "valid_paired_source_rows": 6243867,
+          "power_p50_p95_W": [
+            0.0,
+            0.00011892020847881213
+          ],
+          "workbook_voltage_upper_V": 29.2,
+          "workbook_current_upper_A": 2.0
+        },
+        {
+          "pl_channel": 21,
+          "name": "星间激光终端",
+          "voltage_code": "TMPB044",
+          "voltage_numeric_source_rows": 6245583,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPB043",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245583,
+          "valid_paired_source_rows": 6243873,
+          "power_p50_p95_W": [
+            0.0,
+            0.00017837695486377925
+          ],
+          "workbook_voltage_upper_V": 29.2,
+          "workbook_current_upper_A": 3.0
+        },
+        {
+          "pl_channel": 22,
+          "name": "星间激光头",
+          "voltage_code": "TMPB046",
+          "voltage_numeric_source_rows": 6245583,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPB045",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245583,
+          "valid_paired_source_rows": 6244109,
+          "power_p50_p95_W": [
+            15.486804008483887,
+            18.364376068115234
+          ],
+          "workbook_voltage_upper_V": 29.2,
+          "workbook_current_upper_A": 3.0
+        },
+        {
+          "pl_channel": 25,
+          "name": "推进供电",
+          "voltage_code": "TMPB051",
+          "voltage_numeric_source_rows": 6245507,
+          "voltage_type": "Nullable(String)",
+          "voltage_p50_p95_V": [
+            0.0009552338742651045,
+            0.026559999212622643
+          ]
+        },
+        {
+          "pl_channel": 26,
+          "name": "路由器主",
+          "voltage_code": "TMPB053",
+          "voltage_numeric_source_rows": 6245448,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPB054",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245448,
+          "valid_paired_source_rows": 6243796,
+          "power_p50_p95_W": [
+            0.0,
+            0.00011936492956010625
+          ],
+          "workbook_voltage_upper_V": 29.2,
+          "workbook_current_upper_A": 1.0
+        },
+        {
+          "pl_channel": 27,
+          "name": "智算机 G1",
+          "voltage_code": "TMPB055",
+          "voltage_numeric_source_rows": 6245442,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPB056",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245434,
+          "valid_paired_source_rows": 6243770,
+          "power_p50_p95_W": [
+            0.0,
+            9.657190322875977
+          ],
+          "workbook_voltage_upper_V": 29.2,
+          "workbook_current_upper_A": 1.0
+        },
+        {
+          "pl_channel": 28,
+          "name": "液冷回路",
+          "voltage_code": "TMPB057",
+          "voltage_numeric_source_rows": 6245354,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPB058",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245351,
+          "valid_paired_source_rows": 6243728,
+          "power_p50_p95_W": [
+            0.0,
+            0.00011892020847881213
+          ],
+          "workbook_voltage_upper_V": 29.2,
+          "workbook_current_upper_A": 2.0
+        },
+        {
+          "pl_channel": 29,
+          "name": "智算机 YX 28V2",
+          "voltage_code": "TMPB052",
+          "voltage_numeric_source_rows": 6245450,
+          "voltage_type": "Nullable(String)",
+          "voltage_p50_p95_V": [
+            0.008852999657392502,
+            0.026559999212622643
+          ]
+        },
+        {
+          "pl_channel": 30,
+          "name": "路由器备",
+          "voltage_code": "TMPB059",
+          "voltage_numeric_source_rows": 6245285,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMPB060",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6245285,
+          "valid_paired_source_rows": 6243646,
+          "power_p50_p95_W": [
+            0.0,
+            0.00010192149056820199
+          ],
+          "workbook_voltage_upper_V": 29.2,
+          "workbook_current_upper_A": 1.0
+        },
+        {
+          "pl_channel": 33,
+          "name": "GNSS 接收机备",
+          "voltage_code": "TMBB029",
+          "voltage_numeric_source_rows": 6246978,
+          "voltage_type": "Nullable(String)",
+          "current_code": "TMBB030",
+          "current_type": "Nullable(String)",
+          "numeric_paired_source_rows": 6246948,
+          "valid_paired_source_rows": 6246948,
+          "power_p50_p95_W": [
+            0.0,
+            0.0
+          ],
+          "workbook_voltage_upper_V": null,
+          "workbook_current_upper_A": null
+        }
+      ]
+    }
+  }
+}

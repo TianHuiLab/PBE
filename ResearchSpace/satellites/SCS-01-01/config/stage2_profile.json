@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "satellite_id": "SCS-01-01",
+  "primary": {
+    "evaluation_mode": "frozen_snapshot",
+    "background_policy": "window_start_snapshot",
+    "unit_model_split": "date_grouped_holdout",
+    "solar_model_split": "date_grouped_holdout",
+    "unit_model_path": "power_model/unit_power_holdout_models.json",
+    "solar_model_path": "power_model/batch_validation_holdout_solar_model.json",
+    "usage": "任务规划主指标"
+  },
+  "diagnostic": {
+    "evaluation_mode": "future_background_replay",
+    "background_policy": "historical_minute_residual",
+    "usage": "上界/诊断值，不是规划模式的精度"
+  },
+  "split": {
+    "unit": "date",
+    "expected_dates": 16
+  }
+}

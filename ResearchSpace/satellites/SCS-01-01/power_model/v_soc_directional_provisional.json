@@ -1,0 +1,137 @@
+{
+  "schema_version": "1.0",
+  "calibration_status": "provisional_conditional_directional",
+  "bin_width": 0.05,
+  "curves": {
+    "charge": [
+      [
+        27.9665,
+        0.75
+      ],
+      [
+        28.062500001,
+        0.8
+      ],
+      [
+        28.062500002,
+        0.8500000000000001
+      ],
+      [
+        28.190000003,
+        0.9
+      ],
+      [
+        28.390000004,
+        0.9500000000000001
+      ]
+    ],
+    "discharge": [
+      [
+        26.79,
+        0.7000000000000001
+      ],
+      [
+        27.190000001,
+        0.75
+      ],
+      [
+        27.390000002,
+        0.8
+      ],
+      [
+        27.790000003,
+        0.8500000000000001
+      ],
+      [
+        28.051500004,
+        0.9
+      ]
+    ]
+  },
+  "stats": {
+    "charge": {
+      "samples": 5460,
+      "bins": 5,
+      "soc_min": 0.75,
+      "soc_max": 0.9500000000000001,
+      "voltage_min": 27.9665,
+      "voltage_max": 28.390000004
+    },
+    "discharge": {
+      "samples": 2656,
+      "bins": 5,
+      "soc_min": 0.7000000000000001,
+      "soc_max": 0.9,
+      "voltage_min": 26.79,
+      "voltage_max": 28.051500004
+    }
+  },
+  "conditional_on": {
+    "capacity_Ah": 65.0,
+    "nominal_voltage_V": 28.0,
+    "eta_charge": 0.97,
+    "eta_discharge": 0.97,
+    "charge_power_source": "P_charge_est",
+    "discharge_power_source": "abs(P_disch_est)"
+  },
+  "direction_gap_voltage": {
+    "definition": "V_charge - V_discharge at matched propagated SOC",
+    "soc_min": 0.75,
+    "soc_max": 0.9,
+    "median_V": 0.47249999900000006,
+    "p05_V": 0.15859999899999977,
+    "p95_V": 0.7608999989999994
+  },
+  "cross_validation": {
+    "charge": {
+      "n_validation": 5460,
+      "baseline_mae_V": 0.1653742897380312,
+      "directional_mae_V": 0.0815614727639317,
+      "baseline_rmse_V": 0.2422197397047216,
+      "directional_rmse_V": 0.13766644648877394,
+      "baseline_soc_mae_pp": 1.868767165880824,
+      "directional_soc_mae_pp": 2.9080419690502124,
+      "baseline_soc_rmse_pp": 2.8332673465911262,
+      "directional_soc_rmse_pp": 4.7785785779382
+    },
+    "discharge": {
+      "n_validation": 2656,
+      "baseline_mae_V": 0.1744052442011783,
+      "directional_mae_V": 0.1244852543852215,
+      "baseline_rmse_V": 0.21048637911416715,
+      "directional_rmse_V": 0.152719419065787,
+      "baseline_soc_mae_pp": 2.6391396447325395,
+      "directional_soc_mae_pp": 1.591274343889499,
+      "baseline_soc_rmse_pp": 3.239350200670398,
+      "directional_soc_rmse_pp": 2.020582725786606
+    }
+  },
+  "n_segments": 408,
+  "n_validation_samples": 8116,
+  "warnings": [
+    "方向曲线以能量递推SOC为伪标签，不是独立SOC真值",
+    "P_charge_est/P_disch_est与65Ah容量假设会同时影响方向曲线",
+    "交叉验证用于A/B比较，不证明充放电滞回已独立辨识"
+  ],
+  "adoption_decision": {
+    "baseline_overall_soc_mae_pp": 2.1208752614735,
+    "directional_overall_soc_mae_pp": 2.4771234362228522,
+    "overall_improvement_pp": -0.3562481747493522,
+    "charge_improvement_pp": -1.0392748031693884,
+    "discharge_improvement_pp": 1.0478653008430405,
+    "recommended_for_production": false,
+    "reason": "至少一个方向的SOC映射MAE未改善；保留现有单曲线"
+  },
+  "recommended_for_production": false,
+  "satellite_id": "SCS-01-01",
+  "source": {
+    "result_csv": "ResearchSpace\\satellites\\SCS-01-01\\out\\energy_v2_result.csv",
+    "result_sha256": "48e671def5628cf0a7f11aa921054833176396f0b1ea0d589c1159188a465af2",
+    "base_v_soc_curve": "ResearchSpace\\satellites\\SCS-01-01\\config\\v_soc_curve.json",
+    "base_v_soc_sha256": "f57f798697eb1b7f2feaa9a2039664f4d379ebeea39a65784e1bb5a5dbd37aef"
+  },
+  "model_code": {
+    "file": "battery_soc_calibration.py",
+    "sha256": "a5fc3842226f96c35fd340ea200972a09648e659bf8aead4576d687fc3e35352"
+  }
+}

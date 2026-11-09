@@ -1,0 +1,334 @@
+{
+  "unit_plan": {
+    "pl13": [
+      {
+        "start": "2026-08-05T17:02:00",
+        "end": "2026-08-05T17:05:00",
+        "mode": "active"
+      },
+      {
+        "start": "2026-08-05T17:05:00",
+        "end": "2026-08-05T17:58:00",
+        "mode": "idle"
+      }
+    ],
+    "pl17": [
+      {
+        "start": "2026-08-05T17:02:00",
+        "end": "2026-08-05T17:14:00",
+        "mode": "active"
+      },
+      {
+        "start": "2026-08-05T17:14:00",
+        "end": "2026-08-05T17:58:00",
+        "mode": "idle"
+      }
+    ],
+    "pl19": [
+      {
+        "start": "2026-08-05T17:02:00",
+        "end": "2026-08-05T17:03:00",
+        "mode": "active"
+      },
+      {
+        "start": "2026-08-05T17:03:00",
+        "end": "2026-08-05T17:15:00",
+        "mode": "idle"
+      },
+      {
+        "start": "2026-08-05T17:15:00",
+        "end": "2026-08-05T17:20:00",
+        "mode": "active"
+      },
+      {
+        "start": "2026-08-05T17:20:00",
+        "end": "2026-08-05T17:26:00",
+        "mode": "idle"
+      },
+      {
+        "start": "2026-08-05T17:26:00",
+        "end": "2026-08-05T17:30:00",
+        "mode": "active"
+      },
+      {
+        "start": "2026-08-05T17:30:00",
+        "end": "2026-08-05T17:33:00",
+        "mode": "idle"
+      },
+      {
+        "start": "2026-08-05T17:33:00",
+        "end": "2026-08-05T17:36:00",
+        "mode": "active"
+      },
+      {
+        "start": "2026-08-05T17:36:00",
+        "end": "2026-08-05T17:52:00",
+        "mode": "idle"
+      },
+      {
+        "start": "2026-08-05T17:52:00",
+        "end": "2026-08-05T17:58:00",
+        "mode": "active"
+      }
+    ],
+    "pl27": [
+      {
+        "start": "2026-08-05T17:02:00",
+        "end": "2026-08-05T17:07:00",
+        "mode": "active"
+      },
+      {
+        "start": "2026-08-05T17:07:00",
+        "end": "2026-08-05T17:58:00",
+        "mode": "idle"
+      }
+    ],
+    "heater_battery_main": [
+      {
+        "start": "2026-08-05T17:02:00",
+        "end": "2026-08-05T17:31:00",
+        "mode": "idle"
+      },
+      {
+        "start": "2026-08-05T17:31:00",
+        "end": "2026-08-05T17:49:00",
+        "mode": "active"
+      },
+      {
+        "start": "2026-08-05T17:49:00",
+        "end": "2026-08-05T17:58:00",
+        "mode": "idle"
+      }
+    ],
+    "heater_star_a_main": [
+      {
+        "start": "2026-08-05T17:02:00",
+        "end": "2026-08-05T17:58:00",
+        "mode": "idle"
+      }
+    ],
+    "heater_star_b_main": [
+      {
+        "start": "2026-08-05T17:02:00",
+        "end": "2026-08-05T17:26:00",
+        "mode": "active"
+      },
+      {
+        "start": "2026-08-05T17:26:00",
+        "end": "2026-08-05T17:39:00",
+        "mode": "idle"
+      },
+      {
+        "start": "2026-08-05T17:39:00",
+        "end": "2026-08-05T17:42:00",
+        "mode": "active"
+      },
+      {
+        "start": "2026-08-05T17:42:00",
+        "end": "2026-08-05T17:50:00",
+        "mode": "idle"
+      },
+      {
+        "start": "2026-08-05T17:50:00",
+        "end": "2026-08-05T17:58:00",
+        "mode": "active"
+      }
+    ],
+    "heater_propulsion_main": [
+      {
+        "start": "2026-08-05T17:02:00",
+        "end": "2026-08-05T17:33:00",
+        "mode": "active"
+      },
+      {
+        "start": "2026-08-05T17:33:00",
+        "end": "2026-08-05T17:58:00",
+        "mode": "idle"
+      }
+    ]
+  },
+  "tasks": [
+    {
+      "start": "2026-08-05T17:02:00",
+      "end": "2026-08-05T17:05:00",
+      "unit": "pl13",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2026-08-05T17:05:00",
+      "end": "2026-08-05T17:58:00",
+      "unit": "pl13",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2026-08-05T17:02:00",
+      "end": "2026-08-05T17:14:00",
+      "unit": "pl17",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2026-08-05T17:14:00",
+      "end": "2026-08-05T17:58:00",
+      "unit": "pl17",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2026-08-05T17:02:00",
+      "end": "2026-08-05T17:03:00",
+      "unit": "pl19",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2026-08-05T17:03:00",
+      "end": "2026-08-05T17:15:00",
+      "unit": "pl19",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2026-08-05T17:15:00",
+      "end": "2026-08-05T17:20:00",
+      "unit": "pl19",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2026-08-05T17:20:00",
+      "end": "2026-08-05T17:26:00",
+      "unit": "pl19",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2026-08-05T17:26:00",
+      "end": "2026-08-05T17:30:00",
+      "unit": "pl19",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2026-08-05T17:30:00",
+      "end": "2026-08-05T17:33:00",
+      "unit": "pl19",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2026-08-05T17:33:00",
+      "end": "2026-08-05T17:36:00",
+      "unit": "pl19",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2026-08-05T17:36:00",
+      "end": "2026-08-05T17:52:00",
+      "unit": "pl19",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2026-08-05T17:52:00",
+      "end": "2026-08-05T17:58:00",
+      "unit": "pl19",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2026-08-05T17:02:00",
+      "end": "2026-08-05T17:07:00",
+      "unit": "pl27",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2026-08-05T17:07:00",
+      "end": "2026-08-05T17:58:00",
+      "unit": "pl27",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2026-08-05T17:02:00",
+      "end": "2026-08-05T17:31:00",
+      "unit": "heater_battery_main",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2026-08-05T17:31:00",
+      "end": "2026-08-05T17:49:00",
+      "unit": "heater_battery_main",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2026-08-05T17:49:00",
+      "end": "2026-08-05T17:58:00",
+      "unit": "heater_battery_main",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2026-08-05T17:02:00",
+      "end": "2026-08-05T17:58:00",
+      "unit": "heater_star_a_main",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2026-08-05T17:02:00",
+      "end": "2026-08-05T17:26:00",
+      "unit": "heater_star_b_main",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2026-08-05T17:26:00",
+      "end": "2026-08-05T17:39:00",
+      "unit": "heater_star_b_main",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2026-08-05T17:39:00",
+      "end": "2026-08-05T17:42:00",
+      "unit": "heater_star_b_main",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2026-08-05T17:42:00",
+      "end": "2026-08-05T17:50:00",
+      "unit": "heater_star_b_main",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2026-08-05T17:50:00",
+      "end": "2026-08-05T17:58:00",
+      "unit": "heater_star_b_main",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2026-08-05T17:02:00",
+      "end": "2026-08-05T17:33:00",
+      "unit": "heater_propulsion_main",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2026-08-05T17:33:00",
+      "end": "2026-08-05T17:58:00",
+      "unit": "heater_propulsion_main",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    }
+  ]
+}

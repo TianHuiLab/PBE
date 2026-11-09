@@ -39,51 +39,70 @@ PORT = int(os.environ.get('CH_PORT', '8123'))
 USER = os.environ.get('CH_USER', 'default')
 PASSWORD = os.environ.get('CH_PASSWORD', '')  # 无默认口令，见模块 docstring
 DB = os.environ.get('CH_DB', 'chdb_3body')
+SCHEME = os.environ.get('CH_SCHEME', 'http').lower()
+ALLOW_PLAINTEXT = os.environ.get('CH_ALLOW_PLAINTEXT', '').lower() in ('1', 'true', 'yes')
 
 
 class ClickHouseError(Exception):
     pass
 
 
-def query(sql, database=DB, user=USER, password=PASSWORD, host=HOST, port=PORT,
-          timeout=60, fmt='JSONEachRow'):
-    """执行 SQL，返回解析后的结果。fmt 支持 JSONEachRow / JSON / TabSeparated。
+def _request(sql, database, user, password, host, port, fmt, scheme,
+             allow_plaintext, params, max_execution_time):
+    if scheme not in ('http', 'https'):
+        raise ClickHouseError('CH_SCHEME 只能是 http 或 https')
+    if scheme == 'http' and password and not allow_plaintext:
+        raise ClickHouseError('携带口令的明文 HTTP 已禁用；配置 HTTPS 或显式设置 CH_ALLOW_PLAINTEXT=1')
+    options = {'database': database, 'default_format': fmt,
+               'max_execution_time': str(max_execution_time)}
+    for name, value in (params or {}).items():
+        if not name.isidentifier():
+            raise ValueError(f'无效查询参数名: {name}')
+        options['param_' + name] = str(value)
+    url = f'{scheme}://{host}:{port}/?' + urllib.parse.urlencode(options)
+    return urllib.request.Request(url, data=sql.encode('utf-8'), headers={
+        'X-ClickHouse-User': user, 'X-ClickHouse-Key': password})
 
-    口令经 X-ClickHouse-User / X-ClickHouse-Key 请求头传递，不进入 URL，
-    避免被代理、访问日志或错误回显记录。
-    """
-    base = f"http://{host}:{port}/"
-    params = {
-        'database': database,
-        'default_format': fmt,
-        'max_execution_time': '60',
-    }
-    url = base + '?' + urllib.parse.urlencode(params)
-    data = sql.encode('utf-8')
-    req = urllib.request.Request(url, data=data, headers={
-        'X-ClickHouse-User': user,
-        'X-ClickHouse-Key': password,
-    })
+
+def _raise_http_error(error):
+    detail = error.read().decode('utf-8', 'replace')[:2000]
+    raise ClickHouseError(f'HTTP {error.code}: {detail}') from error
+
+
+def query_iter(sql, database=DB, user=USER, password=PASSWORD, host=HOST,
+               port=PORT, timeout=60, scheme=SCHEME,
+               allow_plaintext=ALLOW_PLAINTEXT, params=None, max_execution_time=60):
+    """逐行解析 JSONEachRow；调用方须完整迭代或关闭生成器。"""
+    req = _request(sql, database, user, password, host, port, 'JSONEachRow',
+                   scheme, allow_plaintext, params, max_execution_time)
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            for line in resp:
+                if line.strip():
+                    yield json.loads(line)
+    except urllib.error.HTTPError as error:
+        _raise_http_error(error)
+    except (urllib.error.URLError, OSError) as error:
+        raise ClickHouseError(f'连接失败: {error}') from error
+
+
+def query(sql, database=DB, user=USER, password=PASSWORD, host=HOST, port=PORT,
+          timeout=60, fmt='JSONEachRow', scheme=SCHEME,
+          allow_plaintext=ALLOW_PLAINTEXT, params=None, max_execution_time=60):
+    """执行 SQL；JSONEachRow 兼容旧列表接口，大结果优先使用 query_iter。"""
+    if fmt == 'JSONEachRow':
+        return list(query_iter(sql, database, user, password, host, port, timeout,
+                               scheme, allow_plaintext, params, max_execution_time))
+    req = _request(sql, database, user, password, host, port, fmt, scheme,
+                   allow_plaintext, params, max_execution_time)
     try:
         with urllib.request.urlopen(req, timeout=timeout) as resp:
             body = resp.read().decode('utf-8')
-    except urllib.error.HTTPError as e:
-        detail = e.read().decode('utf-8', 'replace')[:2000]
-        raise ClickHouseError(f"HTTP {e.code}: {detail}")
-    except Exception as e:
-        raise ClickHouseError(f"连接失败: {e}")
-
-    if fmt == 'JSONEachRow':
-        rows = []
-        for line in body.strip().splitlines():
-            line = line.strip()
-            if line:
-                rows.append(json.loads(line))
-        return rows
-    elif fmt == 'JSON':
-        return json.loads(body)
-    else:
-        return body
+    except urllib.error.HTTPError as error:
+        _raise_http_error(error)
+    except (urllib.error.URLError, OSError) as error:
+        raise ClickHouseError(f'连接失败: {error}') from error
+    return json.loads(body) if fmt == 'JSON' else body
 
 
 if __name__ == '__main__':

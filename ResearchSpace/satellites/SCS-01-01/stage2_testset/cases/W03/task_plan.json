@@ -1,0 +1,58 @@
+{
+  "unit_plan": {
+    "electric_propulsion_a": [
+      {
+        "start": "2025-12-27T23:13:00",
+        "end": "2025-12-27T23:19:00",
+        "mode": "idle"
+      },
+      {
+        "start": "2025-12-27T23:19:00",
+        "end": "2025-12-27T23:23:00",
+        "mode": "active"
+      }
+    ],
+    "laser_processor_1": [
+      {
+        "start": "2025-12-27T23:13:00",
+        "end": "2025-12-27T23:15:00",
+        "mode": "idle"
+      },
+      {
+        "start": "2025-12-27T23:15:00",
+        "end": "2025-12-27T23:23:00",
+        "mode": "active"
+      }
+    ]
+  },
+  "tasks": [
+    {
+      "start": "2025-12-27T23:13:00",
+      "end": "2025-12-27T23:19:00",
+      "unit": "electric_propulsion_a",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2025-12-27T23:19:00",
+      "end": "2025-12-27T23:23:00",
+      "unit": "electric_propulsion_a",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2025-12-27T23:13:00",
+      "end": "2025-12-27T23:15:00",
+      "unit": "laser_processor_1",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2025-12-27T23:15:00",
+      "end": "2025-12-27T23:23:00",
+      "unit": "laser_processor_1",
+      "run_mode": "active",
+      "after_mode": "active"
+    }
+  ]
+}

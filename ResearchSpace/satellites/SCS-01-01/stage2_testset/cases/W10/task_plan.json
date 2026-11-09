@@ -1,0 +1,242 @@
+{
+  "unit_plan": {
+    "compute_nx1_f": [
+      {
+        "start": "2025-12-30T10:06:00",
+        "end": "2025-12-30T10:14:00",
+        "mode": "idle"
+      },
+      {
+        "start": "2025-12-30T10:14:00",
+        "end": "2025-12-30T10:26:00",
+        "mode": "active"
+      }
+    ],
+    "router_main": [
+      {
+        "start": "2025-12-30T10:06:00",
+        "end": "2025-12-30T10:09:00",
+        "mode": "idle"
+      },
+      {
+        "start": "2025-12-30T10:09:00",
+        "end": "2025-12-30T10:26:00",
+        "mode": "active"
+      }
+    ],
+    "compute_nx1_g": [
+      {
+        "start": "2025-12-30T10:06:00",
+        "end": "2025-12-30T10:14:00",
+        "mode": "idle"
+      },
+      {
+        "start": "2025-12-30T10:14:00",
+        "end": "2025-12-30T10:26:00",
+        "mode": "active"
+      }
+    ],
+    "compute_g1": [
+      {
+        "start": "2025-12-30T10:06:00",
+        "end": "2025-12-30T10:14:00",
+        "mode": "idle"
+      },
+      {
+        "start": "2025-12-30T10:14:00",
+        "end": "2025-12-30T10:26:00",
+        "mode": "active"
+      }
+    ],
+    "compute_g2": [
+      {
+        "start": "2025-12-30T10:06:00",
+        "end": "2025-12-30T10:14:00",
+        "mode": "idle"
+      },
+      {
+        "start": "2025-12-30T10:14:00",
+        "end": "2025-12-30T10:26:00",
+        "mode": "active"
+      }
+    ],
+    "microwave_1b": [
+      {
+        "start": "2025-12-30T10:06:00",
+        "end": "2025-12-30T10:14:00",
+        "mode": "idle"
+      },
+      {
+        "start": "2025-12-30T10:14:00",
+        "end": "2025-12-30T10:26:00",
+        "mode": "active"
+      }
+    ],
+    "microwave_2a": [
+      {
+        "start": "2025-12-30T10:06:00",
+        "end": "2025-12-30T10:07:00",
+        "mode": "idle"
+      },
+      {
+        "start": "2025-12-30T10:07:00",
+        "end": "2025-12-30T10:26:00",
+        "mode": "active"
+      }
+    ],
+    "laser_processor_1": [
+      {
+        "start": "2025-12-30T10:06:00",
+        "end": "2025-12-30T10:23:00",
+        "mode": "active"
+      },
+      {
+        "start": "2025-12-30T10:23:00",
+        "end": "2025-12-30T10:26:00",
+        "mode": "idle"
+      }
+    ],
+    "reaction_wheel_1": [
+      {
+        "start": "2025-12-30T10:06:00",
+        "end": "2025-12-30T10:26:00",
+        "mode": "idle"
+      }
+    ],
+    "reaction_wheel_4": [
+      {
+        "start": "2025-12-30T10:06:00",
+        "end": "2025-12-30T10:26:00",
+        "mode": "idle"
+      }
+    ]
+  },
+  "tasks": [
+    {
+      "start": "2025-12-30T10:06:00",
+      "end": "2025-12-30T10:14:00",
+      "unit": "compute_nx1_f",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2025-12-30T10:14:00",
+      "end": "2025-12-30T10:26:00",
+      "unit": "compute_nx1_f",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2025-12-30T10:06:00",
+      "end": "2025-12-30T10:09:00",
+      "unit": "router_main",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2025-12-30T10:09:00",
+      "end": "2025-12-30T10:26:00",
+      "unit": "router_main",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2025-12-30T10:06:00",
+      "end": "2025-12-30T10:14:00",
+      "unit": "compute_nx1_g",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2025-12-30T10:14:00",
+      "end": "2025-12-30T10:26:00",
+      "unit": "compute_nx1_g",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2025-12-30T10:06:00",
+      "end": "2025-12-30T10:14:00",
+      "unit": "compute_g1",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2025-12-30T10:14:00",
+      "end": "2025-12-30T10:26:00",
+      "unit": "compute_g1",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2025-12-30T10:06:00",
+      "end": "2025-12-30T10:14:00",
+      "unit": "compute_g2",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2025-12-30T10:14:00",
+      "end": "2025-12-30T10:26:00",
+      "unit": "compute_g2",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2025-12-30T10:06:00",
+      "end": "2025-12-30T10:14:00",
+      "unit": "microwave_1b",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2025-12-30T10:14:00",
+      "end": "2025-12-30T10:26:00",
+      "unit": "microwave_1b",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2025-12-30T10:06:00",
+      "end": "2025-12-30T10:07:00",
+      "unit": "microwave_2a",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2025-12-30T10:07:00",
+      "end": "2025-12-30T10:26:00",
+      "unit": "microwave_2a",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2025-12-30T10:06:00",
+      "end": "2025-12-30T10:23:00",
+      "unit": "laser_processor_1",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2025-12-30T10:23:00",
+      "end": "2025-12-30T10:26:00",
+      "unit": "laser_processor_1",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2025-12-30T10:06:00",
+      "end": "2025-12-30T10:26:00",
+      "unit": "reaction_wheel_1",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2025-12-30T10:06:00",
+      "end": "2025-12-30T10:26:00",
+      "unit": "reaction_wheel_4",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    }
+  ]
+}

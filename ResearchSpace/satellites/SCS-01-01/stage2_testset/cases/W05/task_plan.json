@@ -1,0 +1,208 @@
+{
+  "unit_plan": {
+    "electric_propulsion_a": [
+      {
+        "start": "2025-12-28T15:25:00",
+        "end": "2025-12-28T15:27:00",
+        "mode": "idle"
+      },
+      {
+        "start": "2025-12-28T15:27:00",
+        "end": "2025-12-28T15:30:00",
+        "mode": "active"
+      },
+      {
+        "start": "2025-12-28T15:30:00",
+        "end": "2025-12-28T16:24:00",
+        "mode": "idle"
+      }
+    ],
+    "laser_processor_1": [
+      {
+        "start": "2025-12-28T15:25:00",
+        "end": "2025-12-28T15:45:00",
+        "mode": "active"
+      },
+      {
+        "start": "2025-12-28T15:45:00",
+        "end": "2025-12-28T15:48:00",
+        "mode": "idle"
+      },
+      {
+        "start": "2025-12-28T15:48:00",
+        "end": "2025-12-28T15:51:00",
+        "mode": "active"
+      },
+      {
+        "start": "2025-12-28T15:51:00",
+        "end": "2025-12-28T16:24:00",
+        "mode": "idle"
+      }
+    ],
+    "reaction_wheel_1": [
+      {
+        "start": "2025-12-28T15:25:00",
+        "end": "2025-12-28T16:15:00",
+        "mode": "idle"
+      },
+      {
+        "start": "2025-12-28T16:15:00",
+        "end": "2025-12-28T16:19:00",
+        "mode": "active"
+      },
+      {
+        "start": "2025-12-28T16:19:00",
+        "end": "2025-12-28T16:24:00",
+        "mode": "idle"
+      }
+    ],
+    "reaction_wheel_2": [
+      {
+        "start": "2025-12-28T15:25:00",
+        "end": "2025-12-28T16:15:00",
+        "mode": "idle"
+      },
+      {
+        "start": "2025-12-28T16:15:00",
+        "end": "2025-12-28T16:19:00",
+        "mode": "active"
+      },
+      {
+        "start": "2025-12-28T16:19:00",
+        "end": "2025-12-28T16:24:00",
+        "mode": "idle"
+      }
+    ],
+    "reaction_wheel_3": [
+      {
+        "start": "2025-12-28T15:25:00",
+        "end": "2025-12-28T16:15:00",
+        "mode": "idle"
+      },
+      {
+        "start": "2025-12-28T16:15:00",
+        "end": "2025-12-28T16:19:00",
+        "mode": "active"
+      },
+      {
+        "start": "2025-12-28T16:19:00",
+        "end": "2025-12-28T16:24:00",
+        "mode": "idle"
+      }
+    ]
+  },
+  "tasks": [
+    {
+      "start": "2025-12-28T15:25:00",
+      "end": "2025-12-28T15:27:00",
+      "unit": "electric_propulsion_a",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2025-12-28T15:27:00",
+      "end": "2025-12-28T15:30:00",
+      "unit": "electric_propulsion_a",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2025-12-28T15:30:00",
+      "end": "2025-12-28T16:24:00",
+      "unit": "electric_propulsion_a",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2025-12-28T15:25:00",
+      "end": "2025-12-28T15:45:00",
+      "unit": "laser_processor_1",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2025-12-28T15:45:00",
+      "end": "2025-12-28T15:48:00",
+      "unit": "laser_processor_1",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2025-12-28T15:48:00",
+      "end": "2025-12-28T15:51:00",
+      "unit": "laser_processor_1",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2025-12-28T15:51:00",
+      "end": "2025-12-28T16:24:00",
+      "unit": "laser_processor_1",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2025-12-28T15:25:00",
+      "end": "2025-12-28T16:15:00",
+      "unit": "reaction_wheel_1",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2025-12-28T16:15:00",
+      "end": "2025-12-28T16:19:00",
+      "unit": "reaction_wheel_1",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2025-12-28T16:19:00",
+      "end": "2025-12-28T16:24:00",
+      "unit": "reaction_wheel_1",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2025-12-28T15:25:00",
+      "end": "2025-12-28T16:15:00",
+      "unit": "reaction_wheel_2",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2025-12-28T16:15:00",
+      "end": "2025-12-28T16:19:00",
+      "unit": "reaction_wheel_2",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2025-12-28T16:19:00",
+      "end": "2025-12-28T16:24:00",
+      "unit": "reaction_wheel_2",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2025-12-28T15:25:00",
+      "end": "2025-12-28T16:15:00",
+      "unit": "reaction_wheel_3",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2025-12-28T16:15:00",
+      "end": "2025-12-28T16:19:00",
+      "unit": "reaction_wheel_3",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2025-12-28T16:19:00",
+      "end": "2025-12-28T16:24:00",
+      "unit": "reaction_wheel_3",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    }
+  ]
+}

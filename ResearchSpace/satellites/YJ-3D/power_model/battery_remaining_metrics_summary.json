@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "satellite_id": "YJ-3D",
+  "model_variant": "cap_0W",
+  "absolute_soc_reference_windows": 1,
+  "energy_windows": 10,
+  "energy_metrics": {
+    "solar_energy_error_median_kWh": -0.010508763400398403,
+    "solar_energy_MAE_kWh": 0.013677805448478677,
+    "solar_energy_error_median_pct": -13.473525666776794,
+    "solar_energy_MAE_pct": 14.712795310313544,
+    "load_energy_error_median_kWh": 0.00033164575161340193,
+    "load_energy_MAE_kWh": 0.02794194990949641,
+    "load_energy_error_median_pct": 0.8517298031092241,
+    "load_energy_MAE_pct": 22.335249431079724
+  },
+  "absolute_metrics": {
+    "target_soc_predicted": 0.75668,
+    "target_soc_observed": 0.7273738473167042,
+    "target_soc_error_pp": 2.930615268329584,
+    "remaining_Ah_predicted": 28.519285,
+    "remaining_Ah_observed": 27.41472030536658,
+    "remaining_Ah_error": 1.1045646946334209
+  },
+  "limitations": [
+    "Absolute target SOC and remaining Ah are available for only one segment whose endpoint voltage lies inside the 7.84 A V-SOC table.",
+    "Observed target SOC is V-SOC mapped and is not an independent hardware SOC anchor.",
+    "Solar energy observation is the bus-side diagnostic TMEA003×TMEA004-TMEA005×TMEA006, not an array-terminal measurement."
+  ]
+}

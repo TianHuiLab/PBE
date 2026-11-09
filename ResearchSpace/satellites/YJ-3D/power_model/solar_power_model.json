@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.0",
+  "satellite_id": "YJ-3D",
+  "model_type": "load_aware_linear",
+  "selected_degree": 1,
+  "coefficients_W_per_hour_power": [
+    120.769122928,
+    -0.044811007
+  ],
+  "constant_power_W": 113.419038,
+  "target_definition": {
+    "formula": "Σ(V_BCR_out,j × I_BCR_out,j)",
+    "p_solar_basis": "sum of eight same-source BCR output voltage × current channels, positive output only",
+    "crosscheck": "P_bus - P_battery_signed",
+    "control_logic": "maximum power point tracking (MPPT)",
+    "status": "YJ-3D MPPT/DC-DC BCR output-side power; not PV input power"
+  },
+  "time_feature": {
+    "name": "elapsed_hours_since_sunlight_segment_start",
+    "reset_at": "every continuous sunlight segment"
+  },
+  "support_hours": [
+    0.0,
+    367.133333
+  ],
+  "extrapolation_policy": "clamp_to_support",
+  "shadow_power_W": 0.0,
+  "training": {
+    "n_valid_sun_samples": 101466,
+    "sun_segments": 228,
+    "shadow_samples_in_source": 1714,
+    "time_start": "2026-07-24T09:12:00",
+    "time_end": "2026-10-27T05:21:00",
+    "winsor_quantile": 0.999,
+    "winsor_cap_W": 365.873572
+  },
+  "target_stats_W": {
+    "min": 0.000604,
+    "p05": 90.730887,
+    "p50": 113.419038,
+    "p95": 160.95612,
+    "p99": 197.473705,
+    "max": 10565.315894
+  },
+  "cross_validation": {
+    "method": "sunlight-episode-grouped-deterministic-folds",
+    "folds": 5,
+    "constant_rmse_W": 24.510985,
+    "candidate_rmse_W": {
+      "1": 24.071362,
+      "2": 24.169205,
+      "3": 25.821465
+    },
+    "selected_rmse_W": 14.309685,
+    "feature_candidate_rmse_W": {
+      "time_load_active_count": 14.172373,
+      "time_load_task_power": 13.963263,
+      "time_load_task_power_active_count": 13.464741,
+      "time_plus_load": 14.309685
+    },
+    "selected_model": "load_aware_linear"
+  },
+  "warnings": [
+    "太阳阵功率为目标代理量，不是独立阵列功率测量",
+    "BCR输出目标来自8路同源输出电压×电流配对，端口边界仍需单线图最终核准",
+    "温度、太阳入射角、S3R工作点和阵列老化未显式建模",
+    "太阳阵模型使用预测负载/任务状态特征子集；目标时刻后的BCR遥测不作为输入",
+    "太阳阵目标为8路BCR输出功率之和，不额外乘母线传输效率",
+    "BCR输出是MPPT/DC-DC后的母线侧功率，不是PV输入功率"
+  ],
+  "source": {
+    "file": "satellites\\YJ-3D\\power_model\\solar_training_data.csv",
+    "sha256": "a24468d7c8b5ab416f30f24a2713a13a3a5ab92dcfd1763bd73b8f211f721bba"
+  },
+  "model_code": {
+    "file": "solar_power_calibration.py",
+    "sha256": "130f91ec0c87d7d7f85331ed113324d8815445cf909eca3c0e6300dd909b2a94"
+  },
+  "feature_model": {
+    "features": [
+      "elapsed_hours",
+      "load_W"
+    ],
+    "intercept": 14.994881184,
+    "coefficients": [
+      -0.027010914,
+      0.939215902
+    ],
+    "time_term_degree": 1,
+    "target_clip_W": 365.873572,
+    "selection": "time_plus_load",
+    "selection_policy": "fixed policy selected by integrated holdout forecast"
+  },
+  "bus_transfer_efficiency": 1.0,
+  "bus_transfer_efficiency_model": {
+    "efficiency": 1.0,
+    "status": "not applicable; target is already BCR output-side power"
+  },
+  "load_following_charge_margin_W": null,
+  "load_following_charge_margin_model": {
+    "constraint": "P_solar_to_bus <= total_load + margin",
+    "margin_W": null,
+    "enabled": false,
+    "status": "optional conservative planning constraint only; disabled because YJ-3D solar output is controlled by MPPT"
+  }
+}

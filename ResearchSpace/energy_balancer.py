@@ -1,32 +1,41 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-三体星(SCS-01-01) 整星能源平衡定量评估框架 (v2.2)
-基于 ClickHouse chdb_3body.telemetry_raw_01 真实遥测。
+三体星整星能源平衡定量评估框架 (v2.3)
+按卫星配置读取 ClickHouse 宽表遥测；01/02 星使用独立配置和输出目录。
 
-v2.1 口径变更（用户决策 2026-10-22，依据 S3R 拓扑实证）：
-  发电功率改用**母线电压 × 母线电流**（TMD016 × TMD017），不再单独建模分流：
-    1) 电源拓扑为 S3R（顺序开关分流调节，遥测大表/知识 YAML 证实：太阳阵
-       直接耦合母线，S3R 分流级在 PCU 内部消耗富余、不流经母线测点）；
-    2) TMD017 是"太阳阵经 S3R 送入母线的单向电流"测点——实证：地影时
-       TMD017≈−0.1 A（≈0）而负载电流 TMD018≈9 A，日照时 TMD017−TMD018
-       中位 +7.1 A（=充电电流）；
-    3) 故 P_solar := V_bus × I_bus 即"实际送达母线的发电"，分流已被 S3R
-       在测点上游扣除——富余全部为充电，无需 SOC 判定拆分；
-    4) 分流不再是模型量，改为**诊断量** P_shunt_diag = (I_solar_panel −
-       I_bus) × V_bus（帆板级 TMD009 与母线级 TMD017 的差额，S3R 分流+
-       PCU 变换损耗的等效值），用于独立交叉校验；
-    5) 日照/地影判定仍用帆板级电流 TMD009（光照工况判据）——不可改用
-       I_bus：满充分流时 I_bus 很小但仍是日照。
+当前设计边界（用户提供供配电方案 5.3.3）：不调节母线 + S³R 顺序开关分流，
+蓄电池电压钳位母线；光照期优先供负载，其次充电，最后分流；阴影期由
+蓄电池供电，日照短时不足时太阳阵与电池联合供电。PCDU 内充电支路相对
+TMD017 电流测点的位置尚未由连接图确认。
+
+2026-11-02 口径更新（用户提供）：TMD017 改释为“太阳阵侧母线电流”——
+地影期≈0、光照期母线功率≈六板端原值功率和（诊断）；太阳阵电压遥测
+TMD003–008 判为不可用，依赖电压的诊断（六板端原值功率和、帆板端 ΣV×I−TMD017）
+不再计入正文口径（相关图表已从清单移除）。光照期太阳阵功率暂定 =
+太阳阵侧母线功率 + 蓄电池充电功率（= U_bus×(I017−I018) 正值），该叠加对
+充电功率存在重复计数，属暂定口径，详见 framework_documentation 文档
+“太阳阵功率(暂定3)”列与边界说明。
+
+保留历史字段名以兼容现有输出：
+  P_solar = TMD016 × TMD017，即太阳阵侧母线功率（TMD017 测点折算）；
+  P_excess = P_solar − P_load，只是两个测点的代数差额；
+  P_charge/P_disch 是该差额的正负拆分，不是独立电池支路测量或充放电判向；
+  P_shunt_diag = (TMD009 − TMD017) × TMD016 是跨测点诊断，若充电支路
+  位于 TMD017 测点之前，差额可能包含该支路，不能当作 S³R 损耗。
+日照/地影优先按配置的状态遥测判定；状态缺测时以 TMD009 回退。
 
 v2.2 口径变更（用户决策 2026-10-23）：
   V-SOC 主曲线由通用锂电假设曲线切换为**三体星蓄电池设计放电表**
   （10A 恒流放电，22.82–29.31V ↔ 10%–100% SOC，65Ah 设计构型）——
-  该表经用户确认为 SCS-01-01 设计值；切换后 SOC/DoD/健康度结论按
-  新曲线刷新（敏感性实测见 13 号报告附录 A.7）。
+  该表经用户确认为 SCS-01-01 设计值；SCS-01-02 尚未单独确认，
+  沿用时 SOC/DoD/健康度仅为条件试算（敏感性实测见 13 号报告附录 A.7）。
 
 其余 v2 特性保留：逐样本电压锚定 SOC、稳健百分位指标、分工况能量收支、
-恒等式/独立残差分离（见 energy() docstring）。
+记账恒等式与差额诊断分离（见 energy() docstring）。
+
+v2.3：TMK5315 优先判定日照/地影，缺测时由 TMD009 分钟极值回退；SOC 缺测保留
+NaN；综合评分只称为观测样本评分，不能推断整个稀疏观测时期。
 
 配置外置（单一事实源，config/ 目录，JSON 无需额外依赖）：
   - design_params.json    设计/模型参数（容量、额定功率、阈值、dt 等）
@@ -52,9 +61,9 @@ DEFAULT_DESIGN = {
     'eta_charge': 0.97,
     'eta_discharge': 0.97,
     'soc_floor': 0.05,         # SOC 下限截断
-    'soc_unknown': 0.9,        # V_bat 缺测时的 SOC 占位
-    'sun_I_threshold_A': 1.0,  # 日照判据电流阈值（对帆板级 TMD009）
+    'sun_I_threshold_A': 1.0,  # TMK5315 缺测时的电流回退阈值（帆板级 TMD009）
     'dt_seconds': 60.0,        # 名义采样间隔（分钟聚合数据）；能量积分按此折算
+    'interval_max_gap_seconds': 10.0,  # 原始相邻采样积分的最大间隔
     # 注：v2.1 起 soc_high（分流阈值）已移除——分流由 S3R 测点隐含扣除，
     # 不再需要 SOC 判定（见模块 docstring 第 3 条）。
 }
@@ -69,9 +78,9 @@ DEFAULT_COLS = dict(
 )
 
 
-def _load_json(name, default):
+def _load_json(name, default, config_dir=None):
     """读取 config/ 下 JSON；缺失时回退默认值并提示（不静默）。"""
-    path = CONFIG_DIR / name
+    path = Path(CONFIG_DIR if config_dir is None else config_dir) / name
     if not path.is_file():
         print(f"[energy_balancer] 未找到 {path}，使用内置默认参数", file=sys.stderr)
         return default
@@ -79,8 +88,8 @@ def _load_json(name, default):
         return json.load(f)
 
 
-def _load_design():
-    cfg = _load_json('design_params.json', None)
+def _load_design(config_dir=None):
+    cfg = _load_json('design_params.json', None, config_dir)
     if cfg is None:
         return dict(DEFAULT_DESIGN)
     d = dict(DEFAULT_DESIGN)
@@ -88,19 +97,23 @@ def _load_design():
     return d
 
 
-def _load_v_soc_table():
-    cfg = _load_json('v_soc_curve.json', None)
+def _load_v_soc_table(config_dir=None):
+    cfg = _load_json('v_soc_curve.json', None, config_dir)
     table = DEFAULT_V_SOC_TABLE if cfg is None else np.array(cfg['points'], dtype=float)
     # np.interp 要求采样横坐标单调非降，否则结果静默错误——配置即代码，须校验
-    if len(table) < 2 or not np.all(np.diff(table[:, 0]) > 0):
+    if table.ndim != 2 or table.shape[1] != 2 or len(table) < 2:
+        raise ValueError('v_soc_curve points 必须是至少两个 [电压, SOC] 数值对')
+    if not np.isfinite(table).all() or np.any((table[:, 1] < 0) | (table[:, 1] > 1)):
+        raise ValueError('v_soc_curve 不允许非有限值，SOC 必须在 [0,1]')
+    if not np.all(np.diff(table[:, 0]) > 0):
         raise ValueError("v_soc_curve 电压点必须严格单调递增")
     if not np.all(np.diff(table[:, 1]) >= 0):
         raise ValueError("v_soc_curve SOC 点必须单调非降")
     return table
 
 
-def _load_cols():
-    cfg = _load_json('telemetry_params.json', None)
+def _load_cols(config_dir=None):
+    cfg = _load_json('telemetry_params.json', None, config_dir)
     if cfg is None:
         return dict(DEFAULT_COLS)
     cols = dict(DEFAULT_COLS)
@@ -121,11 +134,17 @@ def _v_soc_map(v):
 
 
 class EnergyBalanceEvaluator:
-    def __init__(self, design=None, cols=None):
+    def __init__(self, design=None, cols=None, v_soc_table=None,
+                 phase_code=None, phase_labels=('阳照区', '阴影区'),
+                 battery_direction=None):
         d = dict(DESIGN); d.update(design or {})
         self.design = d
         c = dict(TELEMETRY_COLS); c.update(cols or {})
         self.cols = c
+        self.v_soc_table = V_SOC_TABLE if v_soc_table is None else v_soc_table
+        self.phase_code = phase_code
+        self.phase_labels = phase_labels
+        self.battery_direction = battery_direction or {}
         self.wide = None
         self.df = None
         self.metrics = None
@@ -143,43 +162,57 @@ class EnergyBalanceEvaluator:
         self.wide = wide.sort_index()
 
     def _clip(self, s, lo, hi):
-        return pd.to_numeric(s, errors='coerce').clip(lower=lo, upper=hi)
+        numeric = pd.to_numeric(s, errors='coerce')
+        return numeric.where(np.isfinite(numeric)).clip(lower=lo, upper=hi)
 
     # ---------------------------------------------------------------- 物理量层
     def compute_power(self):
         """计算瞬时功率物理量（全向量化）。
 
-        口径（v2.1，S3R 拓扑）：
-          P_solar     = V_bus × I_bus(TMD017)   —— 实际送达母线的发电；
-                        分流已在 S3R 测点上游扣除，故富余即充电
+        历史字段名保留，物理解释按待核测点处理：
+          P_solar     = V_bus × I_bus(TMD017)   —— 太阳阵侧母线功率
+                        （2026-11-02 口径：TMD017=太阳阵侧母线电流，
+                        地影≈0、光照≈六板端原值功率和；母线电流已含充电支路）
           P_shunt_diag= (I_solar − I_bus) × V_bus —— 诊断量：帆板级(TMD009)与
-                        母线级(TMD017)的功率差额 ≈ S3R 分流+PCU 损耗
+                        母线级(TMD017)的功率差额，不能直接量化分流或损耗
           P_load      = V_bus × I_load(TMD018)   —— 主负载
-          P_excess    = P_solar − P_load          —— + 富余(充电) / − 缺口(放电)
-          I_solar(TMD009) 保留：日照/地影工况判据（光照本身，不受分流影响）
+          P_excess    = P_solar − P_load          —— 两测点差额，非电池功率
+          I_solar(TMD009) 保留：状态缺测时的工况回退判据及帆板级诊断
         """
         w = self.wide
         Vb = self._clip(w[self.cols['bus_V']], 10, 45.0)
         d = pd.DataFrame(index=w.index)
         d['V_bus'] = Vb
         d['V_bat'] = self._clip(w[self.cols['bat_V']], 10, 45.0)
-        d['I_solar'] = self._clip(w[self.cols['solar_I']], 0, 100)   # 帆板级总电流（工况判据）
-        d['I_bus'] = self._clip(w[self.cols['bus_I']], -5, 100)      # S3R 送入母线的太阳阵电流
-        d['P_solar'] = d['I_bus'] * d['V_bus']          # v2.1 发电口径：母线电压×母线电流
-        d['P_shunt_diag'] = (d['I_solar'] - d['I_bus']) * d['V_bus']  # 诊断：被 S3R 分流/PCU 损耗
+        d['I_solar'] = self._clip(w[self.cols['solar_I']], 0, 100)   # 帆板级总电流（工况回退判据）
+        d['I_bus'] = self._clip(w[self.cols['bus_I']], -5, 100)      # TMD017，充电分支相对位置待核
+        d['P_solar'] = d['I_bus'] * d['V_bus']          # 历史字段：TMD017 测点功率折算
+        d['P_shunt_diag'] = (d['I_solar'] - d['I_bus']) * d['V_bus']  # 测点边界差诊断，不能直接当作分流或损耗
         d['I_load'] = self._clip(w[self.cols['load_I']], 0, 100)     # 负载电流物理非负
         d['P_load'] = d['I_load'] * d['V_bus']          # 主负载（实际消耗）
-        d['P_excess'] = d['P_solar'] - d['P_load']      # + 富余 / - 缺口
+        d['P_excess'] = d['P_solar'] - d['P_load']      # 测点代数差额，非电池净功率
         return d
 
     # ---------------------------------------------------------------- 工况层
     def classify_phase(self, d):
-        """日照/地影判定：I_solar ≥ 阈值 的样本做 5 样本中心滚动**多数表决**
-        （布尔均值 ≥ 0.5，抗单点毛刺；非中值滤波——09 号文档旧表述"滚动中值"
-        已按实现修正）。        """
-        sun = d['I_solar'] >= self.design['sun_I_threshold_A']
-        # 在时间缺口（>3×dt_seconds）处先切段，避免跨越数日的样本被同一
-        # 5 样本窗口平滑（突发采样下索引相邻 ≠ 时间相邻）。
+        """光照状态为主判据；缺测时用电流极值回退。
+
+        缺少极值的旧输入才沿用分段 5 样本多数表决，且不能把缺测判成地影。
+        """
+        threshold = self.design['sun_I_threshold_A']
+        solar_code = self.cols['solar_I']
+        min_col, max_col = f'{solar_code}__mn', f'{solar_code}__mx'
+        if min_col in self.wide and max_col in self.wide:
+            low = pd.to_numeric(self.wide[min_col], errors='coerce')
+            high = pd.to_numeric(self.wide[max_col], errors='coerce')
+            valid = np.isfinite(low) & np.isfinite(high) & (low <= high)
+            d['phase'] = np.select(
+                [valid & (low >= threshold), valid & (high < threshold)],
+                ['日照', '地影'], default='未判定')
+            return self._apply_phase_flag(d)
+        known = d['I_solar'].notna()
+        sun = d['I_solar'] >= threshold
+        # 旧输入在时间缺口处切段，避免跨越数日平滑。
         dt = self.design['dt_seconds']
         if isinstance(d.index, pd.DatetimeIndex) and len(d) >= 2:
             gaps = d.index.to_series().diff().dt.total_seconds()
@@ -188,47 +221,113 @@ class EnergyBalanceEvaluator:
                 lambda s: s.rolling(5, center=True, min_periods=1).mean())
         else:
             roll = sun.rolling(5, center=True, min_periods=1).mean()
-        d['phase'] = np.where(roll >= 0.5, '日照', '地影')
+        d['phase'] = np.where(~known, '未判定', np.where(roll >= 0.5, '日照', '地影'))
+        return self._apply_phase_flag(d)
+
+    def _apply_phase_flag(self, d):
+        solar_code = self.cols['solar_I']
+        fallback_phase = d['phase'].copy()
+        d['phase_source'] = np.where(d['phase'].eq('未判定'), '未判定', f'{solar_code}_回退')
+        d['phase_conflict'] = False
+        if not self.phase_code:
+            return d
+        state_col = f'{self.phase_code}__state'
+        state = (self.wide[state_col].astype('string').str.strip()
+                 if state_col in self.wide else pd.Series(pd.NA, index=d.index, dtype='string'))
+        if self.phase_code in self.wide:
+            numeric = pd.to_numeric(self.wide[self.phase_code], errors='coerce')
+            state = state.mask(state.isna() & numeric.eq(1), self.phase_labels[0])
+            state = state.mask(state.isna() & numeric.eq(0), self.phase_labels[1])
+            low_col, high_col = f'{self.phase_code}__mn', f'{self.phase_code}__mx'
+            if low_col in self.wide and high_col in self.wide:
+                low = pd.to_numeric(self.wide[low_col], errors='coerce')
+                high = pd.to_numeric(self.wide[high_col], errors='coerce')
+                state = state.mask(state.isna() & low.eq(0) & high.eq(1), '__mixed__')
+            state = state.mask(state.isna() & numeric.notna(), '__invalid_numeric__')
+        sun_flag = state.isin([self.phase_labels[0], '1'])
+        eclipse_flag = state.isin([self.phase_labels[1], '0'])
+        d['phase_conflict'] = ((sun_flag & fallback_phase.eq('地影')) |
+                               (eclipse_flag & fallback_phase.eq('日照')))
+        mixed = state.eq('__mixed__').fillna(False)
+        invalid = (state.notna() & state.ne('') &
+                   ~sun_flag & ~eclipse_flag & ~mixed).fillna(False)
+        for mask, phase, source in (
+            (sun_flag, '日照', self.phase_code),
+            (eclipse_flag, '地影', self.phase_code),
+            (mixed, '未判定', f'{self.phase_code}_切换'),
+            (invalid, '未判定', f'{self.phase_code}_异常'),
+        ):
+            d.loc[mask, 'phase'] = phase
+            d.loc[mask, 'phase_source'] = source
         return d
 
     # ---------------------------------------------------------------- 储能层
     def estimate_battery(self, d):
         """逐样本电压锚定 SOC + 充放拆分（全向量化，可接连续遥测）。
 
-        v2.1 简化（S3R 拓扑）：分流不再建模——母线电流测点已在 S3R 上游
-        扣除分流，故：
-          富余 P_excess ≥ 0 → 全部计充电（不管 SOC 是否已满：满充后 S3R
-                             会自动分流，母线电流随之下降，充电自然趋 0）；
-          缺口 P_excess < 0 → 全部计放电。
+        P_charge/P_disch 为历史兼容字段，仅把 P_excess 按正负拆分。
+        设计方案说明 PCDU 充电控制与不调节母线耦合，但 TMD017 是否覆盖
+        充电支路待核；此拆分不能判定实际充电/放电功率或方向。
 
         缺测处理（重要）：
-          - V_bat 缺测：SOC 落 soc_unknown 占位，但从 SOC 派生的所有量
-            （charge/disch）清零，不臆造；
-          - P_excess 缺测（上游 V_bus/I_load/I_bus 任一缺测）：charge/disch
-            也清零，避免把 NaN 传进能量统计的 skipna 求和形成"静默 0"假象。
+          - V_bat 缺测：SOC/DoD 保持 NaN；功率差额仍可独立计算；
+          - P_excess 缺测：charge/disch 保持 NaN，能量层排除该样本。
         """
         vb = d['V_bat'].to_numpy(dtype=float)
         pex = d['P_excess'].to_numpy(dtype=float)
         n = len(d)
-        vs = V_SOC_TABLE[:, 0]; socs = V_SOC_TABLE[:, 1]
-        known = ~np.isnan(vb)
-        soc = np.full(n, self.design['soc_unknown'])
+        vs = self.v_soc_table[:, 0]; socs = self.v_soc_table[:, 1]
+        known = np.isfinite(vb)
+        soc = np.full(n, np.nan)
         soc[known] = np.interp(np.clip(vb[known], vs[0], vs[-1]), vs, socs)
-        soc = np.clip(soc, self.design['soc_floor'], 1.0)
+        soc[known] = np.clip(soc[known], self.design['soc_floor'], 1.0)
 
         surplus = pex >= 0
         p_charge = np.where(surplus, pex, 0.0)
         p_disch = np.where(~surplus, pex, 0.0)
-        # 缺测样本不臆造充放；P_excess 缺测一并清零（否则 NaN 渗入 P_disch）
-        invalid = ~known | np.isnan(pex)
-        p_charge[invalid] = 0.0; p_disch[invalid] = 0.0
+        invalid = ~np.isfinite(pex)
+        p_charge[invalid] = np.nan; p_disch[invalid] = np.nan
 
         d['SOC'] = soc * 100.0
         d['DoD'] = (1 - soc) * 100.0
-        # 显式记录 SOC 是否来自实测电压锚定（统计层据此剔除占位样本）
+        # 显式记录 SOC 是否来自实测电压锚定。
         d['SOC_observed'] = known
         d['P_charge'] = p_charge
         d['P_disch'] = p_disch
+        return d
+
+    def assign_battery_switch_direction(self, d):
+        """按已指定的开关语义赋放电正号；断开不等同于充电。"""
+        spec = self.battery_direction
+        d['battery_switch_state'] = ''
+        d['battery_direction_rule'] = '未判定'
+        d['I_battery_switch_signed_A'] = np.nan
+        d['P_battery_terminal_switch_W'] = np.nan
+        d['battery_direction_conflict'] = False
+        if not spec:
+            return d
+        switch_code = spec['switch_code']
+        state_col = f'{switch_code}__state'
+        state = (self.wide[state_col].astype('string').str.strip()
+                 if state_col in self.wide else pd.Series(pd.NA, index=d.index, dtype='string'))
+        d['battery_switch_state'] = state.fillna('')
+        on = state.eq(spec['discharge_state']).fillna(False)
+        d.loc[on, 'battery_direction_rule'] = '放电（开关规则）'
+        current_code = spec['current_code']
+        current = (pd.to_numeric(self.wide[current_code], errors='coerce')
+                   if current_code in self.wide else pd.Series(np.nan, index=d.index))
+        limit = float(spec.get('current_limit_A', 100))
+        valid = np.isfinite(current) & current.ge(0) & current.le(limit)
+        min_col, max_col = f'{current_code}__mn', f'{current_code}__mx'
+        if min_col in self.wide and max_col in self.wide:
+            low = pd.to_numeric(self.wide[min_col], errors='coerce')
+            high = pd.to_numeric(self.wide[max_col], errors='coerce')
+            valid &= np.isfinite(low) & np.isfinite(high) & low.ge(0) & high.le(limit) & low.le(high)
+        signed = current.where(on & valid)
+        d['I_battery_switch_signed_A'] = signed
+        d['P_battery_terminal_switch_W'] = signed * d['V_bat']
+        d['battery_direction_conflict'] = (on & d['I_load'].notna() & d['I_bus'].notna() &
+                                           d['I_load'].lt(d['I_bus']))
         return d
 
     # ---------------------------------------------------------------- 统计层
@@ -249,7 +348,7 @@ class EnergyBalanceEvaluator:
                 out[key + '_mean'] = float(s.mean())
                 out[key + '_p5'] = float(s.quantile(.05))
                 out[key + '_p95'] = float(s.quantile(.95))
-        # SOC 仅统计实测（V_bat 锚定）样本，剔除 soc_unknown 占位
+        # SOC 仅统计实测（V_bat 锚定）样本。
         if 'SOC' in sub:
             if 'SOC_observed' in sub.columns:
                 obs = sub[sub['SOC_observed']]['SOC']
@@ -266,22 +365,26 @@ class EnergyBalanceEvaluator:
         """工况能量收支（kWh）。每样本按 design['dt_seconds'] 名义间隔折算，
         只计有观测的样本、不对缺口外推（与 gen_charts 同原则）。
 
-        两个量的区别（重要，v2.1 口径）：
+        e_solar/e_batnet/e_charge/e_disch 均为历史字段名；其中 e_solar 是
+        TMD017 测点折算能量，后三者是与负载测点差额的拆分，非实测电池电量。
+        两类诊断量的区别：
           e_residual     = e_solar - e_load - e_batnet
                            恒等于 0（因 P_charge+P_disch ≡ P_excess 且
                            P_excess ≡ P_solar−P_load 由构造保证），
                            **不具备模型校验能力**，仅保留作记账恒等式；
           e_shunt_diag   = Σ[(I_solar−I_bus)×V_bus]dt，帆板级(TMD009)与
-                           母线级(TMD017)两个**独立测点**的功率差，物理上
-                           应 ≥0（S3R 分流 + PCU 变换损耗的等效值），
-                           是 v2.1 下有判别力的交叉校验量。持续为负说明
-                           电流测点间存在系统偏差（需查测点拓扑）。
+                           TMD017 的测点差额。负值值得检查测点拓扑、
+                           时序与噪声；正值可能含充电支路，不能直接解释为分流或损耗。
         """
-        sub = d[d['phase'] == phase]
+        phase_rows = d[d['phase'] == phase]
+        valid = np.isfinite(phase_rows[['P_solar', 'P_load', 'P_excess']]).all(axis=1)
+        sub = phase_rows.loc[valid]
+        excluded = int((~valid).sum())
         if len(sub) == 0:
-            return dict(e_solar=0, e_load=0, e_batnet=0, e_shunt_diag=0,
-                        e_charge=0, e_disch=0, e_residual=0, e_shunt_diag_kWh=0,
-                        e_solar_panel_kWh=0)
+            return dict(e_solar_kWh=0.0, e_load_kWh=0.0, e_batnet_kWh=0.0,
+                        e_shunt_diag_kWh=0.0, e_charge_kWh=0.0, e_disch_kWh=0.0,
+                        e_residual_kWh=0.0, e_solar_panel_kWh=0.0,
+                        n_energy_samples=0, n_excluded_power_samples=excluded)
         def esum(col):
             return float(pd.to_numeric(sub[col], errors='coerce').sum())
         dt = self.design['dt_seconds'] / 3600.0 / 1000.0   # kWh per sample
@@ -291,12 +394,13 @@ class EnergyBalanceEvaluator:
         # 帆板级发电（诊断口径）：I_solar × V_bus
         e_solar_panel = float((pd.to_numeric(sub['I_solar'], errors='coerce') *
                                pd.to_numeric(sub['V_bus'], errors='coerce')).sum())*dt
-        e_batnet = e_charge + e_disch          # 电池净获电（+充/-放）
+        e_batnet = e_charge + e_disch          # 历史字段：两测点能量差，非电池净获电
         e_residual = e_solar - e_load - e_batnet   # 恒等式（≡0）
         return dict(e_solar_kWh=e_solar, e_load_kWh=e_load,
                     e_batnet_kWh=e_batnet, e_shunt_diag_kWh=e_shunt_diag,
                     e_charge_kWh=e_charge, e_disch_kWh=e_disch,
-                    e_residual_kWh=e_residual, e_solar_panel_kWh=e_solar_panel)
+                    e_residual_kWh=e_residual, e_solar_panel_kWh=e_solar_panel,
+                    n_energy_samples=int(len(sub)), n_excluded_power_samples=excluded)
 
     # ---------------------------------------------------------------- 汇总层
     def _gap_diagnostics(self, d):
@@ -312,11 +416,14 @@ class EnergyBalanceEvaluator:
         d = self.compute_power()
         d = self.classify_phase(d)
         d = self.estimate_battery(d)
+        d = self.assign_battery_switch_direction(d)
         res = dict(df=d)
         res['sun'] = self.phase_summary(d, '日照')
         res['ecl'] = self.phase_summary(d, '地影')
         res['e_sun'] = self.energy(d, '日照')
         res['e_ecl'] = self.energy(d, '地影')
+        res['unknown'] = self.phase_summary(d, '未判定')
+        res['e_unknown'] = self.energy(d, '未判定')
         self.df = d
         self.phase = res
         # 综合指标
@@ -324,10 +431,11 @@ class EnergyBalanceEvaluator:
         margin = None; dod_p95 = None; soc_p5 = None; soc_min = None; vbus_stab = None
         if sun:
             pl = sun.get('P_load_mean')
-            if pl and pl > 0:
-                margin = (sun.get('P_solar_mean', 0) - pl) / pl * 100
+            ps = sun.get('P_solar_mean')
+            if pl and pl > 0 and ps is not None:
+                margin = (ps - pl) / pl * 100
         if 'SOC' in d.columns:
-            # 仅用实测锚定样本统计，避免 soc_unknown 占位值污染分位数
+            # 仅用实测锚定样本统计，避免缺测污染分位数。
             observed = d[d['SOC_observed']] if 'SOC_observed' in d.columns else d
             if len(observed):
                 dod_p95 = float(observed['DoD'].quantile(.95))  # DoD already in %
@@ -337,18 +445,35 @@ class EnergyBalanceEvaluator:
         if len(vb) >= 2:  # 至少两个有效样本才能计算 p95-p5 展宽
             vbus_stab = (vb.quantile(.95) - vb.quantile(.05)) / vb.median() * 100
         gap_max, n_gaps = self._gap_diagnostics(d)
+        span_seconds = ((d.index.max()-d.index.min()).total_seconds()
+                        if len(d) >= 2 else 0.0)
+        classified = int(d['phase'].isin(['日照', '地影']).sum())
+        unknown = int((d['phase'] == '未判定').sum())
+        negative_shunt = int((d['P_shunt_diag'] < 0).sum())
         self.metrics = dict(
             n_samples=int(len(d)),
-            time_span_days=float((d.index.max()-d.index.min()).total_seconds()/86400),
-            sun_ratio=float((d['phase']=='日照').mean()),
+            time_span_days=float(span_seconds/86400),
+            calendar_minute_coverage=(float(len(d) / (span_seconds / self.design['dt_seconds'] + 1))
+                                      if len(d) else 0.0),
+            n_phase_classified=classified,
+            n_phase_unknown=unknown,
+            n_phase_conflict=int(d['phase_conflict'].sum()),
+            n_battery_switch_discharge=int(d['battery_direction_rule'].eq('放电（开关规则）').sum()),
+            n_battery_switch_current_valid=int(d['I_battery_switch_signed_A'].notna().sum()),
+            n_battery_direction_conflict=int(d['battery_direction_conflict'].sum()),
+            phase_source_counts={str(k): int(v) for k, v in
+                                 d['phase_source'].value_counts().items()},
+            phase_known_ratio=float(classified / len(d)) if len(d) else 0.0,
+            sun_ratio=float((d['phase']=='日照').sum() / classified) if classified else None,
             sample_dt_seconds=self.design['dt_seconds'],
             gap_max_seconds=gap_max,
             n_gaps_gt_3x_dt=n_gaps,
+            n_negative_shunt_diag=negative_shunt,
             margin_pct=round(margin,1) if margin is not None else None,
             dod_p95_pct=round(dod_p95,1) if dod_p95 is not None else None,
             soc_p5_pct=round(soc_p5,1) if soc_p5 is not None else None,
             soc_absolute_min_pct=round(soc_min,1) if soc_min is not None else None,
-            vbus_stability_pct=round(vbus_stab,2) if vbus_stab is not None else None,
+            vbus_stability_pct=round(float(vbus_stab),2) if vbus_stab is not None else None,
         )
         self.health = self._health()
         return d, self.metrics, self.health, res
@@ -376,7 +501,11 @@ class EnergyBalanceEvaluator:
         # 并报告评分覆盖率，便于判断结论的可靠程度。
         avail = [k for k in ss if ss[k] is not None]
         wsum = sum(w[k] for k in avail)
-        hs = (sum(ss[k] * w[k] for k in avail) / wsum) if wsum else 0.0
-        lvl = ('优秀' if hs >= 90 else '良好' if hs >= 75 else '一般' if hs >= 60 else '较差')
+        hs = (sum(ss[k] * w[k] for k in avail) / wsum) if wsum else None
+        lvl = ('无法评分' if hs is None else
+               '优秀' if hs >= 90 else '良好' if hs >= 75 else
+               '一般' if hs >= 60 else '较差')
         return dict(hs=hs, level=lvl, subscores=ss,
-                    coverage=round(wsum, 3))
+                    coverage=round(wsum, 3), scope='观测样本',
+                    period_assessment=None,
+                    measurement_validation='缺少独立电池支路功率测量')

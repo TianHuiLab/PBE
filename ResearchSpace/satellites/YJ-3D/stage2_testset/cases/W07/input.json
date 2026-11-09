@@ -1,0 +1,205 @@
+{
+  "time": "2026-09-10T18:41:00+08:00",
+  "prediction": {
+    "end": "2026-09-10T19:30:00+08:00",
+    "step_seconds": 60,
+    "phase_segments": [
+      {
+        "start": "2026-09-10T18:41:00+08:00",
+        "end": "2026-09-10T19:30:00+08:00",
+        "phase": "sun"
+      }
+    ],
+    "tasks": [
+      {
+        "start": "2026-09-10T18:41:00",
+        "end": "2026-09-10T19:27:00",
+        "unit": "pl13",
+        "run_mode": "idle",
+        "after_mode": "idle"
+      },
+      {
+        "start": "2026-09-10T19:27:00",
+        "end": "2026-09-10T19:30:00",
+        "unit": "pl13",
+        "run_mode": "active",
+        "after_mode": "active"
+      },
+      {
+        "start": "2026-09-10T18:41:00",
+        "end": "2026-09-10T19:26:00",
+        "unit": "pl17",
+        "run_mode": "idle",
+        "after_mode": "idle"
+      },
+      {
+        "start": "2026-09-10T19:26:00",
+        "end": "2026-09-10T19:30:00",
+        "unit": "pl17",
+        "run_mode": "active",
+        "after_mode": "active"
+      },
+      {
+        "start": "2026-09-10T18:41:00",
+        "end": "2026-09-10T18:42:00",
+        "unit": "pl19",
+        "run_mode": "idle",
+        "after_mode": "idle"
+      },
+      {
+        "start": "2026-09-10T18:42:00",
+        "end": "2026-09-10T18:49:00",
+        "unit": "pl19",
+        "run_mode": "active",
+        "after_mode": "active"
+      },
+      {
+        "start": "2026-09-10T18:49:00",
+        "end": "2026-09-10T18:55:00",
+        "unit": "pl19",
+        "run_mode": "idle",
+        "after_mode": "idle"
+      },
+      {
+        "start": "2026-09-10T18:55:00",
+        "end": "2026-09-10T19:02:00",
+        "unit": "pl19",
+        "run_mode": "active",
+        "after_mode": "active"
+      },
+      {
+        "start": "2026-09-10T19:02:00",
+        "end": "2026-09-10T19:11:00",
+        "unit": "pl19",
+        "run_mode": "idle",
+        "after_mode": "idle"
+      },
+      {
+        "start": "2026-09-10T19:11:00",
+        "end": "2026-09-10T19:15:00",
+        "unit": "pl19",
+        "run_mode": "active",
+        "after_mode": "active"
+      },
+      {
+        "start": "2026-09-10T19:15:00",
+        "end": "2026-09-10T19:30:00",
+        "unit": "pl19",
+        "run_mode": "idle",
+        "after_mode": "idle"
+      },
+      {
+        "start": "2026-09-10T18:41:00",
+        "end": "2026-09-10T18:51:00",
+        "unit": "heater_battery_main",
+        "run_mode": "active",
+        "after_mode": "active"
+      },
+      {
+        "start": "2026-09-10T18:51:00",
+        "end": "2026-09-10T19:22:00",
+        "unit": "heater_battery_main",
+        "run_mode": "idle",
+        "after_mode": "idle"
+      },
+      {
+        "start": "2026-09-10T19:22:00",
+        "end": "2026-09-10T19:30:00",
+        "unit": "heater_battery_main",
+        "run_mode": "active",
+        "after_mode": "active"
+      },
+      {
+        "start": "2026-09-10T18:41:00",
+        "end": "2026-09-10T18:55:00",
+        "unit": "heater_star_a_main",
+        "run_mode": "idle",
+        "after_mode": "idle"
+      },
+      {
+        "start": "2026-09-10T18:55:00",
+        "end": "2026-09-10T18:58:00",
+        "unit": "heater_star_a_main",
+        "run_mode": "active",
+        "after_mode": "active"
+      },
+      {
+        "start": "2026-09-10T18:58:00",
+        "end": "2026-09-10T19:30:00",
+        "unit": "heater_star_a_main",
+        "run_mode": "idle",
+        "after_mode": "idle"
+      },
+      {
+        "start": "2026-09-10T18:41:00",
+        "end": "2026-09-10T18:49:00",
+        "unit": "heater_star_b_main",
+        "run_mode": "idle",
+        "after_mode": "idle"
+      },
+      {
+        "start": "2026-09-10T18:49:00",
+        "end": "2026-09-10T18:56:00",
+        "unit": "heater_star_b_main",
+        "run_mode": "active",
+        "after_mode": "active"
+      },
+      {
+        "start": "2026-09-10T18:56:00",
+        "end": "2026-09-10T19:02:00",
+        "unit": "heater_star_b_main",
+        "run_mode": "idle",
+        "after_mode": "idle"
+      },
+      {
+        "start": "2026-09-10T19:02:00",
+        "end": "2026-09-10T19:11:00",
+        "unit": "heater_star_b_main",
+        "run_mode": "active",
+        "after_mode": "active"
+      },
+      {
+        "start": "2026-09-10T19:11:00",
+        "end": "2026-09-10T19:17:00",
+        "unit": "heater_star_b_main",
+        "run_mode": "idle",
+        "after_mode": "idle"
+      },
+      {
+        "start": "2026-09-10T19:17:00",
+        "end": "2026-09-10T19:23:00",
+        "unit": "heater_star_b_main",
+        "run_mode": "active",
+        "after_mode": "active"
+      },
+      {
+        "start": "2026-09-10T19:23:00",
+        "end": "2026-09-10T19:28:00",
+        "unit": "heater_star_b_main",
+        "run_mode": "idle",
+        "after_mode": "idle"
+      },
+      {
+        "start": "2026-09-10T19:28:00",
+        "end": "2026-09-10T19:30:00",
+        "unit": "heater_star_b_main",
+        "run_mode": "active",
+        "after_mode": "active"
+      },
+      {
+        "start": "2026-09-10T18:41:00",
+        "end": "2026-09-10T19:25:00",
+        "unit": "heater_propulsion_main",
+        "run_mode": "active",
+        "after_mode": "active"
+      },
+      {
+        "start": "2026-09-10T19:25:00",
+        "end": "2026-09-10T19:30:00",
+        "unit": "heater_propulsion_main",
+        "run_mode": "idle",
+        "after_mode": "idle"
+      }
+    ]
+  }
+}

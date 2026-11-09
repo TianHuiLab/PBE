@@ -1,0 +1,1955 @@
+{
+  "schema_version": "1.0",
+  "satellite_id": "YJ-3D",
+  "validation": {
+    "method": "date_grouped_holdout_frozen_snapshot",
+    "n_windows": 10,
+    "validation_dates": [
+      "2026-07-24",
+      "2026-07-28",
+      "2026-08-01",
+      "2026-08-02",
+      "2026-08-05",
+      "2026-08-10",
+      "2026-09-10",
+      "2026-09-11",
+      "2026-09-12"
+    ],
+    "effective_dates": 9,
+    "excluded_dates": [
+      "2026-07-24",
+      "2026-07-28",
+      "2026-08-01",
+      "2026-08-02",
+      "2026-08-05",
+      "2026-08-10",
+      "2026-09-10",
+      "2026-09-11",
+      "2026-09-12"
+    ]
+  },
+  "metrics": {
+    "soc_abs_error_pp": {
+      "n_windows": 7,
+      "effective_dates": 7,
+      "window_equal": {
+        "mean": 0.14907891632661371,
+        "median": 0.0,
+        "p95": 0.583532283771525,
+        "date_equal_mean": 0.14907891632661371,
+        "bootstrap_95_ci": [
+          0.010805481624176747,
+          0.35847753839547636
+        ],
+        "bootstrap_date_cluster_95_ci": [
+          0.010805481624176747,
+          0.35847753839547636
+        ],
+        "bootstrap": {
+          "mean": 0.14907891632661371,
+          "lower": 0.010805481624176747,
+          "upper": 0.35847753839547636,
+          "confidence": 0.95,
+          "samples": 10000,
+          "seed": 20261104,
+          "sampling_unit": "date",
+          "n_dates": 7
+        }
+      },
+      "duration_weighted_mean": null,
+      "energy_weighted_mean": null
+    },
+    "solar_energy_abs_relative_error_pct": {
+      "n_windows": 10,
+      "effective_dates": 9,
+      "window_equal": {
+        "mean": 11.350061276601611,
+        "median": 11.002877805374075,
+        "p95": 26.833723212065763,
+        "date_equal_mean": 11.715184176706718,
+        "bootstrap_95_ci": [
+          6.155921241871235,
+          18.263589609602263
+        ],
+        "bootstrap_date_cluster_95_ci": [
+          6.155921241871235,
+          18.263589609602263
+        ],
+        "bootstrap": {
+          "mean": 11.715184176706718,
+          "lower": 6.155921241871235,
+          "upper": 18.263589609602263,
+          "confidence": 0.95,
+          "samples": 10000,
+          "seed": 20261104,
+          "sampling_unit": "date",
+          "n_dates": 9
+        }
+      },
+      "duration_weighted_mean": null,
+      "energy_weighted_mean": null
+    },
+    "load_energy_abs_relative_error_pct": {
+      "n_windows": 7,
+      "effective_dates": 7,
+      "window_equal": {
+        "mean": 3.88210961873479,
+        "median": 3.8887834694218317,
+        "p95": 7.144008526556528,
+        "date_equal_mean": 3.88210961873479,
+        "bootstrap_95_ci": [
+          2.54402368434672,
+          5.488490043891292
+        ],
+        "bootstrap_date_cluster_95_ci": [
+          2.54402368434672,
+          5.488490043891292
+        ],
+        "bootstrap": {
+          "mean": 3.88210961873479,
+          "lower": 2.54402368434672,
+          "upper": 5.488490043891292,
+          "confidence": 0.95,
+          "samples": 10000,
+          "seed": 20261104,
+          "sampling_unit": "date",
+          "n_dates": 7
+        }
+      },
+      "duration_weighted_mean": null,
+      "energy_weighted_mean": null
+    }
+  },
+  "metrics_context": {
+    "evaluation_mode": "frozen_snapshot",
+    "background_policy": "window_start_snapshot",
+    "unit_model_split": "date_grouped_holdout",
+    "solar_model_split": "date_grouped_holdout",
+    "unit_model_path": "power_model/physical_unit_holdout_models.json",
+    "branch_unit_model_path": "power_model/unit_task_holdout_models.json",
+    "unit_data_path": "power_model/physical_unit_power_minute.csv",
+    "physical_config_path": "power_model/physical_unit_components.json",
+    "solar_model_path": "power_model/solar_power_model_holdout_20260728.json",
+    "usage": "条件历史留出主指标",
+    "validation_split": {
+      "split_unit": "date",
+      "n_dates": 9,
+      "dates": [
+        "2026-07-24",
+        "2026-07-28",
+        "2026-08-01",
+        "2026-08-02",
+        "2026-08-05",
+        "2026-08-10",
+        "2026-09-10",
+        "2026-09-11",
+        "2026-09-12"
+      ],
+      "source": "power_model/unit_task_validation_summary.json"
+    },
+    "source": "stage2_testset/evaluation_summary.json"
+  },
+  "diagnostic_metrics": {
+    "soc_abs_error_pp": {
+      "n_windows": 10,
+      "effective_dates": 9,
+      "window_equal": {
+        "mean": 0.4715124211789785,
+        "median": 0.15532861852263835,
+        "p95": 1.5427399171849527,
+        "date_equal_mean": 0.37450004899227923,
+        "bootstrap_95_ci": [
+          0.08143279747122437,
+          0.7151850126965084
+        ],
+        "bootstrap_date_cluster_95_ci": [
+          0.08143279747122437,
+          0.7151850126965084
+        ],
+        "bootstrap": {
+          "mean": 0.37450004899227923,
+          "lower": 0.08143279747122437,
+          "upper": 0.7151850126965084,
+          "confidence": 0.95,
+          "samples": 10000,
+          "seed": 20261104,
+          "sampling_unit": "date",
+          "n_dates": 9
+        }
+      },
+      "duration_weighted_mean": null,
+      "energy_weighted_mean": null
+    },
+    "solar_energy_abs_relative_error_pct": {
+      "n_windows": 10,
+      "effective_dates": 9,
+      "window_equal": {
+        "mean": 13.120532128342948,
+        "median": 10.463562592807024,
+        "p95": 37.99507333767564,
+        "date_equal_mean": 12.172417344714573,
+        "bootstrap_95_ci": [
+          6.400269361246981,
+          18.50043947483823
+        ],
+        "bootstrap_date_cluster_95_ci": [
+          6.400269361246981,
+          18.50043947483823
+        ],
+        "bootstrap": {
+          "mean": 12.172417344714573,
+          "lower": 6.400269361246981,
+          "upper": 18.50043947483823,
+          "confidence": 0.95,
+          "samples": 10000,
+          "seed": 20261104,
+          "sampling_unit": "date",
+          "n_dates": 9
+        }
+      },
+      "duration_weighted_mean": null,
+      "energy_weighted_mean": null
+    },
+    "load_energy_abs_relative_error_pct": {
+      "n_windows": 10,
+      "effective_dates": 9,
+      "window_equal": {
+        "mean": 4.159360712699146,
+        "median": 3.295074361576231,
+        "p95": 9.707394194903493,
+        "date_equal_mean": 3.9206530921283678,
+        "bootstrap_95_ci": [
+          2.654960210986203,
+          5.381260058854369
+        ],
+        "bootstrap_date_cluster_95_ci": [
+          2.654960210986203,
+          5.381260058854369
+        ],
+        "bootstrap": {
+          "mean": 3.9206530921283678,
+          "lower": 2.654960210986203,
+          "upper": 5.381260058854369,
+          "confidence": 0.95,
+          "samples": 10000,
+          "seed": 20261104,
+          "sampling_unit": "date",
+          "n_dates": 9
+        }
+      },
+      "duration_weighted_mean": null,
+      "energy_weighted_mean": null
+    }
+  },
+  "diagnostic_metrics_context": {
+    "evaluation_mode": "raw_ungated_sensitivity",
+    "usage": "保留越界电量、原始BCR尖峰和未通过SOC质检窗口的诊断值"
+  },
+  "soc_saturation": {
+    "criterion": "observed_target_soc >= 1 - 1e-6；预测触顶单独计数，不改变分组",
+    "all": {
+      "n_windows": 7,
+      "mae_pp": 0.14907891632661371,
+      "p95_abs_pp": 0.583532283771525,
+      "zero_error_count": 4,
+      "predicted_ceiling_count": 6
+    },
+    "observed_saturated": {
+      "n_windows": 4,
+      "mae_pp": 0.0,
+      "p95_abs_pp": 0.0,
+      "zero_error_count": 4,
+      "predicted_ceiling_count": 4
+    },
+    "observed_non_saturated": {
+      "n_windows": 3,
+      "mae_pp": 0.3478508047620987,
+      "p95_abs_pp": 0.6831075460845213,
+      "zero_error_count": 0,
+      "predicted_ceiling_count": 2
+    }
+  },
+  "raw_soc_saturation": {
+    "criterion": "observed_target_soc >= 1 - 1e-6；预测触顶单独计数，不改变分组",
+    "all": {
+      "n_windows": 10,
+      "mae_pp": 0.46177368257283025,
+      "p95_abs_pp": 1.5308329591042176,
+      "zero_error_count": 5,
+      "predicted_ceiling_count": 9
+    },
+    "observed_saturated": {
+      "n_windows": 5,
+      "mae_pp": 0.0,
+      "p95_abs_pp": 0.0,
+      "zero_error_count": 5,
+      "predicted_ceiling_count": 5
+    },
+    "observed_non_saturated": {
+      "n_windows": 5,
+      "mae_pp": 0.9235473651456605,
+      "p95_abs_pp": 1.7801550969766031,
+      "zero_error_count": 0,
+      "predicted_ceiling_count": 4
+    }
+  },
+  "background_load": {
+    "method": "固定值取窗口起点或此前最近同工况值；滚动值只使用窗口开始前同工况分钟的中位数，不读取窗口内未来遥测",
+    "windows": [
+      {
+        "start": "2026-07-24T09:11:00",
+        "end": "2026-07-24T09:37:00",
+        "phase": "日照",
+        "observed_minutes": 27,
+        "models": {
+          "fixed": {
+            "predicted_background_W": 50.174167478063985,
+            "observed_background_mean_W": 48.15149020069871,
+            "signed_error_W": 2.0226772773652755,
+            "absolute_error_W": 2.0226772773652755,
+            "relative_error_pct": 4.200653539349703
+          },
+          "rolling_30m": {
+            "predicted_background_W": null,
+            "observed_background_mean_W": 48.15149020069871,
+            "signed_error_W": null,
+            "absolute_error_W": null,
+            "relative_error_pct": null,
+            "history_minutes_available": 0,
+            "status": "insufficient_history"
+          },
+          "rolling_60m": {
+            "predicted_background_W": null,
+            "observed_background_mean_W": 48.15149020069871,
+            "signed_error_W": null,
+            "absolute_error_W": null,
+            "relative_error_pct": null,
+            "history_minutes_available": 0,
+            "status": "insufficient_history"
+          }
+        }
+      },
+      {
+        "start": "2026-07-28T16:22:00",
+        "end": "2026-07-28T17:11:00",
+        "phase": "日照",
+        "observed_minutes": 50,
+        "models": {
+          "fixed": {
+            "predicted_background_W": 46.32133045553266,
+            "observed_background_mean_W": 36.0821594096768,
+            "signed_error_W": 10.239171045855862,
+            "absolute_error_W": 10.239171045855862,
+            "relative_error_pct": 28.37737877492399
+          },
+          "rolling_30m": {
+            "predicted_background_W": null,
+            "observed_background_mean_W": 36.0821594096768,
+            "signed_error_W": null,
+            "absolute_error_W": null,
+            "relative_error_pct": null,
+            "history_minutes_available": 0,
+            "status": "insufficient_history"
+          },
+          "rolling_60m": {
+            "predicted_background_W": null,
+            "observed_background_mean_W": 36.0821594096768,
+            "signed_error_W": null,
+            "absolute_error_W": null,
+            "relative_error_pct": null,
+            "history_minutes_available": 0,
+            "status": "insufficient_history"
+          }
+        }
+      },
+      {
+        "start": "2026-08-01T21:49:00",
+        "end": "2026-08-01T23:09:00",
+        "phase": "日照",
+        "observed_minutes": 81,
+        "models": {
+          "fixed": {
+            "predicted_background_W": 101.00714643301089,
+            "observed_background_mean_W": 66.66196405519288,
+            "signed_error_W": 34.345182377818006,
+            "absolute_error_W": 34.345182377818006,
+            "relative_error_pct": 51.52140784418211
+          },
+          "rolling_30m": {
+            "predicted_background_W": 68.42729771383401,
+            "observed_background_mean_W": 66.66196405519288,
+            "signed_error_W": 1.7653336586411257,
+            "absolute_error_W": 1.7653336586411257,
+            "relative_error_pct": 2.6481872889006315,
+            "history_minutes_available": 15,
+            "status": "ok"
+          },
+          "rolling_60m": {
+            "predicted_background_W": 66.78564308988625,
+            "observed_background_mean_W": 66.66196405519288,
+            "signed_error_W": 0.12367903469336738,
+            "absolute_error_W": 0.12367903469336738,
+            "relative_error_pct": 0.1855316392882861,
+            "history_minutes_available": 45,
+            "status": "ok"
+          }
+        }
+      },
+      {
+        "start": "2026-08-02T08:57:00",
+        "end": "2026-08-02T10:18:00",
+        "phase": "日照",
+        "observed_minutes": 82,
+        "models": {
+          "fixed": {
+            "predicted_background_W": 69.23546847910762,
+            "observed_background_mean_W": 69.90719377042984,
+            "signed_error_W": -0.6717252913222183,
+            "absolute_error_W": 0.6717252913222183,
+            "relative_error_pct": -0.9608814988742295
+          },
+          "rolling_30m": {
+            "predicted_background_W": 66.3270271979919,
+            "observed_background_mean_W": 69.90719377042984,
+            "signed_error_W": -3.580166572437946,
+            "absolute_error_W": 3.580166572437946,
+            "relative_error_pct": -5.121313529184069,
+            "history_minutes_available": 16,
+            "status": "ok"
+          },
+          "rolling_60m": {
+            "predicted_background_W": 65.07065141025276,
+            "observed_background_mean_W": 69.90719377042984,
+            "signed_error_W": -4.836542360177077,
+            "absolute_error_W": 4.836542360177077,
+            "relative_error_pct": -6.918518823770743,
+            "history_minutes_available": 46,
+            "status": "ok"
+          }
+        }
+      },
+      {
+        "start": "2026-08-05T17:02:00",
+        "end": "2026-08-05T17:58:00",
+        "phase": "日照",
+        "observed_minutes": 57,
+        "models": {
+          "fixed": {
+            "predicted_background_W": 78.1736459092848,
+            "observed_background_mean_W": 70.32335274401274,
+            "signed_error_W": 7.850293165272063,
+            "absolute_error_W": 7.850293165272063,
+            "relative_error_pct": 11.163138358673363
+          },
+          "rolling_30m": {
+            "predicted_background_W": null,
+            "observed_background_mean_W": 70.32335274401274,
+            "signed_error_W": null,
+            "absolute_error_W": null,
+            "relative_error_pct": null,
+            "history_minutes_available": 0,
+            "status": "insufficient_history"
+          },
+          "rolling_60m": {
+            "predicted_background_W": null,
+            "observed_background_mean_W": 70.32335274401274,
+            "signed_error_W": null,
+            "absolute_error_W": null,
+            "relative_error_pct": null,
+            "history_minutes_available": 0,
+            "status": "insufficient_history"
+          }
+        }
+      },
+      {
+        "start": "2026-08-10T17:39:00",
+        "end": "2026-08-10T18:08:00",
+        "phase": "日照",
+        "observed_minutes": 30,
+        "models": {
+          "fixed": {
+            "predicted_background_W": 65.04718901465135,
+            "observed_background_mean_W": 70.29809437584437,
+            "signed_error_W": -5.25090536119302,
+            "absolute_error_W": 5.25090536119302,
+            "relative_error_pct": -7.469484639397737
+          },
+          "rolling_30m": {
+            "predicted_background_W": 61.889555845787086,
+            "observed_background_mean_W": 70.29809437584437,
+            "signed_error_W": -8.408538530057285,
+            "absolute_error_W": 8.408538530057285,
+            "relative_error_pct": -11.96126097686455,
+            "history_minutes_available": 24,
+            "status": "ok"
+          },
+          "rolling_60m": {
+            "predicted_background_W": 62.152745482931124,
+            "observed_background_mean_W": 70.29809437584437,
+            "signed_error_W": -8.145348892913248,
+            "absolute_error_W": 8.145348892913248,
+            "relative_error_pct": -11.586870121065655,
+            "history_minutes_available": 54,
+            "status": "ok"
+          }
+        }
+      },
+      {
+        "start": "2026-09-10T18:41:00",
+        "end": "2026-09-10T19:30:00",
+        "phase": "日照",
+        "observed_minutes": 50,
+        "models": {
+          "fixed": {
+            "predicted_background_W": 69.49382726440045,
+            "observed_background_mean_W": 70.40883582068382,
+            "signed_error_W": -0.9150085562833681,
+            "absolute_error_W": 0.9150085562833681,
+            "relative_error_pct": -1.2995649560428728
+          },
+          "rolling_30m": {
+            "predicted_background_W": 67.32074018588196,
+            "observed_background_mean_W": 70.40883582068382,
+            "signed_error_W": -3.08809563480186,
+            "absolute_error_W": 3.08809563480186,
+            "relative_error_pct": -4.385949005983533,
+            "history_minutes_available": 29,
+            "status": "ok"
+          },
+          "rolling_60m": {
+            "predicted_background_W": 68.72534071766674,
+            "observed_background_mean_W": 70.40883582068382,
+            "signed_error_W": -1.68349510301708,
+            "absolute_error_W": 1.68349510301708,
+            "relative_error_pct": -2.3910281762143892,
+            "history_minutes_available": 59,
+            "status": "ok"
+          }
+        }
+      },
+      {
+        "start": "2026-09-11T00:59:00",
+        "end": "2026-09-11T01:33:00",
+        "phase": "日照",
+        "observed_minutes": 35,
+        "models": {
+          "fixed": {
+            "predicted_background_W": 55.02846677793666,
+            "observed_background_mean_W": 64.78379697411516,
+            "signed_error_W": -9.755330196178505,
+            "absolute_error_W": 9.755330196178505,
+            "relative_error_pct": -15.058287182636606
+          },
+          "rolling_30m": {
+            "predicted_background_W": 56.833986461576615,
+            "observed_background_mean_W": 64.78379697411516,
+            "signed_error_W": -7.949810512538548,
+            "absolute_error_W": 7.949810512538548,
+            "relative_error_pct": -12.27129449623793,
+            "history_minutes_available": 26,
+            "status": "ok"
+          },
+          "rolling_60m": {
+            "predicted_background_W": 67.89634211724652,
+            "observed_background_mean_W": 64.78379697411516,
+            "signed_error_W": 3.1125451431313564,
+            "absolute_error_W": 3.1125451431313564,
+            "relative_error_pct": 4.804511758356795,
+            "history_minutes_available": 56,
+            "status": "ok"
+          }
+        }
+      },
+      {
+        "start": "2026-09-11T06:52:00",
+        "end": "2026-09-11T07:20:00",
+        "phase": "日照",
+        "observed_minutes": 29,
+        "models": {
+          "fixed": {
+            "predicted_background_W": 66.08687405394002,
+            "observed_background_mean_W": 70.91501148230817,
+            "signed_error_W": -4.8281374283681515,
+            "absolute_error_W": 4.8281374283681515,
+            "relative_error_pct": -6.808343293539015
+          },
+          "rolling_30m": {
+            "predicted_background_W": 65.20364134689632,
+            "observed_background_mean_W": 70.91501148230817,
+            "signed_error_W": -5.711370135411855,
+            "absolute_error_W": 5.711370135411855,
+            "relative_error_pct": -8.053823888665269,
+            "history_minutes_available": 29,
+            "status": "ok"
+          },
+          "rolling_60m": {
+            "predicted_background_W": 65.6161176317319,
+            "observed_background_mean_W": 70.91501148230817,
+            "signed_error_W": -5.2988938505762775,
+            "absolute_error_W": 5.2988938505762775,
+            "relative_error_pct": -7.472175128813512,
+            "history_minutes_available": 59,
+            "status": "ok"
+          }
+        }
+      },
+      {
+        "start": "2026-09-12T16:13:00",
+        "end": "2026-09-12T17:44:00",
+        "phase": "日照",
+        "observed_minutes": 92,
+        "models": {
+          "fixed": {
+            "predicted_background_W": 82.06931142576309,
+            "observed_background_mean_W": 69.0844784616409,
+            "signed_error_W": 12.984832964122191,
+            "absolute_error_W": 12.984832964122191,
+            "relative_error_pct": 18.79558658220458
+          },
+          "rolling_30m": {
+            "predicted_background_W": null,
+            "observed_background_mean_W": 69.0844784616409,
+            "signed_error_W": null,
+            "absolute_error_W": null,
+            "relative_error_pct": null,
+            "history_minutes_available": 0,
+            "status": "insufficient_history"
+          },
+          "rolling_60m": {
+            "predicted_background_W": null,
+            "observed_background_mean_W": 69.0844784616409,
+            "signed_error_W": null,
+            "absolute_error_W": null,
+            "relative_error_pct": null,
+            "history_minutes_available": 0,
+            "status": "insufficient_history"
+          }
+        }
+      }
+    ],
+    "summary": {
+      "fixed": {
+        "n_windows": 10,
+        "mean_absolute_error_W": 8.886326366377867,
+        "mean_relative_error_pct": 8.246160352884328
+      },
+      "rolling_30m": {
+        "n_windows": 6,
+        "mean_absolute_error_W": 5.083885840648104,
+        "mean_relative_error_pct": -6.524242434672453
+      },
+      "rolling_60m": {
+        "n_windows": 6,
+        "mean_absolute_error_W": 3.866750730751401,
+        "mean_relative_error_pct": -3.896424808703203
+      },
+      "hierarchical": {
+        "n_windows": 10,
+        "mean_absolute_error_W": 4.929367700834498,
+        "mean_relative_error_pct": 2.6791357047845765,
+        "selected_sources": {
+          "fixed": 3,
+          "previous_day_same_phase": 1,
+          "rolling_60m": 6
+        }
+      }
+    },
+    "hierarchical": {
+      "method": "优先窗口前60分钟同工况中位；历史不足时使用前一天同相位、同一时钟窗口前后容差内中位；再不足回退起点快照",
+      "orbit_phase_basis": "未配置轨道周期时以同相位、同一时钟时刻作为代理；不声称已验证真实轨道相位",
+      "rolling_lookback_minutes": 60,
+      "previous_day_tolerance_minutes": 15,
+      "windows": [
+        {
+          "start": "2026-07-24T09:11:00",
+          "end": "2026-07-24T09:37:00",
+          "phase": "日照",
+          "observed_minutes": 27,
+          "observed_background_mean_W": 48.15149020069871,
+          "predicted_background_W": 50.174167478063985,
+          "selected_source": "fixed",
+          "rolling_history_minutes": 0,
+          "previous_day_history_minutes": 0,
+          "fixed_background_W": 50.174167478063985,
+          "signed_error_W": 2.0226772773652755,
+          "absolute_error_W": 2.0226772773652755
+        },
+        {
+          "start": "2026-07-28T16:22:00",
+          "end": "2026-07-28T17:11:00",
+          "phase": "日照",
+          "observed_minutes": 50,
+          "observed_background_mean_W": 36.0821594096768,
+          "predicted_background_W": 46.32133045553266,
+          "selected_source": "fixed",
+          "rolling_history_minutes": 0,
+          "previous_day_history_minutes": 0,
+          "fixed_background_W": 46.32133045553266,
+          "signed_error_W": 10.239171045855862,
+          "absolute_error_W": 10.239171045855862
+        },
+        {
+          "start": "2026-08-01T21:49:00",
+          "end": "2026-08-01T23:09:00",
+          "phase": "日照",
+          "observed_minutes": 81,
+          "observed_background_mean_W": 66.66196405519288,
+          "predicted_background_W": 66.78564308988625,
+          "selected_source": "rolling_60m",
+          "rolling_history_minutes": 45,
+          "previous_day_history_minutes": 16,
+          "fixed_background_W": 101.00714643301089,
+          "signed_error_W": 0.12367903469336738,
+          "absolute_error_W": 0.12367903469336738
+        },
+        {
+          "start": "2026-08-02T08:57:00",
+          "end": "2026-08-02T10:18:00",
+          "phase": "日照",
+          "observed_minutes": 82,
+          "observed_background_mean_W": 69.90719377042984,
+          "predicted_background_W": 65.07065141025276,
+          "selected_source": "rolling_60m",
+          "rolling_history_minutes": 46,
+          "previous_day_history_minutes": 16,
+          "fixed_background_W": 69.23546847910762,
+          "signed_error_W": -4.836542360177077,
+          "absolute_error_W": 4.836542360177077
+        },
+        {
+          "start": "2026-08-05T17:02:00",
+          "end": "2026-08-05T17:58:00",
+          "phase": "日照",
+          "observed_minutes": 57,
+          "observed_background_mean_W": 70.32335274401274,
+          "predicted_background_W": 69.4768614075195,
+          "selected_source": "previous_day_same_phase",
+          "rolling_history_minutes": 0,
+          "previous_day_history_minutes": 31,
+          "fixed_background_W": 78.1736459092848,
+          "signed_error_W": -0.8464913364932443,
+          "absolute_error_W": 0.8464913364932443
+        },
+        {
+          "start": "2026-08-10T17:39:00",
+          "end": "2026-08-10T18:08:00",
+          "phase": "日照",
+          "observed_minutes": 30,
+          "observed_background_mean_W": 70.29809437584437,
+          "predicted_background_W": 62.152745482931124,
+          "selected_source": "rolling_60m",
+          "rolling_history_minutes": 54,
+          "previous_day_history_minutes": 0,
+          "fixed_background_W": 65.04718901465135,
+          "signed_error_W": -8.145348892913248,
+          "absolute_error_W": 8.145348892913248
+        },
+        {
+          "start": "2026-09-10T18:41:00",
+          "end": "2026-09-10T19:30:00",
+          "phase": "日照",
+          "observed_minutes": 50,
+          "observed_background_mean_W": 70.40883582068382,
+          "predicted_background_W": 68.72534071766674,
+          "selected_source": "rolling_60m",
+          "rolling_history_minutes": 59,
+          "previous_day_history_minutes": 31,
+          "fixed_background_W": 69.49382726440045,
+          "signed_error_W": -1.68349510301708,
+          "absolute_error_W": 1.68349510301708
+        },
+        {
+          "start": "2026-09-11T00:59:00",
+          "end": "2026-09-11T01:33:00",
+          "phase": "日照",
+          "observed_minutes": 35,
+          "observed_background_mean_W": 64.78379697411516,
+          "predicted_background_W": 67.89634211724652,
+          "selected_source": "rolling_60m",
+          "rolling_history_minutes": 56,
+          "previous_day_history_minutes": 0,
+          "fixed_background_W": 55.02846677793666,
+          "signed_error_W": 3.1125451431313564,
+          "absolute_error_W": 3.1125451431313564
+        },
+        {
+          "start": "2026-09-11T06:52:00",
+          "end": "2026-09-11T07:20:00",
+          "phase": "日照",
+          "observed_minutes": 29,
+          "observed_background_mean_W": 70.91501148230817,
+          "predicted_background_W": 65.6161176317319,
+          "selected_source": "rolling_60m",
+          "rolling_history_minutes": 59,
+          "previous_day_history_minutes": 0,
+          "fixed_background_W": 66.08687405394002,
+          "signed_error_W": -5.2988938505762775,
+          "absolute_error_W": 5.2988938505762775
+        },
+        {
+          "start": "2026-09-12T16:13:00",
+          "end": "2026-09-12T17:44:00",
+          "phase": "日照",
+          "observed_minutes": 92,
+          "observed_background_mean_W": 69.0844784616409,
+          "predicted_background_W": 82.06931142576309,
+          "selected_source": "fixed",
+          "rolling_history_minutes": 0,
+          "previous_day_history_minutes": 1,
+          "fixed_background_W": 82.06931142576309,
+          "signed_error_W": 12.984832964122191,
+          "absolute_error_W": 12.984832964122191
+        }
+      ],
+      "summary": {
+        "n_windows": 10,
+        "mean_absolute_error_W": 4.929367700834498,
+        "mean_relative_error_pct": 2.6791357047845765,
+        "selected_sources": {
+          "fixed": 3,
+          "previous_day_same_phase": 1,
+          "rolling_60m": 6
+        }
+      }
+    },
+    "reconstructed_task_channels": [
+      "heater_battery_main",
+      "heater_propulsion_main",
+      "heater_star_a_main",
+      "heater_star_b_main",
+      "pl10",
+      "pl13",
+      "pl16",
+      "pl17",
+      "pl19",
+      "pl21",
+      "pl26",
+      "pl27",
+      "pl9"
+    ],
+    "background_definition": "max(TMEA003×TMEA004 母线测点功率 − 历史可变单机功率层, 0)；用于诊断，不等于独立测得的未计负载"
+  },
+  "ab_coactivity": {
+    "method": "同编号PL_n A/B通道；阈值取active_threshold_W，无阈值时取active_power_W的5%且不小于1e-6 W",
+    "n_pairs": 22,
+    "pairs": [
+      {
+        "pl_channel": 3,
+        "a_unit": "pl3_a",
+        "b_unit": "pl3_b",
+        "a_threshold_W": 0.02196555,
+        "b_threshold_W": 0.035079450000000005,
+        "valid_minutes": 44393,
+        "both_active_minutes": 44386,
+        "a_only_minutes": 4,
+        "b_only_minutes": 3,
+        "neither_active_minutes": 0,
+        "both_active_fraction": 0.999842317482486,
+        "either_active_fraction": 1.0
+      },
+      {
+        "pl_channel": 1,
+        "a_unit": "pl1_a",
+        "b_unit": "pl1_b",
+        "a_threshold_W": 0.08215455,
+        "b_threshold_W": 0.09842105000000001,
+        "valid_minutes": 44393,
+        "both_active_minutes": 44385,
+        "a_only_minutes": 5,
+        "b_only_minutes": 3,
+        "neither_active_minutes": 0,
+        "both_active_fraction": 0.9998197914085554,
+        "either_active_fraction": 1.0
+      },
+      {
+        "pl_channel": 9,
+        "a_unit": "pl9_a",
+        "b_unit": "pl9_b",
+        "a_threshold_W": 0.11705380000000001,
+        "b_threshold_W": 0.031750450000000006,
+        "valid_minutes": 44387,
+        "both_active_minutes": 44385,
+        "a_only_minutes": 2,
+        "b_only_minutes": 0,
+        "neither_active_minutes": 0,
+        "both_active_fraction": 0.9999549417622277,
+        "either_active_fraction": 1.0
+      },
+      {
+        "pl_channel": 10,
+        "a_unit": "pl10_a",
+        "b_unit": "pl10_b",
+        "a_threshold_W": 0.062423,
+        "b_threshold_W": 0.00982255,
+        "valid_minutes": 44385,
+        "both_active_minutes": 44385,
+        "a_only_minutes": 0,
+        "b_only_minutes": 0,
+        "neither_active_minutes": 0,
+        "both_active_fraction": 1.0,
+        "either_active_fraction": 1.0
+      },
+      {
+        "pl_channel": 11,
+        "a_unit": "pl11_a",
+        "b_unit": "pl11_b",
+        "a_threshold_W": 0.0675775,
+        "b_threshold_W": 0.0330692,
+        "valid_minutes": 44385,
+        "both_active_minutes": 44385,
+        "a_only_minutes": 0,
+        "b_only_minutes": 0,
+        "neither_active_minutes": 0,
+        "both_active_fraction": 1.0,
+        "either_active_fraction": 1.0
+      },
+      {
+        "pl_channel": 8,
+        "a_unit": "pl8_a",
+        "b_unit": "pl8_b",
+        "a_threshold_W": 0.06860975000000001,
+        "b_threshold_W": 0.0091441,
+        "valid_minutes": 44387,
+        "both_active_minutes": 44384,
+        "a_only_minutes": 1,
+        "b_only_minutes": 2,
+        "neither_active_minutes": 0,
+        "both_active_fraction": 0.9999324126433415,
+        "either_active_fraction": 1.0
+      },
+      {
+        "pl_channel": 12,
+        "a_unit": "pl12_a",
+        "b_unit": "pl12_b",
+        "a_threshold_W": 0.00211635,
+        "b_threshold_W": 0.00619485,
+        "valid_minutes": 44385,
+        "both_active_minutes": 44383,
+        "a_only_minutes": 1,
+        "b_only_minutes": 1,
+        "neither_active_minutes": 0,
+        "both_active_fraction": 0.9999549397318914,
+        "either_active_fraction": 1.0
+      },
+      {
+        "pl_channel": 6,
+        "a_unit": "pl6_a",
+        "b_unit": "pl6_b",
+        "a_threshold_W": 0.023623850000000002,
+        "b_threshold_W": 0.0006754,
+        "valid_minutes": 44393,
+        "both_active_minutes": 44358,
+        "a_only_minutes": 33,
+        "b_only_minutes": 1,
+        "neither_active_minutes": 1,
+        "both_active_fraction": 0.9992115874124299,
+        "either_active_fraction": 0.9999774739260694
+      },
+      {
+        "pl_channel": 0,
+        "a_unit": "pl0_a",
+        "b_unit": "pl0_b",
+        "a_threshold_W": 0.0005335,
+        "b_threshold_W": 0.0280536,
+        "valid_minutes": 44393,
+        "both_active_minutes": 44347,
+        "a_only_minutes": 1,
+        "b_only_minutes": 42,
+        "neither_active_minutes": 3,
+        "both_active_fraction": 0.9989638005991935,
+        "either_active_fraction": 0.9999324217782083
+      },
+      {
+        "pl_channel": 20,
+        "a_unit": "pl20_a",
+        "b_unit": "pl20_b",
+        "a_threshold_W": 1e-06,
+        "b_threshold_W": 1e-06,
+        "valid_minutes": 44383,
+        "both_active_minutes": 44212,
+        "a_only_minutes": 19,
+        "b_only_minutes": 122,
+        "neither_active_minutes": 30,
+        "both_active_fraction": 0.9961471734673185,
+        "either_active_fraction": 0.9993240655205822
+      },
+      {
+        "pl_channel": 28,
+        "a_unit": "pl28_a",
+        "b_unit": "pl28_b",
+        "a_threshold_W": 1e-06,
+        "b_threshold_W": 1e-06,
+        "valid_minutes": 44380,
+        "both_active_minutes": 44211,
+        "a_only_minutes": 26,
+        "b_only_minutes": 124,
+        "neither_active_minutes": 19,
+        "both_active_fraction": 0.9961919783686345,
+        "either_active_fraction": 0.9995718792248761
+      },
+      {
+        "pl_channel": 22,
+        "a_unit": "pl22_a",
+        "b_unit": "pl22_b",
+        "a_threshold_W": 1.10468715,
+        "b_threshold_W": 0.7607523500000001,
+        "valid_minutes": 44383,
+        "both_active_minutes": 44195,
+        "a_only_minutes": 1,
+        "b_only_minutes": 0,
+        "neither_active_minutes": 187,
+        "both_active_fraction": 0.9957641439289818,
+        "either_active_fraction": 0.9957866750782958
+      },
+      {
+        "pl_channel": 30,
+        "a_unit": "pl30_a",
+        "b_unit": "pl30_b",
+        "a_threshold_W": 1e-06,
+        "b_threshold_W": 1e-06,
+        "valid_minutes": 44380,
+        "both_active_minutes": 43211,
+        "a_only_minutes": 39,
+        "b_only_minutes": 1103,
+        "neither_active_minutes": 27,
+        "both_active_fraction": 0.9736593059936909,
+        "either_active_fraction": 0.9993916178458765
+      },
+      {
+        "pl_channel": 5,
+        "a_unit": "pl5_a",
+        "b_unit": "pl5_b",
+        "a_threshold_W": 0.06897215,
+        "b_threshold_W": 0.061110500000000005,
+        "valid_minutes": 44393,
+        "both_active_minutes": 41810,
+        "a_only_minutes": 2,
+        "b_only_minutes": 1,
+        "neither_active_minutes": 2580,
+        "both_active_fraction": 0.9418151510373257,
+        "either_active_fraction": 0.9418827292591174
+      },
+      {
+        "pl_channel": 33,
+        "a_unit": "pl33_a",
+        "b_unit": "pl33_b",
+        "a_threshold_W": 1e-06,
+        "b_threshold_W": 1e-06,
+        "valid_minutes": 44405,
+        "both_active_minutes": 20477,
+        "a_only_minutes": 932,
+        "b_only_minutes": 21469,
+        "neither_active_minutes": 1527,
+        "both_active_fraction": 0.461141763314942,
+        "either_active_fraction": 0.9656119806328116
+      },
+      {
+        "pl_channel": 19,
+        "a_unit": "pl19_a",
+        "b_unit": "pl19_b",
+        "a_threshold_W": 5.262409,
+        "b_threshold_W": 4.473931,
+        "valid_minutes": 44383,
+        "both_active_minutes": 19248,
+        "a_only_minutes": 326,
+        "b_only_minutes": 198,
+        "neither_active_minutes": 24611,
+        "both_active_fraction": 0.43367956199445734,
+        "either_active_fraction": 0.44548588423495483
+      },
+      {
+        "pl_channel": 17,
+        "a_unit": "pl17_a",
+        "b_unit": "pl17_b",
+        "a_threshold_W": 7.788152,
+        "b_threshold_W": 0.0020351500000000003,
+        "valid_minutes": 44389,
+        "both_active_minutes": 7619,
+        "a_only_minutes": 11,
+        "b_only_minutes": 36735,
+        "neither_active_minutes": 24,
+        "both_active_fraction": 0.17164162292459845,
+        "either_active_fraction": 0.999459325508572
+      },
+      {
+        "pl_channel": 27,
+        "a_unit": "pl27_a",
+        "b_unit": "pl27_b",
+        "a_threshold_W": 6.769119,
+        "b_threshold_W": 4.882462,
+        "valid_minutes": 44381,
+        "both_active_minutes": 4815,
+        "a_only_minutes": 8,
+        "b_only_minutes": 19,
+        "neither_active_minutes": 39539,
+        "both_active_fraction": 0.10849237286226088,
+        "either_active_fraction": 0.10910074130821748
+      },
+      {
+        "pl_channel": 21,
+        "a_unit": "pl21_a",
+        "b_unit": "pl21_b",
+        "a_threshold_W": 16.876251,
+        "b_threshold_W": 10.037525,
+        "valid_minutes": 44383,
+        "both_active_minutes": 4252,
+        "a_only_minutes": 10,
+        "b_only_minutes": 18,
+        "neither_active_minutes": 40103,
+        "both_active_fraction": 0.09580244688281549,
+        "either_active_fraction": 0.09643331906360543
+      },
+      {
+        "pl_channel": 26,
+        "a_unit": "pl26_a",
+        "b_unit": "pl26_b",
+        "a_threshold_W": 8e-06,
+        "b_threshold_W": 4.841475,
+        "valid_minutes": 44381,
+        "both_active_minutes": 2091,
+        "a_only_minutes": 17305,
+        "b_only_minutes": 9,
+        "neither_active_minutes": 24976,
+        "both_active_fraction": 0.04711475631463915,
+        "either_active_fraction": 0.4372366553254771
+      },
+      {
+        "pl_channel": 16,
+        "a_unit": "pl16_a",
+        "b_unit": "pl16_b",
+        "a_threshold_W": 3.90564,
+        "b_threshold_W": 1.3e-06,
+        "valid_minutes": 44392,
+        "both_active_minutes": 1903,
+        "a_only_minutes": 3,
+        "b_only_minutes": 42444,
+        "neither_active_minutes": 42,
+        "both_active_fraction": 0.042868084339520635,
+        "either_active_fraction": 0.9990538835826275
+      },
+      {
+        "pl_channel": 13,
+        "a_unit": "pl13_a",
+        "b_unit": "pl13_b",
+        "a_threshold_W": 5.343911,
+        "b_threshold_W": 4.903579,
+        "valid_minutes": 44393,
+        "both_active_minutes": 887,
+        "a_only_minutes": 110,
+        "b_only_minutes": 169,
+        "neither_active_minutes": 43227,
+        "both_active_fraction": 0.019980627576419704,
+        "either_active_fraction": 0.026265402203050032
+      }
+    ]
+  },
+  "ab_topology": {
+    "status": "approved",
+    "source_document": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc",
+    "policy": "同一PL_n的上板A、下板B属于同一物理配电对象；设备数量只计一次，功率和电流按两支路求和，电压不求和。缺失支路保持缺测，不按0 W处理。",
+    "n_pairs": 22,
+    "n_resolved": 22,
+    "n_unresolved": 0,
+    "blocks_task_aggregation": false,
+    "pairs": [
+      {
+        "pl_channel": 3,
+        "a_unit": "pl3_a",
+        "b_unit": "pl3_b",
+        "physical_unit": "pl3",
+        "aggregation_mode": "sum",
+        "resolved": true,
+        "source": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc"
+      },
+      {
+        "pl_channel": 1,
+        "a_unit": "pl1_a",
+        "b_unit": "pl1_b",
+        "physical_unit": "pl1",
+        "aggregation_mode": "sum",
+        "resolved": true,
+        "source": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc"
+      },
+      {
+        "pl_channel": 9,
+        "a_unit": "pl9_a",
+        "b_unit": "pl9_b",
+        "physical_unit": "pl9",
+        "aggregation_mode": "sum",
+        "resolved": true,
+        "source": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc"
+      },
+      {
+        "pl_channel": 10,
+        "a_unit": "pl10_a",
+        "b_unit": "pl10_b",
+        "physical_unit": "pl10",
+        "aggregation_mode": "sum",
+        "resolved": true,
+        "source": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc"
+      },
+      {
+        "pl_channel": 11,
+        "a_unit": "pl11_a",
+        "b_unit": "pl11_b",
+        "physical_unit": "pl11",
+        "aggregation_mode": "sum",
+        "resolved": true,
+        "source": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc"
+      },
+      {
+        "pl_channel": 8,
+        "a_unit": "pl8_a",
+        "b_unit": "pl8_b",
+        "physical_unit": "pl8",
+        "aggregation_mode": "sum",
+        "resolved": true,
+        "source": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc"
+      },
+      {
+        "pl_channel": 12,
+        "a_unit": "pl12_a",
+        "b_unit": "pl12_b",
+        "physical_unit": "pl12",
+        "aggregation_mode": "sum",
+        "resolved": true,
+        "source": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc"
+      },
+      {
+        "pl_channel": 6,
+        "a_unit": "pl6_a",
+        "b_unit": "pl6_b",
+        "physical_unit": "pl6",
+        "aggregation_mode": "sum",
+        "resolved": true,
+        "source": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc"
+      },
+      {
+        "pl_channel": 0,
+        "a_unit": "pl0_a",
+        "b_unit": "pl0_b",
+        "physical_unit": "pl0",
+        "aggregation_mode": "sum",
+        "resolved": true,
+        "source": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc"
+      },
+      {
+        "pl_channel": 20,
+        "a_unit": "pl20_a",
+        "b_unit": "pl20_b",
+        "physical_unit": "pl20",
+        "aggregation_mode": "sum",
+        "resolved": true,
+        "source": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc"
+      },
+      {
+        "pl_channel": 28,
+        "a_unit": "pl28_a",
+        "b_unit": "pl28_b",
+        "physical_unit": "pl28",
+        "aggregation_mode": "sum",
+        "resolved": true,
+        "source": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc"
+      },
+      {
+        "pl_channel": 22,
+        "a_unit": "pl22_a",
+        "b_unit": "pl22_b",
+        "physical_unit": "pl22",
+        "aggregation_mode": "sum",
+        "resolved": true,
+        "source": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc"
+      },
+      {
+        "pl_channel": 30,
+        "a_unit": "pl30_a",
+        "b_unit": "pl30_b",
+        "physical_unit": "pl30",
+        "aggregation_mode": "sum",
+        "resolved": true,
+        "source": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc"
+      },
+      {
+        "pl_channel": 5,
+        "a_unit": "pl5_a",
+        "b_unit": "pl5_b",
+        "physical_unit": "pl5",
+        "aggregation_mode": "sum",
+        "resolved": true,
+        "source": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc"
+      },
+      {
+        "pl_channel": 33,
+        "a_unit": "pl33_a",
+        "b_unit": "pl33_b",
+        "physical_unit": "pl33",
+        "aggregation_mode": "sum",
+        "resolved": true,
+        "source": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc"
+      },
+      {
+        "pl_channel": 19,
+        "a_unit": "pl19_a",
+        "b_unit": "pl19_b",
+        "physical_unit": "pl19",
+        "aggregation_mode": "sum",
+        "resolved": true,
+        "source": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc"
+      },
+      {
+        "pl_channel": 17,
+        "a_unit": "pl17_a",
+        "b_unit": "pl17_b",
+        "physical_unit": "pl17",
+        "aggregation_mode": "sum",
+        "resolved": true,
+        "source": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc"
+      },
+      {
+        "pl_channel": 27,
+        "a_unit": "pl27_a",
+        "b_unit": "pl27_b",
+        "physical_unit": "pl27",
+        "aggregation_mode": "sum",
+        "resolved": true,
+        "source": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc"
+      },
+      {
+        "pl_channel": 21,
+        "a_unit": "pl21_a",
+        "b_unit": "pl21_b",
+        "physical_unit": "pl21",
+        "aggregation_mode": "sum",
+        "resolved": true,
+        "source": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc"
+      },
+      {
+        "pl_channel": 26,
+        "a_unit": "pl26_a",
+        "b_unit": "pl26_b",
+        "physical_unit": "pl26",
+        "aggregation_mode": "sum",
+        "resolved": true,
+        "source": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc"
+      },
+      {
+        "pl_channel": 16,
+        "a_unit": "pl16_a",
+        "b_unit": "pl16_b",
+        "physical_unit": "pl16",
+        "aggregation_mode": "sum",
+        "resolved": true,
+        "source": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc"
+      },
+      {
+        "pl_channel": 13,
+        "a_unit": "pl13_a",
+        "b_unit": "pl13_b",
+        "physical_unit": "pl13",
+        "aggregation_mode": "sum",
+        "resolved": true,
+        "source": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc"
+      }
+    ]
+  },
+  "solar_structure": {
+    "model_type": "load_aware_linear",
+    "features": [
+      "elapsed_hours",
+      "load_W"
+    ],
+    "load_coefficient": 0.939215902,
+    "load_following_sensitivity": true,
+    "required_features": [
+      "orbit_phase",
+      "sun_incidence_deg",
+      "array_temperature_C",
+      "battery_soc_pct",
+      "battery_temperature_C",
+      "charge_acceptance_W"
+    ],
+    "missing_features": [
+      "orbit_phase",
+      "sun_incidence_deg",
+      "array_temperature_C",
+      "battery_soc_pct",
+      "battery_temperature_C",
+      "charge_acceptance_W"
+    ],
+    "status": "blocked_until_available_generation_inputs",
+    "policy": "当前模型只能作为负载感知代理；缺失可用发电特征时，不得把负载跟随系数解释为MPPT物理增益。"
+  },
+  "primary_solar_structure": {
+    "model_type": "load_aware_linear",
+    "features": [
+      "elapsed_hours",
+      "load_W"
+    ],
+    "load_coefficient": 0.945835082,
+    "load_following_sensitivity": true,
+    "required_features": [
+      "orbit_phase",
+      "sun_incidence_deg",
+      "array_temperature_C",
+      "battery_soc_pct",
+      "battery_temperature_C",
+      "charge_acceptance_W"
+    ],
+    "missing_features": [
+      "orbit_phase",
+      "sun_incidence_deg",
+      "array_temperature_C",
+      "battery_soc_pct",
+      "battery_temperature_C",
+      "charge_acceptance_W"
+    ],
+    "status": "blocked_until_available_generation_inputs",
+    "policy": "当前模型只能作为负载感知代理；缺失可用发电特征时，不得把负载跟随系数解释为MPPT物理增益。"
+  },
+  "bcr_outliers": {
+    "n_valid": 104667,
+    "cap_W": 365.873572,
+    "min_W": 0.0006038447368947369,
+    "median_W": 112.856970581796,
+    "p95_W": 160.40426543075787,
+    "p99_W": 197.55480665049907,
+    "max_W": 137567.5559557192,
+    "above_cap_count": 129,
+    "above_cap_fraction": 0.0012324801513370976,
+    "excess_energy_fraction": 0.026503888779290465,
+    "total_observed_energy_proxy": 12390942.682359358,
+    "excess_energy_proxy": 328408.1667238155,
+    "source": "bcr_output_minute.csv",
+    "policy": "主评测按所用留出模型的99.9%缩尾上限处理；原始尖峰单独保留为异常事件诊断",
+    "primary_model_cap_W": 227.915766,
+    "primary_policy": "training_99p9_winsor_cap"
+  },
+  "model_selection": {
+    "solar_target": {
+      "formula": "Σ(V_BCR_out,j × I_BCR_out,j)",
+      "p_solar_basis": "sum of eight same-source BCR output voltage × current channels, positive output only",
+      "crosscheck": "P_bus - P_battery_signed",
+      "control_logic": "maximum power point tracking (MPPT)",
+      "status": "YJ-3D MPPT/DC-DC BCR output-side power; not PV input power"
+    },
+    "solar_model_type": "load_aware_linear",
+    "solar_cross_validation": {
+      "method": "sunlight-episode-grouped-deterministic-folds",
+      "folds": 5,
+      "constant_rmse_W": 24.510985,
+      "candidate_rmse_W": {
+        "1": 24.071362,
+        "2": 24.169205,
+        "3": 25.821465
+      },
+      "selected_rmse_W": 14.309685,
+      "feature_candidate_rmse_W": {
+        "time_load_active_count": 14.172373,
+        "time_load_task_power": 13.963263,
+        "time_load_task_power_active_count": 13.464741,
+        "time_plus_load": 14.309685
+      },
+      "selected_model": "load_aware_linear"
+    },
+    "solar_feature_model": {
+      "features": [
+        "elapsed_hours",
+        "load_W"
+      ],
+      "intercept": 14.994881184,
+      "coefficients": [
+        -0.027010914,
+        0.939215902
+      ],
+      "time_term_degree": 1,
+      "target_clip_W": 365.873572,
+      "selection": "time_plus_load",
+      "selection_policy": "fixed policy selected by integrated holdout forecast"
+    },
+    "task_variants": {
+      "historical_tasks__cap_0W": {
+        "n": 10,
+        "target_soc_MAE_pp": 0.7742850582806282,
+        "target_soc_p95_abs_pp": 1.7368657632735267,
+        "remaining_Ah_MAE": 0.2918280384659687,
+        "remaining_Ah_p95": 0.6546247061777922,
+        "solar_energy_MAE_pct": 21.238604203355774,
+        "load_energy_MAE_pct": 8.11865360870473,
+        "load_energy_bias_pct": -6.437140980671512
+      },
+      "historical_tasks__no_cap": {
+        "n": 10,
+        "target_soc_MAE_pp": 0.8747350582806291,
+        "target_soc_p95_abs_pp": 2.6410923474825774,
+        "remaining_Ah_MAE": 0.329687643465969,
+        "remaining_Ah_p95": 0.9954277057661833,
+        "solar_energy_MAE_pct": 15.341787690537085,
+        "load_energy_MAE_pct": 8.11865360870473,
+        "load_energy_bias_pct": -6.437140980671512
+      },
+      "no_tasks__cap_0W": {
+        "n": 10,
+        "target_soc_MAE_pp": 3.056385058280628,
+        "target_soc_p95_abs_pp": 9.751189623878172,
+        "remaining_Ah_MAE": 1.1519515284659687,
+        "remaining_Ah_p95": 3.6752233692396836,
+        "solar_energy_MAE_pct": 15.25446095486355,
+        "load_energy_MAE_pct": 22.335249431079724,
+        "load_energy_bias_pct": 12.885195491250968
+      },
+      "no_tasks__no_cap": {
+        "n": 10,
+        "target_soc_MAE_pp": 3.4179550582806284,
+        "target_soc_p95_abs_pp": 9.751189623878172,
+        "remaining_Ah_MAE": 1.2882272614659687,
+        "remaining_Ah_p95": 3.6752233692396836,
+        "solar_energy_MAE_pct": 15.341787690537085,
+        "load_energy_MAE_pct": 22.335249431079724,
+        "load_energy_bias_pct": 12.885195491250968
+      }
+    },
+    "unit_calibration_contract": {
+      "input": "enabled role=load component power columns from energy_v2_components.csv",
+      "power_basis": "minute-mean voltage times minute-mean current proxy unless configured otherwise",
+      "missing_policy": "missing/non-finite/negative/outlier samples are excluded, never treated as zero",
+      "outlier_policy": "configured max_power_W is a documented screening limit; without it, a wide robust power-tail guard removes implausible telemetry spikes before state and model fitting",
+      "band_policy": "deterministic 1-D two-means for low/active; a log-power second split creates active/high only with >=0.2% source support, >=5 samples and >=14x median separation",
+      "polynomial_policy": "degree 1-3 candidate; episode-grouped holdout uses the same active-band p05-p95 runtime clipping as deployment; selection also requires >=10% RMSE improvement, monotonic support and endpoint error no more than 10% worse than the constant baseline",
+      "off_policy": "off defaults to 0 W; low/idle uses the observed low-power band when present",
+      "shared_power_band_policy": "configured paired feeds may borrow a missing high band from a sibling feed in the same physical unit; local high-band evidence always takes precedence",
+      "date_split_policy": "explicit whole dates may be excluded before fitting; excluded dates are never replaced or backfilled"
+    },
+    "absolute_v_soc_window": {
+      "n_windows": 1,
+      "metrics": {
+        "target_soc_predicted": 0.75668,
+        "target_soc_observed": 0.7273738473167042,
+        "target_soc_error_pp": 2.930615268329584,
+        "remaining_Ah_predicted": 28.519285,
+        "remaining_Ah_observed": 27.41472030536658,
+        "remaining_Ah_error": 1.1045646946334209
+      }
+    }
+  },
+  "evidence_boundaries": [
+    "多窗口目标SOC为当前锚定加TMEA006积分，只有1个绝对V-SOC端点窗口",
+    "历史任务状态不等于可提前获得的任务计划",
+    "BCR目标是MPPT/DC-DC输出侧功率，不是PV输入功率",
+    "当前部署背景负载固定为起始快照；滚动模型仅为审计候选",
+    "A/B供电通道物理拓扑和重复计量关系仍需单线图核准",
+    "含越量程电池或母线测点的窗口不进入相应主指标；原始与有效区间条件值仅保留为诊断",
+    "BCR主能量按所用留出模型的训练缩尾上限处理，原始尖峰另列"
+  ],
+  "representative_case": {
+    "schema_version": "1.0",
+    "case_id": "yj-sun-20260728-1622",
+    "satellite_id": "YJ-3D",
+    "title": "从历史单机功率提取任务的负载感知留出窗口",
+    "window": {
+      "start": "2026-07-28T16:22:00+08:00",
+      "end": "2026-07-28T17:11:00+08:00",
+      "minutes": 49,
+      "phase": "sun"
+    },
+    "reference_mode": "current_integrated_with_v_soc_crosscheck",
+    "qc_status": "pass",
+    "quality": {
+      "soc": {
+        "qc_status": "pass",
+        "n_rows": 50,
+        "n_intervals": 49,
+        "valid_intervals": 49,
+        "invalid_intervals": 0,
+        "valid_seconds": 2940.0,
+        "reason_counts": {},
+        "range_violation_fields": {},
+        "duplicate_timestamps": 0,
+        "max_gap_seconds": 90.0,
+        "frozen_min_samples": 10
+      },
+      "solar": {
+        "primary_energy_kWh": 0.056495049711413885,
+        "raw_energy_kWh": 0.06133368428474626,
+        "excess_energy_kWh": 0.004838634573332378,
+        "above_cap_count": 7,
+        "above_cap_fraction": 0.14,
+        "max_W": 344.0923431867844,
+        "cap_W": 227.915766,
+        "missing_samples": 0,
+        "invalid_intervals": 0,
+        "qc_status": "pass"
+      }
+    },
+    "input_request": {
+      "time": "2026-07-28T16:22:00+08:00",
+      "prediction": {
+        "end": "2026-07-28T17:11:00+08:00",
+        "step_seconds": 60,
+        "phase_segments": [
+          {
+            "start": "16:22",
+            "end": "17:11",
+            "phase": "sun"
+          }
+        ],
+        "tasks": [
+          {
+            "start": "2026-07-28T16:22:00",
+            "end": "2026-07-28T16:25:00",
+            "unit": "pl17",
+            "run_mode": "active",
+            "after_mode": "active"
+          },
+          {
+            "start": "2026-07-28T16:25:00",
+            "end": "2026-07-28T17:11:00",
+            "unit": "pl17",
+            "run_mode": "idle",
+            "after_mode": "idle"
+          },
+          {
+            "start": "2026-07-28T16:22:00",
+            "end": "2026-07-28T16:37:00",
+            "unit": "heater_battery_main",
+            "run_mode": "idle",
+            "after_mode": "idle"
+          },
+          {
+            "start": "2026-07-28T16:37:00",
+            "end": "2026-07-28T17:01:00",
+            "unit": "heater_battery_main",
+            "run_mode": "active",
+            "after_mode": "active"
+          },
+          {
+            "start": "2026-07-28T17:01:00",
+            "end": "2026-07-28T17:11:00",
+            "unit": "heater_battery_main",
+            "run_mode": "idle",
+            "after_mode": "idle"
+          },
+          {
+            "start": "2026-07-28T16:22:00",
+            "end": "2026-07-28T16:24:00",
+            "unit": "heater_star_a_main",
+            "run_mode": "active",
+            "after_mode": "active"
+          },
+          {
+            "start": "2026-07-28T16:24:00",
+            "end": "2026-07-28T16:27:00",
+            "unit": "heater_star_a_main",
+            "run_mode": "idle",
+            "after_mode": "idle"
+          },
+          {
+            "start": "2026-07-28T16:27:00",
+            "end": "2026-07-28T16:34:00",
+            "unit": "heater_star_a_main",
+            "run_mode": "active",
+            "after_mode": "active"
+          },
+          {
+            "start": "2026-07-28T16:34:00",
+            "end": "2026-07-28T17:00:00",
+            "unit": "heater_star_a_main",
+            "run_mode": "idle",
+            "after_mode": "idle"
+          },
+          {
+            "start": "2026-07-28T17:00:00",
+            "end": "2026-07-28T17:11:00",
+            "unit": "heater_star_a_main",
+            "run_mode": "active",
+            "after_mode": "active"
+          },
+          {
+            "start": "2026-07-28T16:22:00",
+            "end": "2026-07-28T16:59:00",
+            "unit": "heater_star_b_main",
+            "run_mode": "idle",
+            "after_mode": "idle"
+          },
+          {
+            "start": "2026-07-28T16:59:00",
+            "end": "2026-07-28T17:08:00",
+            "unit": "heater_star_b_main",
+            "run_mode": "active",
+            "after_mode": "active"
+          },
+          {
+            "start": "2026-07-28T17:08:00",
+            "end": "2026-07-28T17:11:00",
+            "unit": "heater_star_b_main",
+            "run_mode": "idle",
+            "after_mode": "idle"
+          },
+          {
+            "start": "2026-07-28T16:22:00",
+            "end": "2026-07-28T17:07:00",
+            "unit": "heater_propulsion_main",
+            "run_mode": "idle",
+            "after_mode": "idle"
+          },
+          {
+            "start": "2026-07-28T17:07:00",
+            "end": "2026-07-28T17:11:00",
+            "unit": "heater_propulsion_main",
+            "run_mode": "active",
+            "after_mode": "active"
+          }
+        ]
+      }
+    },
+    "derived_inputs": {
+      "initial_soc_pct": 75.668,
+      "battery_voltage_V": 26.87607433333333,
+      "background_load_W": 55.10383423894244,
+      "phase": "日照",
+      "task_count": 15
+    },
+    "outputs": {
+      "predicted_target_soc_pct": 76.3649,
+      "observed_target_soc_pct": 75.63200482275899,
+      "observed_target_soc_pct_raw": 75.63200482275899,
+      "soc_signed_error_pp": 0.7328951772410108,
+      "predicted_remaining_Ah": 28.78193081,
+      "observed_remaining_Ah": 28.505702617697864,
+      "remaining_Ah_error": 0.2762281923021348,
+      "predicted_solar_energy_kWh": 0.06784877736753796,
+      "observed_solar_proxy_energy_kWh": 0.056495049711413885,
+      "solar_energy_relative_error_pct": 20.096853997156924,
+      "solar_energy_relative_error_raw_pct": 10.622373592535034,
+      "predicted_load_energy_kWh": 0.061211546728469665,
+      "observed_load_energy_kWh": 0.05887325398013201,
+      "load_energy_relative_error_pct": 3.971740289957065,
+      "v_soc_endpoint_soc_pct": 72.73738473167042,
+      "v_soc_minus_current_integrated_pp": -2.8946200910885693
+    },
+    "series": {
+      "times": [
+        "2026-07-28T16:22:00",
+        "2026-07-28T16:23:00",
+        "2026-07-28T16:24:00",
+        "2026-07-28T16:25:00",
+        "2026-07-28T16:26:00",
+        "2026-07-28T16:27:00",
+        "2026-07-28T16:28:00",
+        "2026-07-28T16:29:00",
+        "2026-07-28T16:30:00",
+        "2026-07-28T16:31:00",
+        "2026-07-28T16:32:00",
+        "2026-07-28T16:33:00",
+        "2026-07-28T16:34:00",
+        "2026-07-28T16:35:00",
+        "2026-07-28T16:36:00",
+        "2026-07-28T16:37:00",
+        "2026-07-28T16:38:00",
+        "2026-07-28T16:39:00",
+        "2026-07-28T16:40:00",
+        "2026-07-28T16:41:00",
+        "2026-07-28T16:42:00",
+        "2026-07-28T16:43:00",
+        "2026-07-28T16:44:00",
+        "2026-07-28T16:45:00",
+        "2026-07-28T16:46:00",
+        "2026-07-28T16:47:00",
+        "2026-07-28T16:48:00",
+        "2026-07-28T16:49:00",
+        "2026-07-28T16:50:00",
+        "2026-07-28T16:51:00",
+        "2026-07-28T16:52:00",
+        "2026-07-28T16:53:00",
+        "2026-07-28T16:54:00",
+        "2026-07-28T16:55:00",
+        "2026-07-28T16:56:00",
+        "2026-07-28T16:57:00",
+        "2026-07-28T16:58:00",
+        "2026-07-28T16:59:00",
+        "2026-07-28T17:00:00",
+        "2026-07-28T17:01:00",
+        "2026-07-28T17:02:00",
+        "2026-07-28T17:03:00",
+        "2026-07-28T17:04:00",
+        "2026-07-28T17:05:00",
+        "2026-07-28T17:06:00",
+        "2026-07-28T17:07:00",
+        "2026-07-28T17:08:00",
+        "2026-07-28T17:09:00",
+        "2026-07-28T17:10:00",
+        "2026-07-28T17:11:00"
+      ],
+      "predicted_soc_pct": [
+        75.668,
+        75.68275966241166,
+        75.69747565088689,
+        75.71240704133562,
+        75.72812386434747,
+        75.7438402232994,
+        75.759340252158,
+        75.77483981695671,
+        75.7903389176955,
+        75.80583755437438,
+        75.82133572699337,
+        75.83683343555244,
+        75.8523306800516,
+        75.86804332652427,
+        75.88375550893703,
+        75.89946722728988,
+        75.9128947157239,
+        75.92632174009798,
+        75.93974830041216,
+        75.95317439666644,
+        75.96660002886081,
+        75.98002519699527,
+        75.99344990106982,
+        76.00687414108447,
+        76.0202979170392,
+        76.03372122893404,
+        76.04714407676896,
+        76.06056646054398,
+        76.07398838025907,
+        76.08740983591427,
+        76.10083082750957,
+        76.11425135504494,
+        76.12767141852042,
+        76.14109101793599,
+        76.15451015329165,
+        76.16792882458739,
+        76.18134703182324,
+        76.19476477499917,
+        76.20733726102617,
+        76.21969341695986,
+        76.23433287469258,
+        76.24897186836539,
+        76.2636103979783,
+        76.2782484635313,
+        76.29288606502439,
+        76.30752320245757,
+        76.32123931442285,
+        76.33579975541723,
+        76.3503597323517,
+        76.36491924522628
+      ],
+      "observed_soc_pct": [
+        75.668,
+        76.02379085758085,
+        76.221532100932,
+        76.40327139282812,
+        76.69382505833784,
+        76.80507421724789,
+        76.90802611552114,
+        77.0344466991935,
+        77.0204917956293,
+        76.98081426698982,
+        77.04623574781351,
+        77.12435199555964,
+        77.10702292971095,
+        77.13735377518685,
+        77.26479494175695,
+        77.44456385184155,
+        77.4566614891188,
+        77.33604296377872,
+        77.199421469355,
+        77.24199091342342,
+        77.31002987023724,
+        77.32178578042833,
+        77.30722222407982,
+        77.27051916682613,
+        77.33834727177467,
+        77.33690673421711,
+        77.22670999001134,
+        77.08266780104766,
+        76.94484939209745,
+        76.79861142952055,
+        76.65376945516115,
+        76.51952099655776,
+        76.37962314792507,
+        76.22861759417745,
+        76.08124015729078,
+        75.94337812762882,
+        75.81778188915997,
+        75.70771601882139,
+        75.59162791162574,
+        75.47282780463945,
+        75.3428618277207,
+        75.21381923851733,
+        75.10590551205567,
+        74.99371657243366,
+        74.87629267902646,
+        74.75773454545201,
+        74.71336010068869,
+        74.8862145086498,
+        75.2598949084563,
+        75.63200482275899
+      ]
+    },
+    "sources": {
+      "input": "power_model/representative_case_yj/input.json",
+      "output": "power_model/representative_case_yj/output.json",
+      "predicted_timeline": "power_model/representative_case_yj/prediction_timeline.csv",
+      "observed_timeline": "data_power_minute.csv",
+      "soc_curve": "power_model/v_soc_curve.json",
+      "task_plan": "power_model/representative_case_yj/task_plan.json",
+      "observed_soc": "power_model/representative_case_yj/observed_soc_current_integrated.csv"
+    },
+    "boundaries": [
+      "实际条件曲线由初始V-SOC锚点加TMEA006梯形电流积分得到，不施加放电V-SOC逐分钟映射",
+      "72.737%是本窗口电压端点套用7.84 A放电V-SOC表得到的交叉参考，与电流积分终点存在约2.89 pp差异",
+      "15条任务由功率序列3点中位平滑并剔除少于3分钟的状态短跳变后提取",
+      "BCR输出目标不是PV输入端功率，单窗口不替代10窗口总体审计",
+      "SOC主标签要求全部区间通过量程、时间连续性、相位和冻结检查",
+      "BCR主能量按训练同一99.9%缩尾上限计算，原始尖峰另作诊断"
+    ]
+  },
+  "input_files": [
+    "stage2_testset\\evaluation_summary.json",
+    "stage2_testset\\evaluation_cases.csv",
+    "config\\stage2_profile.json",
+    "power_model\\validation_split.json",
+    "power_model\\load_aware_comparison_results.csv",
+    "power_model\\load_aware_comparison_summary.json",
+    "power_model\\load_aware_comparison_windows.csv",
+    "power_model\\unit_task_validation_summary.json",
+    "power_model\\battery_remaining_metrics_summary.json",
+    "power_model\\physical_unit_components.json",
+    "power_model\\physical_unit_power_minute.csv",
+    "power_model\\unit_task_holdout_models.json",
+    "power_model\\solar_power_model.json",
+    "bcr_output_minute.csv",
+    "data_power_minute.csv",
+    "unit_inventory.json",
+    "unit_power_summary.json",
+    "config\\telemetry_params.json",
+    "config\\assessment_params.json",
+    "power_model\\ab_topology.json",
+    "power_model\\validation_sun_20260728_1622.json",
+    "power_model\\validation_sun_20260728_1622_holdout_output.json",
+    "power_model\\validation_sun_20260728_1622_holdout_timeline.csv",
+    "power_model\\validation_sun_20260728_1622_summary.json",
+    "power_model\\v_soc_curve.json",
+    "power_model\\physical_unit_holdout_models.json",
+    "power_model\\solar_power_model_holdout_20260728.json",
+    "power_model\\representative_case_yj\\input.json",
+    "power_model\\representative_case_yj\\output.json",
+    "power_model\\representative_case_yj\\prediction_timeline.csv",
+    "power_model\\representative_case_yj\\observed_soc_current_integrated.csv",
+    "power_model\\representative_case_yj\\task_plan.json",
+    "unit_training\\manifest.json"
+  ],
+  "code_files": [
+    "D:\\Tianji\\project\\卫星能源评估\\ResearchSpace\\stage2_audit.py",
+    "D:\\Tianji\\project\\卫星能源评估\\ResearchSpace\\yj3d_power_forecast.py",
+    "D:\\Tianji\\project\\卫星能源评估\\ResearchSpace\\solar_power_calibration.py",
+    "D:\\Tianji\\project\\卫星能源评估\\ResearchSpace\\unit_power_model.py",
+    "D:\\Tianji\\project\\卫星能源评估\\ResearchSpace\\gen_charts.py",
+    "D:\\Tianji\\project\\卫星能源评估\\ResearchSpace\\yj3d_report.py",
+    "D:\\Tianji\\project\\卫星能源评估\\ResearchSpace\\report_style.css",
+    "D:\\Tianji\\project\\卫星能源评估\\ResearchSpace\\stage2_cases.py",
+    "D:\\Tianji\\project\\卫星能源评估\\ResearchSpace\\stage2_framework.py",
+    "D:\\Tianji\\project\\卫星能源评估\\ResearchSpace\\stage2_testset.py",
+    "D:\\Tianji\\project\\卫星能源评估\\ResearchSpace\\stage2_quality.py",
+    "D:\\Tianji\\project\\卫星能源评估\\ResearchSpace\\unit_training_export.py",
+    "D:\\Tianji\\project\\卫星能源评估\\ResearchSpace\\power_outlier_filter.py"
+  ]
+}

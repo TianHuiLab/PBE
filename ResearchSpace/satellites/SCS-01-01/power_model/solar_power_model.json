@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0",
+  "satellite_id": "SCS-01-01",
+  "model_type": "polynomial",
+  "selected_degree": 3,
+  "coefficients_W_per_hour_power": [
+    371.446885393,
+    548.453432441,
+    -2135.717525178,
+    1492.944350109
+  ],
+  "constant_power_W": 377.436,
+  "target_definition": {
+    "formula": "P_load + P_charge_est",
+    "p_load_basis": "TMD016 × TMD018 minute means",
+    "p_charge_basis": "P_charge_est = max(TMD016×TMD017 - TMD016×TMD018, 0); inferred, not independent battery-charge measurement",
+    "status": "user-confirmed provisional 01-star formula",
+    "excluded_alternative": "TMD016×TMD017 + battery charge"
+  },
+  "time_feature": {
+    "name": "elapsed_hours_since_sunlight_segment_start",
+    "reset_at": "every continuous sunlight segment"
+  },
+  "support_hours": [
+    0.0,
+    0.983333
+  ],
+  "extrapolation_policy": "clamp_to_support",
+  "shadow_power_W": 0.0,
+  "training": {
+    "n_valid_sun_samples": 13065,
+    "sun_segments": 3008,
+    "shadow_samples_in_source": 6479,
+    "time_start": "2025-12-26T00:12:00",
+    "time_end": "2026-08-11T10:27:00",
+    "winsor_quantile": 0.999,
+    "winsor_cap_W": 763.314224
+  },
+  "target_stats_W": {
+    "min": 80.22492,
+    "p05": 189.98694,
+    "p50": 377.436,
+    "p95": 617.380651,
+    "p99": 703.24032,
+    "max": 783.114
+  },
+  "cross_validation": {
+    "method": "sunlight-episode-grouped-deterministic-folds",
+    "folds": 5,
+    "constant_rmse_W": 139.252563,
+    "candidate_rmse_W": {
+      "1": 132.239679,
+      "2": 130.968615,
+      "3": 129.239915
+    },
+    "selected_rmse_W": 129.239915
+  },
+  "warnings": [
+    "太阳阵功率为目标代理量，不是独立阵列功率测量",
+    "P_charge_est由母线测点差额推断，充电支路边界仍未验证",
+    "温度、太阳入射角、S3R工作点和阵列老化未显式建模"
+  ],
+  "source": {
+    "file": "ResearchSpace\\satellites\\SCS-01-01\\out\\energy_v2_result.csv",
+    "sha256": "48e671def5628cf0a7f11aa921054833176396f0b1ea0d589c1159188a465af2"
+  },
+  "model_code": {
+    "file": "solar_power_calibration.py",
+    "sha256": "130f91ec0c87d7d7f85331ed113324d8815445cf909eca3c0e6300dd909b2a94"
+  }
+}

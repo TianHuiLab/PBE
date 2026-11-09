@@ -1,0 +1,180 @@
+{
+  "schema_version": "1.0",
+  "satellite_id": "YJ-3D",
+  "status": "approved",
+  "source_document": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc",
+  "source_sha256": "41062dc8e84fb67977dc3b7f5da3b3ecb8578c34b5b55034d3c91ae1d081cc48",
+  "source_evidence": [
+    "图3和图4：PLA位于上板，PLB位于下板",
+    "上下板配电开关直接并联输出",
+    "母线配电两级开关，二次配电一级开关",
+    "第33页：上下板DCDC输出分开，配电开关输出形成并联拓扑",
+    "第76页：同编号A/B通道对应同一PL配电对象；一次配电合流时电流相加、电压取有效较大值"
+  ],
+  "approved_at": "2026-11-05T00:00:00+08:00",
+  "default_aggregation_mode": "sum",
+  "allowed_aggregation_modes": [
+    "sum",
+    "max",
+    "select",
+    "or",
+    "unresolved"
+  ],
+  "pairs": [
+    {
+      "pl_channel": 0,
+      "physical_unit": "pl0",
+      "name": "磁强计 A",
+      "members": ["pl0_a", "pl0_b"],
+      "aggregation_mode": "sum"
+    },
+    {
+      "pl_channel": 1,
+      "physical_unit": "pl1",
+      "name": "光纤陀螺",
+      "members": ["pl1_a", "pl1_b"],
+      "aggregation_mode": "sum"
+    },
+    {
+      "pl_channel": 3,
+      "physical_unit": "pl3",
+      "name": "星敏 A",
+      "members": ["pl3_a", "pl3_b"],
+      "aggregation_mode": "sum"
+    },
+    {
+      "pl_channel": 5,
+      "physical_unit": "pl5",
+      "name": "GNSS 接收机主",
+      "members": ["pl5_a", "pl5_b"],
+      "aggregation_mode": "sum"
+    },
+    {
+      "pl_channel": 6,
+      "physical_unit": "pl6",
+      "name": "星敏 B",
+      "members": ["pl6_a", "pl6_b"],
+      "aggregation_mode": "sum"
+    },
+    {
+      "pl_channel": 8,
+      "physical_unit": "pl8",
+      "name": "飞轮 X",
+      "members": ["pl8_a", "pl8_b"],
+      "aggregation_mode": "sum"
+    },
+    {
+      "pl_channel": 9,
+      "physical_unit": "pl9",
+      "name": "飞轮 Y",
+      "members": ["pl9_a", "pl9_b"],
+      "aggregation_mode": "sum"
+    },
+    {
+      "pl_channel": 10,
+      "physical_unit": "pl10",
+      "name": "飞轮 Z",
+      "members": ["pl10_a", "pl10_b"],
+      "aggregation_mode": "sum"
+    },
+    {
+      "pl_channel": 11,
+      "physical_unit": "pl11",
+      "name": "飞轮 S",
+      "members": ["pl11_a", "pl11_b"],
+      "aggregation_mode": "sum"
+    },
+    {
+      "pl_channel": 12,
+      "physical_unit": "pl12",
+      "name": "磁力矩器",
+      "members": ["pl12_a", "pl12_b"],
+      "aggregation_mode": "sum"
+    },
+    {
+      "pl_channel": 13,
+      "physical_unit": "pl13",
+      "name": "X 测控主机",
+      "members": ["pl13_a", "pl13_b"],
+      "aggregation_mode": "sum"
+    },
+    {
+      "pl_channel": 16,
+      "physical_unit": "pl16",
+      "name": "红外相机",
+      "members": ["pl16_a", "pl16_b"],
+      "aggregation_mode": "sum"
+    },
+    {
+      "pl_channel": 17,
+      "physical_unit": "pl17",
+      "name": "测控备",
+      "members": ["pl17_a", "pl17_b"],
+      "aggregation_mode": "sum"
+    },
+    {
+      "pl_channel": 19,
+      "physical_unit": "pl19",
+      "name": "扩展板",
+      "members": ["pl19_a", "pl19_b"],
+      "aggregation_mode": "sum"
+    },
+    {
+      "pl_channel": 20,
+      "physical_unit": "pl20",
+      "name": "智算机 YX 28V1",
+      "members": ["pl20_a", "pl20_b"],
+      "aggregation_mode": "sum"
+    },
+    {
+      "pl_channel": 21,
+      "physical_unit": "pl21",
+      "name": "星间激光终端",
+      "members": ["pl21_a", "pl21_b"],
+      "aggregation_mode": "sum"
+    },
+    {
+      "pl_channel": 22,
+      "physical_unit": "pl22",
+      "name": "星间激光头",
+      "members": ["pl22_a", "pl22_b"],
+      "aggregation_mode": "sum"
+    },
+    {
+      "pl_channel": 26,
+      "physical_unit": "pl26",
+      "name": "路由器主",
+      "members": ["pl26_a", "pl26_b"],
+      "aggregation_mode": "sum"
+    },
+    {
+      "pl_channel": 27,
+      "physical_unit": "pl27",
+      "name": "智算机 G1",
+      "members": ["pl27_a", "pl27_b"],
+      "aggregation_mode": "sum"
+    },
+    {
+      "pl_channel": 28,
+      "physical_unit": "pl28",
+      "name": "液冷回路",
+      "members": ["pl28_a", "pl28_b"],
+      "aggregation_mode": "sum"
+    },
+    {
+      "pl_channel": 30,
+      "physical_unit": "pl30",
+      "name": "路由器备",
+      "members": ["pl30_a", "pl30_b"],
+      "aggregation_mode": "sum"
+    },
+    {
+      "pl_channel": 33,
+      "physical_unit": "pl33",
+      "name": "GNSS 接收机备",
+      "members": ["pl33_a", "pl33_b"],
+      "aggregation_mode": "sum"
+    }
+  ],
+  "policy": "同一PL_n的上板A、下板B属于同一物理配电对象；设备数量只计一次，功率和电流按两支路求和，电压不求和。缺失支路保持缺测，不按0 W处理。"
+}

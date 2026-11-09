@@ -1,0 +1,30 @@
+{
+  "satellite_id": "YJ-3D",
+  "source_database": "chdb_3D",
+  "source_table": "yc_history",
+  "source_time_column": "timestamp",
+  "source_timezone": "UTC",
+  "report_timezone": "Asia/Shanghai",
+  "workbook": "Data/0010-云尖3D星/云尖3D星_遥测大表0813.xlsx",
+  "phase_state": {
+    "code": "TMZS003",
+    "name": "计算的光照区标志",
+    "sun": "光照区",
+    "eclipse": "阴影区",
+    "sheet": "0106-姿控模式状态数据包",
+    "row": 4
+  },
+  "measurements": {
+    "bus_voltage": {"code": "TMEA003", "name": "母线电压遥测", "unit": "V", "range": [21, 29.2], "sheet": "0305-EPSA_1", "row": 4},
+    "bus_current": {"code": "TMEA004", "name": "母线电流遥测", "unit": "A", "range": [0, 10], "sheet": "0305-EPSA_1", "row": 5},
+    "battery_voltage": {"code": "TMEA005", "name": "蓄电池输出电压遥测", "unit": "V", "range": [21, 29.2], "sheet": "0305-EPSA_1", "row": 6},
+    "battery_current": {"code": "TMEA006", "name": "充放电电流遥测", "unit": "A", "range": [-10, 10], "sheet": "0305-EPSA_1", "row": 7},
+    "solar_current": {"code": "TMEA007", "name": "太阳阵电流遥测", "unit": "A", "range": [0, 14], "sheet": "0305-EPSA_1", "row": 8}
+  },
+  "discharge_switch": {"code": "TMEA001", "name": "放电开关状态", "open_state": "开", "sheet": "0305-EPSA_1", "row": 2},
+  "backup_diagnostics": {
+    "bus_voltage": {"code": "TMEB003", "name": "母线电压遥测", "sheet": "0307-EPSB_1", "row": 4},
+    "battery_current": {"code": "TMEB006", "name": "充放电电流遥测", "sheet": "0307-EPSB_1", "row": 7},
+    "solar_current": {"code": "TMEB007", "name": "太阳阵电流遥测", "sheet": "0307-EPSB_1", "row": 8}
+  }
+}

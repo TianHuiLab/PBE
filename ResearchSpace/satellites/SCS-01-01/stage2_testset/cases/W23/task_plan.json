@@ -1,0 +1,70 @@
+{
+  "unit_plan": {
+    "electric_propulsion_a": [
+      {
+        "start": "2026-06-29T11:12:00",
+        "end": "2026-06-29T11:14:00",
+        "mode": "active"
+      },
+      {
+        "start": "2026-06-29T11:14:00",
+        "end": "2026-06-29T11:22:00",
+        "mode": "idle"
+      }
+    ],
+    "reaction_wheel_1": [
+      {
+        "start": "2026-06-29T11:12:00",
+        "end": "2026-06-29T11:13:00",
+        "mode": "idle"
+      },
+      {
+        "start": "2026-06-29T11:13:00",
+        "end": "2026-06-29T11:16:00",
+        "mode": "active"
+      },
+      {
+        "start": "2026-06-29T11:16:00",
+        "end": "2026-06-29T11:22:00",
+        "mode": "idle"
+      }
+    ]
+  },
+  "tasks": [
+    {
+      "start": "2026-06-29T11:12:00",
+      "end": "2026-06-29T11:14:00",
+      "unit": "electric_propulsion_a",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2026-06-29T11:14:00",
+      "end": "2026-06-29T11:22:00",
+      "unit": "electric_propulsion_a",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2026-06-29T11:12:00",
+      "end": "2026-06-29T11:13:00",
+      "unit": "reaction_wheel_1",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2026-06-29T11:13:00",
+      "end": "2026-06-29T11:16:00",
+      "unit": "reaction_wheel_1",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2026-06-29T11:16:00",
+      "end": "2026-06-29T11:22:00",
+      "unit": "reaction_wheel_1",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    }
+  ]
+}

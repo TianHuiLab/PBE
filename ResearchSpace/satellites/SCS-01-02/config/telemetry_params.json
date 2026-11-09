@@ -1,0 +1,102 @@
+{
+  "_meta": {
+    "note": "02星能源测点代号与01星表一致；02星电池V-SOC设计尚未单独确认。",
+    "source": "Data/002-三体星/02星遥测大表.xlsx + chdb_3body.master_satellite_02 实测复核",
+    "id_mapping": "master_satellite_02.spacecraft_id=SCS-01-02；telemetry_raw_02.satellite_id 在2025-12-29前后分别出现 GCS-01-02 与 SCS-01-02，取数同时覆盖两个标识。"
+  },
+  "satellite_id": "SCS-01-02",
+  "phase_state": {
+    "code": "TMK5315",
+    "name": "阳照区标志",
+    "sun": "阳照区",
+    "eclipse": "阴影区",
+    "role": "光照/地影主判据；分钟内切换不归入任一工况"
+  },
+  "battery_direction": {
+    "current_code": "TMH025",
+    "switch_code": "TMD074_b1",
+    "discharge_state": "通",
+    "current_limit_A": 100,
+    "role": "用户指定：开关通时电池电流赋放电正号；断或切换不推断充电"
+  },
+  "columns": {
+    "solar_I": {
+      "code": "TMD009",
+      "name": "太阳阵总电流",
+      "unit": "A",
+      "role": "TMK5315 缺测时的工况回退判据及帆板级差额诊断"
+    },
+    "bus_V": {
+      "code": "TMD016",
+      "name": "母线电压",
+      "unit": "V",
+      "role": "功率计算基准 / 母线稳定度"
+    },
+    "bus_I": {
+      "code": "TMD017",
+      "name": "母线电流",
+      "unit": "A",
+      "role": "母线电流测点；相对 PCDU 充电支路的位置待连接图核实"
+    },
+    "load_I": {
+      "code": "TMD018",
+      "name": "负载电流",
+      "unit": "A",
+      "role": "主负载口径（v2 采用）"
+    },
+    "bat_V": {
+      "code": "TMD019",
+      "name": "蓄电池电压",
+      "unit": "V",
+      "role": "SOC 电压锚定"
+    }
+  },
+  "panel_voltage_codes": [
+    "TMD003",
+    "TMD004",
+    "TMD005",
+    "TMD006",
+    "TMD007",
+    "TMD008"
+  ],
+  "panel_current_codes": [
+    "TMD010",
+    "TMD011",
+    "TMD012",
+    "TMD013",
+    "TMD014",
+    "TMD015"
+  ],
+  "panel_names": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F"
+  ],
+  "fetch_extra_codes": [
+    "TMD023",
+    "TMD024",
+    "TMD066",
+    "TMD067"
+  ],
+  "other_params": {
+    "TMD023": "电推进A电流",
+    "TMD024": "电推进B电流",
+    "TMD045": "飞轮1电流",
+    "TMD046": "飞轮2电流",
+    "TMD047": "飞轮3电流",
+    "TMD048": "飞轮4电流",
+    "TMD066": "CXPD载荷电流",
+    "TMD067": "光纤陀螺电流",
+    "TMD079": "PCDU温度1",
+    "TMD080": "PCDU温度2",
+    "TMD081": "PCDU温度3",
+    "TMD082": "PCDU温度4",
+    "TMD083": "PCDU温度5"
+  },
+  "spacecraft_id": "SCS-01-02",
+  "source_table": "master_satellite_02",
+  "soc_curve_status": "cross_satellite_provisional"
+}

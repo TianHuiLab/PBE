@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Stage-2 case metadata",
+  "type": "object",
+  "required": [
+    "case_id",
+    "satellite_id",
+    "split",
+    "season",
+    "duration_band",
+    "load_band",
+    "task_count",
+    "label_artifact"
+  ],
+  "properties": {
+    "case_id": {
+      "type": "string"
+    },
+    "satellite_id": {
+      "type": "string"
+    },
+    "split": {
+      "const": "validation"
+    },
+    "season": {
+      "type": "string"
+    },
+    "duration_band": {
+      "type": "string"
+    },
+    "load_band": {
+      "type": "string"
+    },
+    "task_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "label_artifact": {
+      "type": "string"
+    }
+  }
+}

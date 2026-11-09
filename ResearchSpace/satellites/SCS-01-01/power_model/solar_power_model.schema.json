@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.tianji/scs-01-01/solar_power_model.schema.json",
+  "title": "SCS-01-01 历史太阳阵功率多项式模型",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "satellite_id",
+    "model_type",
+    "selected_degree",
+    "coefficients_W_per_hour_power",
+    "constant_power_W",
+    "target_definition",
+    "time_feature",
+    "support_hours",
+    "shadow_power_W",
+    "training",
+    "target_stats_W",
+    "cross_validation",
+    "warnings",
+    "source"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "satellite_id": {
+      "const": "SCS-01-01"
+    },
+    "model_type": {
+      "enum": [
+        "polynomial",
+        "constant"
+      ]
+    },
+    "selected_degree": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 3
+    },
+    "coefficients_W_per_hour_power": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "number"
+      }
+    },
+    "constant_power_W": {
+      "type": "number",
+      "minimum": 0
+    },
+    "target_definition": {
+      "type": "object",
+      "required": [
+        "formula",
+        "p_load_basis",
+        "p_charge_basis",
+        "status"
+      ],
+      "properties": {
+        "formula": {
+          "const": "P_load + P_charge_est"
+        }
+      }
+    },
+    "time_feature": {
+      "type": "object"
+    },
+    "support_hours": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "number",
+          "minimum": 0
+        },
+        {
+          "type": "number",
+          "minimum": 0
+        }
+      ],
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "shadow_power_W": {
+      "const": 0.0
+    },
+    "training": {
+      "type": "object",
+      "required": [
+        "n_valid_sun_samples",
+        "sun_segments",
+        "shadow_samples_in_source"
+      ]
+    },
+    "target_stats_W": {
+      "type": "object"
+    },
+    "cross_validation": {
+      "type": "object",
+      "required": [
+        "method",
+        "constant_rmse_W",
+        "candidate_rmse_W",
+        "selected_rmse_W"
+      ]
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "file",
+        "sha256"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

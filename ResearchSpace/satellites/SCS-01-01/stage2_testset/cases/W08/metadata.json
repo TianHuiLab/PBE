@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "case_id": "W08",
+  "satellite_id": "SCS-01-01",
+  "split": "validation",
+  "season": "DJF",
+  "duration_band": "long",
+  "load_band": "high",
+  "duration_minutes": 33,
+  "task_count": 8,
+  "task_state": "stable_transitions_extracted",
+  "task_units_unavailable_at_start": [
+    "electric_propulsion_b",
+    "microwave_1a"
+  ],
+  "phase": "eclipse",
+  "input_contract": "simplified_phase_and_tasks_only",
+  "solar_power": "computed_by_holdout_degree3_model",
+  "evaluation_mode": "frozen_snapshot",
+  "background_policy": "window_start_snapshot",
+  "unit_model_split": "date_grouped_holdout",
+  "label_artifact": "observed_soc.csv"
+}

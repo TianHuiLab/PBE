@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.tianji/yj-3d/prediction_input.schema.json",
+  "title": "云尖3D星未来任务预测输入",
+  "allOf": [
+    {
+      "$ref": "../../SCS-01-01/power_model/prediction_input.schema.json"
+    }
+  ]
+}

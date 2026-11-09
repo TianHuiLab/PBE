@@ -1,0 +1,140 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-11-05T11:43:53+08:00",
+  "time_start": "2025-12-26T00:05:00",
+  "time_end_inclusive": "2026-11-05T09:45:00",
+  "observed_minutes": 21157,
+  "phase_counts": {
+    "日照": 14039,
+    "地影": 6869,
+    "未判定": 249
+  },
+  "season_counts": {
+    "DJF": 17699,
+    "MAM": 740,
+    "JJA": 1826,
+    "SON": 892
+  },
+  "phase_transition_count": 1312,
+  "monthly": [
+    {
+      "month": "2025-12",
+      "observed_minutes": 3681,
+      "sun_minutes": 2317,
+      "eclipse_minutes": 1307,
+      "unknown_minutes": 57
+    },
+    {
+      "month": "2026-01",
+      "observed_minutes": 11411,
+      "sun_minutes": 7192,
+      "eclipse_minutes": 4092,
+      "unknown_minutes": 127
+    },
+    {
+      "month": "2026-02",
+      "observed_minutes": 2607,
+      "sun_minutes": 1679,
+      "eclipse_minutes": 904,
+      "unknown_minutes": 24
+    },
+    {
+      "month": "2026-03",
+      "observed_minutes": 134,
+      "sun_minutes": 82,
+      "eclipse_minutes": 52,
+      "unknown_minutes": 0
+    },
+    {
+      "month": "2026-05",
+      "observed_minutes": 606,
+      "sun_minutes": 568,
+      "eclipse_minutes": 31,
+      "unknown_minutes": 7
+    },
+    {
+      "month": "2026-06",
+      "observed_minutes": 493,
+      "sun_minutes": 451,
+      "eclipse_minutes": 35,
+      "unknown_minutes": 7
+    },
+    {
+      "month": "2026-07",
+      "observed_minutes": 714,
+      "sun_minutes": 647,
+      "eclipse_minutes": 58,
+      "unknown_minutes": 9
+    },
+    {
+      "month": "2026-08",
+      "observed_minutes": 619,
+      "sun_minutes": 454,
+      "eclipse_minutes": 152,
+      "unknown_minutes": 13
+    },
+    {
+      "month": "2026-09",
+      "observed_minutes": 535,
+      "sun_minutes": 428,
+      "eclipse_minutes": 102,
+      "unknown_minutes": 5
+    },
+    {
+      "month": "2026-10",
+      "observed_minutes": 309,
+      "sun_minutes": 182,
+      "eclipse_minutes": 127,
+      "unknown_minutes": 0
+    },
+    {
+      "month": "2026-11",
+      "observed_minutes": 48,
+      "sun_minutes": 39,
+      "eclipse_minutes": 9,
+      "unknown_minutes": 0
+    }
+  ],
+  "temperature_codes": {
+    "TMD079": {
+      "name": "PCDU温度1",
+      "valid_minutes": 17559,
+      "raw_min": 362.92,
+      "raw_median": 454.44,
+      "raw_max": 469.5
+    },
+    "TMD080": {
+      "name": "PCDU温度2",
+      "valid_minutes": 17559,
+      "raw_min": 375.12,
+      "raw_median": 463.59,
+      "raw_max": 469.5
+    },
+    "TMD081": {
+      "name": "PCDU温度3",
+      "valid_minutes": 17559,
+      "raw_min": 409.69,
+      "raw_median": 468.7,
+      "raw_max": 469.5
+    },
+    "TMD082": {
+      "name": "PCDU温度4",
+      "valid_minutes": 17559,
+      "raw_min": 398.59,
+      "raw_median": 468.04,
+      "raw_max": 469.5
+    },
+    "TMD083": {
+      "name": "PCDU温度5",
+      "valid_minutes": 17559,
+      "raw_min": 379.13,
+      "raw_median": 463.59,
+      "raw_max": 469.5
+    }
+  },
+  "temperature_semantics": "原始遥测数值；单位/比例变换和物理温度换算需依遥测大表确认，当前仅用于覆盖和变化审计，不标注为摄氏度",
+  "source": {
+    "result_csv": "satellites\\SCS-01-01\\out\\energy_v2_result.csv",
+    "minute_csv": "satellites\\SCS-01-01\\data_power_minute.csv"
+  }
+}

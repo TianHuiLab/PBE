@@ -1,0 +1,118 @@
+{
+  "schema_version": "1.1",
+  "satellite_id": "YJ-3D",
+  "status": "completed_with_warnings",
+  "timezone": "Asia/Shanghai",
+  "provenance": {
+    "model_file": null,
+    "model_file_sha256": null,
+    "request_file": null,
+    "request_file_sha256": null,
+    "model_code_sha256": "ab100ff2d92961d2c253fe9d3b2c305199e52d42d682be64d0576cc2af65445f"
+  },
+  "window": {
+    "start": "2026-07-28T16:22:00+08:00",
+    "end": "2026-07-28T17:11:00+08:00",
+    "duration_hours": 0.816667,
+    "step_seconds_max": 60
+  },
+  "initial_state": {
+    "time": "2026-07-28T16:22:00+08:00",
+    "soc": 0.75668,
+    "soc_source": "battery_voltage_mapped_by_v_soc_curve",
+    "battery_voltage_V": 26.87607433333333,
+    "remaining_Ah": 28.519285,
+    "remaining_energy_nominal_kWh": 0.720682
+  },
+  "target_end_state": {
+    "time": "2026-07-28T17:11:00+08:00",
+    "soc": 0.763765,
+    "remaining_Ah": 28.786314,
+    "remaining_energy_nominal_kWh": 0.72743,
+    "available_to_soc_floor_Ah": 28.786314,
+    "available_to_soc_floor_nominal_kWh": 0.72743,
+    "battery_voltage_from_v_soc_V": 26.914333,
+    "soc_half_spread_from_power_models": 0.0
+  },
+  "minimum_state": {
+    "soc": 0.75668,
+    "time": "2026-07-28T16:22:00+08:00",
+    "remaining_Ah": 28.519285
+  },
+  "energy": {
+    "solar_to_bus_kWh": 0.065918,
+    "load_kWh": 0.05917,
+    "battery_charge_bus_kWh": 0.006748,
+    "battery_discharge_stored_kWh": 0.0,
+    "unserved_energy_at_floor_kWh": 0.0,
+    "model_power_empirical_spread_kWh": 0.0,
+    "unit_energy_kWh": {},
+    "unit_model_power_empirical_spread_kWh": {}
+  },
+  "limits": {
+    "floor_limited_seconds": 0.0,
+    "ceiling_limited_seconds": 0.0
+  },
+  "assumptions": {
+    "battery_capacity_Ah": 37.69,
+    "nominal_voltage_V": 25.27,
+    "nominal_energy_kWh": 0.952426,
+    "eta_charge": 1.0,
+    "eta_discharge": 1.0,
+    "soc_floor": 0.0,
+    "battery_energy_basis": "rated capacity x nominal voltage; SOC is coulomb/energy bookkeeping"
+  },
+  "warnings": [
+    "背景负载按 time 时刻的遥测快照保持恒定；未列入任务的热控等负载变化未单独建模"
+  ],
+  "evidence": {
+    "power_model_status": "data-fitted minute proxies",
+    "battery_model_status": "bookkeeping prediction, not independent in-orbit validation",
+    "solar_input_status": "太阳阵功率模块: historical_polynomial",
+    "solar_bus_power_constraint": "unconstrained",
+    "background_load_status": "由精确分钟遥测的总负载减去任务单机当前功率推导",
+    "not_modeled": [
+      "temperature-dependent battery capacity",
+      "charge/discharge hysteresis and rate dependence",
+      "solar-array incidence and MPPT/S3R operating point",
+      "measurement-boundary overlap among unit power branches",
+      "unlisted load changes: background load is held constant at snapshot"
+    ]
+  },
+  "input_contract": {
+    "schema_version": "1.1-simplified",
+    "user_inputs": [
+      "time",
+      "prediction.end",
+      "prediction.step_seconds",
+      "prediction.phase_segments",
+      "prediction.tasks"
+    ],
+    "task_semantics": "run_mode applies on [start,end); after_mode applies from end until the next task for that unit or prediction end; omitted after_mode restores the current telemetry-derived power"
+  },
+  "derived_state": {
+    "snapshot_time": "2026-07-28T16:22:00+08:00",
+    "battery_voltage_V": 26.87607433333333,
+    "bus_voltage_V": 26.63471683333333,
+    "total_load_W": 72.45314745553266,
+    "phase": "日照",
+    "current_task_unit_power_W": {},
+    "background_load_W": 72.45314745553266,
+    "solar_source": "historical_polynomial",
+    "solar_bus_transfer_efficiency": 1.0,
+    "solar_load_following_charge_margin_W": null,
+    "solar_provider_file": "D:\\Tianji\\project\\卫星能源评估\\ResearchSpace\\satellites\\YJ-3D\\power_model\\solar_power_model_holdout_20260728.json",
+    "solar_provider_file_sha256": "1ad8202a46023effd6ce44046982b69e52bc3019b19f46d8829067c00d755ad4",
+    "phase_segments": [
+      {
+        "start": "2026-07-28T16:22:00+08:00",
+        "end": "2026-07-28T17:11:00+08:00",
+        "phase": "sun"
+      }
+    ]
+  },
+  "snapshot": {
+    "provider": "YJ3DHistoricalSnapshotProvider",
+    "selected_time_beijing": "2026-07-28T16:22:00"
+  }
+}

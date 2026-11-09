@@ -24,10 +24,10 @@ jobs:
       - name: Syntax check
         run: python -m compileall -q .
 
-      - name: Unit tests (synthetic data, always run)
+      - name: Unit and synthetic end-to-end tests (always run)
         run: python -m unittest discover -s tests -v
 
-      - name: Chart / HTML regression (skipped without real data)
+      - name: Real-data chart / HTML regression (data-dependent cases skipped on CI)
         # 数据文件（data_power_minute.csv / out/）不入库；
-        # 缺失时用例自动跳过，需要在内网跑 s1_fetch.py + s3_run.py 后覆写
+        # CI 的合成 CSV→评估→图表→HTML 用例在 tests/test_pipeline.py 中始终运行。
         run: python test_chart_documentation.py -v

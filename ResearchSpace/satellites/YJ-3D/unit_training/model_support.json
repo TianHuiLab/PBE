@@ -1,0 +1,1199 @@
+{
+  "schema_version": "1.0",
+  "satellite_id": "YJ-3D",
+  "n_units": 32,
+  "n_units_with_active_threshold": 13,
+  "n_units_without_active_threshold": 19,
+  "n_units_with_high_power_band": 0,
+  "active_label_policy": "无阈值的单机不推断 active/idle；active_label 与片段字段留空",
+  "units": [
+    {
+      "unit_id": "pl0",
+      "name": "磁强计 A",
+      "model_type": "constant",
+      "telemetry_basis": "aggregated_branch_power",
+      "power_column": "P_pl0_W",
+      "source_codes": [
+        "TMPA001",
+        "TMPA002",
+        "TMPB001",
+        "TMPB002"
+      ],
+      "has_active_threshold": false,
+      "has_high_power_band": false,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "active_power_W": 0.571958,
+      "high_power_W": null,
+      "low_power_W": null,
+      "explicit_modes": [],
+      "physical_branches": [
+        "pl0_a",
+        "pl0_b"
+      ],
+      "aggregation_mode": "sum",
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 26.0,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97859,
+        "valid_samples": 97859,
+        "outlier_samples": 0,
+        "invalid_samples": 1785,
+        "raw_p99_W": 0.59609559,
+        "raw_tail_W": 0.59609559,
+        "raw_max_W": 13.701132264
+      }
+    },
+    {
+      "unit_id": "pl1",
+      "name": "光纤陀螺",
+      "model_type": "constant",
+      "telemetry_basis": "aggregated_branch_power",
+      "power_column": "P_pl1_W",
+      "source_codes": [
+        "TMPA003",
+        "TMPA004",
+        "TMPB003",
+        "TMPB004"
+      ],
+      "has_active_threshold": false,
+      "has_high_power_band": false,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "active_power_W": 3.610263,
+      "high_power_W": null,
+      "low_power_W": null,
+      "explicit_modes": [],
+      "physical_branches": [
+        "pl1_a",
+        "pl1_b"
+      ],
+      "aggregation_mode": "sum",
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 11.0,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97833,
+        "valid_samples": 97833,
+        "outlier_samples": 0,
+        "invalid_samples": 1811,
+        "raw_p99_W": 3.949856272,
+        "raw_tail_W": 3.949856272,
+        "raw_max_W": 7.473497948
+      }
+    },
+    {
+      "unit_id": "pl3",
+      "name": "星敏 A",
+      "model_type": "constant",
+      "telemetry_basis": "aggregated_branch_power",
+      "power_column": "P_pl3_W",
+      "source_codes": [
+        "TMPA007",
+        "TMPA008",
+        "TMPB007",
+        "TMPB008"
+      ],
+      "has_active_threshold": false,
+      "has_high_power_band": false,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "active_power_W": 1.141285,
+      "high_power_W": null,
+      "low_power_W": null,
+      "explicit_modes": [],
+      "physical_branches": [
+        "pl3_a",
+        "pl3_b"
+      ],
+      "aggregation_mode": "sum",
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 11.0,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97845,
+        "valid_samples": 97845,
+        "outlier_samples": 0,
+        "invalid_samples": 1799,
+        "raw_p99_W": 1.16739424,
+        "raw_tail_W": 1.16739424,
+        "raw_max_W": 6.202475398
+      }
+    },
+    {
+      "unit_id": "pl5",
+      "name": "GNSS 接收机主",
+      "model_type": "constant",
+      "telemetry_basis": "aggregated_branch_power",
+      "power_column": "P_pl5_W",
+      "source_codes": [
+        "TMPA011",
+        "TMPA012",
+        "TMPB011",
+        "TMPB012"
+      ],
+      "has_active_threshold": false,
+      "has_high_power_band": false,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "active_power_W": 2.603835,
+      "high_power_W": null,
+      "low_power_W": null,
+      "explicit_modes": [],
+      "physical_branches": [
+        "pl5_a",
+        "pl5_b"
+      ],
+      "aggregation_mode": "sum",
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 11.0,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97829,
+        "valid_samples": 97829,
+        "outlier_samples": 0,
+        "invalid_samples": 1815,
+        "raw_p99_W": 2.660483186,
+        "raw_tail_W": 2.660483186,
+        "raw_max_W": 6.667841319
+      }
+    },
+    {
+      "unit_id": "pl6",
+      "name": "星敏 B",
+      "model_type": "constant",
+      "telemetry_basis": "aggregated_branch_power",
+      "power_column": "P_pl6_W",
+      "source_codes": [
+        "TMPA013",
+        "TMPA014",
+        "TMPB013",
+        "TMPB014"
+      ],
+      "has_active_threshold": false,
+      "has_high_power_band": false,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "active_power_W": 0.486186,
+      "high_power_W": null,
+      "low_power_W": null,
+      "explicit_modes": [],
+      "physical_branches": [
+        "pl6_a",
+        "pl6_b"
+      ],
+      "aggregation_mode": "sum",
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 11.0,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97850,
+        "valid_samples": 97850,
+        "outlier_samples": 0,
+        "invalid_samples": 1794,
+        "raw_p99_W": 0.511192222,
+        "raw_tail_W": 0.511192222,
+        "raw_max_W": 6.744682474
+      }
+    },
+    {
+      "unit_id": "pl8",
+      "name": "飞轮 X",
+      "model_type": "constant",
+      "telemetry_basis": "aggregated_branch_power",
+      "power_column": "P_pl8_W",
+      "source_codes": [
+        "TMPA030",
+        "TMPA029",
+        "TMPB030",
+        "TMPB029"
+      ],
+      "has_active_threshold": false,
+      "has_high_power_band": false,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "active_power_W": 1.556208,
+      "high_power_W": null,
+      "low_power_W": null,
+      "explicit_modes": [],
+      "physical_branches": [
+        "pl8_a",
+        "pl8_b"
+      ],
+      "aggregation_mode": "sum",
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 58.4,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97860,
+        "valid_samples": 97860,
+        "outlier_samples": 0,
+        "invalid_samples": 1784,
+        "raw_p99_W": 2.793153362,
+        "raw_tail_W": 2.793153362,
+        "raw_max_W": 26.688055272
+      }
+    },
+    {
+      "unit_id": "pl9",
+      "name": "飞轮 Y",
+      "model_type": "constant",
+      "telemetry_basis": "aggregated_branch_power",
+      "power_column": "P_pl9_W",
+      "source_codes": [
+        "TMPA032",
+        "TMPA031",
+        "TMPB032",
+        "TMPB031"
+      ],
+      "has_active_threshold": true,
+      "has_high_power_band": false,
+      "active_threshold_W": 2.270479,
+      "high_threshold_W": null,
+      "active_power_W": 2.97187,
+      "high_power_W": null,
+      "low_power_W": 1.569089,
+      "explicit_modes": [],
+      "physical_branches": [
+        "pl9_a",
+        "pl9_b"
+      ],
+      "aggregation_mode": "sum",
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 58.4,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97866,
+        "valid_samples": 97866,
+        "outlier_samples": 0,
+        "invalid_samples": 1778,
+        "raw_p99_W": 3.727413156,
+        "raw_tail_W": 3.727413156,
+        "raw_max_W": 40.656682016
+      }
+    },
+    {
+      "unit_id": "pl10",
+      "name": "飞轮 Z",
+      "model_type": "constant",
+      "telemetry_basis": "aggregated_branch_power",
+      "power_column": "P_pl10_W",
+      "source_codes": [
+        "TMPA034",
+        "TMPA033",
+        "TMPB034",
+        "TMPB033"
+      ],
+      "has_active_threshold": true,
+      "has_high_power_band": false,
+      "active_threshold_W": 2.00332,
+      "high_threshold_W": null,
+      "active_power_W": 2.634723,
+      "high_power_W": null,
+      "low_power_W": 1.371917,
+      "explicit_modes": [],
+      "physical_branches": [
+        "pl10_a",
+        "pl10_b"
+      ],
+      "aggregation_mode": "sum",
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 58.4,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97849,
+        "valid_samples": 97849,
+        "outlier_samples": 0,
+        "invalid_samples": 1795,
+        "raw_p99_W": 2.697302689,
+        "raw_tail_W": 2.697302689,
+        "raw_max_W": 47.518665176
+      }
+    },
+    {
+      "unit_id": "pl11",
+      "name": "飞轮 S",
+      "model_type": "constant",
+      "telemetry_basis": "aggregated_branch_power",
+      "power_column": "P_pl11_W",
+      "source_codes": [
+        "TMPA036",
+        "TMPA035",
+        "TMPB036",
+        "TMPB035"
+      ],
+      "has_active_threshold": false,
+      "has_high_power_band": false,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "active_power_W": 1.995693,
+      "high_power_W": null,
+      "low_power_W": null,
+      "explicit_modes": [],
+      "physical_branches": [
+        "pl11_a",
+        "pl11_b"
+      ],
+      "aggregation_mode": "sum",
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 58.4,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97848,
+        "valid_samples": 97848,
+        "outlier_samples": 0,
+        "invalid_samples": 1796,
+        "raw_p99_W": 3.217418531,
+        "raw_tail_W": 3.217418531,
+        "raw_max_W": 33.555211238
+      }
+    },
+    {
+      "unit_id": "pl12",
+      "name": "磁力矩器",
+      "model_type": "constant",
+      "telemetry_basis": "aggregated_branch_power",
+      "power_column": "P_pl12_W",
+      "source_codes": [
+        "TMPA038",
+        "TMPA037",
+        "TMPB038",
+        "TMPB037"
+      ],
+      "has_active_threshold": false,
+      "has_high_power_band": false,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "active_power_W": 0.166492,
+      "high_power_W": null,
+      "low_power_W": null,
+      "explicit_modes": [],
+      "physical_branches": [
+        "pl12_a",
+        "pl12_b"
+      ],
+      "aggregation_mode": "sum",
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 11.0,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97851,
+        "valid_samples": 97851,
+        "outlier_samples": 0,
+        "invalid_samples": 1793,
+        "raw_p99_W": 0.428710214,
+        "raw_tail_W": 0.428710214,
+        "raw_max_W": 5.110967327
+      }
+    },
+    {
+      "unit_id": "pl13",
+      "name": "X 测控主机",
+      "model_type": "constant",
+      "telemetry_basis": "aggregated_branch_power",
+      "power_column": "P_pl13_W",
+      "source_codes": [
+        "TMPA018",
+        "TMPA017",
+        "TMPB018",
+        "TMPB017"
+      ],
+      "has_active_threshold": true,
+      "has_high_power_band": false,
+      "active_threshold_W": 10.24319,
+      "high_threshold_W": null,
+      "active_power_W": 16.751291,
+      "high_power_W": null,
+      "low_power_W": 3.735089,
+      "explicit_modes": [],
+      "physical_branches": [
+        "pl13_a",
+        "pl13_b"
+      ],
+      "aggregation_mode": "sum",
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 26.0,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97842,
+        "valid_samples": 97842,
+        "outlier_samples": 0,
+        "invalid_samples": 1802,
+        "raw_p99_W": 16.700595996,
+        "raw_tail_W": 16.700595996,
+        "raw_max_W": 19.879789809
+      }
+    },
+    {
+      "unit_id": "pl16",
+      "name": "红外相机",
+      "model_type": "constant",
+      "telemetry_basis": "aggregated_branch_power",
+      "power_column": "P_pl16_W",
+      "source_codes": [
+        "TMPA024",
+        "TMPA023",
+        "TMPB024",
+        "TMPB023"
+      ],
+      "has_active_threshold": true,
+      "has_high_power_band": false,
+      "active_threshold_W": 3.925064,
+      "high_threshold_W": null,
+      "active_power_W": 7.850078,
+      "high_power_W": null,
+      "low_power_W": 5e-05,
+      "explicit_modes": [],
+      "physical_branches": [
+        "pl16_a",
+        "pl16_b"
+      ],
+      "aggregation_mode": "sum",
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 26.0,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97458,
+        "valid_samples": 97458,
+        "outlier_samples": 0,
+        "invalid_samples": 2186,
+        "raw_p99_W": 7.92512182,
+        "raw_tail_W": 7.92512182,
+        "raw_max_W": 12.987485078
+      }
+    },
+    {
+      "unit_id": "pl17",
+      "name": "测控备",
+      "model_type": "constant",
+      "telemetry_basis": "aggregated_branch_power",
+      "power_column": "P_pl17_W",
+      "source_codes": [
+        "TMPA026",
+        "TMPA025",
+        "TMPB026",
+        "TMPB025"
+      ],
+      "has_active_threshold": true,
+      "has_high_power_band": false,
+      "active_threshold_W": 7.829133,
+      "high_threshold_W": null,
+      "active_power_W": 11.974853,
+      "high_power_W": null,
+      "low_power_W": 3.683413,
+      "explicit_modes": [],
+      "physical_branches": [
+        "pl17_a",
+        "pl17_b"
+      ],
+      "aggregation_mode": "sum",
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 26.0,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97820,
+        "valid_samples": 97820,
+        "outlier_samples": 0,
+        "invalid_samples": 1824,
+        "raw_p99_W": 12.09993456,
+        "raw_tail_W": 12.09993456,
+        "raw_max_W": 18.706551779
+      }
+    },
+    {
+      "unit_id": "pl19",
+      "name": "扩展板",
+      "model_type": "constant",
+      "telemetry_basis": "aggregated_branch_power",
+      "power_column": "P_pl19_W",
+      "source_codes": [
+        "TMPA040",
+        "TMPA039",
+        "TMPB040",
+        "TMPB039"
+      ],
+      "has_active_threshold": true,
+      "has_high_power_band": false,
+      "active_threshold_W": 9.729668,
+      "high_threshold_W": null,
+      "active_power_W": 17.418868,
+      "high_power_W": null,
+      "low_power_W": 2.040468,
+      "explicit_modes": [],
+      "physical_branches": [
+        "pl19_a",
+        "pl19_b"
+      ],
+      "aggregation_mode": "sum",
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 116.8,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97868,
+        "valid_samples": 97868,
+        "outlier_samples": 0,
+        "invalid_samples": 1776,
+        "raw_p99_W": 35.403837644,
+        "raw_tail_W": 35.403837644,
+        "raw_max_W": 64.688881586
+      }
+    },
+    {
+      "unit_id": "pl20",
+      "name": "智算机 YX 28V1",
+      "model_type": "constant",
+      "telemetry_basis": "aggregated_branch_power",
+      "power_column": "P_pl20_W",
+      "source_codes": [
+        "TMPA042",
+        "TMPA041",
+        "TMPB042",
+        "TMPB041"
+      ],
+      "has_active_threshold": false,
+      "has_high_power_band": false,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "active_power_W": 2.6e-05,
+      "high_power_W": null,
+      "low_power_W": null,
+      "explicit_modes": [],
+      "physical_branches": [
+        "pl20_a",
+        "pl20_b"
+      ],
+      "aggregation_mode": "sum",
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 116.8,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97877,
+        "valid_samples": 97877,
+        "outlier_samples": 0,
+        "invalid_samples": 1767,
+        "raw_p99_W": 4.8146e-05,
+        "raw_tail_W": 4.8146e-05,
+        "raw_max_W": 105.209148717
+      }
+    },
+    {
+      "unit_id": "pl21",
+      "name": "星间激光终端",
+      "model_type": "constant",
+      "telemetry_basis": "aggregated_branch_power",
+      "power_column": "P_pl21_W",
+      "source_codes": [
+        "TMPA044",
+        "TMPA043",
+        "TMPB044",
+        "TMPB043"
+      ],
+      "has_active_threshold": true,
+      "has_high_power_band": false,
+      "active_threshold_W": 26.914898,
+      "high_threshold_W": null,
+      "active_power_W": 53.829766,
+      "high_power_W": null,
+      "low_power_W": 3.1e-05,
+      "explicit_modes": [],
+      "physical_branches": [
+        "pl21_a",
+        "pl21_b"
+      ],
+      "aggregation_mode": "sum",
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 175.2,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97879,
+        "valid_samples": 97879,
+        "outlier_samples": 0,
+        "invalid_samples": 1765,
+        "raw_p99_W": 53.8429252,
+        "raw_tail_W": 53.8429252,
+        "raw_max_W": 89.76676215
+      }
+    },
+    {
+      "unit_id": "pl22",
+      "name": "星间激光头",
+      "model_type": "constant",
+      "telemetry_basis": "aggregated_branch_power",
+      "power_column": "P_pl22_W",
+      "source_codes": [
+        "TMPA046",
+        "TMPA045",
+        "TMPB046",
+        "TMPB045"
+      ],
+      "has_active_threshold": false,
+      "has_high_power_band": false,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "active_power_W": 37.34567,
+      "high_power_W": null,
+      "low_power_W": null,
+      "explicit_modes": [],
+      "physical_branches": [
+        "pl22_a",
+        "pl22_b"
+      ],
+      "aggregation_mode": "sum",
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 175.2,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97863,
+        "valid_samples": 97863,
+        "outlier_samples": 0,
+        "invalid_samples": 1781,
+        "raw_p99_W": 39.336604814,
+        "raw_tail_W": 39.336604814,
+        "raw_max_W": 109.58743022
+      }
+    },
+    {
+      "unit_id": "pl26",
+      "name": "路由器主",
+      "model_type": "constant",
+      "telemetry_basis": "aggregated_branch_power",
+      "power_column": "P_pl26_W",
+      "source_codes": [
+        "TMPA053",
+        "TMPA054",
+        "TMPB053",
+        "TMPB054"
+      ],
+      "has_active_threshold": true,
+      "has_high_power_band": false,
+      "active_threshold_W": 11.466726,
+      "high_threshold_W": null,
+      "active_power_W": 22.933433,
+      "high_power_W": null,
+      "low_power_W": 2e-05,
+      "explicit_modes": [],
+      "physical_branches": [
+        "pl26_a",
+        "pl26_b"
+      ],
+      "aggregation_mode": "sum",
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 58.4,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97871,
+        "valid_samples": 97871,
+        "outlier_samples": 0,
+        "invalid_samples": 1773,
+        "raw_p99_W": 22.965501977,
+        "raw_tail_W": 22.965501977,
+        "raw_max_W": 24.599728376
+      }
+    },
+    {
+      "unit_id": "pl27",
+      "name": "智算机 G1",
+      "model_type": "constant",
+      "telemetry_basis": "aggregated_branch_power",
+      "power_column": "P_pl27_W",
+      "source_codes": [
+        "TMPA055",
+        "TMPA056",
+        "TMPB055",
+        "TMPB056"
+      ],
+      "has_active_threshold": true,
+      "has_high_power_band": false,
+      "active_threshold_W": 11.641349,
+      "high_threshold_W": null,
+      "active_power_W": 23.282674,
+      "high_power_W": null,
+      "low_power_W": 2.5e-05,
+      "explicit_modes": [],
+      "physical_branches": [
+        "pl27_a",
+        "pl27_b"
+      ],
+      "aggregation_mode": "sum",
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 58.4,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97873,
+        "valid_samples": 97873,
+        "outlier_samples": 0,
+        "invalid_samples": 1771,
+        "raw_p99_W": 23.806186636,
+        "raw_tail_W": 23.806186636,
+        "raw_max_W": 44.581250929
+      }
+    },
+    {
+      "unit_id": "pl28",
+      "name": "液冷回路",
+      "model_type": "constant",
+      "telemetry_basis": "aggregated_branch_power",
+      "power_column": "P_pl28_W",
+      "source_codes": [
+        "TMPA057",
+        "TMPA058",
+        "TMPB057",
+        "TMPB058"
+      ],
+      "has_active_threshold": false,
+      "has_high_power_band": false,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "active_power_W": 2.5e-05,
+      "high_power_W": null,
+      "low_power_W": null,
+      "explicit_modes": [],
+      "physical_branches": [
+        "pl28_a",
+        "pl28_b"
+      ],
+      "aggregation_mode": "sum",
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 116.8,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97877,
+        "valid_samples": 97877,
+        "outlier_samples": 0,
+        "invalid_samples": 1767,
+        "raw_p99_W": 4.6041e-05,
+        "raw_tail_W": 4.6041e-05,
+        "raw_max_W": 37.286152463
+      }
+    },
+    {
+      "unit_id": "pl30",
+      "name": "路由器备",
+      "model_type": "constant",
+      "telemetry_basis": "aggregated_branch_power",
+      "power_column": "P_pl30_W",
+      "source_codes": [
+        "TMPA059",
+        "TMPA060",
+        "TMPB059",
+        "TMPB060"
+      ],
+      "has_active_threshold": false,
+      "has_high_power_band": false,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "active_power_W": 1.9e-05,
+      "high_power_W": null,
+      "low_power_W": null,
+      "explicit_modes": [],
+      "physical_branches": [
+        "pl30_a",
+        "pl30_b"
+      ],
+      "aggregation_mode": "sum",
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 58.4,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97876,
+        "valid_samples": 97876,
+        "outlier_samples": 0,
+        "invalid_samples": 1768,
+        "raw_p99_W": 3.7854e-05,
+        "raw_tail_W": 3.7854e-05,
+        "raw_max_W": 15.041475627
+      }
+    },
+    {
+      "unit_id": "pl33",
+      "name": "GNSS 接收机备",
+      "model_type": "constant",
+      "telemetry_basis": "aggregated_branch_power",
+      "power_column": "P_pl33_W",
+      "source_codes": [
+        "TMBA029",
+        "TMBA030",
+        "TMBB029",
+        "TMBB030"
+      ],
+      "has_active_threshold": false,
+      "has_high_power_band": false,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "active_power_W": 5e-06,
+      "high_power_W": null,
+      "low_power_W": null,
+      "explicit_modes": [],
+      "physical_branches": [
+        "pl33_a",
+        "pl33_b"
+      ],
+      "aggregation_mode": "sum",
+      "outlier_filter": {
+        "method": "robust_extreme_tail",
+        "upper_limit_W": 0.01593888,
+        "robust_quantile": 0.99,
+        "robust_multiplier": 1000.0,
+        "raw_nonnegative_samples": 97826,
+        "valid_samples": 97826,
+        "outlier_samples": 0,
+        "invalid_samples": 1818,
+        "raw_p99_W": 1.5939e-05,
+        "raw_tail_W": 1.5939e-05,
+        "raw_max_W": 0.008339734
+      }
+    },
+    {
+      "unit_id": "heater_battery_main",
+      "name": "蓄电池加热主路",
+      "model_type": "constant",
+      "telemetry_basis": "bus_current",
+      "power_column": "P_heater_battery_main_W",
+      "source_codes": [
+        "TMEA130"
+      ],
+      "has_active_threshold": true,
+      "has_high_power_band": false,
+      "active_threshold_W": 12.169605,
+      "high_threshold_W": null,
+      "active_power_W": 24.216805,
+      "high_power_W": null,
+      "low_power_W": 0.122405,
+      "explicit_modes": [],
+      "physical_branches": [],
+      "aggregation_mode": null,
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 29.2,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97898,
+        "valid_samples": 97885,
+        "outlier_samples": 13,
+        "invalid_samples": 1746,
+        "raw_p99_W": 24.259692264,
+        "raw_tail_W": 24.259692264,
+        "raw_max_W": 640.35412466
+      }
+    },
+    {
+      "unit_id": "heater_star_a_main",
+      "name": "星敏A加热主路",
+      "model_type": "constant",
+      "telemetry_basis": "bus_current",
+      "power_column": "P_heater_star_a_main_W",
+      "source_codes": [
+        "TMEA131"
+      ],
+      "has_active_threshold": true,
+      "has_high_power_band": false,
+      "active_threshold_W": 1.260238,
+      "high_threshold_W": null,
+      "active_power_W": 2.398963,
+      "high_power_W": null,
+      "low_power_W": 0.121513,
+      "explicit_modes": [],
+      "physical_branches": [],
+      "aggregation_mode": null,
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 29.2,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97898,
+        "valid_samples": 97883,
+        "outlier_samples": 15,
+        "invalid_samples": 1746,
+        "raw_p99_W": 2.79764895,
+        "raw_tail_W": 2.79764895,
+        "raw_max_W": 246.420533826
+      }
+    },
+    {
+      "unit_id": "heater_star_b_main",
+      "name": "星敏B加热主路",
+      "model_type": "constant",
+      "telemetry_basis": "bus_current",
+      "power_column": "P_heater_star_b_main_W",
+      "source_codes": [
+        "TMEA132"
+      ],
+      "has_active_threshold": true,
+      "has_high_power_band": false,
+      "active_threshold_W": 4.583642,
+      "high_threshold_W": null,
+      "active_power_W": 9.04005,
+      "high_power_W": null,
+      "low_power_W": 0.127235,
+      "explicit_modes": [],
+      "physical_branches": [],
+      "aggregation_mode": null,
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 29.2,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97898,
+        "valid_samples": 97881,
+        "outlier_samples": 17,
+        "invalid_samples": 1746,
+        "raw_p99_W": 9.061304785,
+        "raw_tail_W": 9.061304785,
+        "raw_max_W": 649.687087504
+      }
+    },
+    {
+      "unit_id": "heater_propulsion_main",
+      "name": "推进加热主路",
+      "model_type": "constant",
+      "telemetry_basis": "bus_current",
+      "power_column": "P_heater_propulsion_main_W",
+      "source_codes": [
+        "TMEA116"
+      ],
+      "has_active_threshold": true,
+      "has_high_power_band": false,
+      "active_threshold_W": 4.982182,
+      "high_threshold_W": null,
+      "active_power_W": 9.838278,
+      "high_power_W": null,
+      "low_power_W": 0.126085,
+      "explicit_modes": [],
+      "physical_branches": [],
+      "aggregation_mode": null,
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 29.2,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97899,
+        "valid_samples": 97890,
+        "outlier_samples": 9,
+        "invalid_samples": 1745,
+        "raw_p99_W": 9.860182036,
+        "raw_tail_W": 9.860182036,
+        "raw_max_W": 320.225897164
+      }
+    },
+    {
+      "unit_id": "heater_ir_camera_main",
+      "name": "红外相机加热主路",
+      "model_type": "constant",
+      "telemetry_basis": "bus_current",
+      "power_column": "P_heater_ir_camera_main_W",
+      "source_codes": [
+        "TMEA115"
+      ],
+      "has_active_threshold": false,
+      "has_high_power_band": false,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "active_power_W": 0.127233,
+      "high_power_W": null,
+      "low_power_W": null,
+      "explicit_modes": [],
+      "physical_branches": [],
+      "aggregation_mode": null,
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 29.2,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97899,
+        "valid_samples": 97885,
+        "outlier_samples": 14,
+        "invalid_samples": 1745,
+        "raw_p99_W": 0.132505507,
+        "raw_tail_W": 0.132505507,
+        "raw_max_W": 200.076819016
+      }
+    },
+    {
+      "unit_id": "heater_optical_box_main",
+      "name": "光机底部电箱加热主路",
+      "model_type": "constant",
+      "telemetry_basis": "bus_current",
+      "power_column": "P_heater_optical_box_main_W",
+      "source_codes": [
+        "TMEA114"
+      ],
+      "has_active_threshold": false,
+      "has_high_power_band": false,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "active_power_W": 0.123879,
+      "high_power_W": null,
+      "low_power_W": null,
+      "explicit_modes": [],
+      "physical_branches": [],
+      "aggregation_mode": null,
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 29.2,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97899,
+        "valid_samples": 97893,
+        "outlier_samples": 6,
+        "invalid_samples": 1745,
+        "raw_p99_W": 0.128414811,
+        "raw_tail_W": 0.128414811,
+        "raw_max_W": 640.334590726
+      }
+    },
+    {
+      "unit_id": "heater_router_main",
+      "name": "路由加热主路",
+      "model_type": "constant",
+      "telemetry_basis": "bus_current",
+      "power_column": "P_heater_router_main_W",
+      "source_codes": [
+        "TMEA113"
+      ],
+      "has_active_threshold": false,
+      "has_high_power_band": false,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "active_power_W": 0.124896,
+      "high_power_W": null,
+      "low_power_W": null,
+      "explicit_modes": [],
+      "physical_branches": [],
+      "aggregation_mode": null,
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 29.2,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97899,
+        "valid_samples": 97894,
+        "outlier_samples": 5,
+        "invalid_samples": 1745,
+        "raw_p99_W": 0.129808832,
+        "raw_tail_W": 0.129808832,
+        "raw_max_W": 160.221413061
+      }
+    },
+    {
+      "unit_id": "heater_compute_g1_main",
+      "name": "智算机G1加热主路",
+      "model_type": "constant",
+      "telemetry_basis": "bus_current",
+      "power_column": "P_heater_compute_g1_main_W",
+      "source_codes": [
+        "TMEA031"
+      ],
+      "has_active_threshold": false,
+      "has_high_power_band": false,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "active_power_W": 0.121065,
+      "high_power_W": null,
+      "low_power_W": null,
+      "explicit_modes": [],
+      "physical_branches": [],
+      "aggregation_mode": null,
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 29.2,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97959,
+        "valid_samples": 97936,
+        "outlier_samples": 23,
+        "invalid_samples": 1685,
+        "raw_p99_W": 0.1245307,
+        "raw_tail_W": 0.1245307,
+        "raw_max_W": 24086.961504907
+      }
+    },
+    {
+      "unit_id": "heater_compute_yx_main",
+      "name": "智算机YX加热主路",
+      "model_type": "constant",
+      "telemetry_basis": "bus_current",
+      "power_column": "P_heater_compute_yx_main_W",
+      "source_codes": [
+        "TMEA030"
+      ],
+      "has_active_threshold": false,
+      "has_high_power_band": false,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "active_power_W": 0.120725,
+      "high_power_W": null,
+      "low_power_W": null,
+      "explicit_modes": [],
+      "physical_branches": [],
+      "aggregation_mode": null,
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 29.2,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97959,
+        "valid_samples": 97935,
+        "outlier_samples": 24,
+        "invalid_samples": 1685,
+        "raw_p99_W": 0.124584648,
+        "raw_tail_W": 0.124584648,
+        "raw_max_W": 5068.18156601
+      }
+    },
+    {
+      "unit_id": "heater_laser_main",
+      "name": "激光处理机加热主路",
+      "model_type": "constant",
+      "telemetry_basis": "bus_current",
+      "power_column": "P_heater_laser_main_W",
+      "source_codes": [
+        "TMEA029"
+      ],
+      "has_active_threshold": false,
+      "has_high_power_band": false,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "active_power_W": 0.120674,
+      "high_power_W": null,
+      "low_power_W": null,
+      "explicit_modes": [],
+      "physical_branches": [],
+      "aggregation_mode": null,
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 29.2,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97959,
+        "valid_samples": 97937,
+        "outlier_samples": 22,
+        "invalid_samples": 1685,
+        "raw_p99_W": 0.124090366,
+        "raw_tail_W": 0.124090366,
+        "raw_max_W": 9886.661397425
+      }
+    }
+  ]
+}

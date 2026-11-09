@@ -1,0 +1,15 @@
+{
+  "time": "2026-07-28T16:22:00+08:00",
+  "prediction": {
+    "end": "2026-07-28T17:11:00+08:00",
+    "step_seconds": 60,
+    "phase_segments": [
+      {
+        "start": "16:22",
+        "end": "17:11",
+        "phase": "sun"
+      }
+    ],
+    "tasks": []
+  }
+}

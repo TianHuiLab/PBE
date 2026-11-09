@@ -1,0 +1,30 @@
+{
+  "method": "minute-mean voltage piecewise-linear interpolation; no extrapolation or boundary clamping",
+  "source_curve": "Data/0010-云尖3D星/volt_capacity_3D_v0.csv",
+  "source_curve_sha256": "013d6bf58e187b34dcbb01dac23b6a150da8b2d4cbe1b27057c4b34272142d5c",
+  "calibration_config_sha256": "ca41a5f2f65462ba158a31ec7fec084c2ddc0eb77c20e86291629f1642e49b98",
+  "calibration_discharge_current_A": 7.84,
+  "calibration_capacity_Ah": 37.69,
+  "current_match_tolerance_A": 0.5,
+  "curve_voltage_range_V": [
+    21.0,
+    28.18
+  ],
+  "observed_minutes_voltage_within_curve": 493,
+  "observed_minutes_voltage_above_curve": 103201,
+  "observed_minutes_voltage_below_curve": 42,
+  "observed_minutes_voltage_unavailable": 0,
+  "observed_eclipse_minutes": 1717,
+  "eclipse_minutes_above_curve_voltage": 1422,
+  "matched_minutes": 11,
+  "first_matched_beijing": "2026-07-24 21:03:00",
+  "last_matched_beijing": "2026-08-04 18:10:00",
+  "soc_pct_min": 91.20857402031939,
+  "soc_pct_median": 94.14632692307683,
+  "soc_pct_p5": 91.21500471698118,
+  "soc_pct_p95": 96.42226682692305,
+  "dod_pct_max": 8.79142597968061,
+  "interpretation": "Only selected observed minutes under an approximate 7.84 A discharge condition; minute means do not guarantee sample-level current/voltage pairing. Not a whole-period SOC, battery capacity measurement, or SOH estimate.",
+  "minute_source_sha256": "6ef0dede4137df6d534e6928ec5a170dabd6ba1fae0d428499f68e5e45f92c35",
+  "soc_csv_sha256": "a0c26408a11bcdcd2a26247cd92e83b15383734f8493cd597342a5e376ac0bac"
+}

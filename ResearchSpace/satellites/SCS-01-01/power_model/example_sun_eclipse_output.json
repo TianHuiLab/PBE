@@ -1,0 +1,135 @@
+{
+  "schema_version": "1.1",
+  "satellite_id": "SCS-01-01",
+  "status": "completed_with_warnings",
+  "timezone": "Asia/Shanghai",
+  "provenance": {
+    "model_file": "satellites\\SCS-01-01\\power_model\\unit_power_models.json",
+    "model_file_sha256": "f9ffd913a0dd75b8066a9a79561ecbce7d161b2d996da19bdee7daf65cbdb339",
+    "request_file": "satellites\\SCS-01-01\\power_model\\example_sun_eclipse_input.json",
+    "request_file_sha256": "a06a91d5121f24cb1309f94af082d647adc8dc6da8223bd0290b1c6b1e1dda65",
+    "model_code_sha256": "6f1ac16f27aff426987d84bd4bcd34ba980128f9fb1e8199d9c42f7632ff289c"
+  },
+  "window": {
+    "start": "2025-12-29T05:00:00+08:00",
+    "end": "2025-12-29T05:45:00+08:00",
+    "duration_hours": 0.75,
+    "step_seconds_max": 60
+  },
+  "initial_state": {
+    "time": "2025-12-29T05:00:00+08:00",
+    "soc": 0.914815,
+    "soc_source": "battery_voltage_mapped_by_v_soc_curve",
+    "battery_voltage_V": 28.39,
+    "remaining_Ah": 59.462963,
+    "remaining_energy_nominal_kWh": 1.664963
+  },
+  "target_end_state": {
+    "time": "2025-12-29T05:45:00+08:00",
+    "soc": 0.951395,
+    "remaining_Ah": 61.840688,
+    "remaining_energy_nominal_kWh": 1.731539,
+    "available_to_soc_floor_Ah": 58.590688,
+    "available_to_soc_floor_nominal_kWh": 1.640539,
+    "battery_voltage_from_v_soc_V": 28.785068,
+    "soc_half_spread_from_power_models": 0.0
+  },
+  "minimum_state": {
+    "soc": 0.914815,
+    "time": "2025-12-29T05:00:00+08:00",
+    "remaining_Ah": 59.462963
+  },
+  "energy": {
+    "solar_to_bus_kWh": 0.138688,
+    "load_kWh": 0.067782,
+    "battery_charge_bus_kWh": 0.107056,
+    "battery_discharge_stored_kWh": 0.037268,
+    "unserved_energy_at_floor_kWh": 0.0,
+    "model_power_empirical_spread_kWh": 0.0,
+    "unit_energy_kWh": {},
+    "unit_model_power_empirical_spread_kWh": {}
+  },
+  "limits": {
+    "floor_limited_seconds": 0.0,
+    "ceiling_limited_seconds": 0.0
+  },
+  "assumptions": {
+    "battery_capacity_Ah": 65.0,
+    "nominal_voltage_V": 28.0,
+    "nominal_energy_kWh": 1.82,
+    "eta_charge": 0.97,
+    "eta_discharge": 0.97,
+    "soc_floor": 0.05,
+    "battery_energy_basis": "rated capacity x nominal voltage; SOC is coulomb/energy bookkeeping"
+  },
+  "warnings": [
+    "背景负载按 time 时刻的遥测快照保持恒定；未列入任务的热控等负载变化未单独建模"
+  ],
+  "evidence": {
+    "power_model_status": "data-fitted minute proxies",
+    "battery_model_status": "bookkeeping prediction, not independent in-orbit validation",
+    "solar_input_status": "太阳阵功率模块: historical_polynomial",
+    "solar_bus_power_constraint": "unconstrained",
+    "background_load_status": "由精确分钟遥测的总负载减去任务单机当前功率推导",
+    "not_modeled": [
+      "temperature-dependent battery capacity",
+      "charge/discharge hysteresis and rate dependence",
+      "solar-array incidence and MPPT/S3R operating point",
+      "measurement-boundary overlap among unit power branches",
+      "unlisted load changes: background load is held constant at snapshot"
+    ]
+  },
+  "input_contract": {
+    "schema_version": "1.1-simplified",
+    "user_inputs": [
+      "time",
+      "prediction.end",
+      "prediction.step_seconds",
+      "prediction.phase_segments",
+      "prediction.tasks"
+    ],
+    "task_semantics": "run_mode applies on [start,end); after_mode applies from end until the next task for that unit or prediction end; omitted after_mode restores the current telemetry-derived power"
+  },
+  "derived_state": {
+    "snapshot_time": "2025-12-29T05:00:00+08:00",
+    "battery_voltage_V": 28.39,
+    "bus_voltage_V": 28.6,
+    "total_load_W": 90.376,
+    "phase": "阳照区",
+    "current_task_unit_power_W": {},
+    "background_load_W": 90.376,
+    "solar_source": "historical_polynomial",
+    "solar_bus_transfer_efficiency": 1.0,
+    "solar_load_following_charge_margin_W": null,
+    "solar_provider_file": "D:\\Tianji\\project\\卫星能源评估\\ResearchSpace\\satellites\\SCS-01-01\\power_model\\solar_power_model.json",
+    "solar_provider_file_sha256": "142ca6fa747f8781caf7c7229291e5e58833d001fffd1541a23ed6b7b2b50123",
+    "phase_segments": [
+      {
+        "start": "2025-12-29T05:00:00+08:00",
+        "end": "2025-12-29T05:21:00+08:00",
+        "phase": "sun"
+      },
+      {
+        "start": "2025-12-29T05:21:00+08:00",
+        "end": "2025-12-29T05:45:00+08:00",
+        "phase": "eclipse"
+      }
+    ]
+  },
+  "snapshot": {
+    "provider": "ClickHouseSnapshotProvider",
+    "source": "chdb_3body.master_satellite_01",
+    "query_start_inclusive": "2025-12-29T05:00:00+08:00",
+    "query_end_exclusive": "2025-12-29T05:01:00+08:00",
+    "row_count": 126,
+    "param_codes_requested": 126,
+    "transport": "http",
+    "runtime_code_sha256": "0e5aa94321b2c659d495ae74a382d565b344963155cf3fc02c84c687995ee7f1",
+    "telemetry_config_sha256": "f74aa9ed7d83e9222b1dbe17ebc6c2fcef765705453bc0ac1c112172c331d1c0",
+    "components_config_sha256": "daa755d4616c0f4ce95847749fbac931157b3f7f473da63188545d556d34d9f3",
+    "selected_time": "2025-12-29T05:00:00+08:00",
+    "time_column": "onboard_time_bj",
+    "timezone": "Asia/Shanghai",
+    "phase_code": "TMK5315"
+  }
+}

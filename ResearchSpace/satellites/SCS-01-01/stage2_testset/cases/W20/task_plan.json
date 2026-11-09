@@ -1,0 +1,96 @@
+{
+  "unit_plan": {
+    "electric_propulsion_a": [
+      {
+        "start": "2026-05-23T11:16:00",
+        "end": "2026-05-23T11:23:00",
+        "mode": "idle"
+      },
+      {
+        "start": "2026-05-23T11:23:00",
+        "end": "2026-05-23T11:28:00",
+        "mode": "active"
+      },
+      {
+        "start": "2026-05-23T11:28:00",
+        "end": "2026-05-23T11:29:00",
+        "mode": "active_high",
+        "power_level": "high"
+      }
+    ],
+    "laser_processor_1": [
+      {
+        "start": "2026-05-23T11:16:00",
+        "end": "2026-05-23T11:19:00",
+        "mode": "active"
+      },
+      {
+        "start": "2026-05-23T11:19:00",
+        "end": "2026-05-23T11:22:00",
+        "mode": "idle"
+      },
+      {
+        "start": "2026-05-23T11:22:00",
+        "end": "2026-05-23T11:25:00",
+        "mode": "active"
+      },
+      {
+        "start": "2026-05-23T11:25:00",
+        "end": "2026-05-23T11:29:00",
+        "mode": "idle"
+      }
+    ]
+  },
+  "tasks": [
+    {
+      "start": "2026-05-23T11:16:00",
+      "end": "2026-05-23T11:23:00",
+      "unit": "electric_propulsion_a",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2026-05-23T11:23:00",
+      "end": "2026-05-23T11:28:00",
+      "unit": "electric_propulsion_a",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2026-05-23T11:28:00",
+      "end": "2026-05-23T11:29:00",
+      "unit": "electric_propulsion_a",
+      "run_mode": "active",
+      "after_mode": "active",
+      "power_level": "high"
+    },
+    {
+      "start": "2026-05-23T11:16:00",
+      "end": "2026-05-23T11:19:00",
+      "unit": "laser_processor_1",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2026-05-23T11:19:00",
+      "end": "2026-05-23T11:22:00",
+      "unit": "laser_processor_1",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2026-05-23T11:22:00",
+      "end": "2026-05-23T11:25:00",
+      "unit": "laser_processor_1",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2026-05-23T11:25:00",
+      "end": "2026-05-23T11:29:00",
+      "unit": "laser_processor_1",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    }
+  ]
+}

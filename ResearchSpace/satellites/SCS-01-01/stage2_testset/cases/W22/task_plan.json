@@ -1,0 +1,84 @@
+{
+  "unit_plan": {
+    "electric_propulsion_a": [
+      {
+        "start": "2026-06-02T09:51:00",
+        "end": "2026-06-02T09:56:00",
+        "mode": "idle"
+      },
+      {
+        "start": "2026-06-02T09:56:00",
+        "end": "2026-06-02T10:01:00",
+        "mode": "active"
+      }
+    ],
+    "microwave_1b": [
+      {
+        "start": "2026-06-02T09:51:00",
+        "end": "2026-06-02T09:54:00",
+        "mode": "idle"
+      },
+      {
+        "start": "2026-06-02T09:54:00",
+        "end": "2026-06-02T10:01:00",
+        "mode": "active"
+      }
+    ],
+    "laser_processor_1": [
+      {
+        "start": "2026-06-02T09:51:00",
+        "end": "2026-06-02T09:52:00",
+        "mode": "active"
+      },
+      {
+        "start": "2026-06-02T09:52:00",
+        "end": "2026-06-02T10:01:00",
+        "mode": "idle"
+      }
+    ]
+  },
+  "tasks": [
+    {
+      "start": "2026-06-02T09:51:00",
+      "end": "2026-06-02T09:56:00",
+      "unit": "electric_propulsion_a",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2026-06-02T09:56:00",
+      "end": "2026-06-02T10:01:00",
+      "unit": "electric_propulsion_a",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2026-06-02T09:51:00",
+      "end": "2026-06-02T09:54:00",
+      "unit": "microwave_1b",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2026-06-02T09:54:00",
+      "end": "2026-06-02T10:01:00",
+      "unit": "microwave_1b",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2026-06-02T09:51:00",
+      "end": "2026-06-02T09:52:00",
+      "unit": "laser_processor_1",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2026-06-02T09:52:00",
+      "end": "2026-06-02T10:01:00",
+      "unit": "laser_processor_1",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    }
+  ]
+}

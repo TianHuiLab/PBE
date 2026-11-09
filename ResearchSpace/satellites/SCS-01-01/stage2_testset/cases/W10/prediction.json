@@ -1,0 +1,157 @@
+{
+  "schema_version": "1.1",
+  "satellite_id": "SCS-01-01",
+  "status": "completed_with_warnings",
+  "timezone": "Asia/Shanghai",
+  "provenance": {
+    "model_file": null,
+    "model_file_sha256": null,
+    "request_file": null,
+    "request_file_sha256": null,
+    "model_code_sha256": "6f1ac16f27aff426987d84bd4bcd34ba980128f9fb1e8199d9c42f7632ff289c"
+  },
+  "window": {
+    "start": "2025-12-30T10:06:00+08:00",
+    "end": "2025-12-30T10:26:00+08:00",
+    "duration_hours": 0.333333,
+    "step_seconds_max": 60
+  },
+  "initial_state": {
+    "time": "2025-12-30T10:06:00+08:00",
+    "soc": 0.858175,
+    "soc_source": "battery_voltage_mapped_by_v_soc_curve",
+    "battery_voltage_V": 27.9665,
+    "remaining_Ah": 55.781349,
+    "remaining_energy_nominal_kWh": 1.561878
+  },
+  "target_end_state": {
+    "time": "2025-12-30T10:26:00+08:00",
+    "soc": 0.869578,
+    "remaining_Ah": 56.52255,
+    "remaining_energy_nominal_kWh": 1.582631,
+    "available_to_soc_floor_Ah": 53.27255,
+    "available_to_soc_floor_nominal_kWh": 1.491631,
+    "battery_voltage_from_v_soc_V": 28.038339,
+    "soc_half_spread_from_power_models": 0.002301
+  },
+  "minimum_state": {
+    "soc": 0.858175,
+    "time": "2025-12-30T10:06:00+08:00",
+    "remaining_Ah": 55.781349
+  },
+  "energy": {
+    "solar_to_bus_kWh": 0.128653,
+    "load_kWh": 0.10723,
+    "battery_charge_bus_kWh": 0.021862,
+    "battery_discharge_stored_kWh": 0.000453,
+    "unserved_energy_at_floor_kWh": 0.0,
+    "model_power_empirical_spread_kWh": 0.004188,
+    "unit_energy_kWh": {
+      "compute_nx1_f": 0.004358,
+      "router_main": 0.007804,
+      "compute_nx1_g": 0.006129,
+      "compute_g1": 0.005857,
+      "compute_g2": 0.005934,
+      "microwave_1b": 0.001261,
+      "microwave_2a": 0.018756,
+      "laser_processor_1": 0.013597,
+      "reaction_wheel_1": 0.000568,
+      "reaction_wheel_4": 0.000565
+    },
+    "unit_model_power_empirical_spread_kWh": {
+      "compute_nx1_f": 5.5e-05,
+      "router_main": 0.000133,
+      "compute_nx1_g": 0.000163,
+      "compute_g1": 0.000271,
+      "compute_g2": 0.000277,
+      "microwave_1b": 0.002393,
+      "microwave_2a": 0.003355,
+      "laser_processor_1": 0.000598,
+      "reaction_wheel_1": 1.5e-05,
+      "reaction_wheel_4": 3.1e-05
+    }
+  },
+  "limits": {
+    "floor_limited_seconds": 0.0,
+    "ceiling_limited_seconds": 0.0
+  },
+  "assumptions": {
+    "battery_capacity_Ah": 65.0,
+    "nominal_voltage_V": 28.0,
+    "nominal_energy_kWh": 1.82,
+    "eta_charge": 0.97,
+    "eta_discharge": 0.97,
+    "soc_floor": 0.05,
+    "battery_energy_basis": "rated capacity x nominal voltage; SOC is coulomb/energy bookkeeping"
+  },
+  "warnings": [
+    "背景负载按 time 时刻的遥测快照保持恒定；未列入任务的热控等负载变化未单独建模"
+  ],
+  "evidence": {
+    "power_model_status": "data-fitted minute proxies",
+    "battery_model_status": "bookkeeping prediction, not independent in-orbit validation",
+    "solar_input_status": "太阳阵功率模块: historical_polynomial",
+    "solar_bus_power_constraint": "unconstrained",
+    "background_load_status": "由精确分钟遥测的总负载减去任务单机当前功率推导",
+    "not_modeled": [
+      "temperature-dependent battery capacity",
+      "charge/discharge hysteresis and rate dependence",
+      "solar-array incidence and MPPT/S3R operating point",
+      "measurement-boundary overlap among unit power branches",
+      "unlisted load changes: background load is held constant at snapshot"
+    ]
+  },
+  "input_contract": {
+    "schema_version": "1.1-simplified",
+    "user_inputs": [
+      "time",
+      "prediction.end",
+      "prediction.step_seconds",
+      "prediction.phase_segments",
+      "prediction.tasks"
+    ],
+    "task_semantics": "run_mode applies on [start,end); after_mode applies from end until the next task for that unit or prediction end; omitted after_mode restores the current telemetry-derived power"
+  },
+  "derived_state": {
+    "snapshot_time": "2025-12-30T10:06:00+08:00",
+    "battery_voltage_V": 27.9665,
+    "bus_voltage_V": 28.2,
+    "total_load_W": 182.40324,
+    "phase": "日照",
+    "current_task_unit_power_W": {
+      "compute_g1": 0.564,
+      "compute_g2": 0.282,
+      "compute_nx1_f": 0.282,
+      "compute_nx1_g": 0.282,
+      "laser_processor_1": 43.95816,
+      "microwave_1b": 1.41,
+      "microwave_2a": 4.76016,
+      "reaction_wheel_1": 1.692,
+      "reaction_wheel_4": 1.692,
+      "router_main": 0.282
+    },
+    "background_load_W": 127.19892000000002,
+    "solar_source": "historical_polynomial",
+    "solar_bus_transfer_efficiency": 1.0,
+    "solar_load_following_charge_margin_W": null,
+    "solar_provider_file": "D:\\Tianji\\project\\卫星能源评估\\ResearchSpace\\satellites\\SCS-01-01\\power_model\\batch_validation_holdout_solar_model.json",
+    "solar_provider_file_sha256": "4a6b9babe85a07a70c9aa4a382e85aa5a0cafa5ec53df5cb6a03bd7e39e7c590",
+    "phase_segments": [
+      {
+        "start": "2025-12-30T10:06:00+08:00",
+        "end": "2025-12-30T10:26:00+08:00",
+        "phase": "sun"
+      }
+    ]
+  },
+  "snapshot": {
+    "provider": "SCS historical exact-minute snapshot",
+    "selected_time": "2025-12-30T10:06:00"
+  },
+  "evaluation": {
+    "target_soc_error_pp": -2.4072793650793898,
+    "remaining_Ah_error": -1.5647315873016032,
+    "solar_energy_relative_error_pct": -40.32106229008526,
+    "load_energy_relative_error_pct": 2.451023492435166
+  }
+}

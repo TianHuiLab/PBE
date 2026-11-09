@@ -1,0 +1,160 @@
+{
+  "schema_version": "1.0",
+  "satellite_id": "SCS-01-01",
+  "unit_id": "electric_propulsion_a",
+  "name": "电推进配电A",
+  "category": "load",
+  "channel_group": "scs_load_branch",
+  "source": {
+    "power_column": "P_electric_propulsion_a_W",
+    "telemetry_basis": "bus_current",
+    "source_codes": [
+      "TMD023"
+    ]
+  },
+  "model": {
+    "model_type": "constant",
+    "usable_for_prediction": true,
+    "evidence_level": "observed_minute_proxy_constant",
+    "active_power_W": 6.44,
+    "low_power_W": 2.982,
+    "high_power_W": 215.194928,
+    "active_threshold_W": 4.711,
+    "high_threshold_W": 55.787001,
+    "power_bands": [
+      {
+        "id": "low",
+        "label": "低功率观测层",
+        "n": 5954,
+        "fraction": 0.434408,
+        "power_p05_W": 1.207,
+        "power_p50_W": 2.982,
+        "power_p95_W": 4.4446
+      },
+      {
+        "id": "active",
+        "label": "工作功率观测层",
+        "n": 7752,
+        "fraction": 0.565592,
+        "power_p05_W": 5.084542,
+        "power_p50_W": 6.44,
+        "power_p95_W": 6.578
+      },
+      {
+        "id": "high",
+        "label": "同组高功率观测层",
+        "n": 0,
+        "fraction": 0.0,
+        "power_p05_W": 138.840288,
+        "power_p50_W": 215.194928,
+        "power_p95_W": 396.571306,
+        "support": "shared_power_band_group"
+      }
+    ],
+    "modes": {},
+    "polynomial": {
+      "degree": 2,
+      "episodes": 1359,
+      "active_samples": 6005,
+      "time_unit": "hours_since_active_episode_start",
+      "selected": false,
+      "runtime_clip_W": [
+        5.084542,
+        6.578
+      ],
+      "coefficients_W_per_hour_power": [
+        6.554585074,
+        1.0716837,
+        -5.833885732
+      ],
+      "support_hours": [
+        0.0,
+        0.816667
+      ],
+      "monotonic_within_support": false,
+      "endpoint_guard_passed": true,
+      "endpoint_mae_tolerance": 1.1,
+      "endpoint_polynomial_mae_W": 0.35915,
+      "endpoint_constant_mae_W": 0.359449,
+      "cross_validation": {
+        "method": "episode-grouped-deterministic-folds",
+        "folds": 5,
+        "raw_polynomial_rmse_W": 6.722215,
+        "polynomial_rmse_W": 6.720557,
+        "clipped_polynomial_rmse_W": 6.720557,
+        "constant_rmse_W": 6.724069,
+        "relative_improvement": 0.000522
+      },
+      "extrapolation_policy": "clamp_to_support",
+      "runtime_clip_policy": "active_band_p05_p95",
+      "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足"
+    },
+    "outlier_filter": {
+      "method": "configured_max_power",
+      "upper_limit_W": 500.0,
+      "robust_quantile": null,
+      "robust_multiplier": null,
+      "raw_nonnegative_samples": 17391,
+      "valid_samples": 17390,
+      "outlier_samples": 1,
+      "invalid_samples": 3766,
+      "raw_p99_W": 13.632,
+      "raw_tail_W": 13.632,
+      "raw_max_W": 919.024
+    },
+    "warnings": [
+      "检测到低功率层与工作功率层；任务计划必须明确 on/mode",
+      "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+      "已过滤 1 个超过配置筛选上限（500.0 W）的遥测野值",
+      "存在远高于 p99 的短时峰值；预测不使用未解释峰值做外推",
+      "本机训练样本未形成 high 层；按共享单机组 electric_propulsion_feed_pair 从 ['electric_propulsion_b'] 迁移高功率先验（A/B 是同一电推进系统的两路配电支路；只在某一路训练期缺少高功率样本时借用另一路的高功率先验，本机一旦出现 high 层则优先使用本机证据）"
+    ]
+  },
+  "sample_contract": {
+    "timezone": "Asia/Shanghai",
+    "timestamp_format": "ISO-8601 with +08:00",
+    "observed_power_definition": "分钟功率代理；非有限、负值或超过公共过滤上限的野值排除",
+    "target_definition": "target_power_W 等于可用 observed_power_W；缺测标签不填充为 0",
+    "active_definition": "仅当模型有 active_threshold_W 时，observed_power_W >= 阈值记为 active；若存在 high_threshold_W，则高功率瞬态仍属于 active，并在 power_band 中单列为 high；否则 active_label 为空",
+    "power_band_definition": "有 active 阈值时为 active/low；检测到分离高功率层时增加 high。无阈值为 unclassified_single_band。low 不等同于物理 off，high 也不等于独立硬件故障",
+    "episode_definition": "连续有效 active 样本组成片段；非 active 样本或时间间隔超过 5 分钟时重开片段",
+    "elapsed_hours_definition": "active 片段起点至当前样本的小时数；非 active 样本为空",
+    "fit_role_definition": "train=用于单机模型拟合；holdout_eval=云尖留出日期；excluded=缺测或负值"
+  },
+  "counts": {
+    "source_rows": 21157,
+    "valid_rows": 17390,
+    "raw_valid_rows": 17391,
+    "excluded_rows": 3767,
+    "missing_or_non_numeric_rows": 3766,
+    "negative_power_rows": 0,
+    "above_power_limit_rows": 1,
+    "zero_power_rows": 0,
+    "train_rows": 13706,
+    "eval_rows": 3684,
+    "validation_overlap_rows": 370,
+    "active_rows": 9330,
+    "low_rows": 8060,
+    "high_power_rows": 137,
+    "active_episodes": 4277,
+    "missing_fraction_source": 0.17805,
+    "source_time_start": "2025-12-26T00:05:00",
+    "source_time_end": "2026-11-05T09:45:00",
+    "train_time_start": "2025-12-26T00:05:00",
+    "train_time_end": "2026-11-05T09:45:00",
+    "eval_time_start": "2025-12-27T01:52:00",
+    "eval_time_end": "2026-07-13T14:46:00",
+    "validation_overlap_time_start": "2025-12-27T12:40:00",
+    "validation_overlap_time_end": "2026-07-13T13:16:00",
+    "p05_W": 1.5301,
+    "p50_W": 5.076,
+    "p95_W": 6.578,
+    "mean_W": 6.108023
+  },
+  "artifacts": {
+    "train": "train.csv",
+    "eval": "eval.csv",
+    "validation_overlap": "validation_overlap.csv",
+    "excluded": "excluded_samples.csv"
+  }
+}

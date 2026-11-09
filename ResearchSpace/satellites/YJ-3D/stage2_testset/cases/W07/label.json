@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "case_id": "W07",
+  "satellite_id": "YJ-3D",
+  "window": {
+    "start": "2026-09-10T18:41:00+08:00",
+    "end": "2026-09-10T19:30:00+08:00"
+  },
+  "observed": {
+    "target_soc_pct": null,
+    "target_soc_pct_raw": 99.01767574421505,
+    "target_soc_pct_valid_intervals_only": 99.75672867506199,
+    "remaining_Ah": null,
+    "remaining_energy_nominal_kWh": null,
+    "solar_energy_kWh": 0.11602204348877418,
+    "solar_energy_raw_kWh": 0.11602204348877418,
+    "load_energy_kWh": null,
+    "load_energy_raw_kWh": 0.11429314101821265,
+    "v_soc_endpoint_pct": null
+  },
+  "label_quality": {
+    "soc_reference": "current_integrated_with_v_soc_endpoint_crosscheck",
+    "usable_for_absolute_soc": false,
+    "usable_for_trend": true,
+    "qc_status": "fail",
+    "soc_qc_status": "fail",
+    "solar_qc_status": "pass",
+    "load_qc_status": "fail",
+    "quality_reasons": {
+      "soc": {
+        "range_violation": 2
+      },
+      "load": {
+        "range_violation": 2
+      },
+      "solar": {
+        "above_cap": 0,
+        "missing": 0,
+        "gap": 0
+      }
+    },
+    "bcr_above_cap_count": 0,
+    "bcr_cap_W": 227.915766,
+    "has_v_soc_endpoint": false,
+    "observed_endpoint_saturated": false,
+    "solar_energy_reference": "bcr_output",
+    "solar_energy_primary_policy": "training_99p9_winsor_cap",
+    "load_energy_reference": "bus_measure",
+    "notes": "SOC按初始V-SOC锚点加TMEA006积分，仅当全部区间通过量程、时间连续性、相位和冻结检查时形成主标签；原始值和有效区间条件值均保留。BCR主能量使用训练同口径缩尾，原始尖峰保留为诊断指标"
+  }
+}

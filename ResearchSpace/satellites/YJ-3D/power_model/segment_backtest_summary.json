@@ -1,0 +1,223 @@
+{
+  "schema_version": "1.1",
+  "satellite_id": "YJ-3D",
+  "design": {
+    "windows": 10,
+    "leave_out": "entire validation date retrained for every window",
+    "observed_battery_delta_soc": "negative integrated TMEA006 / 37.69 Ah; change-only"
+  },
+  "by_variant": {
+    "bus_efficiency": {
+      "n": 10,
+      "solar_relative_median_pct": -6.246893443331386,
+      "solar_relative_mae_pct": 14.694310626873639,
+      "solar_relative_p95_abs_pct": 52.399384418890634,
+      "solar_power_rmse_median_W": 22.25592599227869,
+      "battery_delta_soc_median_pp": -0.5378394670103881,
+      "battery_delta_soc_mae_pp": 4.178019485816568,
+      "battery_delta_soc_p95_abs_pp": 10.755579245530324
+    },
+    "cap_0W": {
+      "n": 10,
+      "solar_relative_median_pct": -13.473525666776794,
+      "solar_relative_mae_pct": 14.712795310313547,
+      "solar_relative_p95_abs_pct": 30.533089996312402,
+      "solar_power_rmse_median_W": 24.638656280516926,
+      "battery_delta_soc_median_pp": -1.4927863917250304,
+      "battery_delta_soc_mae_pp": 3.778253394846857,
+      "battery_delta_soc_p95_abs_pp": 10.755579245530324
+    },
+    "cap_10W": {
+      "n": 10,
+      "solar_relative_median_pct": -8.51433072759914,
+      "solar_relative_mae_pct": 13.27668054729683,
+      "solar_relative_p95_abs_pct": 27.58174560091381,
+      "solar_power_rmse_median_W": 22.38339431582648,
+      "battery_delta_soc_median_pp": -1.2652972236217694,
+      "battery_delta_soc_mae_pp": 3.9294703253853145,
+      "battery_delta_soc_p95_abs_pp": 10.755579245530324
+    },
+    "cap_15W": {
+      "n": 10,
+      "solar_relative_median_pct": -7.276034542376746,
+      "solar_relative_mae_pct": 12.778260191015141,
+      "solar_relative_p95_abs_pct": 29.522800289012636,
+      "solar_power_rmse_median_W": 22.38339431582648,
+      "battery_delta_soc_median_pp": -1.1515526395701388,
+      "battery_delta_soc_mae_pp": 4.003841784188304,
+      "battery_delta_soc_p95_abs_pp": 10.755579245530324
+    },
+    "cap_20W": {
+      "n": 10,
+      "solar_relative_median_pct": -7.127669944939909,
+      "solar_relative_mae_pct": 12.967143892703021,
+      "solar_relative_p95_abs_pct": 32.51207848240131,
+      "solar_power_rmse_median_W": 22.38339431582648,
+      "battery_delta_soc_median_pp": -1.0378080555185085,
+      "battery_delta_soc_mae_pp": 4.03277840418662,
+      "battery_delta_soc_p95_abs_pp": 10.755579245530324
+    },
+    "cap_30W": {
+      "n": 10,
+      "solar_relative_median_pct": -7.127669944939909,
+      "solar_relative_mae_pct": 13.62105202676452,
+      "solar_relative_p95_abs_pct": 40.91446623596506,
+      "solar_power_rmse_median_W": 22.25592599227869,
+      "battery_delta_soc_median_pp": -0.8103188874152476,
+      "battery_delta_soc_mae_pp": 4.073026487774119,
+      "battery_delta_soc_p95_abs_pp": 10.755579245530324
+    },
+    "cap_50W": {
+      "n": 10,
+      "solar_relative_median_pct": -6.246893443331386,
+      "solar_relative_mae_pct": 14.694310626873639,
+      "solar_relative_p95_abs_pct": 52.399384418890634,
+      "solar_power_rmse_median_W": 22.25592599227869,
+      "battery_delta_soc_median_pp": -0.5378394670103881,
+      "battery_delta_soc_mae_pp": 4.178019485816568,
+      "battery_delta_soc_p95_abs_pp": 10.755579245530324
+    },
+    "cap_5W": {
+      "n": 10,
+      "solar_relative_median_pct": -10.039202586789354,
+      "solar_relative_mae_pct": 13.818166536680305,
+      "solar_relative_p95_abs_pct": 28.130143488199643,
+      "solar_power_rmse_median_W": 22.38339431582648,
+      "battery_delta_soc_median_pp": -1.3790418076734,
+      "battery_delta_soc_mae_pp": 3.852340877702325,
+      "battery_delta_soc_p95_abs_pp": 10.755579245530324
+    },
+    "raw_proxy": {
+      "n": 10,
+      "solar_relative_median_pct": -16.64078784896449,
+      "solar_relative_mae_pct": 16.863521769115813,
+      "solar_relative_p95_abs_pct": 36.131206823319445,
+      "solar_power_rmse_median_W": 35.46309802393897,
+      "battery_delta_soc_median_pp": -0.895190914644424,
+      "battery_delta_soc_mae_pp": 2.9607490590026293,
+      "battery_delta_soc_p95_abs_pp": 8.736339238868853
+    }
+  },
+  "windows": [
+    {
+      "season": "JJA",
+      "duration_band": "short",
+      "load_band": "low",
+      "start": "2026-07-24T09:11:00",
+      "end": "2026-07-24T09:37:00",
+      "minutes": 26,
+      "observed_raw_kWh": 0.05623839538395397,
+      "observed_bus_kWh": 0.0495918932295577,
+      "observed_load_kWh": 0.03055746884582056,
+      "observed_battery_delta_soc_pp": 1.7568648812323733
+    },
+    {
+      "season": "JJA",
+      "duration_band": "medium",
+      "load_band": "low",
+      "start": "2026-07-28T16:22:00",
+      "end": "2026-07-28T17:11:00",
+      "minutes": 49,
+      "observed_raw_kWh": 0.06546089636668133,
+      "observed_bus_kWh": 0.0534570267215005,
+      "observed_load_kWh": 0.05887325398013201,
+      "observed_battery_delta_soc_pp": -0.03599517724105619
+    },
+    {
+      "season": "JJA",
+      "duration_band": "long",
+      "load_band": "medium",
+      "start": "2026-08-01T21:49:00",
+      "end": "2026-08-01T23:09:00",
+      "minutes": 80,
+      "observed_raw_kWh": 0.1870098825766865,
+      "observed_bus_kWh": 0.17063939639406406,
+      "observed_load_kWh": 0.14071099931660008,
+      "observed_battery_delta_soc_pp": 2.761542829676762
+    },
+    {
+      "season": "JJA",
+      "duration_band": "long",
+      "load_band": "high",
+      "start": "2026-08-02T08:57:00",
+      "end": "2026-08-02T10:18:00",
+      "minutes": 81,
+      "observed_raw_kWh": 0.2155443831690897,
+      "observed_bus_kWh": 0.1994238235074324,
+      "observed_load_kWh": 0.17210520278727376,
+      "observed_battery_delta_soc_pp": 2.5211960329242262
+    },
+    {
+      "season": "JJA",
+      "duration_band": "medium",
+      "load_band": "medium",
+      "start": "2026-08-05T17:02:00",
+      "end": "2026-08-05T17:58:00",
+      "minutes": 56,
+      "observed_raw_kWh": 0.12828707213641524,
+      "observed_bus_kWh": 0.11614962499764173,
+      "observed_load_kWh": 0.10584820759982112,
+      "observed_battery_delta_soc_pp": 0.9505362257620362
+    },
+    {
+      "season": "JJA",
+      "duration_band": "short",
+      "load_band": "high",
+      "start": "2026-08-10T17:39:00",
+      "end": "2026-08-10T18:08:00",
+      "minutes": 29,
+      "observed_raw_kWh": 0.067218352032007,
+      "observed_bus_kWh": 0.060994834052765755,
+      "observed_load_kWh": 0.0596023716534651,
+      "observed_battery_delta_soc_pp": 0.12828883887211712
+    },
+    {
+      "season": "SON",
+      "duration_band": "medium",
+      "load_band": "high",
+      "start": "2026-09-10T18:41:00",
+      "end": "2026-09-10T19:30:00",
+      "minutes": 49,
+      "observed_raw_kWh": 0.12291575615457219,
+      "observed_bus_kWh": 0.11162244456880045,
+      "observed_load_kWh": 0.11429314101821265,
+      "observed_battery_delta_soc_pp": -0.9823242557849754
+    },
+    {
+      "season": "SON",
+      "duration_band": "medium",
+      "load_band": "medium",
+      "start": "2026-09-11T00:59:00",
+      "end": "2026-09-11T01:33:00",
+      "minutes": 34,
+      "observed_raw_kWh": 0.07486170438781749,
+      "observed_bus_kWh": 0.0672355127741544,
+      "observed_load_kWh": 0.06814738170735532,
+      "observed_battery_delta_soc_pp": -0.6879857197517283
+    },
+    {
+      "season": "SON",
+      "duration_band": "short",
+      "load_band": "high",
+      "start": "2026-09-11T06:52:00",
+      "end": "2026-09-11T07:20:00",
+      "minutes": 28,
+      "observed_raw_kWh": 0.06405547439010678,
+      "observed_bus_kWh": 0.05776004522597841,
+      "observed_load_kWh": 0.05912651646126167,
+      "observed_battery_delta_soc_pp": -1.9796128072745143
+    },
+    {
+      "season": "SON",
+      "duration_band": "long",
+      "load_band": "medium",
+      "start": "2026-09-12T16:13:00",
+      "end": "2026-09-12T17:44:00",
+      "minutes": 91,
+      "observed_raw_kWh": 0.19784769566954621,
+      "observed_bus_kWh": 0.1761251757421468,
+      "observed_load_kWh": 0.17741488268411987,
+      "observed_battery_delta_soc_pp": -0.23501886567603497
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.6",
+  "satellite_id": "YJ-3D",
+  "window": {
+    "start": "2026-07-28T16:22:00+08:00",
+    "end": "2026-07-28T17:11:00+08:00",
+    "minutes": 49,
+    "phase": "sun"
+  },
+  "solar_model": {
+    "control_logic": "MPPT",
+    "training_target": "Σ(V_BCR_out,j × I_BCR_out,j)",
+    "model_type": "load_aware_linear",
+    "features": [
+      "elapsed_hours",
+      "load_W"
+    ],
+    "selected_cv_rmse_W": 8.447105,
+    "time_only_cv_rmse_W": 20.690508
+  },
+  "load_following_constraint": {
+    "enabled": false
+  },
+  "soc": {
+    "initial": 0.75668,
+    "predicted_target": 0.763765,
+    "observed_target": 0.7273738473167042,
+    "signed_error_percentage_points": 3.6391152683295847,
+    "predicted_remaining_Ah": 28.786314,
+    "observed_remaining_Ah": 27.41472030536658,
+    "remaining_Ah_error": 1.3715936946334217
+  },
+  "energy": {
+    "solar_predicted_kWh": 0.06591787745782453,
+    "solar_observed_BCR_kWh": 0.06133368428474626,
+    "solar_relative_error_pct": 7.474185232042794,
+    "load_predicted_kWh": 0.059170070422018335,
+    "load_observed_kWh": 0.05887325398013201,
+    "load_relative_error_pct": 0.5041617743542727
+  },
+  "solar_power": {
+    "bias_W": 5.613297762952968,
+    "mae_W": 72.0809996876716,
+    "rmse_W": 86.96792575741765
+  },
+  "conclusion": "Future-load-aware BCR model selects elapsed-hour linear plus predicted total load. It substantially improves this window versus time-only BCR while preserving no future BCR telemetry leakage."
+}

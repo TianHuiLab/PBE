@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0",
+  "satellite_id": "YJ-3D",
+  "source": "chdb_3D.yc_history",
+  "window_utc": {
+    "start": "2026-07-28 08:22:00",
+    "end_exclusive": "2026-07-28 09:12:00"
+  },
+  "window_beijing": {
+    "start": "2026-07-28 16:22:00",
+    "end_exclusive": "2026-07-28 17:12:00"
+  },
+  "bcr_sum_W": {
+    "mean": 85.43200493320701,
+    "median": 27.334431103540833,
+    "min": 0.0023524063686527776,
+    "max": 345.06373613243585
+  },
+  "comparison": {
+    "tmea003_times_tmea007_mean_W": 84.18065114345784,
+    "difference_W": 1.2513537897491744
+  },
+  "basis": "Eight BCR output-voltage × output-current channels averaged within each UTC minute and then summed in Beijing time; output side is not array-terminal power.",
+  "conclusion": "The independent BCR output sum is close to the TMEA003×TMEA007 proxy, so the 2026-07-28 low-output pattern is not explained by a single failed solar-current channel."
+}

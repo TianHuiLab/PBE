@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.0",
+  "satellite_id": "YJ-3D",
+  "model_type": "load_aware_linear",
+  "selected_degree": 1,
+  "coefficients_W_per_hour_power": [
+    118.51616874,
+    -0.032783102
+  ],
+  "constant_power_W": 112.585749,
+  "target_definition": {
+    "formula": "Σ(V_BCR_out×I_BCR_out)",
+    "p_solar_basis": "8路BCR同源输出V×I之和",
+    "crosscheck": "P_bus - P_battery_signed",
+    "control_logic": "MPPT",
+    "status": "group holdout; time-linear + future load"
+  },
+  "time_feature": {
+    "name": "elapsed_hours_since_sunlight_segment_start",
+    "reset_at": "every continuous sunlight segment"
+  },
+  "support_hours": [
+    0.0,
+    367.133333
+  ],
+  "extrapolation_policy": "clamp_to_support",
+  "shadow_power_W": 0.0,
+  "training": {
+    "n_valid_sun_samples": 95499,
+    "sun_segments": 129,
+    "shadow_samples_in_source": 1059,
+    "time_start": "2026-07-25T00:17:00",
+    "time_end": "2026-10-27T05:21:00",
+    "winsor_quantile": 0.999,
+    "winsor_cap_W": 227.915766
+  },
+  "target_stats_W": {
+    "min": 0.000752,
+    "p05": 90.596529,
+    "p50": 112.585749,
+    "p95": 152.34,
+    "p99": 189.043848,
+    "max": 10565.315894
+  },
+  "cross_validation": {
+    "method": "sunlight-episode-grouped-deterministic-folds",
+    "folds": 5,
+    "constant_rmse_W": 21.050661,
+    "candidate_rmse_W": {
+      "1": 20.690508,
+      "2": 20.811328,
+      "3": 22.314911
+    },
+    "selected_rmse_W": 8.447105,
+    "feature_candidate_rmse_W": {
+      "time_load_active_count": 8.409271,
+      "time_load_task_power": 8.252587,
+      "time_load_task_power_active_count": 8.017638,
+      "time_plus_load": 8.447105
+    },
+    "selected_model": "load_aware_linear"
+  },
+  "warnings": [
+    "太阳阵功率为目标代理量，不是独立阵列功率测量",
+    "太阳阵目标来自显式目标列；母线电压代理和测点边界仍需核验",
+    "温度、太阳入射角、S3R工作点和阵列老化未显式建模",
+    "太阳阵模型使用预测负载/任务状态特征子集；目标时刻后的BCR遥测不作为输入",
+    "太阳阵模型使用预测负载作为输入；目标时刻后的BCR遥测不作为输入",
+    "任务单机功率和活动数特征经过闭环测试后未采用"
+  ],
+  "source": {
+    "file": "satellites\\YJ-3D\\power_model\\load_aware_training_group_holdout.csv",
+    "sha256": "6f08008f691c3e61c9138d4e98cddb541b6058e87656614fc29b242416975fc1"
+  },
+  "model_code": {
+    "file": "solar_power_calibration.py",
+    "sha256": "130f91ec0c87d7d7f85331ed113324d8815445cf909eca3c0e6300dd909b2a94"
+  },
+  "feature_model": {
+    "features": [
+      "elapsed_hours",
+      "load_W"
+    ],
+    "intercept": 12.193536799,
+    "coefficients": [
+      -0.015911383,
+      0.945835082
+    ],
+    "time_term_degree": 1,
+    "target_clip_W": 227.915766,
+    "selection": "time_plus_load",
+    "selection_policy": "fixed policy selected by integrated holdout forecast"
+  },
+  "bus_transfer_efficiency": 1.0,
+  "bus_transfer_efficiency_model": {
+    "efficiency": 1.0,
+    "status": "target already BCR output"
+  },
+  "load_following_charge_margin_W": null
+}

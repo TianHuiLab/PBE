@@ -1,0 +1,44 @@
+{
+  "unit_plan": {
+    "laser_processor_1": [
+      {
+        "start": "2026-03-05T11:15:00",
+        "end": "2026-03-05T11:22:00",
+        "mode": "active"
+      },
+      {
+        "start": "2026-03-05T11:22:00",
+        "end": "2026-03-05T11:25:00",
+        "mode": "idle"
+      },
+      {
+        "start": "2026-03-05T11:25:00",
+        "end": "2026-03-05T11:26:00",
+        "mode": "active"
+      }
+    ]
+  },
+  "tasks": [
+    {
+      "start": "2026-03-05T11:15:00",
+      "end": "2026-03-05T11:22:00",
+      "unit": "laser_processor_1",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2026-03-05T11:22:00",
+      "end": "2026-03-05T11:25:00",
+      "unit": "laser_processor_1",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2026-03-05T11:25:00",
+      "end": "2026-03-05T11:26:00",
+      "unit": "laser_processor_1",
+      "run_mode": "active",
+      "after_mode": "active"
+    }
+  ]
+}

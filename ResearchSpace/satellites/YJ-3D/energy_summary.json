@@ -1,0 +1,91 @@
+{
+  "source_rows": 6245121,
+  "unique_timestamps": 5255368,
+  "duplicate_rows": 989753,
+  "conflicted_timestamps": 591,
+  "first_sample_beijing": "2026-07-24T09:11:59.324000+08:00",
+  "last_sample_beijing": "2026-10-27T05:21:49.183000+08:00",
+  "observed_minutes": 103736,
+  "span_calendar_minutes": 136571,
+  "calendar_minute_coverage": 0.7595756053627783,
+  "phase_minutes": {
+    "日照": 101628,
+    "未判定": 391,
+    "地影": 1717
+  },
+  "phase_source_minutes": {
+    "TMZS003": 103235,
+    "状态切换或异常": 325,
+    "太阳阵电流回退": 110,
+    "无明确判据": 66
+  },
+  "phase_conflict_minutes": 226,
+  "numeric_and_range_counts": {
+    "bus_voltage": {
+      "numeric": 5255148,
+      "outside_workbook_range": 457
+    },
+    "bus_current": {
+      "numeric": 5255126,
+      "outside_workbook_range": 498
+    },
+    "battery_voltage": {
+      "numeric": 5255128,
+      "outside_workbook_range": 501
+    },
+    "battery_current": {
+      "numeric": 5255123,
+      "outside_workbook_range": 3498
+    },
+    "solar_current": {
+      "numeric": 5255134,
+      "outside_workbook_range": 1278
+    }
+  },
+  "gaps_over_limit": 398,
+  "interval_energy_kWh": {
+    "日照": {
+      "seconds": 6077291.102000159,
+      "intervals": 5148393,
+      "solar_bus_proxy_W": 213.1659041653454,
+      "bus_measure_W": 187.59725558296637,
+      "battery_signed_trial_W": -2.9035369642913538,
+      "residual_diag_W": 22.665111618089327
+    },
+    "地影": {
+      "seconds": 102606.09999999967,
+      "intervals": 85199,
+      "solar_bus_proxy_W": 0.529740073334056,
+      "bus_measure_W": 3.779223453932495,
+      "battery_signed_trial_W": 3.6532484994452403,
+      "residual_diag_W": 0.40376511884679683
+    },
+    "未判定": {
+      "seconds": 19028.185000000023,
+      "intervals": 15514,
+      "solar_bus_proxy_W": 0.48152267517916086,
+      "bus_measure_W": 0.6574419781197274,
+      "battery_signed_trial_W": 0.24843174684418715,
+      "residual_diag_W": 0.07251244390362116
+    }
+  },
+  "provenance": {
+    "source": "chdb_3D.yc_history",
+    "source_time_column": "timestamp",
+    "source_timezone": "UTC",
+    "report_timezone": "Asia/Shanghai",
+    "window_start_inclusive_beijing": "2026-07-24 00:00:00",
+    "window_end_exclusive_beijing": "2026-10-28 00:00:00",
+    "window_start_inclusive_utc": "2026-07-23T16:00:00+00:00",
+    "window_end_exclusive_utc": "2026-10-27T16:00:00+00:00",
+    "selection": "TMEA003 IS NOT NULL; identical UTC timestamps merged",
+    "workbook": "Data/0010-云尖3D星/云尖3D星_遥测大表0813.xlsx",
+    "workbook_sha256": "e13e3d682dd93f426a0deddce5dbc3c804bfe35e307604ed5da5c51fa8fe0e45",
+    "telemetry_config_sha256": "deb921a4db42329e697fd3674f3209a3efde845a3d5e49c3ceb2fbfbaf3c9af7",
+    "assessment_config_sha256": "7f6c9a86a78ed021ad0a4a5c17376e6212e4dcfdb23e83c223610c73f9d61385",
+    "script_sha256": "5cb38fe0514ea196c4dec61624d069a3d195ad48c8cabba3b74ea0ca7c3b1d47",
+    "minute_csv_sha256": "6ef0dede4137df6d534e6928ec5a170dabd6ba1fae0d428499f68e5e45f92c35",
+    "fetched_at_utc": "2026-10-28T03:46:53.184273+00:00",
+    "assessment_config_note": "Only soc_capacity_status text was updated after source extraction; source rows, minute data and energy calculations were not recomputed."
+  }
+}

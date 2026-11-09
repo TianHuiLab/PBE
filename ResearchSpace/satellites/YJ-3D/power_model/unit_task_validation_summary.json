@@ -1,0 +1,107 @@
+{
+  "schema_version": "1.1",
+  "satellite_id": "YJ-3D",
+  "design": {
+    "windows": 10,
+    "excluded_dates": [
+      "2026-07-24",
+      "2026-07-28",
+      "2026-08-01",
+      "2026-08-02",
+      "2026-08-05",
+      "2026-08-10",
+      "2026-09-10",
+      "2026-09-11",
+      "2026-09-12"
+    ],
+    "unit_model": "single grouped holdout, all validation dates excluded",
+    "solar_model": "single grouped holdout, all validation dates excluded",
+    "tasks": "debounced historical active/idle state changes",
+    "observed_soc": "initial V-SOC anchor plus independent TMEA006 integration; conditional reference",
+    "task_total": 303,
+    "task_counts_by_window": [
+      {
+        "start": "2026-07-24T09:11:00",
+        "task_count": 8
+      },
+      {
+        "start": "2026-07-28T16:22:00",
+        "task_count": 15
+      },
+      {
+        "start": "2026-08-01T21:49:00",
+        "task_count": 38
+      },
+      {
+        "start": "2026-08-02T08:57:00",
+        "task_count": 36
+      },
+      {
+        "start": "2026-08-05T17:02:00",
+        "task_count": 39
+      },
+      {
+        "start": "2026-08-10T17:39:00",
+        "task_count": 33
+      },
+      {
+        "start": "2026-09-10T18:41:00",
+        "task_count": 36
+      },
+      {
+        "start": "2026-09-11T00:59:00",
+        "task_count": 24
+      },
+      {
+        "start": "2026-09-11T06:52:00",
+        "task_count": 21
+      },
+      {
+        "start": "2026-09-12T16:13:00",
+        "task_count": 53
+      }
+    ]
+  },
+  "by_variant": {
+    "historical_tasks__cap_0W": {
+      "n": 10,
+      "target_soc_MAE_pp": 0.7742850582806282,
+      "target_soc_p95_abs_pp": 1.7368657632735267,
+      "remaining_Ah_MAE": 0.2918280384659687,
+      "remaining_Ah_p95": 0.6546247061777922,
+      "solar_energy_MAE_pct": 21.238604203355774,
+      "load_energy_MAE_pct": 8.11865360870473,
+      "load_energy_bias_pct": -6.437140980671512
+    },
+    "historical_tasks__no_cap": {
+      "n": 10,
+      "target_soc_MAE_pp": 0.8747350582806291,
+      "target_soc_p95_abs_pp": 2.6410923474825774,
+      "remaining_Ah_MAE": 0.329687643465969,
+      "remaining_Ah_p95": 0.9954277057661833,
+      "solar_energy_MAE_pct": 15.341787690537085,
+      "load_energy_MAE_pct": 8.11865360870473,
+      "load_energy_bias_pct": -6.437140980671512
+    },
+    "no_tasks__cap_0W": {
+      "n": 10,
+      "target_soc_MAE_pp": 3.056385058280628,
+      "target_soc_p95_abs_pp": 9.751189623878172,
+      "remaining_Ah_MAE": 1.1519515284659687,
+      "remaining_Ah_p95": 3.6752233692396836,
+      "solar_energy_MAE_pct": 15.25446095486355,
+      "load_energy_MAE_pct": 22.335249431079724,
+      "load_energy_bias_pct": 12.885195491250968
+    },
+    "no_tasks__no_cap": {
+      "n": 10,
+      "target_soc_MAE_pp": 3.4179550582806284,
+      "target_soc_p95_abs_pp": 9.751189623878172,
+      "remaining_Ah_MAE": 1.2882272614659687,
+      "remaining_Ah_p95": 3.6752233692396836,
+      "solar_energy_MAE_pct": 15.341787690537085,
+      "load_energy_MAE_pct": 22.335249431079724,
+      "load_energy_bias_pct": 12.885195491250968
+    }
+  }
+}

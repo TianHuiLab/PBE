@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.tianji/yj-3d/prediction_output.schema.json",
+  "title": "云尖3D星未来任务预测输出",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "satellite_id",
+    "status",
+    "window",
+    "initial_state",
+    "target_end_state",
+    "minimum_state",
+    "energy",
+    "derived_state",
+    "input_contract",
+    "warnings",
+    "evidence"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.1"
+    },
+    "satellite_id": {
+      "const": "YJ-3D"
+    },
+    "status": {
+      "type": "string"
+    },
+    "window": {
+      "type": "object"
+    },
+    "initial_state": {
+      "type": "object"
+    },
+    "target_end_state": {
+      "type": "object"
+    },
+    "minimum_state": {
+      "type": "object"
+    },
+    "energy": {
+      "type": "object"
+    },
+    "derived_state": {
+      "type": "object"
+    },
+    "input_contract": {
+      "type": "object"
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidence": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,12 +1,13 @@
 {
   "_meta": {
-    "note": "设计/模型参数单一事实源（energy_balancer.py 启动时读取）。battery_capacity_Ah 与 solar_array_Pm 为框架初值假设，需以电源设计文档校准；v1 工具 03/05 曾用 1200W 口径，已废止。v2.1 起 soc_high（分流阈值）已移除：S3R 拓扑下分流由 TMD017 测点上游扣除，富余即充电，无需 SOC 判定。",
-    "updated": "2026-10-22",
+    "note": "设计/模型参数登记。battery_capacity_Ah=65Ah 为用户确认的设计值；solar_array_Pm=900W 仍是假设值且当前计算不使用。容量/SOH、充放电效率尚未建模；这些登记值不能被解释为已有评估能力。",
+    "updated": "2026-10-27",
     "caliber": {
-      "P_solar": "V_bus(TMD016) × I_bus(TMD017) —— 实际送达母线的发电（v2.1，用户决策）",
+      "P_solar": "V_bus(TMD016) × I_bus(TMD017) —— 历史字段名；TMD017 测点折算功率，是否覆盖 PCDU 充电支路待连接图核实",
       "P_load": "V_bus × I_load(TMD018)",
-      "P_shunt_diag": "(I_solar(TMD009) - I_bus(TMD017)) × V_bus —— 诊断量，非记账项",
-      "phase_judge": "I_solar(TMD009) 帆板级电流——光照工况判据，不受 S3R 分流影响"
+      "P_shunt_diag": "(I_solar(TMD009) - I_bus(TMD017)) × V_bus —— 跨测点诊断，可能包含充电支路，非分流记账项",
+      "power_priority": "设计方案 5.3.3：不调节母线 + S³R 分流；先供母线负载，再充蓄电池，最后分流；电池电压钳位母线",
+      "phase_judge": "TMK5315 阳照区标志为主判据；缺测时由 TMD009 分钟电流极值按 1 A 阈值回退；同分钟标志切换不归类"
     },
     "calibration_status": {
       "battery_capacity_Ah": "设计值·已确认（2026-10-22 用户提供：7s13p×5Ah 单体=65Ah，满足放电深度限制要求的容量下限 60.3Ah）",
@@ -28,9 +29,9 @@
   "eta_charge": 0.97,
   "eta_discharge": 0.97,
   "soc_floor": 0.05,
-  "soc_unknown": 0.9,
   "sun_I_threshold_A": 1.0,
   "dt_seconds": 60.0,
+  "interval_max_gap_seconds": 10.0,
   "health_weights": { "power_balance": 0.35, "dod": 0.25, "soc_low": 0.20, "bus_stability": 0.20 },
   "health_thresholds": {
     "margin_pct": [20, 0], "dod_p95_pct": [30, 50],

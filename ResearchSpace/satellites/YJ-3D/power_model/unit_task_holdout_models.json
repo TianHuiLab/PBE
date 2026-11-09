@@ -1,0 +1,6186 @@
+{
+  "schema_version": "1.0",
+  "satellite_id": "YJ-3D",
+  "timezone": "Asia/Shanghai",
+  "model_code": {
+    "file": "unit_power_model.py",
+    "sha256": "6f1ac16f27aff426987d84bd4bcd34ba980128f9fb1e8199d9c42f7632ff289c"
+  },
+  "created_from": {
+    "component_csv": "satellites\\YJ-3D\\power_model\\unit_power_minute.csv",
+    "component_csv_sha256": "624e356f2901c50fe9b4fcf67e98ddc5bb946aa4daf8e55d863831da6bc38bc5",
+    "components_config": "satellites\\YJ-3D\\power_model\\forecast_components.json",
+    "components_config_sha256": "ce05598665292001be00cc4995bd527f9d5baa0a224a63048b9cc4dcb1077934",
+    "source_time_start": "2026-07-24T09:11:00",
+    "source_time_end": "2026-10-27T23:59:00",
+    "time_start": "2026-07-25T00:00:00",
+    "time_end": "2026-10-27T23:59:00"
+  },
+  "training_split": {
+    "method": "exclude_whole_dates",
+    "excluded_dates": [
+      "2026-07-24",
+      "2026-07-28",
+      "2026-08-01",
+      "2026-08-02",
+      "2026-08-05",
+      "2026-08-10",
+      "2026-09-10",
+      "2026-09-11",
+      "2026-09-12"
+    ],
+    "source_rows": 107737,
+    "retained_rows": 99644,
+    "excluded_rows": 8093
+  },
+  "calibration_contract": {
+    "input": "enabled role=load component power columns from energy_v2_components.csv",
+    "power_basis": "minute-mean voltage times minute-mean current proxy unless configured otherwise",
+    "missing_policy": "missing/non-finite/negative/outlier samples are excluded, never treated as zero",
+    "outlier_policy": "configured max_power_W is a documented screening limit; without it, a wide robust power-tail guard removes implausible telemetry spikes before state and model fitting",
+    "band_policy": "deterministic 1-D two-means for low/active; a log-power second split creates active/high only with >=0.2% source support, >=5 samples and >=14x median separation",
+    "polynomial_policy": "degree 1-3 candidate; episode-grouped holdout uses the same active-band p05-p95 runtime clipping as deployment; selection also requires >=10% RMSE improvement, monotonic support and endpoint error no more than 10% worse than the constant baseline",
+    "off_policy": "off defaults to 0 W; low/idle uses the observed low-power band when present",
+    "shared_power_band_policy": "configured paired feeds may borrow a missing high band from a sibling feed in the same physical unit; local high-band evidence always takes precedence",
+    "date_split_policy": "explicit whole dates may be excluded before fitting; excluded dates are never replaced or backfilled"
+  },
+  "model_counts": {
+    "constant": 54
+  },
+  "models": {
+    "pl0_a": {
+      "name": "磁强计 A · PL_0A",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl0_a_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPA001",
+          "TMPA002"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97965,
+        "raw_valid_samples": 98002,
+        "missing_fraction": 0.01685,
+        "outlier_samples": 37,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97965,
+        "min_W": 0.0,
+        "p01_W": 0.003879,
+        "p05_W": 0.005499,
+        "p10_W": 0.006593,
+        "p25_W": 0.008407,
+        "p50_W": 0.01067,
+        "p75_W": 0.013059,
+        "p90_W": 0.01552,
+        "p95_W": 0.017136,
+        "p99_W": 0.020369,
+        "max_W": 12.101353,
+        "mean_W": 0.012227,
+        "std_W": 0.091269,
+        "cv": 7.46467
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 13.0,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 98002,
+        "valid_samples": 97965,
+        "outlier_samples": 37,
+        "invalid_samples": 1642,
+        "raw_p99_W": 0.020373602,
+        "raw_tail_W": 0.020373602,
+        "raw_max_W": 10385.475206042
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97965,
+          "fraction": 1.0,
+          "power_p05_W": 0.005499,
+          "power_p50_W": 0.01067,
+          "power_p95_W": 0.017136
+        }
+      ],
+      "active_power_W": 0.01067,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 46,
+        "active_samples": 97884,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          0.005499,
+          0.017136
+        ],
+        "coefficients_W_per_hour_power": [
+          0.011360717,
+          5.803e-06,
+          -1e-09
+        ],
+        "support_hours": [
+          0.0,
+          411.583333
+        ],
+        "monotonic_within_support": true,
+        "endpoint_guard_passed": true,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 0.005772,
+        "endpoint_constant_mae_W": 0.005338,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.085239,
+          "polynomial_rmse_W": 0.085239,
+          "clipped_polynomial_rmse_W": 0.085239,
+          "constant_rmse_W": 0.085229,
+          "relative_improvement": -0.000115
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 37 个超过配置筛选上限（13.0 W）的遥测野值",
+        "存在远高于 p99 的短时峰值；预测不使用未解释峰值做外推"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl0_b": {
+      "name": "磁强计 A · PL_0B",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl0_b_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPB001",
+          "TMPB002"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97955,
+        "raw_valid_samples": 97991,
+        "missing_fraction": 0.01695,
+        "outlier_samples": 36,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97955,
+        "min_W": 0.0,
+        "p01_W": 0.540064,
+        "p05_W": 0.546072,
+        "p10_W": 0.549232,
+        "p25_W": 0.554741,
+        "p50_W": 0.561072,
+        "p75_W": 0.567521,
+        "p90_W": 0.573397,
+        "p95_W": 0.57692,
+        "p99_W": 0.583591,
+        "max_W": 12.979617,
+        "mean_W": 0.562715,
+        "std_W": 0.094609,
+        "cv": 0.16813
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 13.0,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97991,
+        "valid_samples": 97955,
+        "outlier_samples": 36,
+        "invalid_samples": 1653,
+        "raw_p99_W": 0.583741665,
+        "raw_tail_W": 0.583741665,
+        "raw_max_W": 10144.449783326
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97955,
+          "fraction": 1.0,
+          "power_p05_W": 0.546072,
+          "power_p50_W": 0.561072,
+          "power_p95_W": 0.57692
+        }
+      ],
+      "active_power_W": 0.561072,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 50,
+        "active_samples": 97891,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          0.546072,
+          0.57692
+        ],
+        "coefficients_W_per_hour_power": [
+          0.563600763,
+          -2.535e-05,
+          6.7e-08
+        ],
+        "support_hours": [
+          0.0,
+          411.583333
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": true,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 0.009824,
+        "endpoint_constant_mae_W": 0.009558,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.08769,
+          "polynomial_rmse_W": 0.08769,
+          "clipped_polynomial_rmse_W": 0.08769,
+          "constant_rmse_W": 0.087692,
+          "relative_improvement": 1.9e-05
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 36 个超过配置筛选上限（13.0 W）的遥测野值",
+        "存在远高于 p99 的短时峰值；预测不使用未解释峰值做外推"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl1_a": {
+      "name": "光纤陀螺 · PL_1A",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl1_a_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPA003",
+          "TMPA004"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97943,
+        "raw_valid_samples": 98002,
+        "missing_fraction": 0.017071,
+        "outlier_samples": 59,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97943,
+        "min_W": 0.0,
+        "p01_W": 1.601461,
+        "p05_W": 1.615502,
+        "p10_W": 1.620535,
+        "p25_W": 1.629263,
+        "p50_W": 1.643091,
+        "p75_W": 1.673392,
+        "p90_W": 1.702674,
+        "p95_W": 1.72689,
+        "p99_W": 1.823951,
+        "max_W": 5.496583,
+        "mean_W": 1.655706,
+        "std_W": 0.052235,
+        "cv": 0.031548
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 5.5,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 98002,
+        "valid_samples": 97943,
+        "outlier_samples": 59,
+        "invalid_samples": 1642,
+        "raw_p99_W": 1.826595108,
+        "raw_tail_W": 1.826595108,
+        "raw_max_W": 6850.839027999
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97943,
+          "fraction": 1.0,
+          "power_p05_W": 1.615502,
+          "power_p50_W": 1.643091,
+          "power_p95_W": 1.72689
+        }
+      ],
+      "active_power_W": 1.643091,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 49,
+        "active_samples": 97868,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          1.615502,
+          1.72689
+        ],
+        "coefficients_W_per_hour_power": [
+          1.680475498,
+          -0.000437177,
+          8.44e-07
+        ],
+        "support_hours": [
+          0.0,
+          367.133333
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": true,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 0.085254,
+        "endpoint_constant_mae_W": 0.082444,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.043907,
+          "polynomial_rmse_W": 0.043907,
+          "clipped_polynomial_rmse_W": 0.043907,
+          "constant_rmse_W": 0.049312,
+          "relative_improvement": 0.109606
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "支撑区间内预测非单调，端点稳定性不足"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 59 个超过配置筛选上限（5.5 W）的遥测野值"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl1_b": {
+      "name": "光纤陀螺 · PL_1B",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl1_b_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPB003",
+          "TMPB004"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97933,
+        "raw_valid_samples": 97991,
+        "missing_fraction": 0.017171,
+        "outlier_samples": 58,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97933,
+        "min_W": 0.0,
+        "p01_W": 1.90871,
+        "p05_W": 1.943755,
+        "p10_W": 1.949162,
+        "p25_W": 1.957099,
+        "p50_W": 1.968421,
+        "p75_W": 1.992065,
+        "p90_W": 2.018599,
+        "p95_W": 2.043336,
+        "p99_W": 2.125546,
+        "max_W": 5.10452,
+        "mean_W": 1.978438,
+        "std_W": 0.045147,
+        "cv": 0.022819
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 5.5,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97991,
+        "valid_samples": 97933,
+        "outlier_samples": 58,
+        "invalid_samples": 1653,
+        "raw_p99_W": 2.127096651,
+        "raw_tail_W": 2.127096651,
+        "raw_max_W": 1794.792166866
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97933,
+          "fraction": 1.0,
+          "power_p05_W": 1.943755,
+          "power_p50_W": 1.968421,
+          "power_p95_W": 2.043336
+        }
+      ],
+      "active_power_W": 1.968421,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 48,
+        "active_samples": 97868,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          1.943755,
+          2.043336
+        ],
+        "coefficients_W_per_hour_power": [
+          1.994628292,
+          -0.000271562,
+          4.71e-07
+        ],
+        "support_hours": [
+          0.0,
+          367.133333
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": true,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 0.038422,
+        "endpoint_constant_mae_W": 0.040212,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.042135,
+          "polynomial_rmse_W": 0.042135,
+          "clipped_polynomial_rmse_W": 0.042135,
+          "constant_rmse_W": 0.044885,
+          "relative_improvement": 0.061272
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 58 个超过配置筛选上限（5.5 W）的遥测野值"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl3_a": {
+      "name": "星敏 A · PL_3A",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl3_a_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPA007",
+          "TMPA008"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97953,
+        "raw_valid_samples": 98002,
+        "missing_fraction": 0.01697,
+        "outlier_samples": 49,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97953,
+        "min_W": 0.0,
+        "p01_W": 0.378852,
+        "p05_W": 0.40203,
+        "p10_W": 0.415096,
+        "p25_W": 0.430045,
+        "p50_W": 0.439311,
+        "p75_W": 0.447018,
+        "p90_W": 0.454445,
+        "p95_W": 0.460924,
+        "p99_W": 0.512077,
+        "max_W": 5.366613,
+        "mean_W": 0.438588,
+        "std_W": 0.054541,
+        "cv": 0.124356
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 5.5,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 98002,
+        "valid_samples": 97953,
+        "outlier_samples": 49,
+        "invalid_samples": 1642,
+        "raw_p99_W": 0.513208941,
+        "raw_tail_W": 0.513208941,
+        "raw_max_W": 6820.888024453
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97953,
+          "fraction": 1.0,
+          "power_p05_W": 0.40203,
+          "power_p50_W": 0.439311,
+          "power_p95_W": 0.460924
+        }
+      ],
+      "active_power_W": 0.439311,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 47,
+        "active_samples": 97875,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          0.40203,
+          0.460924
+        ],
+        "coefficients_W_per_hour_power": [
+          0.43470623,
+          5.5304e-05,
+          -9.5e-08
+        ],
+        "support_hours": [
+          0.0,
+          411.583333
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": false,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 0.017923,
+        "endpoint_constant_mae_W": 0.01626,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.048103,
+          "polynomial_rmse_W": 0.048103,
+          "clipped_polynomial_rmse_W": 0.048103,
+          "constant_rmse_W": 0.047903,
+          "relative_improvement": -0.004186
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足；片段首末位置误差超过恒定基线 10% 容差"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 49 个超过配置筛选上限（5.5 W）的遥测野值",
+        "存在远高于 p99 的短时峰值；预测不使用未解释峰值做外推"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl3_b": {
+      "name": "星敏 A · PL_3B",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl3_b_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPB007",
+          "TMPB008"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97941,
+        "raw_valid_samples": 97991,
+        "missing_fraction": 0.017091,
+        "outlier_samples": 50,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97941,
+        "min_W": 0.0,
+        "p01_W": 0.639749,
+        "p05_W": 0.680665,
+        "p10_W": 0.686916,
+        "p25_W": 0.694015,
+        "p50_W": 0.701589,
+        "p75_W": 0.710967,
+        "p90_W": 0.726779,
+        "p95_W": 0.74021,
+        "p99_W": 0.761613,
+        "max_W": 5.483628,
+        "mean_W": 0.70409,
+        "std_W": 0.040187,
+        "cv": 0.057076
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 5.5,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97991,
+        "valid_samples": 97941,
+        "outlier_samples": 50,
+        "invalid_samples": 1653,
+        "raw_p99_W": 0.762193962,
+        "raw_tail_W": 0.762193962,
+        "raw_max_W": 34519.233731933
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97941,
+          "fraction": 1.0,
+          "power_p05_W": 0.680665,
+          "power_p50_W": 0.701589,
+          "power_p95_W": 0.74021
+        }
+      ],
+      "active_power_W": 0.701589,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 48,
+        "active_samples": 97879,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          0.680665,
+          0.74021
+        ],
+        "coefficients_W_per_hour_power": [
+          0.708627981,
+          -7.5256e-05,
+          1.47e-07
+        ],
+        "support_hours": [
+          0.0,
+          411.583333
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": true,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 0.0246,
+        "endpoint_constant_mae_W": 0.023941,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.039085,
+          "polynomial_rmse_W": 0.039085,
+          "clipped_polynomial_rmse_W": 0.039085,
+          "constant_rmse_W": 0.038987,
+          "relative_improvement": -0.002497
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 50 个超过配置筛选上限（5.5 W）的遥测野值",
+        "存在远高于 p99 的短时峰值；预测不使用未解释峰值做外推"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl5_a": {
+      "name": "GNSS 接收机主 · PL_5A",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl5_a_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPA011",
+          "TMPA012"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97938,
+        "raw_valid_samples": 98001,
+        "missing_fraction": 0.017121,
+        "outlier_samples": 63,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97938,
+        "min_W": 0.0,
+        "p01_W": 2.7e-05,
+        "p05_W": 1.322108,
+        "p10_W": 1.340231,
+        "p25_W": 1.361499,
+        "p50_W": 1.379443,
+        "p75_W": 1.395161,
+        "p90_W": 1.409236,
+        "p95_W": 1.419049,
+        "p99_W": 1.454022,
+        "max_W": 5.242215,
+        "mean_W": 1.357662,
+        "std_W": 0.175241,
+        "cv": 0.129076
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 5.5,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 98001,
+        "valid_samples": 97938,
+        "outlier_samples": 63,
+        "invalid_samples": 1643,
+        "raw_p99_W": 1.455722773,
+        "raw_tail_W": 1.455722773,
+        "raw_max_W": 46015.459928188
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97938,
+          "fraction": 1.0,
+          "power_p05_W": 1.322108,
+          "power_p50_W": 1.379443,
+          "power_p95_W": 1.419049
+        }
+      ],
+      "active_power_W": 1.379443,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 47,
+        "active_samples": 97870,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          1.322108,
+          1.419049
+        ],
+        "coefficients_W_per_hour_power": [
+          1.310779785,
+          0.000995762,
+          -2.512e-06
+        ],
+        "support_hours": [
+          0.0,
+          367.133333
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": true,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 0.285858,
+        "endpoint_constant_mae_W": 0.268278,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.177143,
+          "polynomial_rmse_W": 0.173659,
+          "clipped_polynomial_rmse_W": 0.173659,
+          "constant_rmse_W": 0.175762,
+          "relative_improvement": 0.011962
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 63 个超过配置筛选上限（5.5 W）的遥测野值"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl5_b": {
+      "name": "GNSS 接收机主 · PL_5B",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl5_b_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPB011",
+          "TMPB012"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97916,
+        "raw_valid_samples": 97991,
+        "missing_fraction": 0.017342,
+        "outlier_samples": 75,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97916,
+        "min_W": 0.0,
+        "p01_W": 2.3e-05,
+        "p05_W": 1.185888,
+        "p10_W": 1.197413,
+        "p25_W": 1.209664,
+        "p50_W": 1.22221,
+        "p75_W": 1.237042,
+        "p90_W": 1.259315,
+        "p95_W": 1.27684,
+        "p99_W": 1.305395,
+        "max_W": 4.98236,
+        "mean_W": 1.207486,
+        "std_W": 0.156816,
+        "cv": 0.12987
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 5.5,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97991,
+        "valid_samples": 97916,
+        "outlier_samples": 75,
+        "invalid_samples": 1653,
+        "raw_p99_W": 1.306498804,
+        "raw_tail_W": 1.306498804,
+        "raw_max_W": 43956.181733628
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97916,
+          "fraction": 1.0,
+          "power_p05_W": 1.185888,
+          "power_p50_W": 1.22221,
+          "power_p95_W": 1.27684
+        }
+      ],
+      "active_power_W": 1.22221,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 46,
+        "active_samples": 97857,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          1.185888,
+          1.27684
+        ],
+        "coefficients_W_per_hour_power": [
+          1.178789859,
+          0.000683894,
+          -1.947e-06
+        ],
+        "support_hours": [
+          0.0,
+          367.133333
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": true,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 0.208987,
+        "endpoint_constant_mae_W": 0.196366,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.158924,
+          "polynomial_rmse_W": 0.156531,
+          "clipped_polynomial_rmse_W": 0.156531,
+          "constant_rmse_W": 0.157024,
+          "relative_improvement": 0.003137
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 75 个超过配置筛选上限（5.5 W）的遥测野值"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl6_a": {
+      "name": "星敏 B · PL_6A",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl6_a_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPA013",
+          "TMPA014"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97954,
+        "raw_valid_samples": 98001,
+        "missing_fraction": 0.01696,
+        "outlier_samples": 47,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97954,
+        "min_W": 0.0,
+        "p01_W": 0.449059,
+        "p05_W": 0.456639,
+        "p10_W": 0.460168,
+        "p25_W": 0.46602,
+        "p50_W": 0.472477,
+        "p75_W": 0.478945,
+        "p90_W": 0.484915,
+        "p95_W": 0.488595,
+        "p99_W": 0.49576,
+        "max_W": 5.216851,
+        "mean_W": 0.472866,
+        "std_W": 0.043781,
+        "cv": 0.092586
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 5.5,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 98001,
+        "valid_samples": 97954,
+        "outlier_samples": 47,
+        "invalid_samples": 1643,
+        "raw_p99_W": 0.495975855,
+        "raw_tail_W": 0.495975855,
+        "raw_max_W": 35380.865124173
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97954,
+          "fraction": 1.0,
+          "power_p05_W": 0.456639,
+          "power_p50_W": 0.472477,
+          "power_p95_W": 0.488595
+        }
+      ],
+      "active_power_W": 0.472477,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 48,
+        "active_samples": 97882,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          0.456639,
+          0.488595
+        ],
+        "coefficients_W_per_hour_power": [
+          0.472751622,
+          -3.219e-06,
+          1.4e-08
+        ],
+        "support_hours": [
+          0.0,
+          411.583333
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": true,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 0.045204,
+        "endpoint_constant_mae_W": 0.045035,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.038643,
+          "polynomial_rmse_W": 0.038643,
+          "clipped_polynomial_rmse_W": 0.038643,
+          "constant_rmse_W": 0.038637,
+          "relative_improvement": -0.000159
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 47 个超过配置筛选上限（5.5 W）的遥测野值",
+        "存在远高于 p99 的短时峰值；预测不使用未解释峰值做外推"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl6_b": {
+      "name": "星敏 B · PL_6B",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl6_b_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPB013",
+          "TMPB014"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97947,
+        "raw_valid_samples": 97991,
+        "missing_fraction": 0.017031,
+        "outlier_samples": 44,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97947,
+        "min_W": 0.0,
+        "p01_W": 0.006186,
+        "p05_W": 0.008109,
+        "p10_W": 0.009269,
+        "p25_W": 0.011202,
+        "p50_W": 0.013508,
+        "p75_W": 0.016044,
+        "p90_W": 0.018563,
+        "p95_W": 0.020005,
+        "p99_W": 0.023084,
+        "max_W": 5.224906,
+        "mean_W": 0.014522,
+        "std_W": 0.052661,
+        "cv": 3.626341
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 5.5,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97991,
+        "valid_samples": 97947,
+        "outlier_samples": 44,
+        "invalid_samples": 1653,
+        "raw_p99_W": 0.023186617,
+        "raw_tail_W": 0.023186617,
+        "raw_max_W": 22418.480834719
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97947,
+          "fraction": 1.0,
+          "power_p05_W": 0.008109,
+          "power_p50_W": 0.013508,
+          "power_p95_W": 0.020005
+        }
+      ],
+      "active_power_W": 0.013508,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 49,
+        "active_samples": 97885,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          0.008109,
+          0.020005
+        ],
+        "coefficients_W_per_hour_power": [
+          0.014386406,
+          -8.95e-07,
+          8e-09
+        ],
+        "support_hours": [
+          0.0,
+          411.583333
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": true,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 0.003001,
+        "endpoint_constant_mae_W": 0.003368,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.052362,
+          "polynomial_rmse_W": 0.052362,
+          "clipped_polynomial_rmse_W": 0.052362,
+          "constant_rmse_W": 0.052354,
+          "relative_improvement": -0.00015
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 44 个超过配置筛选上限（5.5 W）的遥测野值",
+        "存在远高于 p99 的短时峰值；预测不使用未解释峰值做外推"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl8_a": {
+      "name": "飞轮 X · PL_8A",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl8_a_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPA030",
+          "TMPA029"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97966,
+        "raw_valid_samples": 97998,
+        "missing_fraction": 0.01684,
+        "outlier_samples": 32,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97966,
+        "min_W": 0.0,
+        "p01_W": 1.144691,
+        "p05_W": 1.224512,
+        "p10_W": 1.257389,
+        "p25_W": 1.305764,
+        "p50_W": 1.372195,
+        "p75_W": 1.459115,
+        "p90_W": 1.589135,
+        "p95_W": 1.713071,
+        "p99_W": 2.208444,
+        "max_W": 22.702956,
+        "mean_W": 1.412004,
+        "std_W": 0.285331,
+        "cv": 0.202075
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 29.2,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97998,
+        "valid_samples": 97966,
+        "outlier_samples": 32,
+        "invalid_samples": 1646,
+        "raw_p99_W": 2.221295928,
+        "raw_tail_W": 2.221295928,
+        "raw_max_W": 2740.754073755
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97966,
+          "fraction": 1.0,
+          "power_p05_W": 1.224512,
+          "power_p50_W": 1.372195,
+          "power_p95_W": 1.713071
+        }
+      ],
+      "active_power_W": 1.372195,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 48,
+        "active_samples": 97891,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          1.224512,
+          1.713071
+        ],
+        "coefficients_W_per_hour_power": [
+          1.431167491,
+          -0.000308134,
+          5.57e-07
+        ],
+        "support_hours": [
+          0.0,
+          411.583333
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": true,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 0.173002,
+        "endpoint_constant_mae_W": 0.183406,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.27455,
+          "polynomial_rmse_W": 0.27455,
+          "clipped_polynomial_rmse_W": 0.27455,
+          "constant_rmse_W": 0.276714,
+          "relative_improvement": 0.007818
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 32 个超过配置筛选上限（29.2 W）的遥测野值",
+        "存在远高于 p99 的短时峰值；预测不使用未解释峰值做外推"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl8_b": {
+      "name": "飞轮 X · PL_8B",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl8_b_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPB030",
+          "TMPB029"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97957,
+        "raw_valid_samples": 97989,
+        "missing_fraction": 0.01693,
+        "outlier_samples": 32,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97957,
+        "min_W": 0.0,
+        "p01_W": 0.175641,
+        "p05_W": 0.177813,
+        "p10_W": 0.17893,
+        "p25_W": 0.180857,
+        "p50_W": 0.182882,
+        "p75_W": 0.185289,
+        "p90_W": 0.187754,
+        "p95_W": 0.228373,
+        "p99_W": 0.64342,
+        "max_W": 28.31133,
+        "mean_W": 0.201056,
+        "std_W": 0.237933,
+        "cv": 1.183421
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 29.2,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97989,
+        "valid_samples": 97957,
+        "outlier_samples": 32,
+        "invalid_samples": 1655,
+        "raw_p99_W": 0.649159641,
+        "raw_tail_W": 0.649159641,
+        "raw_max_W": 35597.330086838
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97957,
+          "fraction": 1.0,
+          "power_p05_W": 0.177813,
+          "power_p50_W": 0.182882,
+          "power_p95_W": 0.228373
+        }
+      ],
+      "active_power_W": 0.182882,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 48,
+        "active_samples": 97890,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          0.177813,
+          0.228373
+        ],
+        "coefficients_W_per_hour_power": [
+          0.199718769,
+          -3.976e-06,
+          2.9e-08
+        ],
+        "support_hours": [
+          0.0,
+          411.583333
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": false,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 0.019789,
+        "endpoint_constant_mae_W": 0.003675,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.197743,
+          "polynomial_rmse_W": 0.197743,
+          "clipped_polynomial_rmse_W": 0.197743,
+          "constant_rmse_W": 0.198289,
+          "relative_improvement": 0.002755
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足；片段首末位置误差超过恒定基线 10% 容差"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 32 个超过配置筛选上限（29.2 W）的遥测野值",
+        "存在远高于 p99 的短时峰值；预测不使用未解释峰值做外推"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl9_a": {
+      "name": "飞轮 Y · PL_9A",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl9_a_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPA032",
+          "TMPA031"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97982,
+        "raw_valid_samples": 97998,
+        "missing_fraction": 0.016679,
+        "outlier_samples": 16,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97982,
+        "min_W": 0.0,
+        "p01_W": 1.171906,
+        "p05_W": 1.374804,
+        "p10_W": 1.898651,
+        "p25_W": 2.23916,
+        "p50_W": 2.341076,
+        "p75_W": 2.460221,
+        "p90_W": 2.642118,
+        "p95_W": 2.749834,
+        "p99_W": 2.972558,
+        "max_W": 25.172239,
+        "mean_W": 2.305283,
+        "std_W": 0.410628,
+        "cv": 0.178125
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 29.2,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97998,
+        "valid_samples": 97982,
+        "outlier_samples": 16,
+        "invalid_samples": 1646,
+        "raw_p99_W": 2.974626858,
+        "raw_tail_W": 2.974626858,
+        "raw_max_W": 2419.094208762
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97982,
+          "fraction": 1.0,
+          "power_p05_W": 1.374804,
+          "power_p50_W": 2.341076,
+          "power_p95_W": 2.749834
+        }
+      ],
+      "active_power_W": 2.341076,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 51,
+        "active_samples": 97900,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          1.374804,
+          2.749834
+        ],
+        "coefficients_W_per_hour_power": [
+          2.208458322,
+          0.002660396,
+          -7.761e-06
+        ],
+        "support_hours": [
+          0.0,
+          411.583333
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": true,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 0.484097,
+        "endpoint_constant_mae_W": 0.565804,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.396535,
+          "polynomial_rmse_W": 0.396535,
+          "clipped_polynomial_rmse_W": 0.396535,
+          "constant_rmse_W": 0.403696,
+          "relative_improvement": 0.017738
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 16 个超过配置筛选上限（29.2 W）的遥测野值",
+        "存在远高于 p99 的短时峰值；预测不使用未解释峰值做外推"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl9_b": {
+      "name": "飞轮 Y · PL_9B",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl9_b_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPB032",
+          "TMPB031"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97950,
+        "raw_valid_samples": 97989,
+        "missing_fraction": 0.017001,
+        "outlier_samples": 39,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97950,
+        "min_W": 0.023493,
+        "p01_W": 0.180085,
+        "p05_W": 0.185655,
+        "p10_W": 0.225765,
+        "p25_W": 0.533403,
+        "p50_W": 0.635009,
+        "p75_W": 0.715912,
+        "p90_W": 0.81219,
+        "p95_W": 0.888523,
+        "p99_W": 1.012623,
+        "max_W": 29.187425,
+        "mean_W": 0.614067,
+        "std_W": 0.361383,
+        "cv": 0.588507
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 29.2,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97989,
+        "valid_samples": 97950,
+        "outlier_samples": 39,
+        "invalid_samples": 1655,
+        "raw_p99_W": 1.015599664,
+        "raw_tail_W": 1.015599664,
+        "raw_max_W": 9321.354018676
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97950,
+          "fraction": 1.0,
+          "power_p05_W": 0.185655,
+          "power_p50_W": 0.635009,
+          "power_p95_W": 0.888523
+        }
+      ],
+      "active_power_W": 0.635009,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 47,
+        "active_samples": 97883,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          0.185655,
+          0.888523
+        ],
+        "coefficients_W_per_hour_power": [
+          0.54805238,
+          0.001563994,
+          -4.215e-06
+        ],
+        "support_hours": [
+          0.0,
+          411.583333
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": true,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 0.267403,
+        "endpoint_constant_mae_W": 0.309796,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.350792,
+          "polynomial_rmse_W": 0.350792,
+          "clipped_polynomial_rmse_W": 0.350792,
+          "constant_rmse_W": 0.353541,
+          "relative_improvement": 0.007775
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 39 个超过配置筛选上限（29.2 W）的遥测野值",
+        "存在远高于 p99 的短时峰值；预测不使用未解释峰值做外推"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl10_a": {
+      "name": "飞轮 Z · PL_10A",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl10_a_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPA034",
+          "TMPA033"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97957,
+        "raw_valid_samples": 97995,
+        "missing_fraction": 0.01693,
+        "outlier_samples": 38,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97957,
+        "min_W": 0.0,
+        "p01_W": 1.000573,
+        "p05_W": 1.069591,
+        "p10_W": 1.09716,
+        "p25_W": 1.148261,
+        "p50_W": 1.24846,
+        "p75_W": 2.048087,
+        "p90_W": 2.167586,
+        "p95_W": 2.23115,
+        "p99_W": 2.383515,
+        "max_W": 26.244863,
+        "mean_W": 1.509291,
+        "std_W": 0.489609,
+        "cv": 0.324397
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 29.2,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97995,
+        "valid_samples": 97957,
+        "outlier_samples": 38,
+        "invalid_samples": 1649,
+        "raw_p99_W": 2.386388607,
+        "raw_tail_W": 2.386388607,
+        "raw_max_W": 28802.147785055
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97957,
+          "fraction": 1.0,
+          "power_p05_W": 1.069591,
+          "power_p50_W": 1.24846,
+          "power_p95_W": 2.23115
+        }
+      ],
+      "active_power_W": 1.24846,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 47,
+        "active_samples": 97882,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          1.069591,
+          2.23115
+        ],
+        "coefficients_W_per_hour_power": [
+          1.760832095,
+          -0.003552992,
+          5.444e-06
+        ],
+        "support_hours": [
+          0.0,
+          411.583333
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": false,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 0.278027,
+        "endpoint_constant_mae_W": 0.222783,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.44952,
+          "polynomial_rmse_W": 0.449225,
+          "clipped_polynomial_rmse_W": 0.449225,
+          "constant_rmse_W": 0.541828,
+          "relative_improvement": 0.170908
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "支撑区间内预测非单调，端点稳定性不足；片段首末位置误差超过恒定基线 10% 容差"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 38 个超过配置筛选上限（29.2 W）的遥测野值",
+        "存在远高于 p99 的短时峰值；预测不使用未解释峰值做外推"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl10_b": {
+      "name": "飞轮 Z · PL_10B",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl10_b_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPB034",
+          "TMPB033"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97942,
+        "raw_valid_samples": 97988,
+        "missing_fraction": 0.017081,
+        "outlier_samples": 46,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97942,
+        "min_W": 0.083193,
+        "p01_W": 0.176201,
+        "p05_W": 0.178964,
+        "p10_W": 0.180579,
+        "p25_W": 0.183968,
+        "p50_W": 0.196451,
+        "p75_W": 0.45655,
+        "p90_W": 0.577934,
+        "p95_W": 0.60781,
+        "p99_W": 0.683725,
+        "max_W": 28.63214,
+        "mean_W": 0.307719,
+        "std_W": 0.290588,
+        "cv": 0.944332
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 29.2,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97988,
+        "valid_samples": 97942,
+        "outlier_samples": 46,
+        "invalid_samples": 1656,
+        "raw_p99_W": 0.68643565,
+        "raw_tail_W": 0.68643565,
+        "raw_max_W": 17772.504307856
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97942,
+          "fraction": 1.0,
+          "power_p05_W": 0.178964,
+          "power_p50_W": 0.196451,
+          "power_p95_W": 0.60781
+        }
+      ],
+      "active_power_W": 0.196451,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 46,
+        "active_samples": 97875,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          0.178964,
+          0.60781
+        ],
+        "coefficients_W_per_hour_power": [
+          0.374370003,
+          -0.001096797,
+          1.76e-06
+        ],
+        "support_hours": [
+          0.0,
+          367.133333
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": false,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 0.16253,
+        "endpoint_constant_mae_W": 0.038169,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.269519,
+          "polynomial_rmse_W": 0.269519,
+          "clipped_polynomial_rmse_W": 0.269519,
+          "constant_rmse_W": 0.291571,
+          "relative_improvement": 0.075631
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足；片段首末位置误差超过恒定基线 10% 容差"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 46 个超过配置筛选上限（29.2 W）的遥测野值",
+        "存在远高于 p99 的短时峰值；预测不使用未解释峰值做外推"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl11_a": {
+      "name": "飞轮 S · PL_11A",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl11_a_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPA036",
+          "TMPA035"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97953,
+        "raw_valid_samples": 97995,
+        "missing_fraction": 0.01697,
+        "outlier_samples": 42,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97953,
+        "min_W": 0.0,
+        "p01_W": 1.106866,
+        "p05_W": 1.193964,
+        "p10_W": 1.23667,
+        "p25_W": 1.288654,
+        "p50_W": 1.35155,
+        "p75_W": 1.43244,
+        "p90_W": 1.549654,
+        "p95_W": 1.684227,
+        "p99_W": 2.258853,
+        "max_W": 26.465157,
+        "mean_W": 1.389528,
+        "std_W": 0.267282,
+        "cv": 0.192355
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 29.2,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97995,
+        "valid_samples": 97953,
+        "outlier_samples": 42,
+        "invalid_samples": 1649,
+        "raw_p99_W": 2.275039055,
+        "raw_tail_W": 2.275039055,
+        "raw_max_W": 29334.664408755
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97953,
+          "fraction": 1.0,
+          "power_p05_W": 1.193964,
+          "power_p50_W": 1.35155,
+          "power_p95_W": 1.684227
+        }
+      ],
+      "active_power_W": 1.35155,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 48,
+        "active_samples": 97883,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          1.193964,
+          1.684227
+        ],
+        "coefficients_W_per_hour_power": [
+          1.426786663,
+          -0.000706445,
+          1.503e-06
+        ],
+        "support_hours": [
+          0.0,
+          367.133333
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": true,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 0.15224,
+        "endpoint_constant_mae_W": 0.160088,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.259376,
+          "polynomial_rmse_W": 0.259376,
+          "clipped_polynomial_rmse_W": 0.259376,
+          "constant_rmse_W": 0.262036,
+          "relative_improvement": 0.01015
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 42 个超过配置筛选上限（29.2 W）的遥测野值",
+        "存在远高于 p99 的短时峰值；预测不使用未解释峰值做外推"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl11_b": {
+      "name": "飞轮 S · PL_11B",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl11_b_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPB036",
+          "TMPB035"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97943,
+        "raw_valid_samples": 97988,
+        "missing_fraction": 0.017071,
+        "outlier_samples": 45,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97943,
+        "min_W": 0.0,
+        "p01_W": 0.425322,
+        "p05_W": 0.517537,
+        "p10_W": 0.547672,
+        "p25_W": 0.594416,
+        "p50_W": 0.661384,
+        "p75_W": 0.697973,
+        "p90_W": 0.704021,
+        "p95_W": 0.721138,
+        "p99_W": 1.023484,
+        "max_W": 28.823444,
+        "mean_W": 0.654559,
+        "std_W": 0.288051,
+        "cv": 0.440069
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 29.2,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97988,
+        "valid_samples": 97943,
+        "outlier_samples": 45,
+        "invalid_samples": 1656,
+        "raw_p99_W": 1.032713424,
+        "raw_tail_W": 1.032713424,
+        "raw_max_W": 22272.0340833
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97943,
+          "fraction": 1.0,
+          "power_p05_W": 0.517537,
+          "power_p50_W": 0.661384,
+          "power_p95_W": 0.721138
+        }
+      ],
+      "active_power_W": 0.661384,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 47,
+        "active_samples": 97878,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          0.517537,
+          0.721138
+        ],
+        "coefficients_W_per_hour_power": [
+          0.656140399,
+          -2.2053e-05,
+          -0.0
+        ],
+        "support_hours": [
+          0.0,
+          411.583333
+        ],
+        "monotonic_within_support": true,
+        "endpoint_guard_passed": true,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 0.100353,
+        "endpoint_constant_mae_W": 0.101664,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.265318,
+          "polynomial_rmse_W": 0.265318,
+          "clipped_polynomial_rmse_W": 0.265318,
+          "constant_rmse_W": 0.265269,
+          "relative_improvement": -0.000183
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 45 个超过配置筛选上限（29.2 W）的遥测野值",
+        "存在远高于 p99 的短时峰值；预测不使用未解释峰值做外推"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl12_a": {
+      "name": "磁力矩器 · PL_12A",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl12_a_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPA038",
+          "TMPA037"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97970,
+        "raw_valid_samples": 97995,
+        "missing_fraction": 0.0168,
+        "outlier_samples": 25,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97970,
+        "min_W": 0.0,
+        "p01_W": 0.039617,
+        "p05_W": 0.040379,
+        "p10_W": 0.040793,
+        "p25_W": 0.041513,
+        "p50_W": 0.042327,
+        "p75_W": 0.043278,
+        "p90_W": 0.044839,
+        "p95_W": 0.10017,
+        "p99_W": 0.116933,
+        "max_W": 4.820937,
+        "mean_W": 0.048435,
+        "std_W": 0.036777,
+        "cv": 0.759308
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 5.5,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97995,
+        "valid_samples": 97970,
+        "outlier_samples": 25,
+        "invalid_samples": 1649,
+        "raw_p99_W": 0.117818083,
+        "raw_tail_W": 0.117818083,
+        "raw_max_W": 6338.084707814
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97970,
+          "fraction": 1.0,
+          "power_p05_W": 0.040379,
+          "power_p50_W": 0.042327,
+          "power_p95_W": 0.10017
+        }
+      ],
+      "active_power_W": 0.042327,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 49,
+        "active_samples": 97891,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          0.040379,
+          0.10017
+        ],
+        "coefficients_W_per_hour_power": [
+          0.05718808,
+          -0.000165593,
+          3.71e-07
+        ],
+        "support_hours": [
+          0.0,
+          411.583333
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": true,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 0.0298,
+        "endpoint_constant_mae_W": 0.03325,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.035077,
+          "polynomial_rmse_W": 0.035037,
+          "clipped_polynomial_rmse_W": 0.035037,
+          "constant_rmse_W": 0.035896,
+          "relative_improvement": 0.02393
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 25 个超过配置筛选上限（5.5 W）的遥测野值",
+        "存在远高于 p99 的短时峰值；预测不使用未解释峰值做外推"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl12_b": {
+      "name": "磁力矩器 · PL_12B",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl12_b_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPB038",
+          "TMPB037"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97936,
+        "raw_valid_samples": 97988,
+        "missing_fraction": 0.017141,
+        "outlier_samples": 52,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97936,
+        "min_W": 0.0,
+        "p01_W": 0.061516,
+        "p05_W": 0.064613,
+        "p10_W": 0.119516,
+        "p25_W": 0.122032,
+        "p50_W": 0.123897,
+        "p75_W": 0.126893,
+        "p90_W": 0.163927,
+        "p95_W": 0.220006,
+        "p99_W": 0.38513,
+        "max_W": 5.154815,
+        "mean_W": 0.133657,
+        "std_W": 0.063436,
+        "cv": 0.474618
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 5.5,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97988,
+        "valid_samples": 97936,
+        "outlier_samples": 52,
+        "invalid_samples": 1656,
+        "raw_p99_W": 0.387099114,
+        "raw_tail_W": 0.387099114,
+        "raw_max_W": 22063.307371875
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97936,
+          "fraction": 1.0,
+          "power_p05_W": 0.064613,
+          "power_p50_W": 0.123897,
+          "power_p95_W": 0.220006
+        }
+      ],
+      "active_power_W": 0.123897,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 48,
+        "active_samples": 97873,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          0.064613,
+          0.220006
+        ],
+        "coefficients_W_per_hour_power": [
+          0.1279422,
+          0.000135152,
+          -3.91e-07
+        ],
+        "support_hours": [
+          0.0,
+          367.133333
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": false,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 0.036056,
+        "endpoint_constant_mae_W": 0.031696,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.060321,
+          "polynomial_rmse_W": 0.060321,
+          "clipped_polynomial_rmse_W": 0.060321,
+          "constant_rmse_W": 0.06085,
+          "relative_improvement": 0.00869
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足；片段首末位置误差超过恒定基线 10% 容差"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 52 个超过配置筛选上限（5.5 W）的遥测野值",
+        "存在远高于 p99 的短时峰值；预测不使用未解释峰值做外推"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl13_a": {
+      "name": "X 测控主机 · PL_13A",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl13_a_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPA018",
+          "TMPA017"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97964,
+        "raw_valid_samples": 98001,
+        "missing_fraction": 0.01686,
+        "outlier_samples": 37,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97964,
+        "min_W": 0.0,
+        "p01_W": 1.847906,
+        "p05_W": 1.856354,
+        "p10_W": 1.861648,
+        "p25_W": 1.869059,
+        "p50_W": 1.877815,
+        "p75_W": 1.929843,
+        "p90_W": 1.934674,
+        "p95_W": 1.937513,
+        "p99_W": 8.786828,
+        "max_W": 11.426996,
+        "mean_W": 1.980017,
+        "std_W": 0.751594,
+        "cv": 0.37959
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 13.0,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 98001,
+        "valid_samples": 97964,
+        "outlier_samples": 37,
+        "invalid_samples": 1643,
+        "raw_p99_W": 8.790421936,
+        "raw_tail_W": 8.790421936,
+        "raw_max_W": 793.771234517
+      },
+      "power_bands": [
+        {
+          "id": "low",
+          "label": "低功率观测层",
+          "n": 96760,
+          "fraction": 0.98771,
+          "power_p05_W": 1.856287,
+          "power_p50_W": 1.877491,
+          "power_p95_W": 1.936634
+        },
+        {
+          "id": "active",
+          "label": "工作功率观测层",
+          "n": 1204,
+          "fraction": 0.01229,
+          "power_p05_W": 6.99265,
+          "power_p50_W": 8.810331,
+          "power_p95_W": 8.85709
+        }
+      ],
+      "active_power_W": 8.810331,
+      "low_power_W": 1.877491,
+      "high_power_W": null,
+      "active_threshold_W": 5.343911,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 91,
+        "active_samples": 1192,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          6.99265,
+          8.85709
+        ],
+        "coefficients_W_per_hour_power": [
+          8.518687843,
+          0.17341026,
+          -0.02022432
+        ],
+        "support_hours": [
+          0.0,
+          7.616667
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": true,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 1.064402,
+        "endpoint_constant_mae_W": 1.096904,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 9.217545,
+          "polynomial_rmse_W": 1.120437,
+          "clipped_polynomial_rmse_W": 1.120437,
+          "constant_rmse_W": 0.614368,
+          "relative_improvement": -0.823722
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足"
+      },
+      "warnings": [
+        "检测到低功率层与工作功率层；任务计划必须明确 on/mode",
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 37 个超过配置筛选上限（13.0 W）的遥测野值"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl13_b": {
+      "name": "X 测控主机 · PL_13B",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl13_b_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPB018",
+          "TMPB017"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97939,
+        "raw_valid_samples": 97991,
+        "missing_fraction": 0.017111,
+        "outlier_samples": 52,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97939,
+        "min_W": 0.0,
+        "p01_W": 1.84241,
+        "p05_W": 1.847983,
+        "p10_W": 1.850764,
+        "p25_W": 1.856133,
+        "p50_W": 1.869351,
+        "p75_W": 1.963222,
+        "p90_W": 1.968377,
+        "p95_W": 1.971406,
+        "p99_W": 7.888731,
+        "max_W": 12.609178,
+        "mean_W": 1.977345,
+        "std_W": 0.657692,
+        "cv": 0.332614
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 13.0,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97991,
+        "valid_samples": 97939,
+        "outlier_samples": 52,
+        "invalid_samples": 1653,
+        "raw_p99_W": 7.896335068,
+        "raw_tail_W": 7.896335068,
+        "raw_max_W": 20790.202202881
+      },
+      "power_bands": [
+        {
+          "id": "low",
+          "label": "低功率观测层",
+          "n": 96736,
+          "fraction": 0.987717,
+          "power_p05_W": 1.847943,
+          "power_p50_W": 1.868711,
+          "power_p95_W": 1.970526
+        },
+        {
+          "id": "active",
+          "label": "工作功率观测层",
+          "n": 1203,
+          "fraction": 0.012283,
+          "power_p05_W": 6.221407,
+          "power_p50_W": 7.938447,
+          "power_p95_W": 7.993738
+        }
+      ],
+      "active_power_W": 7.938447,
+      "low_power_W": 1.868711,
+      "high_power_W": null,
+      "active_threshold_W": 4.903579,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 91,
+        "active_samples": 1188,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          6.221407,
+          7.993738
+        ],
+        "coefficients_W_per_hour_power": [
+          7.6600182,
+          0.175950499,
+          -0.019817581
+        ],
+        "support_hours": [
+          0.0,
+          7.616667
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": true,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 0.920803,
+        "endpoint_constant_mae_W": 0.985509,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 8.28913,
+          "polynomial_rmse_W": 1.062084,
+          "clipped_polynomial_rmse_W": 1.062084,
+          "constant_rmse_W": 0.555815,
+          "relative_improvement": -0.910859
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足"
+      },
+      "warnings": [
+        "检测到低功率层与工作功率层；任务计划必须明确 on/mode",
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 52 个超过配置筛选上限（13.0 W）的遥测野值"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl16_a": {
+      "name": "红外相机 · PL_16A",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl16_a_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPA024",
+          "TMPA023"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97570,
+        "raw_valid_samples": 98000,
+        "missing_fraction": 0.020814,
+        "outlier_samples": 430,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97570,
+        "min_W": 0.0,
+        "p01_W": 7e-06,
+        "p05_W": 1e-05,
+        "p10_W": 1.3e-05,
+        "p25_W": 1.7e-05,
+        "p50_W": 2.4e-05,
+        "p75_W": 3.2e-05,
+        "p90_W": 4.2e-05,
+        "p95_W": 5.1e-05,
+        "p99_W": 7.886123,
+        "max_W": 12.935687,
+        "mean_W": 0.186942,
+        "std_W": 1.286725,
+        "cv": 6.883006
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 13.0,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 98000,
+        "valid_samples": 97570,
+        "outlier_samples": 430,
+        "invalid_samples": 1644,
+        "raw_p99_W": 10.539824949,
+        "raw_tail_W": 10.539824949,
+        "raw_max_W": 25649.528845783
+      },
+      "power_bands": [
+        {
+          "id": "low",
+          "label": "低功率观测层",
+          "n": 95493,
+          "fraction": 0.978713,
+          "power_p05_W": 1e-05,
+          "power_p50_W": 2.3e-05,
+          "power_p95_W": 4.6e-05
+        },
+        {
+          "id": "active",
+          "label": "工作功率观测层",
+          "n": 2077,
+          "fraction": 0.021287,
+          "power_p05_W": 7.329272,
+          "power_p50_W": 7.811256,
+          "power_p95_W": 11.685537
+        }
+      ],
+      "active_power_W": 7.811256,
+      "low_power_W": 2.3e-05,
+      "high_power_W": null,
+      "active_threshold_W": 3.90564,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 51,
+        "active_samples": 2045,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          7.329272,
+          11.685537
+        ],
+        "coefficients_W_per_hour_power": [
+          10.364037933,
+          -0.499968865,
+          0.018930365
+        ],
+        "support_hours": [
+          0.0,
+          22.4
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": true,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 2.405484,
+        "endpoint_constant_mae_W": 3.412313,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 2942.050161,
+          "polynomial_rmse_W": 3.356001,
+          "clipped_polynomial_rmse_W": 3.356001,
+          "constant_rmse_W": 3.250064,
+          "relative_improvement": -0.032595
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足"
+      },
+      "warnings": [
+        "检测到低功率层与工作功率层；任务计划必须明确 on/mode",
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 430 个超过配置筛选上限（13.0 W）的遥测野值"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl16_b": {
+      "name": "红外相机 · PL_16B",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl16_b_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPB024",
+          "TMPB023"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97965,
+        "raw_valid_samples": 97991,
+        "missing_fraction": 0.01685,
+        "outlier_samples": 26,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97965,
+        "min_W": 0.0,
+        "p01_W": 8e-06,
+        "p05_W": 1.2e-05,
+        "p10_W": 1.4e-05,
+        "p25_W": 1.9e-05,
+        "p50_W": 2.6e-05,
+        "p75_W": 3.4e-05,
+        "p90_W": 4.5e-05,
+        "p95_W": 5.4e-05,
+        "p99_W": 0.041353,
+        "max_W": 8.30104,
+        "mean_W": 0.001614,
+        "std_W": 0.050368,
+        "cv": 31.200665
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 13.0,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97991,
+        "valid_samples": 97965,
+        "outlier_samples": 26,
+        "invalid_samples": 1653,
+        "raw_p99_W": 0.041424597,
+        "raw_tail_W": 0.041424597,
+        "raw_max_W": 152996.978275435
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97965,
+          "fraction": 1.0,
+          "power_p05_W": 1.2e-05,
+          "power_p50_W": 2.6e-05,
+          "power_p95_W": 5.4e-05
+        }
+      ],
+      "active_power_W": 2.6e-05,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 52,
+        "active_samples": 97902,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          1.2e-05,
+          5.4e-05
+        ],
+        "coefficients_W_per_hour_power": [
+          0.002153843,
+          -1.3913e-05,
+          3.7e-08
+        ],
+        "support_hours": [
+          0.0,
+          411.583333
+        ],
+        "monotonic_within_support": true,
+        "endpoint_guard_passed": false,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 2.8e-05,
+        "endpoint_constant_mae_W": 1.6e-05,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.04861,
+          "polynomial_rmse_W": 0.048604,
+          "clipped_polynomial_rmse_W": 0.048604,
+          "constant_rmse_W": 0.048604,
+          "relative_improvement": 1.2e-05
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；片段首末位置误差超过恒定基线 10% 容差"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 26 个超过配置筛选上限（13.0 W）的遥测野值",
+        "存在远高于 p99 的短时峰值；预测不使用未解释峰值做外推"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl17_a": {
+      "name": "测控备 · PL_17A",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl17_a_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPA026",
+          "TMPA025"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97918,
+        "raw_valid_samples": 97998,
+        "missing_fraction": 0.017322,
+        "outlier_samples": 80,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97918,
+        "min_W": 0.0,
+        "p01_W": 3.584091,
+        "p05_W": 3.601629,
+        "p10_W": 3.610988,
+        "p25_W": 3.627772,
+        "p50_W": 3.648368,
+        "p75_W": 3.681218,
+        "p90_W": 11.922807,
+        "p95_W": 11.951158,
+        "p99_W": 12.057759,
+        "max_W": 12.556984,
+        "mean_W": 4.956555,
+        "std_W": 2.989733,
+        "cv": 0.603188
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 13.0,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97998,
+        "valid_samples": 97918,
+        "outlier_samples": 80,
+        "invalid_samples": 1646,
+        "raw_p99_W": 12.082770594,
+        "raw_tail_W": 12.082770594,
+        "raw_max_W": 42176.030776628
+      },
+      "power_bands": [
+        {
+          "id": "low",
+          "label": "低功率观测层",
+          "n": 82504,
+          "fraction": 0.842583,
+          "power_p05_W": 3.599592,
+          "power_p50_W": 3.641834,
+          "power_p95_W": 3.806717
+        },
+        {
+          "id": "active",
+          "label": "工作功率观测层",
+          "n": 15414,
+          "fraction": 0.157417,
+          "power_p05_W": 11.492384,
+          "power_p50_W": 11.934471,
+          "power_p95_W": 12.106503
+        }
+      ],
+      "active_power_W": 11.934471,
+      "low_power_W": 3.641834,
+      "high_power_W": null,
+      "active_threshold_W": 7.788152,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 831,
+        "active_samples": 15382,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          11.492384,
+          12.106503
+        ],
+        "coefficients_W_per_hour_power": [
+          11.79973443,
+          0.16657172,
+          -0.025153705
+        ],
+        "support_hours": [
+          0.0,
+          6.1
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": true,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 1.309939,
+        "endpoint_constant_mae_W": 1.388526,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.540316,
+          "polynomial_rmse_W": 0.540231,
+          "clipped_polynomial_rmse_W": 0.540231,
+          "constant_rmse_W": 0.550426,
+          "relative_improvement": 0.018522
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足"
+      },
+      "warnings": [
+        "检测到低功率层与工作功率层；任务计划必须明确 on/mode",
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 80 个超过配置筛选上限（13.0 W）的遥测野值"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl17_b": {
+      "name": "测控备 · PL_17B",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl17_b_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPB026",
+          "TMPB025"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97935,
+        "raw_valid_samples": 97991,
+        "missing_fraction": 0.017151,
+        "outlier_samples": 56,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97935,
+        "min_W": 0.0,
+        "p01_W": 0.017449,
+        "p05_W": 0.023269,
+        "p10_W": 0.027123,
+        "p25_W": 0.032961,
+        "p50_W": 0.040703,
+        "p75_W": 0.048482,
+        "p90_W": 0.056584,
+        "p95_W": 0.061962,
+        "p99_W": 0.07173,
+        "max_W": 12.030801,
+        "mean_W": 0.042731,
+        "std_W": 0.096765,
+        "cv": 2.264512
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 13.0,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97991,
+        "valid_samples": 97935,
+        "outlier_samples": 56,
+        "invalid_samples": 1653,
+        "raw_p99_W": 0.071845643,
+        "raw_tail_W": 0.071845643,
+        "raw_max_W": 42353.439098334
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97935,
+          "fraction": 1.0,
+          "power_p05_W": 0.023269,
+          "power_p50_W": 0.040703,
+          "power_p95_W": 0.061962
+        }
+      ],
+      "active_power_W": 0.040703,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 47,
+        "active_samples": 97876,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          0.023269,
+          0.061962
+        ],
+        "coefficients_W_per_hour_power": [
+          0.041331667,
+          1.564e-05,
+          -2.3e-08
+        ],
+        "support_hours": [
+          0.0,
+          411.583333
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": true,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 0.011622,
+        "endpoint_constant_mae_W": 0.010848,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.086863,
+          "polynomial_rmse_W": 0.086863,
+          "clipped_polynomial_rmse_W": 0.086863,
+          "constant_rmse_W": 0.086866,
+          "relative_improvement": 3e-05
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 56 个超过配置筛选上限（13.0 W）的遥测野值",
+        "存在远高于 p99 的短时峰值；预测不使用未解释峰值做外推"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl19_a": {
+      "name": "扩展板 · PL_19A",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl19_a_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPA040",
+          "TMPA039"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97974,
+        "raw_valid_samples": 97994,
+        "missing_fraction": 0.01676,
+        "outlier_samples": 20,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97974,
+        "min_W": 0.0,
+        "p01_W": 0.957223,
+        "p05_W": 0.963402,
+        "p10_W": 0.967499,
+        "p25_W": 0.978501,
+        "p50_W": 3.948535,
+        "p75_W": 8.963123,
+        "p90_W": 11.007873,
+        "p95_W": 11.57493,
+        "p99_W": 19.88284,
+        "max_W": 57.163946,
+        "mean_W": 5.227078,
+        "std_W": 4.575249,
+        "cv": 0.875298
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 58.4,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97994,
+        "valid_samples": 97974,
+        "outlier_samples": 20,
+        "invalid_samples": 1650,
+        "raw_p99_W": 19.951284747,
+        "raw_tail_W": 19.951284747,
+        "raw_max_W": 5215.25372832
+      },
+      "power_bands": [
+        {
+          "id": "low",
+          "label": "低功率观测层",
+          "n": 54891,
+          "fraction": 0.560261,
+          "power_p05_W": 0.960804,
+          "power_p50_W": 0.98265,
+          "power_p95_W": 4.760176
+        },
+        {
+          "id": "active",
+          "label": "工作功率观测层",
+          "n": 43083,
+          "fraction": 0.439739,
+          "power_p05_W": 5.696885,
+          "power_p50_W": 9.542168,
+          "power_p95_W": 14.284476
+        }
+      ],
+      "active_power_W": 9.542168,
+      "low_power_W": 0.98265,
+      "high_power_W": null,
+      "active_threshold_W": 5.262409,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 111,
+        "active_samples": 43006,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          5.696885,
+          14.284476
+        ],
+        "coefficients_W_per_hour_power": [
+          9.80433488,
+          -0.012164529,
+          5.4841e-05
+        ],
+        "support_hours": [
+          0.0,
+          142.7
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": true,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 1.669877,
+        "endpoint_constant_mae_W": 1.632198,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 3.286115,
+          "polynomial_rmse_W": 3.286115,
+          "clipped_polynomial_rmse_W": 3.286115,
+          "constant_rmse_W": 3.290573,
+          "relative_improvement": 0.001355
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足"
+      },
+      "warnings": [
+        "检测到低功率层与工作功率层；任务计划必须明确 on/mode",
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 20 个超过配置筛选上限（58.4 W）的遥测野值"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl19_b": {
+      "name": "扩展板 · PL_19B",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl19_b_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPB040",
+          "TMPB039"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97953,
+        "raw_valid_samples": 97986,
+        "missing_fraction": 0.01697,
+        "outlier_samples": 33,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97953,
+        "min_W": 0.0,
+        "p01_W": 1.008558,
+        "p05_W": 1.043932,
+        "p10_W": 1.055283,
+        "p25_W": 1.065038,
+        "p50_W": 3.424021,
+        "p75_W": 7.414657,
+        "p90_W": 9.052958,
+        "p95_W": 9.520218,
+        "p99_W": 15.584767,
+        "max_W": 57.513404,
+        "mean_W": 4.421907,
+        "std_W": 3.593148,
+        "cv": 0.812579
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 58.4,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97986,
+        "valid_samples": 97953,
+        "outlier_samples": 33,
+        "invalid_samples": 1658,
+        "raw_p99_W": 15.70910958,
+        "raw_tail_W": 15.70910958,
+        "raw_max_W": 18974.826321357
+      },
+      "power_bands": [
+        {
+          "id": "low",
+          "label": "低功率观测层",
+          "n": 54989,
+          "fraction": 0.561381,
+          "power_p05_W": 1.033714,
+          "power_p50_W": 1.066953,
+          "power_p95_W": 4.079228
+        },
+        {
+          "id": "active",
+          "label": "工作功率观测层",
+          "n": 42964,
+          "fraction": 0.438619,
+          "power_p05_W": 4.82487,
+          "power_p50_W": 7.880909,
+          "power_p95_W": 11.236028
+        }
+      ],
+      "active_power_W": 7.880909,
+      "low_power_W": 1.066953,
+      "high_power_W": null,
+      "active_threshold_W": 4.473931,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 111,
+        "active_samples": 42901,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          4.82487,
+          11.236028
+        ],
+        "coefficients_W_per_hour_power": [
+          8.054622267,
+          -0.010424001,
+          5.6721e-05
+        ],
+        "support_hours": [
+          0.0,
+          142.7
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": true,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 1.368694,
+        "endpoint_constant_mae_W": 1.339557,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 2.533481,
+          "polynomial_rmse_W": 2.533481,
+          "clipped_polynomial_rmse_W": 2.533481,
+          "constant_rmse_W": 2.536044,
+          "relative_improvement": 0.00101
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足"
+      },
+      "warnings": [
+        "检测到低功率层与工作功率层；任务计划必须明确 on/mode",
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 33 个超过配置筛选上限（58.4 W）的遥测野值"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl20_a": {
+      "name": "智算机 YX 28V1 · PL_20A",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl20_a_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPA042",
+          "TMPA041"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97986,
+        "raw_valid_samples": 97994,
+        "missing_fraction": 0.016639,
+        "outlier_samples": 8,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97986,
+        "min_W": 0.0,
+        "p01_W": 2e-06,
+        "p05_W": 4e-06,
+        "p10_W": 5e-06,
+        "p25_W": 7e-06,
+        "p50_W": 1e-05,
+        "p75_W": 1.4e-05,
+        "p90_W": 1.7e-05,
+        "p95_W": 1.9e-05,
+        "p99_W": 2.5e-05,
+        "max_W": 49.357275,
+        "mean_W": 0.015087,
+        "std_W": 0.45436,
+        "cv": 30.116481
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 58.4,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97994,
+        "valid_samples": 97986,
+        "outlier_samples": 8,
+        "invalid_samples": 1650,
+        "raw_p99_W": 2.5314e-05,
+        "raw_tail_W": 2.5314e-05,
+        "raw_max_W": 5215.362352229
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97986,
+          "fraction": 1.0,
+          "power_p05_W": 4e-06,
+          "power_p50_W": 1e-05,
+          "power_p95_W": 1.9e-05
+        }
+      ],
+      "active_power_W": 1e-05,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 50,
+        "active_samples": 97901,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          4e-06,
+          1.9e-05
+        ],
+        "coefficients_W_per_hour_power": [
+          0.027793739,
+          -0.000236041,
+          5.02e-07
+        ],
+        "support_hours": [
+          0.0,
+          411.583333
+        ],
+        "monotonic_within_support": true,
+        "endpoint_guard_passed": true,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 5e-06,
+        "endpoint_constant_mae_W": 7e-06,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.43707,
+          "polynomial_rmse_W": 0.437353,
+          "clipped_polynomial_rmse_W": 0.437353,
+          "constant_rmse_W": 0.437353,
+          "relative_improvement": 1e-06
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 8 个超过配置筛选上限（58.4 W）的遥测野值",
+        "存在远高于 p99 的短时峰值；预测不使用未解释峰值做外推"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl20_b": {
+      "name": "智算机 YX 28V1 · PL_20B",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl20_b_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPB042",
+          "TMPB041"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97975,
+        "raw_valid_samples": 97986,
+        "missing_fraction": 0.01675,
+        "outlier_samples": 11,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97975,
+        "min_W": 0.0,
+        "p01_W": 4e-06,
+        "p05_W": 7e-06,
+        "p10_W": 9e-06,
+        "p25_W": 1.1e-05,
+        "p50_W": 1.5e-05,
+        "p75_W": 1.9e-05,
+        "p90_W": 2.3e-05,
+        "p95_W": 2.6e-05,
+        "p99_W": 3.2e-05,
+        "max_W": 55.851874,
+        "mean_W": 0.010694,
+        "std_W": 0.34423,
+        "cv": 32.187659
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 58.4,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97986,
+        "valid_samples": 97975,
+        "outlier_samples": 11,
+        "invalid_samples": 1658,
+        "raw_p99_W": 3.2104e-05,
+        "raw_tail_W": 3.2104e-05,
+        "raw_max_W": 10902.936709151
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97975,
+          "fraction": 1.0,
+          "power_p05_W": 7e-06,
+          "power_p50_W": 1.5e-05,
+          "power_p95_W": 2.6e-05
+        }
+      ],
+      "active_power_W": 1.5e-05,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 49,
+        "active_samples": 97904,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          7e-06,
+          2.6e-05
+        ],
+        "coefficients_W_per_hour_power": [
+          0.017719995,
+          -0.000132702,
+          2.9e-07
+        ],
+        "support_hours": [
+          0.0,
+          411.583333
+        ],
+        "monotonic_within_support": true,
+        "endpoint_guard_passed": false,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 1.1e-05,
+        "endpoint_constant_mae_W": 2e-06,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.341909,
+          "polynomial_rmse_W": 0.342027,
+          "clipped_polynomial_rmse_W": 0.342027,
+          "constant_rmse_W": 0.342027,
+          "relative_improvement": 1e-06
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；片段首末位置误差超过恒定基线 10% 容差"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 11 个超过配置筛选上限（58.4 W）的遥测野值",
+        "存在远高于 p99 的短时峰值；预测不使用未解释峰值做外推"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl21_a": {
+      "name": "星间激光终端 · PL_21A",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl21_a_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPA044",
+          "TMPA043"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97989,
+        "raw_valid_samples": 97994,
+        "missing_fraction": 0.016609,
+        "outlier_samples": 5,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97989,
+        "min_W": 0.0,
+        "p01_W": 3e-06,
+        "p05_W": 5e-06,
+        "p10_W": 7e-06,
+        "p25_W": 1e-05,
+        "p50_W": 1.3e-05,
+        "p75_W": 1.7e-05,
+        "p90_W": 2.2e-05,
+        "p95_W": 2.6e-05,
+        "p99_W": 33.786013,
+        "max_W": 80.215132,
+        "mean_W": 1.097393,
+        "std_W": 6.000606,
+        "cv": 5.468054
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 87.6,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97994,
+        "valid_samples": 97989,
+        "outlier_samples": 5,
+        "invalid_samples": 1650,
+        "raw_p99_W": 33.78668916,
+        "raw_tail_W": 33.78668916,
+        "raw_max_W": 5215.47096387
+      },
+      "power_bands": [
+        {
+          "id": "low",
+          "label": "低功率观测层",
+          "n": 94816,
+          "fraction": 0.967619,
+          "power_p05_W": 5e-06,
+          "power_p50_W": 1.3e-05,
+          "power_p95_W": 2.3e-05
+        },
+        {
+          "id": "active",
+          "label": "工作功率观测层",
+          "n": 3173,
+          "fraction": 0.032381,
+          "power_p05_W": 33.69323,
+          "power_p50_W": 33.752489,
+          "power_p95_W": 33.932282
+        }
+      ],
+      "active_power_W": 33.752489,
+      "low_power_W": 1.3e-05,
+      "high_power_W": null,
+      "active_threshold_W": 16.876251,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 9,
+        "active_samples": 3166,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          33.69323,
+          33.932282
+        ],
+        "coefficients_W_per_hour_power": [
+          34.037161944,
+          -0.024861373,
+          0.000480661
+        ],
+        "support_hours": [
+          0.0,
+          44.366667
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": true,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 3.446368,
+        "endpoint_constant_mae_W": 3.452563,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 46.569758,
+          "polynomial_rmse_W": 0.855798,
+          "clipped_polynomial_rmse_W": 0.855798,
+          "constant_rmse_W": 0.853194,
+          "relative_improvement": -0.003053
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足"
+      },
+      "warnings": [
+        "检测到低功率层与工作功率层；任务计划必须明确 on/mode",
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 5 个超过配置筛选上限（87.6 W）的遥测野值"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl21_b": {
+      "name": "星间激光终端 · PL_21B",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl21_b_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPB044",
+          "TMPB043"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97972,
+        "raw_valid_samples": 97985,
+        "missing_fraction": 0.01678,
+        "outlier_samples": 13,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97972,
+        "min_W": 0.0,
+        "p01_W": 5e-06,
+        "p05_W": 9e-06,
+        "p10_W": 1e-05,
+        "p25_W": 1.3e-05,
+        "p50_W": 1.8e-05,
+        "p75_W": 2.2e-05,
+        "p90_W": 2.8e-05,
+        "p95_W": 3.3e-05,
+        "p99_W": 20.099849,
+        "max_W": 80.963751,
+        "mean_W": 0.652618,
+        "std_W": 3.577323,
+        "cv": 5.481499
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 87.6,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97985,
+        "valid_samples": 97972,
+        "outlier_samples": 13,
+        "invalid_samples": 1659,
+        "raw_p99_W": 20.100243694,
+        "raw_tail_W": 20.100243694,
+        "raw_max_W": 24497.454570164
+      },
+      "power_bands": [
+        {
+          "id": "low",
+          "label": "低功率观测层",
+          "n": 94802,
+          "fraction": 0.967644,
+          "power_p05_W": 9e-06,
+          "power_p50_W": 1.8e-05,
+          "power_p95_W": 2.9e-05
+        },
+        {
+          "id": "active",
+          "label": "工作功率观测层",
+          "n": 3170,
+          "fraction": 0.032356,
+          "power_p05_W": 19.959471,
+          "power_p50_W": 20.075032,
+          "power_p95_W": 20.132191
+        }
+      ],
+      "active_power_W": 20.075032,
+      "low_power_W": 1.8e-05,
+      "high_power_W": null,
+      "active_threshold_W": 10.037525,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 9,
+        "active_samples": 3168,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          19.959471,
+          20.132191
+        ],
+        "coefficients_W_per_hour_power": [
+          20.412003142,
+          -0.031218573,
+          0.000594075
+        ],
+        "support_hours": [
+          0.0,
+          44.366667
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": true,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 6.699826,
+        "endpoint_constant_mae_W": 6.693268,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 61.437617,
+          "polynomial_rmse_W": 1.687391,
+          "clipped_polynomial_rmse_W": 1.687391,
+          "constant_rmse_W": 1.690619,
+          "relative_improvement": 0.001909
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足"
+      },
+      "warnings": [
+        "检测到低功率层与工作功率层；任务计划必须明确 on/mode",
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 13 个超过配置筛选上限（87.6 W）的遥测野值"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl22_a": {
+      "name": "星间激光头 · PL_22A",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl22_a_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPA046",
+          "TMPA045"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97966,
+        "raw_valid_samples": 97994,
+        "missing_fraction": 0.01684,
+        "outlier_samples": 28,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97966,
+        "min_W": 0.0,
+        "p01_W": 13.836724,
+        "p05_W": 20.360107,
+        "p10_W": 20.871955,
+        "p25_W": 21.516769,
+        "p50_W": 22.093743,
+        "p75_W": 22.576187,
+        "p90_W": 22.940527,
+        "p95_W": 23.133782,
+        "p99_W": 23.474278,
+        "max_W": 84.934993,
+        "mean_W": 21.837651,
+        "std_W": 1.580898,
+        "cv": 0.072393
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 87.6,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97994,
+        "valid_samples": 97966,
+        "outlier_samples": 28,
+        "invalid_samples": 1650,
+        "raw_p99_W": 23.478224006,
+        "raw_tail_W": 23.478224006,
+        "raw_max_W": 4160.897420882
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97966,
+          "fraction": 1.0,
+          "power_p05_W": 20.360107,
+          "power_p50_W": 22.093743,
+          "power_p95_W": 23.133782
+        }
+      ],
+      "active_power_W": 22.093743,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 48,
+        "active_samples": 97894,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          20.360107,
+          23.133782
+        ],
+        "coefficients_W_per_hour_power": [
+          21.221275056,
+          0.010466324,
+          -2.1086e-05
+        ],
+        "support_hours": [
+          0.0,
+          411.583333
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": true,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 2.254243,
+        "endpoint_constant_mae_W": 2.54355,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 1.506201,
+          "polynomial_rmse_W": 1.506201,
+          "clipped_polynomial_rmse_W": 1.506201,
+          "constant_rmse_W": 1.581691,
+          "relative_improvement": 0.047727
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 28 个超过配置筛选上限（87.6 W）的遥测野值"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl22_b": {
+      "name": "星间激光头 · PL_22B",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl22_b_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPB046",
+          "TMPB045"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97954,
+        "raw_valid_samples": 97985,
+        "missing_fraction": 0.01696,
+        "outlier_samples": 31,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97954,
+        "min_W": 0.0,
+        "p01_W": 9.646105,
+        "p05_W": 14.000528,
+        "p10_W": 14.353983,
+        "p25_W": 14.812172,
+        "p50_W": 15.215047,
+        "p75_W": 15.553218,
+        "p90_W": 15.806205,
+        "p95_W": 15.938402,
+        "p99_W": 16.164061,
+        "max_W": 74.507976,
+        "mean_W": 15.043991,
+        "std_W": 1.178689,
+        "cv": 0.07835
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 87.6,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97985,
+        "valid_samples": 97954,
+        "outlier_samples": 31,
+        "invalid_samples": 1659,
+        "raw_p99_W": 16.168562296,
+        "raw_tail_W": 16.168562296,
+        "raw_max_W": 23893.682667643
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97954,
+          "fraction": 1.0,
+          "power_p05_W": 14.000528,
+          "power_p50_W": 15.215047,
+          "power_p95_W": 15.938402
+        }
+      ],
+      "active_power_W": 15.215047,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 44,
+        "active_samples": 97885,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          14.000528,
+          15.938402
+        ],
+        "coefficients_W_per_hour_power": [
+          14.592461646,
+          0.007668708,
+          -1.5483e-05
+        ],
+        "support_hours": [
+          0.0,
+          411.583333
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": true,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 1.548007,
+        "endpoint_constant_mae_W": 1.744491,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 1.126615,
+          "polynomial_rmse_W": 1.126615,
+          "clipped_polynomial_rmse_W": 1.126615,
+          "constant_rmse_W": 1.17422,
+          "relative_improvement": 0.040542
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 31 个超过配置筛选上限（87.6 W）的遥测野值"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl26_a": {
+      "name": "路由器主 · PL_26A",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl26_a_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPA053",
+          "TMPA054"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97984,
+        "raw_valid_samples": 97993,
+        "missing_fraction": 0.016659,
+        "outlier_samples": 9,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97984,
+        "min_W": 0.0,
+        "p01_W": 1e-06,
+        "p05_W": 2e-06,
+        "p10_W": 3e-06,
+        "p25_W": 5e-06,
+        "p50_W": 7e-06,
+        "p75_W": 1e-05,
+        "p90_W": 1.3e-05,
+        "p95_W": 1.7e-05,
+        "p99_W": 13.349129,
+        "max_W": 26.112106,
+        "mean_W": 0.370417,
+        "std_W": 2.162459,
+        "cv": 5.837912
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 29.2,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97993,
+        "valid_samples": 97984,
+        "outlier_samples": 9,
+        "invalid_samples": 1651,
+        "raw_p99_W": 13.349830077,
+        "raw_tail_W": 13.349830077,
+        "raw_max_W": 1088.791244985
+      },
+      "power_bands": [
+        {
+          "id": "low",
+          "label": "低功率观测层",
+          "n": 57883,
+          "fraction": 0.590739,
+          "power_p05_W": 2e-06,
+          "power_p50_W": 6e-06,
+          "power_p95_W": 8e-06
+        },
+        {
+          "id": "active",
+          "label": "稳态工作功率观测层",
+          "n": 37286,
+          "fraction": 0.380532,
+          "power_p05_W": 8e-06,
+          "power_p50_W": 1.1e-05,
+          "power_p95_W": 1.7e-05
+        },
+        {
+          "id": "high",
+          "label": "高功率瞬态观测层",
+          "n": 2815,
+          "fraction": 0.028729,
+          "power_p05_W": 9.650802,
+          "power_p50_W": 13.287149,
+          "power_p95_W": 13.568306
+        }
+      ],
+      "active_power_W": 1.1e-05,
+      "low_power_W": 6e-06,
+      "high_power_W": 13.287149,
+      "active_threshold_W": 8e-06,
+      "high_threshold_W": 2.779854,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 3022,
+        "active_samples": 36850,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          8e-06,
+          1.7e-05
+        ],
+        "coefficients_W_per_hour_power": [
+          0.003939264,
+          -0.00354328,
+          0.000877804
+        ],
+        "support_hours": [
+          0.0,
+          5.3
+        ],
+        "monotonic_within_support": true,
+        "endpoint_guard_passed": false,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 8e-06,
+        "endpoint_constant_mae_W": 5e-06,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.0759,
+          "polynomial_rmse_W": 0.07595,
+          "clipped_polynomial_rmse_W": 0.07595,
+          "constant_rmse_W": 0.07595,
+          "relative_improvement": 3e-06
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "检测到分离的高功率状态；改用 active/high 分层恒定模型，不将高瞬态混入稳态时间多项式",
+        "candidate_selected": false
+      },
+      "warnings": [
+        "检测到低功率层与工作功率层；任务计划必须明确 on/mode",
+        "检测到 active/high 双状态；active 层取稳态功率，高功率任务必须显式使用 power_level='high'（阈值约 2.780 W）",
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 9 个超过配置筛选上限（29.2 W）的遥测野值"
+      ],
+      "evidence_level": "observed_minute_proxy_banded_constant"
+    },
+    "pl26_b": {
+      "name": "路由器主 · PL_26B",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl26_b_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPB053",
+          "TMPB054"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97964,
+        "raw_valid_samples": 97982,
+        "missing_fraction": 0.01686,
+        "outlier_samples": 18,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97964,
+        "min_W": 0.0,
+        "p01_W": 3e-06,
+        "p05_W": 5e-06,
+        "p10_W": 7e-06,
+        "p25_W": 1e-05,
+        "p50_W": 1.3e-05,
+        "p75_W": 1.7e-05,
+        "p90_W": 2.1e-05,
+        "p95_W": 2.5e-05,
+        "p99_W": 9.702691,
+        "max_W": 20.603999,
+        "mean_W": 0.272024,
+        "std_W": 1.587518,
+        "cv": 5.835956
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 29.2,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97982,
+        "valid_samples": 97964,
+        "outlier_samples": 18,
+        "invalid_samples": 1662,
+        "raw_p99_W": 9.704042053,
+        "raw_tail_W": 9.704042053,
+        "raw_max_W": 23072.965335548
+      },
+      "power_bands": [
+        {
+          "id": "low",
+          "label": "低功率观测层",
+          "n": 95193,
+          "fraction": 0.971714,
+          "power_p05_W": 5e-06,
+          "power_p50_W": 1.3e-05,
+          "power_p95_W": 2.3e-05
+        },
+        {
+          "id": "active",
+          "label": "工作功率观测层",
+          "n": 2771,
+          "fraction": 0.028286,
+          "power_p05_W": 7.127299,
+          "power_p50_W": 9.682936,
+          "power_p95_W": 9.947432
+        }
+      ],
+      "active_power_W": 9.682936,
+      "low_power_W": 1.3e-05,
+      "high_power_W": null,
+      "active_threshold_W": 4.841475,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 94,
+        "active_samples": 2763,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          7.127299,
+          9.947432
+        ],
+        "coefficients_W_per_hour_power": [
+          9.310826824,
+          0.065807721,
+          -0.001841249
+        ],
+        "support_hours": [
+          0.0,
+          22.4
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": true,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 1.658297,
+        "endpoint_constant_mae_W": 1.854217,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 5359.631969,
+          "polynomial_rmse_W": 1.949869,
+          "clipped_polynomial_rmse_W": 1.949869,
+          "constant_rmse_W": 0.763113,
+          "relative_improvement": -1.555152
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足"
+      },
+      "warnings": [
+        "检测到低功率层与工作功率层；任务计划必须明确 on/mode",
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 18 个超过配置筛选上限（29.2 W）的遥测野值"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl27_a": {
+      "name": "智算机 G1 · PL_27A",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl27_a_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPA055",
+          "TMPA056"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97981,
+        "raw_valid_samples": 97991,
+        "missing_fraction": 0.016689,
+        "outlier_samples": 10,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97981,
+        "min_W": 0.0,
+        "p01_W": 2e-06,
+        "p05_W": 4e-06,
+        "p10_W": 5e-06,
+        "p25_W": 7e-06,
+        "p50_W": 1e-05,
+        "p75_W": 1.4e-05,
+        "p90_W": 2.1e-05,
+        "p95_W": 13.498138,
+        "p99_W": 13.960816,
+        "max_W": 28.880159,
+        "mean_W": 1.063441,
+        "std_W": 3.667724,
+        "cv": 3.448919
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 29.2,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97991,
+        "valid_samples": 97981,
+        "outlier_samples": 10,
+        "invalid_samples": 1653,
+        "raw_p99_W": 13.962029366,
+        "raw_tail_W": 13.962029366,
+        "raw_max_W": 3428.706026639
+      },
+      "power_bands": [
+        {
+          "id": "low",
+          "label": "低功率观测层",
+          "n": 90499,
+          "fraction": 0.923638,
+          "power_p05_W": 4e-06,
+          "power_p50_W": 1e-05,
+          "power_p95_W": 1.9e-05
+        },
+        {
+          "id": "active",
+          "label": "工作功率观测层",
+          "n": 7482,
+          "fraction": 0.076362,
+          "power_p05_W": 13.404187,
+          "power_p50_W": 13.538229,
+          "power_p95_W": 14.571675
+        }
+      ],
+      "active_power_W": 13.538229,
+      "low_power_W": 1e-05,
+      "high_power_W": null,
+      "active_threshold_W": 6.769119,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 163,
+        "active_samples": 7480,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          13.404187,
+          14.571675
+        ],
+        "coefficients_W_per_hour_power": [
+          13.93151903,
+          -0.115761814,
+          0.006559232
+        ],
+        "support_hours": [
+          0.0,
+          15.816667
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": true,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 2.885785,
+        "endpoint_constant_mae_W": 2.983459,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 1.121254,
+          "polynomial_rmse_W": 1.120781,
+          "clipped_polynomial_rmse_W": 1.120781,
+          "constant_rmse_W": 1.153781,
+          "relative_improvement": 0.028602
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足"
+      },
+      "warnings": [
+        "检测到低功率层与工作功率层；任务计划必须明确 on/mode",
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 10 个超过配置筛选上限（29.2 W）的遥测野值"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl27_b": {
+      "name": "智算机 G1 · PL_27B",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl27_b_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPB055",
+          "TMPB056"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97971,
+        "raw_valid_samples": 97982,
+        "missing_fraction": 0.01679,
+        "outlier_samples": 11,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97971,
+        "min_W": 0.0,
+        "p01_W": 3e-06,
+        "p05_W": 7e-06,
+        "p10_W": 8e-06,
+        "p25_W": 1.1e-05,
+        "p50_W": 1.5e-05,
+        "p75_W": 2e-05,
+        "p90_W": 2.8e-05,
+        "p95_W": 9.740046,
+        "p99_W": 9.873402,
+        "max_W": 25.704594,
+        "mean_W": 0.764234,
+        "std_W": 2.62878,
+        "cv": 3.439759
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 29.2,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97982,
+        "valid_samples": 97971,
+        "outlier_samples": 11,
+        "invalid_samples": 1662,
+        "raw_p99_W": 9.874827568,
+        "raw_tail_W": 9.874827568,
+        "raw_max_W": 17304.971981533
+      },
+      "power_bands": [
+        {
+          "id": "low",
+          "label": "低功率观测层",
+          "n": 90479,
+          "fraction": 0.923528,
+          "power_p05_W": 7e-06,
+          "power_p50_W": 1.4e-05,
+          "power_p95_W": 2.5e-05
+        },
+        {
+          "id": "active",
+          "label": "工作功率观测层",
+          "n": 7492,
+          "fraction": 0.076472,
+          "power_p05_W": 9.640841,
+          "power_p50_W": 9.764909,
+          "power_p95_W": 10.273873
+        }
+      ],
+      "active_power_W": 9.764909,
+      "low_power_W": 1.4e-05,
+      "high_power_W": null,
+      "active_threshold_W": 4.882462,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 163,
+        "active_samples": 7486,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          9.640841,
+          10.273873
+        ],
+        "coefficients_W_per_hour_power": [
+          9.929196251,
+          -0.056875578,
+          0.003390663
+        ],
+        "support_hours": [
+          0.0,
+          15.816667
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": true,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 1.760066,
+        "endpoint_constant_mae_W": 1.796788,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.759326,
+          "polynomial_rmse_W": 0.759326,
+          "clipped_polynomial_rmse_W": 0.759326,
+          "constant_rmse_W": 0.767646,
+          "relative_improvement": 0.010839
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足"
+      },
+      "warnings": [
+        "检测到低功率层与工作功率层；任务计划必须明确 on/mode",
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 11 个超过配置筛选上限（29.2 W）的遥测野值"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl28_a": {
+      "name": "液冷回路 · PL_28A",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl28_a_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPA057",
+          "TMPA058"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97983,
+        "raw_valid_samples": 97988,
+        "missing_fraction": 0.016669,
+        "outlier_samples": 5,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97983,
+        "min_W": 0.0,
+        "p01_W": 2e-06,
+        "p05_W": 4e-06,
+        "p10_W": 5e-06,
+        "p25_W": 7e-06,
+        "p50_W": 1e-05,
+        "p75_W": 1.3e-05,
+        "p90_W": 1.6e-05,
+        "p95_W": 1.8e-05,
+        "p99_W": 2.4e-05,
+        "max_W": 35.355455,
+        "mean_W": 0.012935,
+        "std_W": 0.344204,
+        "cv": 26.610592
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 58.4,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97988,
+        "valid_samples": 97983,
+        "outlier_samples": 5,
+        "invalid_samples": 1656,
+        "raw_p99_W": 2.3636e-05,
+        "raw_tail_W": 2.3636e-05,
+        "raw_max_W": 3663.790257456
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97983,
+          "fraction": 1.0,
+          "power_p05_W": 4e-06,
+          "power_p50_W": 1e-05,
+          "power_p95_W": 1.8e-05
+        }
+      ],
+      "active_power_W": 1e-05,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 51,
+        "active_samples": 97904,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          4e-06,
+          1.8e-05
+        ],
+        "coefficients_W_per_hour_power": [
+          0.00114459,
+          0.000327982,
+          -9.79e-07
+        ],
+        "support_hours": [
+          0.0,
+          411.583333
+        ],
+        "monotonic_within_support": true,
+        "endpoint_guard_passed": true,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 8e-06,
+        "endpoint_constant_mae_W": 8e-06,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.325427,
+          "polynomial_rmse_W": 0.324985,
+          "clipped_polynomial_rmse_W": 0.324985,
+          "constant_rmse_W": 0.324985,
+          "relative_improvement": 1e-06
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 5 个超过配置筛选上限（58.4 W）的遥测野值",
+        "存在远高于 p99 的短时峰值；预测不使用未解释峰值做外推"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl28_b": {
+      "name": "液冷回路 · PL_28B",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl28_b_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPB057",
+          "TMPB058"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97970,
+        "raw_valid_samples": 97980,
+        "missing_fraction": 0.0168,
+        "outlier_samples": 10,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97970,
+        "min_W": 0.0,
+        "p01_W": 3e-06,
+        "p05_W": 7e-06,
+        "p10_W": 8e-06,
+        "p25_W": 1.1e-05,
+        "p50_W": 1.5e-05,
+        "p75_W": 1.9e-05,
+        "p90_W": 2.3e-05,
+        "p95_W": 2.5e-05,
+        "p99_W": 3.1e-05,
+        "max_W": 37.286146,
+        "mean_W": 0.009654,
+        "std_W": 0.290576,
+        "cv": 30.099493
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 58.4,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97980,
+        "valid_samples": 97970,
+        "outlier_samples": 10,
+        "invalid_samples": 1664,
+        "raw_p99_W": 3.1089e-05,
+        "raw_tail_W": 3.1089e-05,
+        "raw_max_W": 32853.599590938
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97970,
+          "fraction": 1.0,
+          "power_p05_W": 7e-06,
+          "power_p50_W": 1.5e-05,
+          "power_p95_W": 2.5e-05
+        }
+      ],
+      "active_power_W": 1.5e-05,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 47,
+        "active_samples": 97899,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          7e-06,
+          2.5e-05
+        ],
+        "coefficients_W_per_hour_power": [
+          0.002473651,
+          0.000205969,
+          -6.16e-07
+        ],
+        "support_hours": [
+          0.0,
+          411.583333
+        ],
+        "monotonic_within_support": true,
+        "endpoint_guard_passed": false,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 1.1e-05,
+        "endpoint_constant_mae_W": 9e-06,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.290628,
+          "polynomial_rmse_W": 0.290292,
+          "clipped_polynomial_rmse_W": 0.290292,
+          "constant_rmse_W": 0.290292,
+          "relative_improvement": 1e-06
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；片段首末位置误差超过恒定基线 10% 容差"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 10 个超过配置筛选上限（58.4 W）的遥测野值",
+        "存在远高于 p99 的短时峰值；预测不使用未解释峰值做外推"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl30_a": {
+      "name": "路由器备 · PL_30A",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl30_a_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPA059",
+          "TMPA060"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97981,
+        "raw_valid_samples": 97988,
+        "missing_fraction": 0.016689,
+        "outlier_samples": 7,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97981,
+        "min_W": 0.0,
+        "p01_W": 1e-06,
+        "p05_W": 2e-06,
+        "p10_W": 3e-06,
+        "p25_W": 5e-06,
+        "p50_W": 7e-06,
+        "p75_W": 9e-06,
+        "p90_W": 1.2e-05,
+        "p95_W": 1.4e-05,
+        "p99_W": 1.8e-05,
+        "max_W": 18.143046,
+        "mean_W": 0.000613,
+        "std_W": 0.075057,
+        "cv": 122.45077
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 29.2,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97988,
+        "valid_samples": 97981,
+        "outlier_samples": 7,
+        "invalid_samples": 1656,
+        "raw_p99_W": 1.8489e-05,
+        "raw_tail_W": 1.8489e-05,
+        "raw_max_W": 3216.799897025
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97981,
+          "fraction": 1.0,
+          "power_p05_W": 2e-06,
+          "power_p50_W": 7e-06,
+          "power_p95_W": 1.4e-05
+        }
+      ],
+      "active_power_W": 7e-06,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 51,
+        "active_samples": 97901,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          2e-06,
+          1.4e-05
+        ],
+        "coefficients_W_per_hour_power": [
+          -5.9696e-05,
+          5.302e-06,
+          -6e-09
+        ],
+        "support_hours": [
+          0.0,
+          411.583333
+        ],
+        "monotonic_within_support": true,
+        "endpoint_guard_passed": false,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 6e-06,
+        "endpoint_constant_mae_W": 4e-06,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.046971,
+          "polynomial_rmse_W": 0.046966,
+          "clipped_polynomial_rmse_W": 0.046966,
+          "constant_rmse_W": 0.046965,
+          "relative_improvement": -1e-06
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；片段首末位置误差超过恒定基线 10% 容差"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 7 个超过配置筛选上限（29.2 W）的遥测野值",
+        "存在远高于 p99 的短时峰值；预测不使用未解释峰值做外推"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl30_b": {
+      "name": "路由器备 · PL_30B",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl30_b_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMPB059",
+          "TMPB060"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97969,
+        "raw_valid_samples": 97980,
+        "missing_fraction": 0.01681,
+        "outlier_samples": 11,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97969,
+        "min_W": 0.0,
+        "p01_W": 3e-06,
+        "p05_W": 5e-06,
+        "p10_W": 6e-06,
+        "p25_W": 9e-06,
+        "p50_W": 1.2e-05,
+        "p75_W": 1.6e-05,
+        "p90_W": 1.9e-05,
+        "p95_W": 2.2e-05,
+        "p99_W": 2.7e-05,
+        "max_W": 13.53917,
+        "mean_W": 0.000757,
+        "std_W": 0.072493,
+        "cv": 95.70591
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 29.2,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97980,
+        "valid_samples": 97969,
+        "outlier_samples": 11,
+        "invalid_samples": 1664,
+        "raw_p99_W": 2.6565e-05,
+        "raw_tail_W": 2.6565e-05,
+        "raw_max_W": 18543.896092941
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97969,
+          "fraction": 1.0,
+          "power_p05_W": 5e-06,
+          "power_p50_W": 1.2e-05,
+          "power_p95_W": 2.2e-05
+        }
+      ],
+      "active_power_W": 1.2e-05,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 46,
+        "active_samples": 97898,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          5e-06,
+          2.2e-05
+        ],
+        "coefficients_W_per_hour_power": [
+          -0.000153095,
+          1.2313e-05,
+          -2e-08
+        ],
+        "support_hours": [
+          0.0,
+          411.583333
+        ],
+        "monotonic_within_support": true,
+        "endpoint_guard_passed": false,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 9e-06,
+        "endpoint_constant_mae_W": 3e-06,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.071998,
+          "polynomial_rmse_W": 0.071991,
+          "clipped_polynomial_rmse_W": 0.071991,
+          "constant_rmse_W": 0.071991,
+          "relative_improvement": 1e-06
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；片段首末位置误差超过恒定基线 10% 容差"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 11 个超过配置筛选上限（29.2 W）的遥测野值",
+        "存在远高于 p99 的短时峰值；预测不使用未解释峰值做外推"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl33_a": {
+      "name": "GNSS 接收机备 · PL_33A",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl33_a_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMBA029",
+          "TMBA030"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97947,
+        "raw_valid_samples": 98016,
+        "missing_fraction": 0.017031,
+        "outlier_samples": 69,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97947,
+        "min_W": 0.0,
+        "p01_W": 0.0,
+        "p05_W": 0.0,
+        "p10_W": 0.0,
+        "p25_W": 1e-06,
+        "p50_W": 1e-06,
+        "p75_W": 2e-06,
+        "p90_W": 2e-06,
+        "p95_W": 3e-06,
+        "p99_W": 6e-06,
+        "max_W": 0.006638,
+        "mean_W": 2e-06,
+        "std_W": 5.4e-05,
+        "cv": 27.090508
+      },
+      "outlier_filter": {
+        "method": "robust_extreme_tail",
+        "upper_limit_W": 0.006721873,
+        "robust_quantile": 0.99,
+        "robust_multiplier": 1000.0,
+        "raw_nonnegative_samples": 98016,
+        "valid_samples": 97947,
+        "outlier_samples": 69,
+        "invalid_samples": 1628,
+        "raw_p99_W": 6.722e-06,
+        "raw_tail_W": 6.722e-06,
+        "raw_max_W": 16968.497774289
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97947,
+          "fraction": 1.0,
+          "power_p05_W": 0.0,
+          "power_p50_W": 1e-06,
+          "power_p95_W": 3e-06
+        }
+      ],
+      "active_power_W": 1e-06,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 47,
+        "active_samples": 97860,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          0.0,
+          3e-06
+        ],
+        "coefficients_W_per_hour_power": [
+          2.307e-06,
+          -1.1e-08,
+          0.0
+        ],
+        "support_hours": [
+          0.0,
+          411.583333
+        ],
+        "monotonic_within_support": true,
+        "endpoint_guard_passed": false,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 1e-06,
+        "endpoint_constant_mae_W": 1e-06,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 5e-05,
+          "polynomial_rmse_W": 5e-05,
+          "clipped_polynomial_rmse_W": 5e-05,
+          "constant_rmse_W": 5e-05,
+          "relative_improvement": 9.5e-05
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；片段首末位置误差超过恒定基线 10% 容差"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 69 个超过配置筛选上限（0.006721873 W）的遥测野值",
+        "存在远高于 p99 的短时峰值；预测不使用未解释峰值做外推"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "pl33_b": {
+      "name": "GNSS 接收机备 · PL_33B",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_pl33_b_W",
+        "telemetry_basis": "vi",
+        "source_codes": [
+          "TMBB029",
+          "TMBB030"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97957,
+        "raw_valid_samples": 98027,
+        "missing_fraction": 0.01693,
+        "outlier_samples": 70,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97957,
+        "min_W": 0.0,
+        "p01_W": 1e-06,
+        "p05_W": 1e-06,
+        "p10_W": 1e-06,
+        "p25_W": 2e-06,
+        "p50_W": 3e-06,
+        "p75_W": 5e-06,
+        "p90_W": 7e-06,
+        "p95_W": 8e-06,
+        "p99_W": 1.2e-05,
+        "max_W": 0.008338,
+        "mean_W": 4e-06,
+        "std_W": 4.3e-05,
+        "cv": 9.863129
+      },
+      "outlier_filter": {
+        "method": "robust_extreme_tail",
+        "upper_limit_W": 0.011738415,
+        "robust_quantile": 0.99,
+        "robust_multiplier": 1000.0,
+        "raw_nonnegative_samples": 98027,
+        "valid_samples": 97957,
+        "outlier_samples": 70,
+        "invalid_samples": 1617,
+        "raw_p99_W": 1.1738e-05,
+        "raw_tail_W": 1.1738e-05,
+        "raw_max_W": 8508.080752144
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97957,
+          "fraction": 1.0,
+          "power_p05_W": 1e-06,
+          "power_p50_W": 3e-06,
+          "power_p95_W": 8e-06
+        }
+      ],
+      "active_power_W": 3e-06,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 49,
+        "active_samples": 97857,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          1e-06,
+          8e-06
+        ],
+        "coefficients_W_per_hour_power": [
+          4.456e-06,
+          -6e-09,
+          0.0
+        ],
+        "support_hours": [
+          0.0,
+          367.133333
+        ],
+        "monotonic_within_support": true,
+        "endpoint_guard_passed": true,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 0.000843,
+        "endpoint_constant_mae_W": 0.000843,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 4.2e-05,
+          "polynomial_rmse_W": 4.2e-05,
+          "clipped_polynomial_rmse_W": 4.2e-05,
+          "constant_rmse_W": 4.2e-05,
+          "relative_improvement": -0.000228
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 70 个超过配置筛选上限（0.011738415 W）的遥测野值",
+        "存在远高于 p99 的短时峰值；预测不使用未解释峰值做外推"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "heater_battery_main": {
+      "name": "蓄电池加热主路",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_heater_battery_main_W",
+        "telemetry_basis": "bus_current",
+        "source_codes": [
+          "TMEA130"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97885,
+        "raw_valid_samples": 97898,
+        "missing_fraction": 0.017653,
+        "outlier_samples": 13,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97885,
+        "min_W": 0.111885,
+        "p01_W": 0.118816,
+        "p05_W": 0.120304,
+        "p10_W": 0.120847,
+        "p25_W": 0.12193,
+        "p50_W": 0.123805,
+        "p75_W": 24.205913,
+        "p90_W": 24.228689,
+        "p95_W": 24.242749,
+        "p99_W": 24.259611,
+        "max_W": 28.810636,
+        "mean_W": 9.018945,
+        "std_W": 11.454452,
+        "cv": 1.270043
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 29.2,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97898,
+        "valid_samples": 97885,
+        "outlier_samples": 13,
+        "invalid_samples": 1746,
+        "raw_p99_W": 24.259692264,
+        "raw_tail_W": 24.259692264,
+        "raw_max_W": 640.35412466
+      },
+      "power_bands": [
+        {
+          "id": "low",
+          "label": "低功率观测层",
+          "n": 61703,
+          "fraction": 0.630362,
+          "power_p05_W": 0.119899,
+          "power_p50_W": 0.122405,
+          "power_p95_W": 0.126403
+        },
+        {
+          "id": "active",
+          "label": "工作功率观测层",
+          "n": 36182,
+          "fraction": 0.369638,
+          "power_p05_W": 22.796196,
+          "power_p50_W": 24.216805,
+          "power_p95_W": 24.25544
+        }
+      ],
+      "active_power_W": 24.216805,
+      "low_power_W": 0.122405,
+      "high_power_W": null,
+      "active_threshold_W": 12.169605,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 1976,
+        "active_samples": 36164,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          22.796196,
+          24.25544
+        ],
+        "coefficients_W_per_hour_power": [
+          22.716633972,
+          25.506983097,
+          -87.807970384
+        ],
+        "support_hours": [
+          0.0,
+          0.366667
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": false,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 1.516249,
+        "endpoint_constant_mae_W": 0.993058,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 1.479652,
+          "polynomial_rmse_W": 1.494995,
+          "clipped_polynomial_rmse_W": 1.494995,
+          "constant_rmse_W": 1.648628,
+          "relative_improvement": 0.093189
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足；片段首末位置误差超过恒定基线 10% 容差"
+      },
+      "warnings": [
+        "检测到低功率层与工作功率层；任务计划必须明确 on/mode",
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 13 个超过配置筛选上限（29.2 W）的遥测野值"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "heater_star_a_main": {
+      "name": "星敏A加热主路",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_heater_star_a_main_W",
+        "telemetry_basis": "bus_current",
+        "source_codes": [
+          "TMEA131"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97883,
+        "raw_valid_samples": 97898,
+        "missing_fraction": 0.017673,
+        "outlier_samples": 15,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97883,
+        "min_W": 0.097744,
+        "p01_W": 0.118414,
+        "p05_W": 0.119508,
+        "p10_W": 0.119937,
+        "p25_W": 0.120733,
+        "p50_W": 0.12183,
+        "p75_W": 0.123221,
+        "p90_W": 1.489781,
+        "p95_W": 2.443676,
+        "p99_W": 2.795445,
+        "max_W": 23.732631,
+        "mean_W": 0.381694,
+        "std_W": 0.736549,
+        "cv": 1.929687
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 29.2,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97898,
+        "valid_samples": 97883,
+        "outlier_samples": 15,
+        "invalid_samples": 1746,
+        "raw_p99_W": 2.79764895,
+        "raw_tail_W": 2.79764895,
+        "raw_max_W": 246.420533826
+      },
+      "power_bands": [
+        {
+          "id": "low",
+          "label": "低功率观测层",
+          "n": 87282,
+          "fraction": 0.891697,
+          "power_p05_W": 0.119427,
+          "power_p50_W": 0.121513,
+          "power_p95_W": 0.125305
+        },
+        {
+          "id": "active",
+          "label": "工作功率观测层",
+          "n": 10601,
+          "fraction": 0.108303,
+          "power_p05_W": 1.401111,
+          "power_p50_W": 2.398963,
+          "power_p95_W": 3.159948
+        }
+      ],
+      "active_power_W": 2.398963,
+      "low_power_W": 0.121513,
+      "high_power_W": null,
+      "active_threshold_W": 1.260238,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 1094,
+        "active_samples": 9895,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          1.401111,
+          3.159948
+        ],
+        "coefficients_W_per_hour_power": [
+          2.176456088,
+          0.697907375,
+          -0.168702091
+        ],
+        "support_hours": [
+          0.0,
+          2.733333
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": true,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 0.413867,
+        "endpoint_constant_mae_W": 0.430915,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.762133,
+          "polynomial_rmse_W": 0.761482,
+          "clipped_polynomial_rmse_W": 0.761482,
+          "constant_rmse_W": 0.775976,
+          "relative_improvement": 0.018678
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足"
+      },
+      "warnings": [
+        "检测到低功率层与工作功率层；任务计划必须明确 on/mode",
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 15 个超过配置筛选上限（29.2 W）的遥测野值",
+        "存在远高于 p99 的短时峰值；预测不使用未解释峰值做外推"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "heater_star_b_main": {
+      "name": "星敏B加热主路",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_heater_star_b_main_W",
+        "telemetry_basis": "bus_current",
+        "source_codes": [
+          "TMEA132"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97881,
+        "raw_valid_samples": 97898,
+        "missing_fraction": 0.017693,
+        "outlier_samples": 17,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97881,
+        "min_W": 0.097759,
+        "p01_W": 0.123363,
+        "p05_W": 0.124923,
+        "p10_W": 0.126012,
+        "p25_W": 0.128372,
+        "p50_W": 9.018277,
+        "p75_W": 9.048014,
+        "p90_W": 9.05548,
+        "p95_W": 9.057784,
+        "p99_W": 9.061247,
+        "max_W": 28.871048,
+        "mean_W": 5.780104,
+        "std_W": 4.129993,
+        "cv": 0.714519
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 29.2,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97898,
+        "valid_samples": 97881,
+        "outlier_samples": 17,
+        "invalid_samples": 1746,
+        "raw_p99_W": 9.061304785,
+        "raw_tail_W": 9.061304785,
+        "raw_max_W": 649.687087504
+      },
+      "power_bands": [
+        {
+          "id": "low",
+          "label": "低功率观测层",
+          "n": 35764,
+          "fraction": 0.365382,
+          "power_p05_W": 0.123923,
+          "power_p50_W": 0.127235,
+          "power_p95_W": 2.928315
+        },
+        {
+          "id": "active",
+          "label": "工作功率观测层",
+          "n": 62117,
+          "fraction": 0.634618,
+          "power_p05_W": 7.290887,
+          "power_p50_W": 9.04005,
+          "power_p95_W": 9.058888
+        }
+      ],
+      "active_power_W": 9.04005,
+      "low_power_W": 0.127235,
+      "high_power_W": null,
+      "active_threshold_W": 4.583642,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 3374,
+        "active_samples": 62094,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          7.290887,
+          9.058888
+        ],
+        "coefficients_W_per_hour_power": [
+          8.820062131,
+          0.117037442,
+          -0.03042295
+        ],
+        "support_hours": [
+          0.0,
+          4.966667
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": false,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 0.565775,
+        "endpoint_constant_mae_W": 0.462735,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.733336,
+          "polynomial_rmse_W": 0.733336,
+          "clipped_polynomial_rmse_W": 0.733336,
+          "constant_rmse_W": 0.757108,
+          "relative_improvement": 0.031399
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足；片段首末位置误差超过恒定基线 10% 容差"
+      },
+      "warnings": [
+        "检测到低功率层与工作功率层；任务计划必须明确 on/mode",
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 17 个超过配置筛选上限（29.2 W）的遥测野值"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "heater_propulsion_main": {
+      "name": "推进加热主路",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_heater_propulsion_main_W",
+        "telemetry_basis": "bus_current",
+        "source_codes": [
+          "TMEA116"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97890,
+        "raw_valid_samples": 97899,
+        "missing_fraction": 0.017603,
+        "outlier_samples": 9,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97890,
+        "min_W": 0.053697,
+        "p01_W": 0.121836,
+        "p05_W": 0.123085,
+        "p10_W": 0.123765,
+        "p25_W": 0.124974,
+        "p50_W": 0.126509,
+        "p75_W": 0.1287,
+        "p90_W": 9.826752,
+        "p95_W": 9.845742,
+        "p99_W": 9.860116,
+        "max_W": 26.25127,
+        "mean_W": 1.716506,
+        "std_W": 3.575568,
+        "cv": 2.08305
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 29.2,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97899,
+        "valid_samples": 97890,
+        "outlier_samples": 9,
+        "invalid_samples": 1745,
+        "raw_p99_W": 9.860182036,
+        "raw_tail_W": 9.860182036,
+        "raw_max_W": 320.225897164
+      },
+      "power_bands": [
+        {
+          "id": "low",
+          "label": "低功率观测层",
+          "n": 81849,
+          "fraction": 0.836132,
+          "power_p05_W": 0.122971,
+          "power_p50_W": 0.126085,
+          "power_p95_W": 0.129507
+        },
+        {
+          "id": "active",
+          "label": "工作功率观测层",
+          "n": 16041,
+          "fraction": 0.163868,
+          "power_p05_W": 9.79495,
+          "power_p50_W": 9.838278,
+          "power_p95_W": 9.861296
+        }
+      ],
+      "active_power_W": 9.838278,
+      "low_power_W": 0.126085,
+      "high_power_W": null,
+      "active_threshold_W": 4.982182,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 409,
+        "active_samples": 16028,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          9.79495,
+          9.861296
+        ],
+        "coefficients_W_per_hour_power": [
+          9.617593771,
+          1.159241537,
+          -1.481787266
+        ],
+        "support_hours": [
+          0.0,
+          1.183333
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": true,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 1.034792,
+        "endpoint_constant_mae_W": 1.04438,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.468734,
+          "polynomial_rmse_W": 0.477001,
+          "clipped_polynomial_rmse_W": 0.477001,
+          "constant_rmse_W": 0.481269,
+          "relative_improvement": 0.008869
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足"
+      },
+      "warnings": [
+        "检测到低功率层与工作功率层；任务计划必须明确 on/mode",
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 9 个超过配置筛选上限（29.2 W）的遥测野值"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "heater_ir_camera_main": {
+      "name": "红外相机加热主路",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_heater_ir_camera_main_W",
+        "telemetry_basis": "bus_current",
+        "source_codes": [
+          "TMEA115"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97885,
+        "raw_valid_samples": 97899,
+        "missing_fraction": 0.017653,
+        "outlier_samples": 14,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97885,
+        "min_W": 0.006181,
+        "p01_W": 0.122898,
+        "p05_W": 0.124095,
+        "p10_W": 0.124838,
+        "p25_W": 0.126007,
+        "p50_W": 0.127233,
+        "p75_W": 0.128434,
+        "p90_W": 0.129586,
+        "p95_W": 0.130336,
+        "p99_W": 0.132491,
+        "max_W": 26.685323,
+        "mean_W": 0.131656,
+        "std_W": 0.230948,
+        "cv": 1.754177
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 29.2,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97899,
+        "valid_samples": 97885,
+        "outlier_samples": 14,
+        "invalid_samples": 1745,
+        "raw_p99_W": 0.132505507,
+        "raw_tail_W": 0.132505507,
+        "raw_max_W": 200.076819016
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97885,
+          "fraction": 1.0,
+          "power_p05_W": 0.124095,
+          "power_p50_W": 0.127233,
+          "power_p95_W": 0.130336
+        }
+      ],
+      "active_power_W": 0.127233,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 34,
+        "active_samples": 97853,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          0.124095,
+          0.130336
+        ],
+        "coefficients_W_per_hour_power": [
+          0.134889807,
+          -7.2318e-05,
+          1.85e-07
+        ],
+        "support_hours": [
+          0.0,
+          411.583333
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": true,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 0.074467,
+        "endpoint_constant_mae_W": 0.073004,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.230899,
+          "polynomial_rmse_W": 0.230857,
+          "clipped_polynomial_rmse_W": 0.230857,
+          "constant_rmse_W": 0.23085,
+          "relative_improvement": -3.1e-05
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 14 个超过配置筛选上限（29.2 W）的遥测野值",
+        "存在远高于 p99 的短时峰值；预测不使用未解释峰值做外推"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "heater_optical_box_main": {
+      "name": "光机底部电箱加热主路",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_heater_optical_box_main_W",
+        "telemetry_basis": "bus_current",
+        "source_codes": [
+          "TMEA114"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97893,
+        "raw_valid_samples": 97899,
+        "missing_fraction": 0.017573,
+        "outlier_samples": 6,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97893,
+        "min_W": 0.010044,
+        "p01_W": 0.120272,
+        "p05_W": 0.121387,
+        "p10_W": 0.121833,
+        "p25_W": 0.122882,
+        "p50_W": 0.123879,
+        "p75_W": 0.124982,
+        "p90_W": 0.126103,
+        "p95_W": 0.126842,
+        "p99_W": 0.128413,
+        "max_W": 25.968876,
+        "mean_W": 0.127201,
+        "std_W": 0.220393,
+        "cv": 1.732632
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 29.2,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97899,
+        "valid_samples": 97893,
+        "outlier_samples": 6,
+        "invalid_samples": 1745,
+        "raw_p99_W": 0.128414811,
+        "raw_tail_W": 0.128414811,
+        "raw_max_W": 640.334590726
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97893,
+          "fraction": 1.0,
+          "power_p05_W": 0.121387,
+          "power_p50_W": 0.123879,
+          "power_p95_W": 0.126842
+        }
+      ],
+      "active_power_W": 0.123879,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 32,
+        "active_samples": 97859,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          0.121387,
+          0.126842
+        ],
+        "coefficients_W_per_hour_power": [
+          0.125809188,
+          8.796e-06,
+          3e-09
+        ],
+        "support_hours": [
+          0.0,
+          411.583333
+        ],
+        "monotonic_within_support": true,
+        "endpoint_guard_passed": false,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 0.003723,
+        "endpoint_constant_mae_W": 0.002325,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.208271,
+          "polynomial_rmse_W": 0.208248,
+          "clipped_polynomial_rmse_W": 0.208248,
+          "constant_rmse_W": 0.208235,
+          "relative_improvement": -6.4e-05
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；片段首末位置误差超过恒定基线 10% 容差"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 6 个超过配置筛选上限（29.2 W）的遥测野值",
+        "存在远高于 p99 的短时峰值；预测不使用未解释峰值做外推"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "heater_router_main": {
+      "name": "路由加热主路",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_heater_router_main_W",
+        "telemetry_basis": "bus_current",
+        "source_codes": [
+          "TMEA113"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97894,
+        "raw_valid_samples": 97899,
+        "missing_fraction": 0.017563,
+        "outlier_samples": 5,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97894,
+        "min_W": 0.039068,
+        "p01_W": 0.120971,
+        "p05_W": 0.121922,
+        "p10_W": 0.122584,
+        "p25_W": 0.123702,
+        "p50_W": 0.124896,
+        "p75_W": 0.126094,
+        "p90_W": 0.127252,
+        "p95_W": 0.128017,
+        "p99_W": 0.129803,
+        "max_W": 25.889118,
+        "mean_W": 0.128639,
+        "std_W": 0.251946,
+        "cv": 1.958556
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 29.2,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97899,
+        "valid_samples": 97894,
+        "outlier_samples": 5,
+        "invalid_samples": 1745,
+        "raw_p99_W": 0.129808832,
+        "raw_tail_W": 0.129808832,
+        "raw_max_W": 160.221413061
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97894,
+          "fraction": 1.0,
+          "power_p05_W": 0.121922,
+          "power_p50_W": 0.124896,
+          "power_p95_W": 0.128017
+        }
+      ],
+      "active_power_W": 0.124896,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 34,
+        "active_samples": 97863,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          0.121922,
+          0.128017
+        ],
+        "coefficients_W_per_hour_power": [
+          0.126842761,
+          8.92e-07,
+          4.5e-08
+        ],
+        "support_hours": [
+          0.0,
+          411.583333
+        ],
+        "monotonic_within_support": true,
+        "endpoint_guard_passed": false,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 0.004069,
+        "endpoint_constant_mae_W": 0.002848,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.232283,
+          "polynomial_rmse_W": 0.232263,
+          "clipped_polynomial_rmse_W": 0.232263,
+          "constant_rmse_W": 0.232262,
+          "relative_improvement": -5e-06
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；片段首末位置误差超过恒定基线 10% 容差"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 5 个超过配置筛选上限（29.2 W）的遥测野值",
+        "存在远高于 p99 的短时峰值；预测不使用未解释峰值做外推"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "heater_compute_g1_main": {
+      "name": "智算机G1加热主路",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_heater_compute_g1_main_W",
+        "telemetry_basis": "bus_current",
+        "source_codes": [
+          "TMEA031"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97936,
+        "raw_valid_samples": 97959,
+        "missing_fraction": 0.017141,
+        "outlier_samples": 23,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97936,
+        "min_W": 0.042545,
+        "p01_W": 0.11804,
+        "p05_W": 0.118842,
+        "p10_W": 0.119435,
+        "p25_W": 0.120191,
+        "p50_W": 0.121065,
+        "p75_W": 0.121904,
+        "p90_W": 0.122947,
+        "p95_W": 0.123411,
+        "p99_W": 0.124516,
+        "max_W": 25.133527,
+        "mean_W": 0.123785,
+        "std_W": 0.20454,
+        "cv": 1.65238
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 29.2,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97959,
+        "valid_samples": 97936,
+        "outlier_samples": 23,
+        "invalid_samples": 1685,
+        "raw_p99_W": 0.1245307,
+        "raw_tail_W": 0.1245307,
+        "raw_max_W": 24086.961504907
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97936,
+          "fraction": 1.0,
+          "power_p05_W": 0.118842,
+          "power_p50_W": 0.121065,
+          "power_p95_W": 0.123411
+        }
+      ],
+      "active_power_W": 0.121065,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 42,
+        "active_samples": 97879,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          0.118842,
+          0.123411
+        ],
+        "coefficients_W_per_hour_power": [
+          0.121916602,
+          1.2211e-05,
+          -1e-08
+        ],
+        "support_hours": [
+          0.0,
+          411.583333
+        ],
+        "monotonic_within_support": true,
+        "endpoint_guard_passed": false,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 0.003142,
+        "endpoint_constant_mae_W": 0.002116,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.169705,
+          "polynomial_rmse_W": 0.169692,
+          "clipped_polynomial_rmse_W": 0.169692,
+          "constant_rmse_W": 0.169684,
+          "relative_improvement": -5e-05
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；片段首末位置误差超过恒定基线 10% 容差"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 23 个超过配置筛选上限（29.2 W）的遥测野值",
+        "存在远高于 p99 的短时峰值；预测不使用未解释峰值做外推"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "heater_compute_yx_main": {
+      "name": "智算机YX加热主路",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_heater_compute_yx_main_W",
+        "telemetry_basis": "bus_current",
+        "source_codes": [
+          "TMEA030"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97935,
+        "raw_valid_samples": 97959,
+        "missing_fraction": 0.017151,
+        "outlier_samples": 24,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97935,
+        "min_W": 0.0,
+        "p01_W": 0.117939,
+        "p05_W": 0.118698,
+        "p10_W": 0.119106,
+        "p25_W": 0.119885,
+        "p50_W": 0.120725,
+        "p75_W": 0.121828,
+        "p90_W": 0.122654,
+        "p95_W": 0.123323,
+        "p99_W": 0.124576,
+        "max_W": 29.119023,
+        "mean_W": 0.12393,
+        "std_W": 0.22234,
+        "cv": 1.79408
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 29.2,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97959,
+        "valid_samples": 97935,
+        "outlier_samples": 24,
+        "invalid_samples": 1685,
+        "raw_p99_W": 0.124584648,
+        "raw_tail_W": 0.124584648,
+        "raw_max_W": 5068.18156601
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97935,
+          "fraction": 1.0,
+          "power_p05_W": 0.118698,
+          "power_p50_W": 0.120725,
+          "power_p95_W": 0.123323
+        }
+      ],
+      "active_power_W": 0.120725,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 42,
+        "active_samples": 97880,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          0.118698,
+          0.123323
+        ],
+        "coefficients_W_per_hour_power": [
+          0.122923986,
+          -3.649e-06,
+          3.9e-08
+        ],
+        "support_hours": [
+          0.0,
+          411.583333
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": false,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 0.003583,
+        "endpoint_constant_mae_W": 0.002071,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.214139,
+          "polynomial_rmse_W": 0.214124,
+          "clipped_polynomial_rmse_W": 0.214124,
+          "constant_rmse_W": 0.214122,
+          "relative_improvement": -8e-06
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足；片段首末位置误差超过恒定基线 10% 容差"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 24 个超过配置筛选上限（29.2 W）的遥测野值",
+        "存在远高于 p99 的短时峰值；预测不使用未解释峰值做外推"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    },
+    "heater_laser_main": {
+      "name": "激光处理机加热主路",
+      "model_type": "constant",
+      "usable_for_prediction": true,
+      "source": {
+        "power_column": "P_heater_laser_main_W",
+        "telemetry_basis": "bus_current",
+        "source_codes": [
+          "TMEA029"
+        ]
+      },
+      "observations": {
+        "valid_samples": 97937,
+        "raw_valid_samples": 97959,
+        "missing_fraction": 0.017131,
+        "outlier_samples": 22,
+        "time_start": "2026-07-25T00:00:00",
+        "time_end": "2026-10-27T23:59:00"
+      },
+      "stats": {
+        "n": 97937,
+        "min_W": 0.0,
+        "p01_W": 0.117967,
+        "p05_W": 0.118712,
+        "p10_W": 0.119105,
+        "p25_W": 0.119843,
+        "p50_W": 0.120674,
+        "p75_W": 0.121499,
+        "p90_W": 0.122301,
+        "p95_W": 0.122999,
+        "p99_W": 0.124066,
+        "max_W": 24.41574,
+        "mean_W": 0.135251,
+        "std_W": 0.421349,
+        "cv": 3.115321
+      },
+      "outlier_filter": {
+        "method": "configured_max_power",
+        "upper_limit_W": 29.2,
+        "robust_quantile": null,
+        "robust_multiplier": null,
+        "raw_nonnegative_samples": 97959,
+        "valid_samples": 97937,
+        "outlier_samples": 22,
+        "invalid_samples": 1685,
+        "raw_p99_W": 0.124090366,
+        "raw_tail_W": 0.124090366,
+        "raw_max_W": 9886.661397425
+      },
+      "power_bands": [
+        {
+          "id": "constant",
+          "label": "单一功率观测层",
+          "n": 97937,
+          "fraction": 1.0,
+          "power_p05_W": 0.118712,
+          "power_p50_W": 0.120674,
+          "power_p95_W": 0.122999
+        }
+      ],
+      "active_power_W": 0.120674,
+      "low_power_W": null,
+      "high_power_W": null,
+      "active_threshold_W": null,
+      "high_threshold_W": null,
+      "modes": {},
+      "polynomial": {
+        "degree": 2,
+        "episodes": 43,
+        "active_samples": 97882,
+        "time_unit": "hours_since_active_episode_start",
+        "selected": false,
+        "runtime_clip_W": [
+          0.118712,
+          0.122999
+        ],
+        "coefficients_W_per_hour_power": [
+          0.152090736,
+          -0.000328905,
+          7.42e-07
+        ],
+        "support_hours": [
+          0.0,
+          411.583333
+        ],
+        "monotonic_within_support": false,
+        "endpoint_guard_passed": false,
+        "endpoint_mae_tolerance": 1.1,
+        "endpoint_polynomial_mae_W": 0.003461,
+        "endpoint_constant_mae_W": 0.001685,
+        "cross_validation": {
+          "method": "episode-grouped-deterministic-folds",
+          "folds": 5,
+          "raw_polynomial_rmse_W": 0.416039,
+          "polynomial_rmse_W": 0.416054,
+          "clipped_polynomial_rmse_W": 0.416054,
+          "constant_rmse_W": 0.416115,
+          "relative_improvement": 0.000148
+        },
+        "extrapolation_policy": "clamp_to_support",
+        "runtime_clip_policy": "active_band_p05_p95",
+        "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足；片段首末位置误差超过恒定基线 10% 容差"
+      },
+      "warnings": [
+        "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+        "已过滤 22 个超过配置筛选上限（29.2 W）的遥测野值",
+        "存在远高于 p99 的短时峰值；预测不使用未解释峰值做外推"
+      ],
+      "evidence_level": "observed_minute_proxy_constant"
+    }
+  }
+}

@@ -3,7 +3,9 @@
     "note": "蓄电池电压→SOC 分段线性校准曲线（V_bat, SOC）。三体星 SCS-01-01 蓄电池设计放电特性表（10A 恒流放电）；2026-10-23 经用户决策由通用假设曲线切换为本表（v2.2 口径，切换依据与敏感性实测见 13 号报告附录 A.7）。",
     "source": "D:/Tianji/project/satellite_autonomy/scripts/knowledge/volt_capacity_santi_v0.csv（65Ah 设计构型，用户 2026-10-22 确认为 SCS-01-01 设计值）",
     "updated": "2026-10-23",
-    "calibration_status": "三体星设计表·已激活（2026-10-23 用户决策切换；原通用假设曲线存档于 git 历史）",
+    "calibration_status": "三体星设计放电表已激活；尚无独立在轨 SOC 校验，充电滞回未建模",
+    "independent_in_orbit_validation": false,
+    "charge_hysteresis_model": false,
     "design": {
       "pack_config": "7s13p（5Ah 单体 × 13 并）",
       "rated_capacity_Ah": 65.0,

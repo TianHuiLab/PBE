@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "satellite_id": "YJ-3D",
+  "design": {
+    "windows": 10,
+    "tasks": "historical active/idle intervals",
+    "unit_model": "grouped holdout",
+    "selected_features": [
+      "elapsed_hours",
+      "load_W"
+    ],
+    "rejected_features": [
+      "task_unit_power_W",
+      "active_unit_count"
+    ]
+  },
+  "by_variant": {
+    "load_task_aware_BCR": {
+      "n": 10,
+      "target_soc_MAE_pp": 0.46177368257283025,
+      "target_soc_p95_pp": 1.5308329591042176,
+      "remaining_Ah_MAE": 0.17404250096169974,
+      "remaining_Ah_p95": 0.5769709422863796,
+      "solar_energy_MAE_pct": 15.42169423825205,
+      "solar_energy_bias_pct": -13.220909866239314,
+      "load_energy_MAE_pct": 8.11865360870473
+    },
+    "time_only_BCR": {
+      "n": 10,
+      "target_soc_MAE_pp": 0.8560950582806282,
+      "target_soc_p95_pp": 2.837738110756107,
+      "remaining_Ah_MAE": 0.3226622274659688,
+      "remaining_Ah_p95": 1.0695434939439765,
+      "solar_energy_MAE_pct": 17.744849966625768,
+      "solar_energy_bias_pct": -5.385342714191587,
+      "load_energy_MAE_pct": 8.11865360870473
+    }
+  }
+}

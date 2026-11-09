@@ -1,0 +1,8 @@
+{
+  "battery_capacity_Ah": 37.69,
+  "bus_nominal_V": 25.27,
+  "eta_charge": 1.0,
+  "eta_discharge": 1.0,
+  "soc_floor": 0.0,
+  "_note": "容量取云尖3D星7.84 A标定表终点值；25.27 V取表中SOC 50%点。未获得充放电效率与SOC下限设计值，暂用1.0和0.0，不代表已确认设计参数。"
+}

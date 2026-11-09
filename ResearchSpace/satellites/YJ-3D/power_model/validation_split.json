@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "satellite_id": "YJ-3D",
+  "generated_at": "2026-11-05T00:00:00+08:00",
+  "split_unit": "date",
+  "dates": [
+    "2026-07-24",
+    "2026-07-28",
+    "2026-08-01",
+    "2026-08-02",
+    "2026-08-05",
+    "2026-08-10",
+    "2026-09-10",
+    "2026-09-11",
+    "2026-09-12"
+  ],
+  "source": "power_model/unit_task_validation_summary.json"
+}

@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0",
+  "satellite_id": "YJ-3D",
+  "design": {
+    "windows": 10,
+    "excluded_dates": [
+      "2026-07-24",
+      "2026-07-28",
+      "2026-08-01",
+      "2026-08-02",
+      "2026-08-05",
+      "2026-08-10",
+      "2026-09-10",
+      "2026-09-11",
+      "2026-09-12"
+    ],
+    "unit_model": "grouped holdout",
+    "tasks": "debounced historical active/idle states",
+    "old_model": "TMEA003×TMEA007 × empirical efficiency",
+    "new_model": "Σ(V_BCR_out×I_BCR_out)"
+  },
+  "by_variant": {
+    "new_BCR_output": {
+      "n": 10,
+      "target_soc_MAE_pp": 0.8560950582806282,
+      "target_soc_p95_pp": 2.837738110756107,
+      "remaining_Ah_MAE": 0.3226622274659688,
+      "remaining_Ah_p95": 1.0695434939439765,
+      "solar_energy_MAE_pct": 17.744849966625768,
+      "solar_energy_bias_pct": -5.385342714191587,
+      "load_energy_MAE_pct": 8.11865360870473
+    },
+    "old_TMEA003_TMEA007": {
+      "n": 10,
+      "target_soc_MAE_pp": 0.8747350582806291,
+      "target_soc_p95_pp": 2.6410923474825774,
+      "remaining_Ah_MAE": 0.329687643465969,
+      "remaining_Ah_p95": 0.9954277057661833,
+      "solar_energy_MAE_pct": 19.12901198007513,
+      "solar_energy_bias_pct": -8.484814014102353,
+      "load_energy_MAE_pct": 8.11865360870473
+    }
+  }
+}

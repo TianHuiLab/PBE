@@ -3,8 +3,7 @@
 
 pandas>=1.5        # 遥测宽表处理（energy_balancer / s* / q* 脚本）
 numpy>=1.23        # 数值计算
+openpyxl>=3.1      # 云尖3D单机测点清单读取遥测大表
+tzdata>=2024.1      # Windows 上解析 IANA 时区（s1_fetch --source-timezone）
 
-# clickhouse-driver 仅 04/05（v1 探索脚本）需要；
-# v2 工具链的 ch_http.py 只用标准库，无需安装。
-# 需要时取消下一行注释:
-# clickhouse-driver>=0.2
+clickhouse-driver>=0.2.11,<0.3  # s1_fetch 原生 9000 流式取数

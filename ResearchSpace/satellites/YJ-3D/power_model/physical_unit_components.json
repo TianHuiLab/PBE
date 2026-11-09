@@ -1,0 +1,562 @@
+{
+  "satellite_id": "YJ-3D",
+  "balance_boundary_verified": false,
+  "plugin_modules": [],
+  "_note": "物理单机层：同编号A/B支路按拓扑约定合并，设备只计一次；支路明细仍保留在原始通道数据中供审计。",
+  "physical_unit_topology": {
+    "source_document": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc",
+    "default_aggregation_mode": "sum",
+    "n_physical_units": 22
+  },
+  "components": [
+    {
+      "id": "pl0",
+      "name": "磁强计 A",
+      "role": "load",
+      "plugin": "aggregated_branch_power",
+      "enabled": true,
+      "physical_branches": [
+        "pl0_a",
+        "pl0_b"
+      ],
+      "aggregation_mode": "sum",
+      "source_codes": [
+        "TMPA001",
+        "TMPA002",
+        "TMPB001",
+        "TMPB002"
+      ],
+      "source_document": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc",
+      "max_power_W": 26.0
+    },
+    {
+      "id": "pl1",
+      "name": "光纤陀螺",
+      "role": "load",
+      "plugin": "aggregated_branch_power",
+      "enabled": true,
+      "physical_branches": [
+        "pl1_a",
+        "pl1_b"
+      ],
+      "aggregation_mode": "sum",
+      "source_codes": [
+        "TMPA003",
+        "TMPA004",
+        "TMPB003",
+        "TMPB004"
+      ],
+      "source_document": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc",
+      "max_power_W": 11.0
+    },
+    {
+      "id": "pl3",
+      "name": "星敏 A",
+      "role": "load",
+      "plugin": "aggregated_branch_power",
+      "enabled": true,
+      "physical_branches": [
+        "pl3_a",
+        "pl3_b"
+      ],
+      "aggregation_mode": "sum",
+      "source_codes": [
+        "TMPA007",
+        "TMPA008",
+        "TMPB007",
+        "TMPB008"
+      ],
+      "source_document": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc",
+      "max_power_W": 11.0
+    },
+    {
+      "id": "pl5",
+      "name": "GNSS 接收机主",
+      "role": "load",
+      "plugin": "aggregated_branch_power",
+      "enabled": true,
+      "physical_branches": [
+        "pl5_a",
+        "pl5_b"
+      ],
+      "aggregation_mode": "sum",
+      "source_codes": [
+        "TMPA011",
+        "TMPA012",
+        "TMPB011",
+        "TMPB012"
+      ],
+      "source_document": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc",
+      "max_power_W": 11.0
+    },
+    {
+      "id": "pl6",
+      "name": "星敏 B",
+      "role": "load",
+      "plugin": "aggregated_branch_power",
+      "enabled": true,
+      "physical_branches": [
+        "pl6_a",
+        "pl6_b"
+      ],
+      "aggregation_mode": "sum",
+      "source_codes": [
+        "TMPA013",
+        "TMPA014",
+        "TMPB013",
+        "TMPB014"
+      ],
+      "source_document": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc",
+      "max_power_W": 11.0
+    },
+    {
+      "id": "pl8",
+      "name": "飞轮 X",
+      "role": "load",
+      "plugin": "aggregated_branch_power",
+      "enabled": true,
+      "physical_branches": [
+        "pl8_a",
+        "pl8_b"
+      ],
+      "aggregation_mode": "sum",
+      "source_codes": [
+        "TMPA030",
+        "TMPA029",
+        "TMPB030",
+        "TMPB029"
+      ],
+      "source_document": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc",
+      "max_power_W": 58.4
+    },
+    {
+      "id": "pl9",
+      "name": "飞轮 Y",
+      "role": "load",
+      "plugin": "aggregated_branch_power",
+      "enabled": true,
+      "physical_branches": [
+        "pl9_a",
+        "pl9_b"
+      ],
+      "aggregation_mode": "sum",
+      "source_codes": [
+        "TMPA032",
+        "TMPA031",
+        "TMPB032",
+        "TMPB031"
+      ],
+      "source_document": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc",
+      "max_power_W": 58.4
+    },
+    {
+      "id": "pl10",
+      "name": "飞轮 Z",
+      "role": "load",
+      "plugin": "aggregated_branch_power",
+      "enabled": true,
+      "physical_branches": [
+        "pl10_a",
+        "pl10_b"
+      ],
+      "aggregation_mode": "sum",
+      "source_codes": [
+        "TMPA034",
+        "TMPA033",
+        "TMPB034",
+        "TMPB033"
+      ],
+      "source_document": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc",
+      "max_power_W": 58.4
+    },
+    {
+      "id": "pl11",
+      "name": "飞轮 S",
+      "role": "load",
+      "plugin": "aggregated_branch_power",
+      "enabled": true,
+      "physical_branches": [
+        "pl11_a",
+        "pl11_b"
+      ],
+      "aggregation_mode": "sum",
+      "source_codes": [
+        "TMPA036",
+        "TMPA035",
+        "TMPB036",
+        "TMPB035"
+      ],
+      "source_document": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc",
+      "max_power_W": 58.4
+    },
+    {
+      "id": "pl12",
+      "name": "磁力矩器",
+      "role": "load",
+      "plugin": "aggregated_branch_power",
+      "enabled": true,
+      "physical_branches": [
+        "pl12_a",
+        "pl12_b"
+      ],
+      "aggregation_mode": "sum",
+      "source_codes": [
+        "TMPA038",
+        "TMPA037",
+        "TMPB038",
+        "TMPB037"
+      ],
+      "source_document": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc",
+      "max_power_W": 11.0
+    },
+    {
+      "id": "pl13",
+      "name": "X 测控主机",
+      "role": "load",
+      "plugin": "aggregated_branch_power",
+      "enabled": true,
+      "physical_branches": [
+        "pl13_a",
+        "pl13_b"
+      ],
+      "aggregation_mode": "sum",
+      "source_codes": [
+        "TMPA018",
+        "TMPA017",
+        "TMPB018",
+        "TMPB017"
+      ],
+      "source_document": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc",
+      "max_power_W": 26.0
+    },
+    {
+      "id": "pl16",
+      "name": "红外相机",
+      "role": "load",
+      "plugin": "aggregated_branch_power",
+      "enabled": true,
+      "physical_branches": [
+        "pl16_a",
+        "pl16_b"
+      ],
+      "aggregation_mode": "sum",
+      "source_codes": [
+        "TMPA024",
+        "TMPA023",
+        "TMPB024",
+        "TMPB023"
+      ],
+      "source_document": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc",
+      "max_power_W": 26.0
+    },
+    {
+      "id": "pl17",
+      "name": "测控备",
+      "role": "load",
+      "plugin": "aggregated_branch_power",
+      "enabled": true,
+      "physical_branches": [
+        "pl17_a",
+        "pl17_b"
+      ],
+      "aggregation_mode": "sum",
+      "source_codes": [
+        "TMPA026",
+        "TMPA025",
+        "TMPB026",
+        "TMPB025"
+      ],
+      "source_document": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc",
+      "max_power_W": 26.0
+    },
+    {
+      "id": "pl19",
+      "name": "扩展板",
+      "role": "load",
+      "plugin": "aggregated_branch_power",
+      "enabled": true,
+      "physical_branches": [
+        "pl19_a",
+        "pl19_b"
+      ],
+      "aggregation_mode": "sum",
+      "source_codes": [
+        "TMPA040",
+        "TMPA039",
+        "TMPB040",
+        "TMPB039"
+      ],
+      "source_document": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc",
+      "max_power_W": 116.8
+    },
+    {
+      "id": "pl20",
+      "name": "智算机 YX 28V1",
+      "role": "load",
+      "plugin": "aggregated_branch_power",
+      "enabled": true,
+      "physical_branches": [
+        "pl20_a",
+        "pl20_b"
+      ],
+      "aggregation_mode": "sum",
+      "source_codes": [
+        "TMPA042",
+        "TMPA041",
+        "TMPB042",
+        "TMPB041"
+      ],
+      "source_document": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc",
+      "max_power_W": 116.8
+    },
+    {
+      "id": "pl21",
+      "name": "星间激光终端",
+      "role": "load",
+      "plugin": "aggregated_branch_power",
+      "enabled": true,
+      "physical_branches": [
+        "pl21_a",
+        "pl21_b"
+      ],
+      "aggregation_mode": "sum",
+      "source_codes": [
+        "TMPA044",
+        "TMPA043",
+        "TMPB044",
+        "TMPB043"
+      ],
+      "source_document": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc",
+      "max_power_W": 175.2
+    },
+    {
+      "id": "pl22",
+      "name": "星间激光头",
+      "role": "load",
+      "plugin": "aggregated_branch_power",
+      "enabled": true,
+      "physical_branches": [
+        "pl22_a",
+        "pl22_b"
+      ],
+      "aggregation_mode": "sum",
+      "source_codes": [
+        "TMPA046",
+        "TMPA045",
+        "TMPB046",
+        "TMPB045"
+      ],
+      "source_document": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc",
+      "max_power_W": 175.2
+    },
+    {
+      "id": "pl26",
+      "name": "路由器主",
+      "role": "load",
+      "plugin": "aggregated_branch_power",
+      "enabled": true,
+      "physical_branches": [
+        "pl26_a",
+        "pl26_b"
+      ],
+      "aggregation_mode": "sum",
+      "source_codes": [
+        "TMPA053",
+        "TMPA054",
+        "TMPB053",
+        "TMPB054"
+      ],
+      "source_document": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc",
+      "max_power_W": 58.4
+    },
+    {
+      "id": "pl27",
+      "name": "智算机 G1",
+      "role": "load",
+      "plugin": "aggregated_branch_power",
+      "enabled": true,
+      "physical_branches": [
+        "pl27_a",
+        "pl27_b"
+      ],
+      "aggregation_mode": "sum",
+      "source_codes": [
+        "TMPA055",
+        "TMPA056",
+        "TMPB055",
+        "TMPB056"
+      ],
+      "source_document": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc",
+      "max_power_W": 58.4
+    },
+    {
+      "id": "pl28",
+      "name": "液冷回路",
+      "role": "load",
+      "plugin": "aggregated_branch_power",
+      "enabled": true,
+      "physical_branches": [
+        "pl28_a",
+        "pl28_b"
+      ],
+      "aggregation_mode": "sum",
+      "source_codes": [
+        "TMPA057",
+        "TMPA058",
+        "TMPB057",
+        "TMPB058"
+      ],
+      "source_document": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc",
+      "max_power_W": 116.8
+    },
+    {
+      "id": "pl30",
+      "name": "路由器备",
+      "role": "load",
+      "plugin": "aggregated_branch_power",
+      "enabled": true,
+      "physical_branches": [
+        "pl30_a",
+        "pl30_b"
+      ],
+      "aggregation_mode": "sum",
+      "source_codes": [
+        "TMPA059",
+        "TMPA060",
+        "TMPB059",
+        "TMPB060"
+      ],
+      "source_document": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc",
+      "max_power_W": 58.4
+    },
+    {
+      "id": "pl33",
+      "name": "GNSS 接收机备",
+      "role": "load",
+      "plugin": "aggregated_branch_power",
+      "enabled": true,
+      "physical_branches": [
+        "pl33_a",
+        "pl33_b"
+      ],
+      "aggregation_mode": "sum",
+      "source_codes": [
+        "TMBA029",
+        "TMBA030",
+        "TMBB029",
+        "TMBB030"
+      ],
+      "source_document": "../Data/0010-云尖3D星/新一代通用平台单机方案及硬件使用说明20220315-14点.doc"
+    },
+    {
+      "id": "heater_battery_main",
+      "name": "蓄电池加热主路",
+      "role": "load",
+      "plugin": "bus_current",
+      "current_code": "TMEA130",
+      "max_current_A": 1.0,
+      "enabled": true,
+      "max_voltage_V": 29.2,
+      "max_power_W": 29.2
+    },
+    {
+      "id": "heater_star_a_main",
+      "name": "星敏A加热主路",
+      "role": "load",
+      "plugin": "bus_current",
+      "current_code": "TMEA131",
+      "max_current_A": 1.0,
+      "enabled": true,
+      "max_voltage_V": 29.2,
+      "max_power_W": 29.2
+    },
+    {
+      "id": "heater_star_b_main",
+      "name": "星敏B加热主路",
+      "role": "load",
+      "plugin": "bus_current",
+      "current_code": "TMEA132",
+      "max_current_A": 1.0,
+      "enabled": true,
+      "max_voltage_V": 29.2,
+      "max_power_W": 29.2
+    },
+    {
+      "id": "heater_propulsion_main",
+      "name": "推进加热主路",
+      "role": "load",
+      "plugin": "bus_current",
+      "current_code": "TMEA116",
+      "max_current_A": 1.0,
+      "enabled": true,
+      "max_voltage_V": 29.2,
+      "max_power_W": 29.2
+    },
+    {
+      "id": "heater_ir_camera_main",
+      "name": "红外相机加热主路",
+      "role": "load",
+      "plugin": "bus_current",
+      "current_code": "TMEA115",
+      "max_current_A": 1.0,
+      "enabled": true,
+      "max_voltage_V": 29.2,
+      "max_power_W": 29.2
+    },
+    {
+      "id": "heater_optical_box_main",
+      "name": "光机底部电箱加热主路",
+      "role": "load",
+      "plugin": "bus_current",
+      "current_code": "TMEA114",
+      "max_current_A": 1.0,
+      "enabled": true,
+      "max_voltage_V": 29.2,
+      "max_power_W": 29.2
+    },
+    {
+      "id": "heater_router_main",
+      "name": "路由加热主路",
+      "role": "load",
+      "plugin": "bus_current",
+      "current_code": "TMEA113",
+      "max_current_A": 1.0,
+      "enabled": true,
+      "max_voltage_V": 29.2,
+      "max_power_W": 29.2
+    },
+    {
+      "id": "heater_compute_g1_main",
+      "name": "智算机G1加热主路",
+      "role": "load",
+      "plugin": "bus_current",
+      "current_code": "TMEA031",
+      "max_current_A": 1.0,
+      "enabled": true,
+      "max_voltage_V": 29.2,
+      "max_power_W": 29.2
+    },
+    {
+      "id": "heater_compute_yx_main",
+      "name": "智算机YX加热主路",
+      "role": "load",
+      "plugin": "bus_current",
+      "current_code": "TMEA030",
+      "max_current_A": 1.0,
+      "enabled": true,
+      "max_voltage_V": 29.2,
+      "max_power_W": 29.2
+    },
+    {
+      "id": "heater_laser_main",
+      "name": "激光处理机加热主路",
+      "role": "load",
+      "plugin": "bus_current",
+      "current_code": "TMEA029",
+      "max_current_A": 1.0,
+      "enabled": true,
+      "max_voltage_V": 29.2,
+      "max_power_W": 29.2
+    }
+  ]
+}

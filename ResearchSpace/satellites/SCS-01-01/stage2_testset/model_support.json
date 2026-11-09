@@ -1,0 +1,188 @@
+{
+  "satellite_id": "SCS-01-01",
+  "task_extraction_rule": "3-point centered median smoothing; merge state runs shorter than 3 minutes into the adjacent state",
+  "supported_task_units": [
+    {
+      "unit_id": "electric_propulsion_a",
+      "active_threshold_W": 4.711,
+      "high_threshold_W": 55.787001,
+      "active_power_W": 6.44,
+      "high_power_W": 215.194928,
+      "low_power_W": 2.982
+    },
+    {
+      "unit_id": "electric_propulsion_b",
+      "active_threshold_W": 10.342,
+      "high_threshold_W": 55.787001,
+      "active_power_W": 13.916,
+      "high_power_W": 215.194928,
+      "low_power_W": 6.768
+    },
+    {
+      "unit_id": "compute_nx1_f",
+      "active_threshold_W": 10.942999,
+      "high_threshold_W": null,
+      "active_power_W": 21.601998,
+      "high_power_W": null,
+      "low_power_W": 0.284
+    },
+    {
+      "unit_id": "router_main",
+      "active_threshold_W": 13.8895,
+      "high_threshold_W": null,
+      "active_power_W": 27.495,
+      "high_power_W": null,
+      "low_power_W": 0.284
+    },
+    {
+      "unit_id": "router_backup",
+      "active_threshold_W": 1.20835,
+      "high_threshold_W": null,
+      "active_power_W": 1.8487,
+      "high_power_W": null,
+      "low_power_W": 0.568
+    },
+    {
+      "unit_id": "compute_nx1_g",
+      "active_threshold_W": 15.37,
+      "high_threshold_W": null,
+      "active_power_W": 30.456,
+      "high_power_W": null,
+      "low_power_W": 0.284
+    },
+    {
+      "unit_id": "compute_g1",
+      "active_threshold_W": 14.7365,
+      "high_threshold_W": null,
+      "active_power_W": 28.905,
+      "high_power_W": null,
+      "low_power_W": 0.568
+    },
+    {
+      "unit_id": "compute_g2",
+      "active_threshold_W": 14.882,
+      "high_threshold_W": null,
+      "active_power_W": 29.48,
+      "high_power_W": null,
+      "low_power_W": 0.284
+    },
+    {
+      "unit_id": "microwave_1a",
+      "active_threshold_W": 74.629,
+      "high_threshold_W": null,
+      "active_power_W": 91.448,
+      "high_power_W": null,
+      "low_power_W": 57.81
+    },
+    {
+      "unit_id": "microwave_1b",
+      "active_threshold_W": 3.39,
+      "high_threshold_W": null,
+      "active_power_W": 5.36,
+      "high_power_W": null,
+      "low_power_W": 1.42
+    },
+    {
+      "unit_id": "microwave_2a",
+      "active_threshold_W": 30.017892,
+      "high_threshold_W": null,
+      "active_power_W": 59.183784,
+      "high_power_W": null,
+      "low_power_W": 0.852
+    },
+    {
+      "unit_id": "microwave_2b",
+      "active_threshold_W": 28.629,
+      "high_threshold_W": null,
+      "active_power_W": 55.554,
+      "high_power_W": null,
+      "low_power_W": 1.704
+    },
+    {
+      "unit_id": "laser_processor_1",
+      "active_threshold_W": 36.243,
+      "high_threshold_W": null,
+      "active_power_W": 42.742,
+      "high_power_W": null,
+      "low_power_W": 29.744
+    },
+    {
+      "unit_id": "laser_processor_2",
+      "active_threshold_W": 0.9343,
+      "high_threshold_W": null,
+      "active_power_W": 1.5846,
+      "high_power_W": null,
+      "low_power_W": 0.284
+    },
+    {
+      "unit_id": "reaction_wheel_1",
+      "active_threshold_W": 2.38353,
+      "high_threshold_W": null,
+      "active_power_W": 3.06306,
+      "high_power_W": null,
+      "low_power_W": 1.704
+    },
+    {
+      "unit_id": "reaction_wheel_2",
+      "active_threshold_W": 3.792,
+      "high_threshold_W": null,
+      "active_power_W": 5.88,
+      "high_power_W": null,
+      "low_power_W": 1.704
+    },
+    {
+      "unit_id": "reaction_wheel_3",
+      "active_threshold_W": 3.41027,
+      "high_threshold_W": null,
+      "active_power_W": 5.11654,
+      "high_power_W": null,
+      "low_power_W": 1.704
+    },
+    {
+      "unit_id": "reaction_wheel_4",
+      "active_threshold_W": 2.410001,
+      "high_threshold_W": null,
+      "active_power_W": 3.124,
+      "high_power_W": null,
+      "low_power_W": 1.696002
+    },
+    {
+      "unit_id": "cxpd_payload",
+      "active_threshold_W": 12.912,
+      "high_threshold_W": null,
+      "active_power_W": 24.424,
+      "high_power_W": null,
+      "low_power_W": 1.4
+    },
+    {
+      "unit_id": "science_payload",
+      "active_threshold_W": 1.15575,
+      "high_threshold_W": null,
+      "active_power_W": 2.3115,
+      "high_power_W": null,
+      "low_power_W": 0.0
+    }
+  ],
+  "constant_only_units": [
+    {
+      "unit_id": "transponder_a",
+      "active_power_W": 14.9884
+    },
+    {
+      "unit_id": "transponder_b",
+      "active_power_W": 4.5248
+    },
+    {
+      "unit_id": "phased_array",
+      "active_power_W": 55.9728
+    },
+    {
+      "unit_id": "uplink",
+      "active_power_W": 9.27792
+    },
+    {
+      "unit_id": "fiber_gyro",
+      "active_power_W": 3.108
+    }
+  ]
+}

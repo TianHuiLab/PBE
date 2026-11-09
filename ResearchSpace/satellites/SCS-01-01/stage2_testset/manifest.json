@@ -1,0 +1,886 @@
+{
+  "schema_version": "1.0",
+  "satellite_id": "SCS-01-01",
+  "generated_at": "2026-11-05T15:19:24+08:00",
+  "n_cases": 25,
+  "case_ids": [
+    "W01",
+    "W02",
+    "W03",
+    "W04",
+    "W05",
+    "W06",
+    "W07",
+    "W08",
+    "W09",
+    "W10",
+    "W11",
+    "W12",
+    "W13",
+    "W14",
+    "W15",
+    "W16",
+    "W17",
+    "W18",
+    "W19",
+    "W20",
+    "W21",
+    "W22",
+    "W23",
+    "W24",
+    "W25"
+  ],
+  "readme": "README.md",
+  "model_support": "model_support.json",
+  "evaluation_summary": "evaluation_summary.json",
+  "evaluation_cases": "evaluation_cases.csv",
+  "inputs": [
+    {
+      "path": "out\\energy_v2_result.csv",
+      "sha256": "d606a8efbc09fd93cf2389e7f10a9a59a011594a1ddc87ebde33875f1402179f"
+    },
+    {
+      "path": "out\\energy_v2_components.csv",
+      "sha256": "fffec9169c1e7a60cd45fbb93991f11af92e1713d129db4b9fb1eddaa675e8bd"
+    },
+    {
+      "path": "power_model\\unit_power_holdout_models.json",
+      "sha256": "66dba4b9b0288f97ca103d91b012f39a2d29565563e553cf9003d8b74b0c0f90"
+    },
+    {
+      "path": "power_model\\batch_validation_holdout_solar_model.json",
+      "sha256": "4a6b9babe85a07a70c9aa4a382e85aa5a0cafa5ec53df5cb6a03bd7e39e7c590"
+    },
+    {
+      "path": "power_model\\batch_validation_windows.csv",
+      "sha256": "8b48bc99dadd6ce1c963a663ad688c2387711b4191d783d8f3d9c0875373749d"
+    },
+    {
+      "path": "config\\v_soc_curve.json",
+      "sha256": "f57f798697eb1b7f2feaa9a2039664f4d379ebeea39a65784e1bb5a5dbd37aef"
+    },
+    {
+      "path": "config\\design_params.json",
+      "sha256": "f0aef1f55efd203a2768d366dc637139251b5570f3c43daa3604a8c2c961026c"
+    },
+    {
+      "path": "config\\stage2_profile.json",
+      "sha256": "3329f1249aa8f055fe84cae0499202f4b7721799882ef249fc3fb055fa957068"
+    },
+    {
+      "path": "power_model\\validation_split.json",
+      "sha256": "7e388feb534a0d35165deef7feb65b8b1ec8ee77c754c4d1f4ecf870ea96a755"
+    }
+  ],
+  "code": [
+    {
+      "path": "D:\\Tianji\\project\\卫星能源评估\\ResearchSpace\\stage2_testset.py",
+      "sha256": "35d7438858993dd0165aaaa481df31a1acec9b3484b13e8f22fc34d185d0774b"
+    },
+    {
+      "path": "D:\\Tianji\\project\\卫星能源评估\\ResearchSpace\\stage2_cases.py",
+      "sha256": "b7d4d60a90a17c39ff52f3080fe8be351e18904b2a920c5bdb16a28268bc9359"
+    },
+    {
+      "path": "D:\\Tianji\\project\\卫星能源评估\\ResearchSpace\\power_outlier_filter.py",
+      "sha256": "2160dd3717bcbd3eb577df9c3ce1ace8d9fadc08d9723915a25a23be82aa682d"
+    },
+    {
+      "path": "D:\\Tianji\\project\\卫星能源评估\\ResearchSpace\\unit_power_model.py",
+      "sha256": "6f1ac16f27aff426987d84bd4bcd34ba980128f9fb1e8199d9c42f7632ff289c"
+    },
+    {
+      "path": "D:\\Tianji\\project\\卫星能源评估\\ResearchSpace\\solar_power_calibration.py",
+      "sha256": "c59f6802be1fdf8a4e73af5b15ebd2545b9592dbb8a0cd2a3545d3ae0055d92b"
+    },
+    {
+      "path": "D:\\Tianji\\project\\卫星能源评估\\ResearchSpace\\yj3d_power_forecast.py",
+      "sha256": "498c865da3d229d7f01ae17908e6ae8e517f53e175cac3808066c288ced35826"
+    },
+    {
+      "path": "D:\\Tianji\\project\\卫星能源评估\\ResearchSpace\\stage2_framework.py",
+      "sha256": "f970d2d1add8167794eb2f76b1319ad2a74cefbdfc3824a6e4d6ae3c9d68529c"
+    },
+    {
+      "path": "D:\\Tianji\\project\\卫星能源评估\\ResearchSpace\\stage2_quality.py",
+      "sha256": "cba43c715f53a9d0613cc4c1720842260d30e2ec0e2f96f79af70a61309d4584"
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "W01",
+      "path": "cases/W01",
+      "task_count": 0,
+      "season": "DJF",
+      "duration_band": "short",
+      "load_band": "medium",
+      "label_quality": {
+        "soc_reference": "v_soc_minute_mapping",
+        "usable_for_absolute_soc": false,
+        "usable_for_trend": true,
+        "qc_status": "pass",
+        "soc_qc_status": "pass",
+        "solar_qc_status": "pass",
+        "load_qc_status": "pass",
+        "quality_reasons": {},
+        "solar_energy_applicability": "sunlight_proxy",
+        "solar_energy_reference": "scheme_b_proxy",
+        "load_energy_reference": "tmd018_minute_power",
+        "notes": "SOC为TMD019逐分钟电压映射；方案B太阳能量与TMD018负载均为条件参考，不是独立硬件真值"
+      },
+      "sha256": {
+        "input.json": "6336b3e171bf7fa6875bc499c56bd7304b69c908e2084cbb2b56896b28361354",
+        "label.json": "dd624d1515355a877164424b17599e231e431a7a1fb6b7bfaf91b67c0aa2501b",
+        "prediction.json": "9eb5578c7c9be71b25a4e5d351d551cff779d406481f22798bd2525191357167",
+        "predicted_soc.csv": "c67a954cb2264d21a92c493098aebe77829e18fb068b52735275c725c24f1470",
+        "observed_soc.csv": "aac69ebca2d1dce89b923dd103fc366fedabcf01d0a2cfab561db16c46364392",
+        "task_plan.json": "3ed684cada223d4bd19116752a8754cf46fe26c1af13ac27c2ea3fa13165acae",
+        "metadata.json": "55b44858600b1dac99e66d708142d8147f77d1e91c81f9de1e02aa460493dd2f"
+      }
+    },
+    {
+      "case_id": "W02",
+      "path": "cases/W02",
+      "task_count": 2,
+      "season": "DJF",
+      "duration_band": "short",
+      "load_band": "high",
+      "label_quality": {
+        "soc_reference": "v_soc_minute_mapping",
+        "usable_for_absolute_soc": false,
+        "usable_for_trend": true,
+        "qc_status": "pass",
+        "soc_qc_status": "pass",
+        "solar_qc_status": "not_applicable",
+        "load_qc_status": "pass",
+        "quality_reasons": {},
+        "solar_energy_applicability": "not_applicable_eclipse",
+        "solar_energy_reference": "scheme_b_proxy",
+        "load_energy_reference": "tmd018_minute_power",
+        "notes": "SOC为TMD019逐分钟电压映射；方案B太阳能量与TMD018负载均为条件参考，不是独立硬件真值"
+      },
+      "sha256": {
+        "input.json": "7eb3b94148502d632dc3c11cfdfdd13305839aeadd1041d269afd12177e95d21",
+        "label.json": "a385adc6be950904f3559d86bbeb0b383886a3537df0d0ad9ea27d6a6834edf8",
+        "prediction.json": "50dbeaae9d6339f820aa7bdd30a0f36c56c5563f2db7e6d454c2a0b2a72c6c3a",
+        "predicted_soc.csv": "b6b3ab262c71075ed7f12503c157ff01d83d026dba41a3886ddcae07b72dc487",
+        "observed_soc.csv": "94b2423823b70c2e59120541ed89b06ba04c04e912e584665562ea6e0a94f8bf",
+        "task_plan.json": "74c4554fa08df144e4ee1b4118f6e3bdf7811d81727cba5319fdf7c06d20ee85",
+        "metadata.json": "eede1679b5b21875e69a9a472c89ff126d69d8e53f9c30f3a570e0e4701ba441"
+      }
+    },
+    {
+      "case_id": "W03",
+      "path": "cases/W03",
+      "task_count": 4,
+      "season": "DJF",
+      "duration_band": "short",
+      "load_band": "medium",
+      "label_quality": {
+        "soc_reference": "v_soc_minute_mapping",
+        "usable_for_absolute_soc": false,
+        "usable_for_trend": true,
+        "qc_status": "pass",
+        "soc_qc_status": "pass",
+        "solar_qc_status": "not_applicable",
+        "load_qc_status": "pass",
+        "quality_reasons": {},
+        "solar_energy_applicability": "not_applicable_eclipse",
+        "solar_energy_reference": "scheme_b_proxy",
+        "load_energy_reference": "tmd018_minute_power",
+        "notes": "SOC为TMD019逐分钟电压映射；方案B太阳能量与TMD018负载均为条件参考，不是独立硬件真值"
+      },
+      "sha256": {
+        "input.json": "e58ccf002ca3d7580d8dbd8245225d7110e59adadb7b951939b2f4d607fab2f9",
+        "label.json": "b2ecb8de1fb287fb8abb714f19762cf8f036c02f7c81a830e3a9bda32e6ac398",
+        "prediction.json": "b1eb7c602ba47568f07194dd5fb6dcafffa145e9c9e0cd3d988140b2afd671aa",
+        "predicted_soc.csv": "a3318c84b74d9efe83cbce818ca7bcc629f489c9b9326c849a8586a6244a0a94",
+        "observed_soc.csv": "1c428187c584b4deb2f46ada0659c6c7c06e8450bb228894a795e2a032261a62",
+        "task_plan.json": "25937a5b96789b6e8416bc54609614e2559c95dc6e627e4e471fc9b05a1ffe20",
+        "metadata.json": "9c46a5ca7289b90c783486e0775f9ea1e381b666e7c4be5df1fa82915d618160"
+      }
+    },
+    {
+      "case_id": "W04",
+      "path": "cases/W04",
+      "task_count": 11,
+      "season": "DJF",
+      "duration_band": "medium",
+      "load_band": "low",
+      "label_quality": {
+        "soc_reference": "v_soc_minute_mapping",
+        "usable_for_absolute_soc": false,
+        "usable_for_trend": true,
+        "qc_status": "pass",
+        "soc_qc_status": "pass",
+        "solar_qc_status": "pass",
+        "load_qc_status": "pass",
+        "quality_reasons": {},
+        "solar_energy_applicability": "sunlight_proxy",
+        "solar_energy_reference": "scheme_b_proxy",
+        "load_energy_reference": "tmd018_minute_power",
+        "notes": "SOC为TMD019逐分钟电压映射；方案B太阳能量与TMD018负载均为条件参考，不是独立硬件真值"
+      },
+      "sha256": {
+        "input.json": "31fe528cd6bbb31375dd85ec0ebd06a396ff6b586fedce1d1f990e8f2af88d7a",
+        "label.json": "7ec156ffcd85b53d3f8817f91c3d626aaa1be12970a37a7b24f4b4d59b9a341a",
+        "prediction.json": "5da1f66db3fc13407a8f281c6c40e1da1ecac22f8c0f8c72416feb3ded4df23b",
+        "predicted_soc.csv": "842a71459e8abd202c68b57601df67d0dc50d630b378f19fa6063be7f04f6d46",
+        "observed_soc.csv": "f3c9de25416cee581155422605833e137ea79e230c446962e5e0140c38ce40df",
+        "task_plan.json": "34f938414a22db4b3f029bec85ec65f968752aadc26e102bff712b5f914ed07f",
+        "metadata.json": "0735a0b66b5493ca805749691c4df056b434ae457a007036da84800fb34849d2"
+      }
+    },
+    {
+      "case_id": "W05",
+      "path": "cases/W05",
+      "task_count": 16,
+      "season": "DJF",
+      "duration_band": "long",
+      "load_band": "medium",
+      "label_quality": {
+        "soc_reference": "v_soc_minute_mapping",
+        "usable_for_absolute_soc": false,
+        "usable_for_trend": true,
+        "qc_status": "pass",
+        "soc_qc_status": "pass",
+        "solar_qc_status": "pass",
+        "load_qc_status": "pass",
+        "quality_reasons": {},
+        "solar_energy_applicability": "sunlight_proxy",
+        "solar_energy_reference": "scheme_b_proxy",
+        "load_energy_reference": "tmd018_minute_power",
+        "notes": "SOC为TMD019逐分钟电压映射；方案B太阳能量与TMD018负载均为条件参考，不是独立硬件真值"
+      },
+      "sha256": {
+        "input.json": "584e147e12f159698cc8c60fc891e4c7b72eb731ed03033c954f78cfdd2d25aa",
+        "label.json": "10c7dac2910496dad84c89c00b21597eb6e06a1219f73c7c8715cb0ef21e3a37",
+        "prediction.json": "7fd61da0b68c3f5053ecbb56d489c6ff442fa206e075f40e2562086f25b67ab5",
+        "predicted_soc.csv": "284999efce68c133c80c0c54a959bfebd539752352245128ba4204aed60853b0",
+        "observed_soc.csv": "c2bcc2ebe7e5382509a4736dac1bee85f2d34ef6a6ef2f296d5a78faa11b5af9",
+        "task_plan.json": "105d2d2de576fb645492303f9d6f815388c3793c602f8b26ac487bf581931edb",
+        "metadata.json": "9b873f0f8de946095fcfd04282e93496856948dc50cf6610393e6ce0a0aeb7ed"
+      }
+    },
+    {
+      "case_id": "W06",
+      "path": "cases/W06",
+      "task_count": 4,
+      "season": "DJF",
+      "duration_band": "long",
+      "load_band": "medium",
+      "label_quality": {
+        "soc_reference": "v_soc_minute_mapping",
+        "usable_for_absolute_soc": false,
+        "usable_for_trend": true,
+        "qc_status": "pass",
+        "soc_qc_status": "pass",
+        "solar_qc_status": "not_applicable",
+        "load_qc_status": "pass",
+        "quality_reasons": {},
+        "solar_energy_applicability": "not_applicable_eclipse",
+        "solar_energy_reference": "scheme_b_proxy",
+        "load_energy_reference": "tmd018_minute_power",
+        "notes": "SOC为TMD019逐分钟电压映射；方案B太阳能量与TMD018负载均为条件参考，不是独立硬件真值"
+      },
+      "sha256": {
+        "input.json": "36dbc6f980dd5eef5c83d2b675957fd394488d9f76d8a4836b3c4c4430181525",
+        "label.json": "da1e059d927c0629345fb7d24243223ae4f211edf31fc7d0bc7cc2a46efca588",
+        "prediction.json": "5f1844345436ae46cf0e5a24a3ee72f2c29042dcf25bd9fcb61e189700ecfe08",
+        "predicted_soc.csv": "884a7b7655b1d889b714e0c7c1a58940919cc61f69b624456eb592e1c3e56c89",
+        "observed_soc.csv": "607331af9e78553c9d95c1455498a97b15f0c20662f453ef7456a267430df8d0",
+        "task_plan.json": "b8454458105f86bf6981b75671ba00af9d0ab13e308d9ee9bd1e65f05cd1fd4b",
+        "metadata.json": "7953228a42c2ad380a6cc41b2d955909146a7307b2f186493fe19a1cb69e42ab"
+      }
+    },
+    {
+      "case_id": "W07",
+      "path": "cases/W07",
+      "task_count": 18,
+      "season": "DJF",
+      "duration_band": "long",
+      "load_band": "high",
+      "label_quality": {
+        "soc_reference": "v_soc_minute_mapping",
+        "usable_for_absolute_soc": false,
+        "usable_for_trend": true,
+        "qc_status": "pass",
+        "soc_qc_status": "pass",
+        "solar_qc_status": "pass",
+        "load_qc_status": "pass",
+        "quality_reasons": {},
+        "solar_energy_applicability": "sunlight_proxy",
+        "solar_energy_reference": "scheme_b_proxy",
+        "load_energy_reference": "tmd018_minute_power",
+        "notes": "SOC为TMD019逐分钟电压映射；方案B太阳能量与TMD018负载均为条件参考，不是独立硬件真值"
+      },
+      "sha256": {
+        "input.json": "127c9c455ca283096133f82c704d3999abf90a82ddd7011270c63b535ac17a8e",
+        "label.json": "aa5500e5666171f10389a113bca593fe75d6f983ea05c2501e3e5dfc3cf1dd75",
+        "prediction.json": "79044490e2055ad2505ec12c6355eb13869ac5a46122c33b9e8cbe4792517284",
+        "predicted_soc.csv": "c3f1942a170f8a4baf6652d377e0a7f9c7d0891ddcb8cf3dc4d055451cba6380",
+        "observed_soc.csv": "9e9af4861691c2df43cfde2375d8d39a46323f029e9f802f1b4001e2c4eab4fd",
+        "task_plan.json": "b5374de61ed0caa28f28ad5f3957d91119c4ff98cadf491f892febea9dd9d449",
+        "metadata.json": "f00c3149fcb05561012d8eb3221b439c67a92edbc17dadcdbd73266387a899b8"
+      }
+    },
+    {
+      "case_id": "W08",
+      "path": "cases/W08",
+      "task_count": 8,
+      "season": "DJF",
+      "duration_band": "long",
+      "load_band": "high",
+      "label_quality": {
+        "soc_reference": "v_soc_minute_mapping",
+        "usable_for_absolute_soc": false,
+        "usable_for_trend": true,
+        "qc_status": "pass",
+        "soc_qc_status": "pass",
+        "solar_qc_status": "not_applicable",
+        "load_qc_status": "pass",
+        "quality_reasons": {},
+        "solar_energy_applicability": "not_applicable_eclipse",
+        "solar_energy_reference": "scheme_b_proxy",
+        "load_energy_reference": "tmd018_minute_power",
+        "notes": "SOC为TMD019逐分钟电压映射；方案B太阳能量与TMD018负载均为条件参考，不是独立硬件真值"
+      },
+      "sha256": {
+        "input.json": "f210a1f68799d251ddf88854fc1a785d6ae82b60f1ac63a86826b4a5b71370ca",
+        "label.json": "40f06b6e07d3e86a773a9a052cbf750b5ef942c6c013bd960b5d944fe69c8b0f",
+        "prediction.json": "9c4d943982de65fbcf1a79ddac8f26ea99698548f7831c65ddcba6da0ae9d817",
+        "predicted_soc.csv": "5d22b995a9c962f10d0a93753d43647a1b2013598fbd4da564ab175f85fb3aca",
+        "observed_soc.csv": "e913cccdeef1b2909bff59f072a169b64203882a333a877a468b0990f87e9640",
+        "task_plan.json": "fd92ecd80c534a0f0dc783821ad5ce1e12bbe0aa4057172ae4e4a5f9b928c1c3",
+        "metadata.json": "8df95ae2bcc3e543a7ba01f4754a84f0f7046674430e36fdf61eaf1716dde7ea"
+      }
+    },
+    {
+      "case_id": "W09",
+      "path": "cases/W09",
+      "task_count": 12,
+      "season": "DJF",
+      "duration_band": "long",
+      "load_band": "low",
+      "label_quality": {
+        "soc_reference": "v_soc_minute_mapping",
+        "usable_for_absolute_soc": false,
+        "usable_for_trend": true,
+        "qc_status": "pass",
+        "soc_qc_status": "pass",
+        "solar_qc_status": "pass",
+        "load_qc_status": "pass",
+        "quality_reasons": {},
+        "solar_energy_applicability": "sunlight_proxy",
+        "solar_energy_reference": "scheme_b_proxy",
+        "load_energy_reference": "tmd018_minute_power",
+        "notes": "SOC为TMD019逐分钟电压映射；方案B太阳能量与TMD018负载均为条件参考，不是独立硬件真值"
+      },
+      "sha256": {
+        "input.json": "27ad155a5987ff4e3b67e42a094193e23b6d4e62c147be76942573b2e1e6bbf9",
+        "label.json": "93845389e385712b239fdd993757c4e2a7904e39236882db622b856a384958d9",
+        "prediction.json": "8f4d4574c2acf426fa9e6ea73386cc03285e63c7bf53ed2f9982cfbb7fc89dee",
+        "predicted_soc.csv": "a0ccf6950755fe52186caa5e3e12397af596aefafae751956c2512d17e35a2ce",
+        "observed_soc.csv": "b4d50e57de5788984f767c063fc23ef5dca49c7521c420f624196a16b5d7dfdb",
+        "task_plan.json": "29094796a7ee29c5a9ebb44c24d9b10695077d09dfa005eacbed913590bfdb70",
+        "metadata.json": "7a791e56de4c159a35bd17724f824824732bcb08f4fe22da691dbe9a9da052e7"
+      }
+    },
+    {
+      "case_id": "W10",
+      "path": "cases/W10",
+      "task_count": 18,
+      "season": "DJF",
+      "duration_band": "medium",
+      "load_band": "high",
+      "label_quality": {
+        "soc_reference": "v_soc_minute_mapping",
+        "usable_for_absolute_soc": false,
+        "usable_for_trend": true,
+        "qc_status": "pass",
+        "soc_qc_status": "pass",
+        "solar_qc_status": "pass",
+        "load_qc_status": "pass",
+        "quality_reasons": {},
+        "solar_energy_applicability": "sunlight_proxy",
+        "solar_energy_reference": "scheme_b_proxy",
+        "load_energy_reference": "tmd018_minute_power",
+        "notes": "SOC为TMD019逐分钟电压映射；方案B太阳能量与TMD018负载均为条件参考，不是独立硬件真值"
+      },
+      "sha256": {
+        "input.json": "dc80f2813b76bb4f1fdb0a9a96f797d9f155158301aadf469e4e23e941b60a3c",
+        "label.json": "562b0c61a568b5a75f846d7bb66fffd2682f4c48be2e9ea43c331f04f622532d",
+        "prediction.json": "411f884dc3eb59eaf9c2d695ff8c80a13ccf31ff15e607e8f7f8dabea10d52cf",
+        "predicted_soc.csv": "fa8a61af5ef494e15bc37a32f85f720384440cda18ab92cdca750a640abbd60e",
+        "observed_soc.csv": "275bbcea58e8f1fd913d3a05e80a014740f47a7c5fa6e12099b2134d9cfde838",
+        "task_plan.json": "98ba0228ac194b6d1e92b589b436a4d5ee27ff043770e0076de1d62787867f6a",
+        "metadata.json": "090caf7b4ecb4e4e5c9a608e63befa724f8bb1d8260b3a4758df8f6dd323f069"
+      }
+    },
+    {
+      "case_id": "W11",
+      "path": "cases/W11",
+      "task_count": 5,
+      "season": "DJF",
+      "duration_band": "short",
+      "load_band": "high",
+      "label_quality": {
+        "soc_reference": "v_soc_minute_mapping",
+        "usable_for_absolute_soc": false,
+        "usable_for_trend": true,
+        "qc_status": "pass",
+        "soc_qc_status": "pass",
+        "solar_qc_status": "pass",
+        "load_qc_status": "pass",
+        "quality_reasons": {},
+        "solar_energy_applicability": "sunlight_proxy",
+        "solar_energy_reference": "scheme_b_proxy",
+        "load_energy_reference": "tmd018_minute_power",
+        "notes": "SOC为TMD019逐分钟电压映射；方案B太阳能量与TMD018负载均为条件参考，不是独立硬件真值"
+      },
+      "sha256": {
+        "input.json": "7dd37c5a187761e848baac8d04c54a3c819b81018d3b740c3f702ada44223ba6",
+        "label.json": "54ece19e0dcdb7b04b80be1f0ebb981ef04c929a2ed0e87d2b438dd719cf1072",
+        "prediction.json": "2ffa243410d132f83912c234f77872daa2c7c8a62a5bcefbd168592f4c2f5cef",
+        "predicted_soc.csv": "961292b49a11fc006ca98e24b93c24349f5cc86262e29553ff0864039f5bfc64",
+        "observed_soc.csv": "3adb13eda0008f5136e2d221529ca513b8a1fe7aece86bf97b3beda554924426",
+        "task_plan.json": "91d15c321f8557a3a248c3dbb000cbfbd9fda949a4e70d9c1b7322b966091ae7",
+        "metadata.json": "c50021d7373fb9933f43fe6ce4c131ddce6f1f6d6ae5ed64ccc38fc608371b86"
+      }
+    },
+    {
+      "case_id": "W12",
+      "path": "cases/W12",
+      "task_count": 4,
+      "season": "DJF",
+      "duration_band": "medium",
+      "load_band": "medium",
+      "label_quality": {
+        "soc_reference": "v_soc_minute_mapping",
+        "usable_for_absolute_soc": false,
+        "usable_for_trend": true,
+        "qc_status": "pass",
+        "soc_qc_status": "pass",
+        "solar_qc_status": "pass",
+        "load_qc_status": "pass",
+        "quality_reasons": {},
+        "solar_energy_applicability": "sunlight_proxy",
+        "solar_energy_reference": "scheme_b_proxy",
+        "load_energy_reference": "tmd018_minute_power",
+        "notes": "SOC为TMD019逐分钟电压映射；方案B太阳能量与TMD018负载均为条件参考，不是独立硬件真值"
+      },
+      "sha256": {
+        "input.json": "bfa98ef1188ee4d8cf44495e5e4f22ec079e6e70766e8d2a9e0bd0761aa8c8e5",
+        "label.json": "04bbfbeeec0ae13bb31ffe52937961aa53ef406394fb0813af4afbdab52f805b",
+        "prediction.json": "0c6c4dd7f43f91d8e383af800e36c18fad59917b8f6048d3cf9424dfcf874c88",
+        "predicted_soc.csv": "b1b0339c6c6904f7b5fabe8bbb3d366e0790b4ee7f74decb9783c6b9c6f90051",
+        "observed_soc.csv": "553c3a3053b4607a60d7693bd5cec5d14c1657fcdf7b575a5d5cebfc18bcfccd",
+        "task_plan.json": "6dd0c36bc0c48af760fae8a201a31f27b4e07bcc508886a44beec0075746a429",
+        "metadata.json": "0789327bab89f22997a6926c1e43ad858e4b925d7f694b62ba97a32e80512f9b"
+      }
+    },
+    {
+      "case_id": "W13",
+      "path": "cases/W13",
+      "task_count": 1,
+      "season": "DJF",
+      "duration_band": "medium",
+      "load_band": "high",
+      "label_quality": {
+        "soc_reference": "v_soc_minute_mapping",
+        "usable_for_absolute_soc": false,
+        "usable_for_trend": true,
+        "qc_status": "pass",
+        "soc_qc_status": "pass",
+        "solar_qc_status": "not_applicable",
+        "load_qc_status": "pass",
+        "quality_reasons": {},
+        "solar_energy_applicability": "not_applicable_eclipse",
+        "solar_energy_reference": "scheme_b_proxy",
+        "load_energy_reference": "tmd018_minute_power",
+        "notes": "SOC为TMD019逐分钟电压映射；方案B太阳能量与TMD018负载均为条件参考，不是独立硬件真值"
+      },
+      "sha256": {
+        "input.json": "7043af68a1b936179badb11ce31ef0f3c8f65f3cc2dfaabcdc13ce4cf441a0d6",
+        "label.json": "f645021e7805880fe91c22abe5108ed4b8532ce4ea4faa52bfb2c153fc3eba72",
+        "prediction.json": "933729b381d53c1f68468a3695a68f29e991962a09e159c8b09308c7adde57a3",
+        "predicted_soc.csv": "2022847a952ce320078b9ea85987a6d43636116d3c0c9ca4d804c9c948999a93",
+        "observed_soc.csv": "2f4539e413717bacb387d3b4628f9cf8a05dd09afb446eb2cd340ff55edf9f6d",
+        "task_plan.json": "595d734203fc7e559585fdc432a9a0459936ceffc0712c5d083e7dd208d2b0af",
+        "metadata.json": "50c55977e4017487cfa88f63b3e6840f020c75fe4a0c2d7f47fff4e076baacc8"
+      }
+    },
+    {
+      "case_id": "W14",
+      "path": "cases/W14",
+      "task_count": 0,
+      "season": "DJF",
+      "duration_band": "short",
+      "load_band": "low",
+      "label_quality": {
+        "soc_reference": "v_soc_minute_mapping",
+        "usable_for_absolute_soc": false,
+        "usable_for_trend": true,
+        "qc_status": "pass",
+        "soc_qc_status": "pass",
+        "solar_qc_status": "pass",
+        "load_qc_status": "pass",
+        "quality_reasons": {},
+        "solar_energy_applicability": "sunlight_proxy",
+        "solar_energy_reference": "scheme_b_proxy",
+        "load_energy_reference": "tmd018_minute_power",
+        "notes": "SOC为TMD019逐分钟电压映射；方案B太阳能量与TMD018负载均为条件参考，不是独立硬件真值"
+      },
+      "sha256": {
+        "input.json": "249a49bd9b5a6acb1fb97422af1e1c365cb8550d148990533d77e5e450095686",
+        "label.json": "e5f88a1eaf1835f254d69ab59747a97292e2f5bde0407e32b4d7926a9eb5aa3f",
+        "prediction.json": "db22a51c40f3e51696ad36ae74d8931225d45442ed9099be6e6c4e11767bad6e",
+        "predicted_soc.csv": "fd40ddf54dc0a685c0068c4b4e9031c58453fcd0b5ce7cae077e5d410359cd34",
+        "observed_soc.csv": "43dbf156d5cc81acd2b4628c5371ddc9d32e33e0c7a5dd20aac2ed66046835ca",
+        "task_plan.json": "3ed684cada223d4bd19116752a8754cf46fe26c1af13ac27c2ea3fa13165acae",
+        "metadata.json": "b4ad664dfbad084d54b60362278ad072a199fb3df44f08d86dd301d7bb62a562"
+      }
+    },
+    {
+      "case_id": "W15",
+      "path": "cases/W15",
+      "task_count": 2,
+      "season": "MAM",
+      "duration_band": "short",
+      "load_band": "high",
+      "label_quality": {
+        "soc_reference": "v_soc_minute_mapping",
+        "usable_for_absolute_soc": false,
+        "usable_for_trend": true,
+        "qc_status": "pass",
+        "soc_qc_status": "pass",
+        "solar_qc_status": "pass",
+        "load_qc_status": "pass",
+        "quality_reasons": {},
+        "solar_energy_applicability": "sunlight_proxy",
+        "solar_energy_reference": "scheme_b_proxy",
+        "load_energy_reference": "tmd018_minute_power",
+        "notes": "SOC为TMD019逐分钟电压映射；方案B太阳能量与TMD018负载均为条件参考，不是独立硬件真值"
+      },
+      "sha256": {
+        "input.json": "c2134175d6c8a23079d851cb6972fdb7e4cc42e0c3ea161e07651dd1ea2e17c9",
+        "label.json": "01d04e8e1859d6c9934cfd0fd6eb09a8d5221621b7ea88ec8eadbcee07680ab0",
+        "prediction.json": "01a05171ed1947f078fcde964634f91402c3962d0d83c706419b69f194125a9c",
+        "predicted_soc.csv": "128066d34e4ede84aa30d5c1c4224c9629e2ac27b353e53df228b9e22fddfe9c",
+        "observed_soc.csv": "3bd7b57bcd631f3414a3853cbb02dd7e84e12e7625b6359a4d67532783beae44",
+        "task_plan.json": "296b59b5b56e957819c5a3f868c246794a1ac1eaad28cd2015ee8b7c06174e2e",
+        "metadata.json": "fbbdb56dd4c2c8a952ac77ffc283b2d669aef96d3ec9b9cfd87b89de19448da3"
+      }
+    },
+    {
+      "case_id": "W16",
+      "path": "cases/W16",
+      "task_count": 3,
+      "season": "MAM",
+      "duration_band": "medium",
+      "load_band": "high",
+      "label_quality": {
+        "soc_reference": "v_soc_minute_mapping",
+        "usable_for_absolute_soc": false,
+        "usable_for_trend": true,
+        "qc_status": "pass",
+        "soc_qc_status": "pass",
+        "solar_qc_status": "pass",
+        "load_qc_status": "pass",
+        "quality_reasons": {},
+        "solar_energy_applicability": "sunlight_proxy",
+        "solar_energy_reference": "scheme_b_proxy",
+        "load_energy_reference": "tmd018_minute_power",
+        "notes": "SOC为TMD019逐分钟电压映射；方案B太阳能量与TMD018负载均为条件参考，不是独立硬件真值"
+      },
+      "sha256": {
+        "input.json": "e6df29d70deed3a105d129f50ca6c42f77c116a3a8fb7951ad0fcc30d66589e0",
+        "label.json": "66dc624f0b0d4102ff3e178ac1fdc24441f8f25f9a82a6e14e8f066c72d5a76a",
+        "prediction.json": "19b8268a20fb4b2384a91b79c8f0d82c99058c58fd1c00668853ed2eba2f73b1",
+        "predicted_soc.csv": "b6655f60e6a75fe920e1717f431df39f92e58f24f2a7fa40e6b9c7506fdeeefd",
+        "observed_soc.csv": "fb1c07b34b387a91138e85a51d91b4adc98f493db7a7eb343f9342d71b88646f",
+        "task_plan.json": "c087c601d251ed46c4bfe2356ee2986bf9914c56f0f6afdd82e6f1a2dd2d0d03",
+        "metadata.json": "00d8395ebebef6c95bd1361e6e537e80148c558787a5814f236b520588bacf08"
+      }
+    },
+    {
+      "case_id": "W17",
+      "path": "cases/W17",
+      "task_count": 2,
+      "season": "MAM",
+      "duration_band": "short",
+      "load_band": "medium",
+      "label_quality": {
+        "soc_reference": "v_soc_minute_mapping",
+        "usable_for_absolute_soc": false,
+        "usable_for_trend": true,
+        "qc_status": "pass",
+        "soc_qc_status": "pass",
+        "solar_qc_status": "pass",
+        "load_qc_status": "pass",
+        "quality_reasons": {},
+        "solar_energy_applicability": "sunlight_proxy",
+        "solar_energy_reference": "scheme_b_proxy",
+        "load_energy_reference": "tmd018_minute_power",
+        "notes": "SOC为TMD019逐分钟电压映射；方案B太阳能量与TMD018负载均为条件参考，不是独立硬件真值"
+      },
+      "sha256": {
+        "input.json": "188a50afb27da61138774cc8d1653fa42d8f10567c7c4a749ecfa65814c5d420",
+        "label.json": "d7b3faa1a0b4e1ccdb465d52919569cb76435582c2b150ff3a93a11c34fa722d",
+        "prediction.json": "feb5fdd4c861149d69e57b04933332bc0fa68fcae4fb0d4bb743a0633c2de1b8",
+        "predicted_soc.csv": "85d902eafa1c2ecc83559d6def87c35a31cd41504ee68627c31c7b9f705ab1c2",
+        "observed_soc.csv": "e53073d444d34ac433fb9988f323535c5cab49655182707a53c688f26f087486",
+        "task_plan.json": "0dbfa8ca7bde805434e9060f218871e7d327d0754ed5ff16c92e00a3e7a92c70",
+        "metadata.json": "4f1f436f2daa9e198086da5abcd7ec2b200334ce791f90a8d2113994f6045dca"
+      }
+    },
+    {
+      "case_id": "W18",
+      "path": "cases/W18",
+      "task_count": 2,
+      "season": "MAM",
+      "duration_band": "short",
+      "load_band": "high",
+      "label_quality": {
+        "soc_reference": "v_soc_minute_mapping",
+        "usable_for_absolute_soc": false,
+        "usable_for_trend": true,
+        "qc_status": "pass",
+        "soc_qc_status": "pass",
+        "solar_qc_status": "not_applicable",
+        "load_qc_status": "pass",
+        "quality_reasons": {},
+        "solar_energy_applicability": "not_applicable_eclipse",
+        "solar_energy_reference": "scheme_b_proxy",
+        "load_energy_reference": "tmd018_minute_power",
+        "notes": "SOC为TMD019逐分钟电压映射；方案B太阳能量与TMD018负载均为条件参考，不是独立硬件真值"
+      },
+      "sha256": {
+        "input.json": "88aba315ecb9cea617f0274a278343bb6451c2fcab5a5b5b6358469d1b0465d0",
+        "label.json": "6a517337dd421a97847c6a2b714c72bfc60cc25cb09e97a382680eb03cdd0cc8",
+        "prediction.json": "3364f384e8115c04a17562b76038f616772f80b8ce547be5e5cb1b04e872dae1",
+        "predicted_soc.csv": "5f411496a0f0b5a8e16c6e0afce61fc806cd92ec906856f634e6d42fc8860231",
+        "observed_soc.csv": "29be3b3cb6b5d32ed444d21dee025e3052a9602393bfbdd739b209b21c6d517b",
+        "task_plan.json": "dddc9b850e305c86c655f768080f54931beca2c3ef27a8422722182cc9dc4d5a",
+        "metadata.json": "305b2ec3c9752cf421fb8d82191a384c2f5e8d36d9c24559dc0045a412421198"
+      }
+    },
+    {
+      "case_id": "W19",
+      "path": "cases/W19",
+      "task_count": 5,
+      "season": "MAM",
+      "duration_band": "short",
+      "load_band": "low",
+      "label_quality": {
+        "soc_reference": "v_soc_minute_mapping",
+        "usable_for_absolute_soc": false,
+        "usable_for_trend": true,
+        "qc_status": "pass",
+        "soc_qc_status": "pass",
+        "solar_qc_status": "pass",
+        "load_qc_status": "pass",
+        "quality_reasons": {},
+        "solar_energy_applicability": "sunlight_proxy",
+        "solar_energy_reference": "scheme_b_proxy",
+        "load_energy_reference": "tmd018_minute_power",
+        "notes": "SOC为TMD019逐分钟电压映射；方案B太阳能量与TMD018负载均为条件参考，不是独立硬件真值"
+      },
+      "sha256": {
+        "input.json": "2e974885fb74f38b24390d57a21d5ee4aefd3cb189c80faf6a5ce954823cac7e",
+        "label.json": "f0009b592818e441da71d98ee62be5e78c17f8254005ad38c1627b6f8fa8c3fb",
+        "prediction.json": "b463aa62d4206586078e1d6751a25709b32d7c82e3cedb4201ff13b978d4ac39",
+        "predicted_soc.csv": "1f01ab637d854d9d06314dac8e24c640f33d682c03f9aa9901f107885f821203",
+        "observed_soc.csv": "4378c37d4804398571e3d9c21780393b2a5c3c4702a70b83e286fbc2e488c106",
+        "task_plan.json": "75b8a6c3f0d56925098e5770762e80a8a1f318eed1533390217e5d7a07a39080",
+        "metadata.json": "443ec87e7cc1518b615483325f0e1a935d2a000241c20adb082ced3c3a245fe8"
+      }
+    },
+    {
+      "case_id": "W20",
+      "path": "cases/W20",
+      "task_count": 7,
+      "season": "MAM",
+      "duration_band": "medium",
+      "load_band": "medium",
+      "label_quality": {
+        "soc_reference": "v_soc_minute_mapping",
+        "usable_for_absolute_soc": false,
+        "usable_for_trend": true,
+        "qc_status": "pass",
+        "soc_qc_status": "pass",
+        "solar_qc_status": "pass",
+        "load_qc_status": "pass",
+        "quality_reasons": {},
+        "solar_energy_applicability": "sunlight_proxy",
+        "solar_energy_reference": "scheme_b_proxy",
+        "load_energy_reference": "tmd018_minute_power",
+        "notes": "SOC为TMD019逐分钟电压映射；方案B太阳能量与TMD018负载均为条件参考，不是独立硬件真值"
+      },
+      "sha256": {
+        "input.json": "9b840feabc81b0644164d8c7f5e0ad0aaf690afe32a031da50ef75a1b3da6e8c",
+        "label.json": "7f58d359f41dbcedab23ab45a1d672696a197253b3115fda86c2978b9c75c4c1",
+        "prediction.json": "6610c5135452f178726b4606c77cd7bb0bad01da6f2a67028c60686c6184b559",
+        "predicted_soc.csv": "43b848160d12ee21720432f8c8ea6e6a890b3b72b81e8285f43c8925bcf5de09",
+        "observed_soc.csv": "494caecc3573afc596f87fd935399cef7d8f259f7c335e5f8a3760c6e4941758",
+        "task_plan.json": "bc23b623e7ad1284c2aa4e0243bdb4e413b38535267d33a5ce0f9d666f17ee81",
+        "metadata.json": "ac6628925fce1b9a81d655499923ea3ff99ee1b63b973a5615bcbd1eebef060e"
+      }
+    },
+    {
+      "case_id": "W21",
+      "path": "cases/W21",
+      "task_count": 7,
+      "season": "JJA",
+      "duration_band": "short",
+      "load_band": "medium",
+      "label_quality": {
+        "soc_reference": "v_soc_minute_mapping",
+        "usable_for_absolute_soc": false,
+        "usable_for_trend": true,
+        "qc_status": "pass",
+        "soc_qc_status": "pass",
+        "solar_qc_status": "pass",
+        "load_qc_status": "pass",
+        "quality_reasons": {},
+        "solar_energy_applicability": "sunlight_proxy",
+        "solar_energy_reference": "scheme_b_proxy",
+        "load_energy_reference": "tmd018_minute_power",
+        "notes": "SOC为TMD019逐分钟电压映射；方案B太阳能量与TMD018负载均为条件参考，不是独立硬件真值"
+      },
+      "sha256": {
+        "input.json": "f022904f12669d89cfd05182dff65ff0853e2c6fddad5ad2024e54ceafba2f72",
+        "label.json": "9d64c45e9dbabc707940e0579a9a5f09592be096380bc2222c4e5b805ced2464",
+        "prediction.json": "c7d97780257805c9d4d30735226b2a1399dcd3013649bc825e37ae3985898057",
+        "predicted_soc.csv": "a38eece7e494700b0665557570a9d4c2118701c82ed1778bf9f3828b0ae1545b",
+        "observed_soc.csv": "1b8fde42fe16d1b16744635f348763103a3ebccba5f8dc473984e4c8cd53e3df",
+        "task_plan.json": "62a458d95bb311fc331595e0031fc2cbfaff113127612e3c1507ca092c3662c2",
+        "metadata.json": "4d9d67dc88b8550f07ee3967ed1a6da259259139982d4b5210c9263a66511737"
+      }
+    },
+    {
+      "case_id": "W22",
+      "path": "cases/W22",
+      "task_count": 6,
+      "season": "JJA",
+      "duration_band": "short",
+      "load_band": "high",
+      "label_quality": {
+        "soc_reference": "v_soc_minute_mapping",
+        "usable_for_absolute_soc": false,
+        "usable_for_trend": true,
+        "qc_status": "pass",
+        "soc_qc_status": "pass",
+        "solar_qc_status": "pass",
+        "load_qc_status": "pass",
+        "quality_reasons": {},
+        "solar_energy_applicability": "sunlight_proxy",
+        "solar_energy_reference": "scheme_b_proxy",
+        "load_energy_reference": "tmd018_minute_power",
+        "notes": "SOC为TMD019逐分钟电压映射；方案B太阳能量与TMD018负载均为条件参考，不是独立硬件真值"
+      },
+      "sha256": {
+        "input.json": "3f9f9dff3f790a73022a3a2b2c104c3d586289a46d4fe6821b861928ce7421f2",
+        "label.json": "c2f74e5b11971d87b793b3a79e13303959f934ce483fd5b1eb0a102a21689e5e",
+        "prediction.json": "4a9f6f1731cb736dc6e4ddf85cb6a020d6a5c066d3f45157ad7c14f3e5716ea4",
+        "predicted_soc.csv": "4cde7e965c07d0e2991be28feef4a35927b242cabe4a7dce796fded52bffa0ff",
+        "observed_soc.csv": "da388f9c0ada95e743ab8d89b06ddea2f4befcef64d66449c7da15ddbbaeaa49",
+        "task_plan.json": "7cd53fb514e4e3cd6a7fc084cc575538ed8a82da7057c964874c2aa6cf9fd015",
+        "metadata.json": "802e244a381e50aab8a57f40bc8f19d26bafda0a89577991e0dec74f50d6d385"
+      }
+    },
+    {
+      "case_id": "W23",
+      "path": "cases/W23",
+      "task_count": 5,
+      "season": "JJA",
+      "duration_band": "short",
+      "load_band": "low",
+      "label_quality": {
+        "soc_reference": "v_soc_minute_mapping",
+        "usable_for_absolute_soc": false,
+        "usable_for_trend": true,
+        "qc_status": "pass",
+        "soc_qc_status": "pass",
+        "solar_qc_status": "pass",
+        "load_qc_status": "pass",
+        "quality_reasons": {},
+        "solar_energy_applicability": "sunlight_proxy",
+        "solar_energy_reference": "scheme_b_proxy",
+        "load_energy_reference": "tmd018_minute_power",
+        "notes": "SOC为TMD019逐分钟电压映射；方案B太阳能量与TMD018负载均为条件参考，不是独立硬件真值"
+      },
+      "sha256": {
+        "input.json": "73c3fbffa43bb8c65438a230b4a2a2ef90ab002cfcbde7b80536c1a2095ed420",
+        "label.json": "6bf2942d8c82c5a018770019af721605bfb83f8719ce10b609451b31a137523c",
+        "prediction.json": "7947878b4481647cc877cce247fe8c148e120f34c2d2cb56f94d5ab81d3a4e78",
+        "predicted_soc.csv": "db443d5db4dd7501359278fa430de5643cf04c7d7cab19070b366a04620b4221",
+        "observed_soc.csv": "3c9d5890fa0e6cc8ea13466bf6b8f6784403e9f581e07c71cca9101637f5e218",
+        "task_plan.json": "2b2ec0df3a01097c0f68486e0e67bdd965f935eb16a49e550f4c732da45fc786",
+        "metadata.json": "6da858f4f4d097c7f44268594be43f561b1f7e4b8b97a7876d84cd27907540af"
+      }
+    },
+    {
+      "case_id": "W24",
+      "path": "cases/W24",
+      "task_count": 6,
+      "season": "JJA",
+      "duration_band": "medium",
+      "load_band": "medium",
+      "label_quality": {
+        "soc_reference": "v_soc_minute_mapping",
+        "usable_for_absolute_soc": false,
+        "usable_for_trend": true,
+        "qc_status": "pass",
+        "soc_qc_status": "pass",
+        "solar_qc_status": "pass",
+        "load_qc_status": "pass",
+        "quality_reasons": {},
+        "solar_energy_applicability": "sunlight_proxy",
+        "solar_energy_reference": "scheme_b_proxy",
+        "load_energy_reference": "tmd018_minute_power",
+        "notes": "SOC为TMD019逐分钟电压映射；方案B太阳能量与TMD018负载均为条件参考，不是独立硬件真值"
+      },
+      "sha256": {
+        "input.json": "2c6ee5a07f880dfac31c6f8227ea5f3e4d97867ab53e66a0add659b6b9d48c95",
+        "label.json": "457506f02eecdbf2b7d2294ed083709dec373cfa55347eef66dc1468f0dc587d",
+        "prediction.json": "8c1c64a558d391a5163b5f44e491ec93a447bbeabf453380e3c4262cde8366fe",
+        "predicted_soc.csv": "b76a3ccd46ea0dc555415cf54be9cb51eb24ab83e3198dde49cf295e9f87d756",
+        "observed_soc.csv": "5d91f040ee1967f08e55fc33d7d246a7349faeb917253ed01e3a76e8ac28e4ca",
+        "task_plan.json": "88f44aa617f52152bf36bca33d6d122d8e90b17cd35be8a1ace6178d3d130551",
+        "metadata.json": "a940e01dab14a79a0c357be9848e7035b93e310dcfdc254fbe326bee19e12d5c"
+      }
+    },
+    {
+      "case_id": "W25",
+      "path": "cases/W25",
+      "task_count": 5,
+      "season": "JJA",
+      "duration_band": "medium",
+      "load_band": "high",
+      "label_quality": {
+        "soc_reference": "v_soc_minute_mapping",
+        "usable_for_absolute_soc": false,
+        "usable_for_trend": true,
+        "qc_status": "pass",
+        "soc_qc_status": "pass",
+        "solar_qc_status": "pass",
+        "load_qc_status": "pass",
+        "quality_reasons": {},
+        "solar_energy_applicability": "sunlight_proxy",
+        "solar_energy_reference": "scheme_b_proxy",
+        "load_energy_reference": "tmd018_minute_power",
+        "notes": "SOC为TMD019逐分钟电压映射；方案B太阳能量与TMD018负载均为条件参考，不是独立硬件真值"
+      },
+      "sha256": {
+        "input.json": "1268962fc1ac603dcacb4bd1b885b08725be2e245e9fb9b9d8c155384e2f6ef4",
+        "label.json": "b5dbc8e6cfedfb8b7f2c5068ef10390b522a42ab052e1a1567106b3c023d41f2",
+        "prediction.json": "c59bb55f885ed2105c692cc84598e5dcad0f143436cd26eb38cb7704ae9429c6",
+        "predicted_soc.csv": "d433804eb0ef9a46ec207e6a1ae290885359dd89e14eaaa90d66d2615c042de5",
+        "observed_soc.csv": "075527d63b24d741298f1a7dbabedde63de012e3ce35ea3dc0b335d69cde876d",
+        "task_plan.json": "3e82f4544ec7e6b71df5d7a2cf6f192991c72691469a53223e8c56adb915d00c",
+        "metadata.json": "6e5161c6353ce106b723448f84c0e7f4c5601776f715736c517c7eb177eee072"
+      }
+    }
+  ]
+}

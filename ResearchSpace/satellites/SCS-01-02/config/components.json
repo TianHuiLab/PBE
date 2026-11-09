@@ -1,0 +1,1165 @@
+{
+  "satellite_id": "SCS-01-02",
+  "balance_boundary_verified": false,
+  "plugin_modules": [],
+  "_note": "02星遥测大表的能源/部件代号与01星相同；已核对代号、名称及核心工程系数，未核实独立功率测点边界。",
+  "components": [
+    {
+      "id": "solar_a",
+      "role": "solar_array",
+      "plugin": "vi",
+      "voltage_code": "TMD003",
+      "current_code": "TMD010",
+      "enabled": true
+    },
+    {
+      "id": "solar_b",
+      "role": "solar_array",
+      "plugin": "vi",
+      "voltage_code": "TMD004",
+      "current_code": "TMD011",
+      "enabled": true
+    },
+    {
+      "id": "solar_c",
+      "role": "solar_array",
+      "plugin": "vi",
+      "voltage_code": "TMD005",
+      "current_code": "TMD012",
+      "enabled": true
+    },
+    {
+      "id": "solar_d",
+      "role": "solar_array",
+      "plugin": "vi",
+      "voltage_code": "TMD006",
+      "current_code": "TMD013",
+      "enabled": true
+    },
+    {
+      "id": "solar_e",
+      "role": "solar_array",
+      "plugin": "vi",
+      "voltage_code": "TMD007",
+      "current_code": "TMD014",
+      "enabled": true
+    },
+    {
+      "id": "solar_f",
+      "role": "solar_array",
+      "plugin": "vi",
+      "voltage_code": "TMD008",
+      "current_code": "TMD015",
+      "enabled": true
+    },
+    {
+      "id": "electric_propulsion_a",
+      "name": "电推进配电A",
+      "role": "load",
+      "plugin": "bus_current",
+      "current_code": "TMD023",
+      "enabled": true
+    },
+    {
+      "id": "electric_propulsion_b",
+      "name": "电推进配电B",
+      "role": "load",
+      "plugin": "bus_current",
+      "current_code": "TMD024",
+      "enabled": true
+    },
+    {
+      "id": "compute_nx1_f",
+      "name": "智算机NX1-F",
+      "role": "load",
+      "plugin": "bus_current",
+      "current_code": "TMD025",
+      "enabled": true
+    },
+    {
+      "id": "router_main",
+      "name": "路由器R1主份",
+      "role": "load",
+      "plugin": "bus_current",
+      "current_code": "TMD026",
+      "enabled": true
+    },
+    {
+      "id": "router_backup",
+      "name": "路由器R1备份",
+      "role": "load",
+      "plugin": "bus_current",
+      "current_code": "TMD027",
+      "enabled": true
+    },
+    {
+      "id": "compute_nx1_g",
+      "name": "智算机NX1-G",
+      "role": "load",
+      "plugin": "bus_current",
+      "current_code": "TMD028",
+      "enabled": true
+    },
+    {
+      "id": "compute_g1",
+      "name": "智算机G1",
+      "role": "load",
+      "plugin": "bus_current",
+      "current_code": "TMD029",
+      "enabled": true
+    },
+    {
+      "id": "compute_g2",
+      "name": "智算机G2",
+      "role": "load",
+      "plugin": "bus_current",
+      "current_code": "TMD030",
+      "enabled": true
+    },
+    {
+      "id": "microwave_1a",
+      "name": "星间微波处理端机1A",
+      "role": "load",
+      "plugin": "bus_current",
+      "current_code": "TMD031",
+      "enabled": true
+    },
+    {
+      "id": "microwave_1b",
+      "name": "星间微波处理端机1B",
+      "role": "load",
+      "plugin": "bus_current",
+      "current_code": "TMD032",
+      "enabled": true
+    },
+    {
+      "id": "microwave_2a",
+      "name": "星间微波处理端机2A",
+      "role": "load",
+      "plugin": "bus_current",
+      "current_code": "TMD033",
+      "enabled": true
+    },
+    {
+      "id": "microwave_2b",
+      "name": "星间微波处理端机2B",
+      "role": "load",
+      "plugin": "bus_current",
+      "current_code": "TMD034",
+      "enabled": true
+    },
+    {
+      "id": "laser_processor_1",
+      "name": "星间激光集成化处理机1",
+      "role": "load",
+      "plugin": "bus_current",
+      "current_code": "TMD043",
+      "enabled": true
+    },
+    {
+      "id": "laser_processor_2",
+      "name": "星间激光集成化处理机2",
+      "role": "load",
+      "plugin": "bus_current",
+      "current_code": "TMD044",
+      "enabled": true
+    },
+    {
+      "id": "reaction_wheel_1",
+      "name": "反作用轮1",
+      "role": "load",
+      "plugin": "bus_current",
+      "current_code": "TMD045",
+      "enabled": true
+    },
+    {
+      "id": "reaction_wheel_2",
+      "name": "反作用轮2",
+      "role": "load",
+      "plugin": "bus_current",
+      "current_code": "TMD046",
+      "enabled": true
+    },
+    {
+      "id": "reaction_wheel_3",
+      "name": "反作用轮3",
+      "role": "load",
+      "plugin": "bus_current",
+      "current_code": "TMD047",
+      "enabled": true
+    },
+    {
+      "id": "reaction_wheel_4",
+      "name": "反作用轮4",
+      "role": "load",
+      "plugin": "bus_current",
+      "current_code": "TMD048",
+      "enabled": true
+    },
+    {
+      "id": "transponder_a",
+      "name": "测控应答机A",
+      "role": "load",
+      "plugin": "vi",
+      "voltage_code": "TMD049",
+      "current_code": "TMD050",
+      "enabled": true
+    },
+    {
+      "id": "transponder_b",
+      "name": "测控应答机B",
+      "role": "load",
+      "plugin": "vi",
+      "voltage_code": "TMD051",
+      "current_code": "TMD052",
+      "enabled": true
+    },
+    {
+      "id": "phased_array",
+      "name": "测控相控阵",
+      "role": "load",
+      "plugin": "vi",
+      "voltage_code": "TMD053",
+      "current_code": "TMD054",
+      "enabled": true
+    },
+    {
+      "id": "uplink",
+      "name": "测控数传上注",
+      "role": "load",
+      "plugin": "vi",
+      "voltage_code": "TMD055",
+      "current_code": "TMD056",
+      "enabled": true
+    },
+    {
+      "id": "cxpd_payload",
+      "name": "CXPD载荷",
+      "role": "load",
+      "plugin": "bus_current",
+      "current_code": "TMD066",
+      "enabled": true
+    },
+    {
+      "id": "fiber_gyro",
+      "name": "光纤陀螺",
+      "role": "load",
+      "plugin": "bus_current",
+      "current_code": "TMD067",
+      "enabled": true
+    },
+    {
+      "id": "science_payload",
+      "name": "科学载荷总电源",
+      "role": "load",
+      "plugin": "vi",
+      "voltage_code": "TMX020",
+      "current_code": "TMX021",
+      "enabled": true,
+      "mode": {
+        "code": "TMX026",
+        "values": {
+          "0": "上电未配置",
+          "1": "上电配置完成",
+          "2": "正常运行",
+          "3": "数传状态",
+          "4": "OTA",
+          "5": "预掉电",
+          "6": "高压配置",
+          "7": "取数使能",
+          "8": "DAC配置"
+        }
+      }
+    },
+    {
+      "id": "router_state",
+      "name": "路由器CPU状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TML517",
+        "values": {
+          "0": "正常",
+          "1": "uboot启动异常",
+          "2": "看门狗异常",
+          "4": "下电"
+        }
+      }
+    },
+    {
+      "id": "gpu1_state",
+      "name": "GPU1状态与负载",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMS120",
+        "values": {
+          "0": "正常",
+          "1": "uboot启动异常",
+          "2": "Linux启动异常",
+          "3": "看门狗异常",
+          "4": "下电",
+          "5": "复位"
+        }
+      },
+      "feature_codes": {
+        "utilization_pct": "TMS049",
+        "gpu_power_raw": "TMS051"
+      }
+    },
+    {
+      "id": "gpu2_state",
+      "name": "GPU2状态与负载",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMS520",
+        "values": {
+          "0": "正常",
+          "1": "uboot启动异常",
+          "2": "Linux启动异常",
+          "3": "看门狗异常",
+          "4": "下电",
+          "5": "复位"
+        }
+      },
+      "feature_codes": {
+        "utilization_pct": "TMS449",
+        "gpu_power_raw": "TMS451"
+      }
+    },
+    {
+      "id": "gpu3_state",
+      "name": "GPU3状态与负载",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMS720",
+        "values": {
+          "0": "正常",
+          "1": "uboot启动异常",
+          "2": "Linux启动异常",
+          "3": "看门狗异常",
+          "4": "下电",
+          "5": "复位"
+        }
+      },
+      "feature_codes": {
+        "utilization_pct": "TMS649",
+        "gpu_power_raw": "TMS651"
+      }
+    },
+    {
+      "id": "laser_10g_mode",
+      "name": "激光载荷10G工况",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMG065",
+        "values": {
+          "0": "休眠",
+          "51": "待机",
+          "85": "通信",
+          "170": "重构",
+          "255": "标校"
+        }
+      }
+    },
+    {
+      "id": "laser_100g_mode",
+      "name": "激光载荷100G工况",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMG591",
+        "values": {
+          "0": "休眠",
+          "51": "待机",
+          "85": "通信",
+          "170": "重构",
+          "255": "标校"
+        }
+      }
+    },
+    {
+      "id": "s3r_state",
+      "name": "S3R档位",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMD072_b0b3",
+        "values": {
+          "0": "一档",
+          "5": "二档",
+          "10": "三档"
+        }
+      }
+    },
+    {
+      "id": "forced_shunt_relay",
+      "name": "强制分流继电器",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMD074_b0",
+        "values": {
+          "0": "禁止",
+          "1": "使能"
+        }
+      }
+    },
+    {
+      "id": "battery_voltage",
+      "name": "蓄电池电压",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "feature_codes": {
+        "voltage_v": "TMD019"
+      }
+    },
+    {
+      "id": "star_sensor_1",
+      "name": "星敏感器1工作电压",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "feature_codes": {
+        "voltage_v": "TMD063"
+      }
+    },
+    {
+      "id": "star_sensor_2",
+      "name": "星敏感器2工作电压",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "feature_codes": {
+        "voltage_v": "TMD064"
+      }
+    },
+    {
+      "id": "mems_gyro",
+      "name": "MEMS陀螺工作电压",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "feature_codes": {
+        "voltage_v": "TMD065"
+      }
+    },
+    {
+      "id": "industrial_camera",
+      "name": "工业相机工作电压",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "feature_codes": {
+        "voltage_v": "TMD068"
+      }
+    },
+    {
+      "id": "magnetometer",
+      "name": "磁强计工作电压",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "feature_codes": {
+        "voltage_v": "TMD069"
+      }
+    },
+    {
+      "id": "pcdu_secondary_rails",
+      "name": "PCDU二次电源电压",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "feature_codes": {
+        "rail_5v_main_v": "TMD057",
+        "rail_5v_combined_v": "TMD059",
+        "rail_12v_main_v": "TMD060",
+        "rail_12v_combined_v": "TMD062"
+      }
+    },
+    {
+      "id": "heater_00",
+      "name": "顶板热补偿加热器1主开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b0",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_01",
+      "name": "顶板热补偿加热器7主开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b1",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_02",
+      "name": "反作用飞轮S电加热器主开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b2",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_03",
+      "name": "蓄电池组电加热器1主开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b3",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_04",
+      "name": "顶板热补偿加热器1备开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b4",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_05",
+      "name": "顶板热补偿加热器7备开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b5",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_06",
+      "name": "反作用飞轮S电加热器备开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b6",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_07",
+      "name": "蓄电池组电加热器2主开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b7",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_08",
+      "name": "顶板热补偿加热器2主开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b8",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_09",
+      "name": "顶板热补偿加热器8主开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b9",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_10",
+      "name": "星敏感器A电加热器主开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b10",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_11",
+      "name": "蓄电池组电加热器备开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b11",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_12",
+      "name": "顶板热补偿加热器2备开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b12",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_13",
+      "name": "顶板热补偿加热器8备开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b13",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_14",
+      "name": "星敏感器A电加热器备开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b14",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_15",
+      "name": "气瓶电加热器主开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b15",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_16",
+      "name": "顶板热补偿加热器3主开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b16",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_17",
+      "name": "底板热补偿加热器1主开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b17",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_18",
+      "name": "星敏感器B电加热器主开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b18",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_19",
+      "name": "贮控单元电加热器主开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b19",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_20",
+      "name": "顶板热补偿加热器3备开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b20",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_21",
+      "name": "底板热补偿加热器1备开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b21",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_22",
+      "name": "星敏感器B电加热器备开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b22",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_23",
+      "name": "贮控单元电加热器备开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b23",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_24",
+      "name": "顶板热补偿加热器4主开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b24",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_25",
+      "name": "反作用飞轮X电加热器主开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b25",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_26",
+      "name": "SADM电加热器主开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b26",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_27",
+      "name": "气瓶电加热器备开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b27",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_28",
+      "name": "顶板热补偿加热器4备开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b28",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_29",
+      "name": "反作用飞轮X电加热器备开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b29",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_30",
+      "name": "SADM电加热器备开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b30",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_31",
+      "name": "星间激光光学头A电加热器开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b31",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_32",
+      "name": "顶板热补偿加热器5主开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b32",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_33",
+      "name": "反作用飞轮Y电加热器主开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b33",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_34",
+      "name": "科学载荷电加热器主开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b34",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_35",
+      "name": "星间激光光学头B电加热器开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b35",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_36",
+      "name": "顶板热补偿加热器5备开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b36",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_37",
+      "name": "反作用飞轮Y电加热器备开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b37",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_38",
+      "name": "科学载荷电加热器备开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b38",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_39",
+      "name": "星间微波A电机1加热器开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b39",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_40",
+      "name": "顶板热补偿加热器6主开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b40",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_41",
+      "name": "反作用飞轮Z电加热器主开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b41",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_42",
+      "name": "工业相机电加热器开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b42",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_43",
+      "name": "星间微波B电机1加热器开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b43",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_44",
+      "name": "顶板热补偿加热器6备开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b44",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_45",
+      "name": "反作用飞轮Z电加热器备开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b45",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_46",
+      "name": "星间微波A电机2加热器开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b46",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    },
+    {
+      "id": "heater_47",
+      "name": "星间微波B电机2加热器开关状态",
+      "role": "context",
+      "plugin": "state",
+      "enabled": true,
+      "mode": {
+        "code": "TMU110_b47",
+        "values": {
+          "0": "关",
+          "1": "开"
+        }
+      }
+    }
+  ]
+}

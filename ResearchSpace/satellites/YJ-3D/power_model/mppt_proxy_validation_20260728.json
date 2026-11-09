@@ -1,0 +1,32 @@
+{
+  "source": "chdb_3D.yc_history",
+  "window_utc": {
+    "start": "2026-07-28 08:15:00",
+    "end_exclusive": "2026-07-28 09:15:00"
+  },
+  "method": "TMEA007 total array current × arithmetic mean of eight PV input voltages; compared with sum of eight BCR output-voltage×current channels",
+  "valid_sun_minutes": 33,
+  "mppt_input_approx_W": {
+    "mean": 201.05595287617325,
+    "median": 153.92190110331353,
+    "p05": 12.862816858940516,
+    "p95": 468.35815717919945
+  },
+  "bcr_output_sum_W": {
+    "mean": 120.34082960756353,
+    "median": 89.22840133091266,
+    "p05": -0.2760331380071474,
+    "p95": 292.7181143842638
+  },
+  "conversion_efficiency": {
+    "mean": 0.48364644607559604,
+    "median": 0.5691687186888614,
+    "p05": -0.023690695930742217,
+    "p95": 0.6640926265666216
+  },
+  "limitations": [
+    "Per-branch PV input currents are not available.",
+    "Arithmetic mean input voltage is an approximation unless branch currents are equal.",
+    "BCR output power is not same-boundary array terminal power."
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "time": "2025-12-28T14:37:00+08:00",
+  "prediction": {
+    "end": "2025-12-28T14:49:00+08:00",
+    "step_seconds": 60,
+    "phase_segments": [
+      {
+        "start": "2025-12-28T14:37:00+08:00",
+        "end": "2025-12-28T14:49:00+08:00",
+        "phase": "sun"
+      }
+    ],
+    "tasks": [
+      {
+        "start": "2025-12-28T14:37:00",
+        "end": "2025-12-28T14:47:00",
+        "unit": "laser_processor_1",
+        "run_mode": "idle",
+        "after_mode": "idle"
+      },
+      {
+        "start": "2025-12-28T14:47:00",
+        "end": "2025-12-28T14:49:00",
+        "unit": "laser_processor_1",
+        "run_mode": "active",
+        "after_mode": "active"
+      },
+      {
+        "start": "2025-12-28T14:37:00",
+        "end": "2025-12-28T14:40:00",
+        "unit": "reaction_wheel_1",
+        "run_mode": "idle",
+        "after_mode": "idle"
+      },
+      {
+        "start": "2025-12-28T14:40:00",
+        "end": "2025-12-28T14:44:00",
+        "unit": "reaction_wheel_1",
+        "run_mode": "active",
+        "after_mode": "active"
+      },
+      {
+        "start": "2025-12-28T14:44:00",
+        "end": "2025-12-28T14:49:00",
+        "unit": "reaction_wheel_1",
+        "run_mode": "idle",
+        "after_mode": "idle"
+      },
+      {
+        "start": "2025-12-28T14:37:00",
+        "end": "2025-12-28T14:41:00",
+        "unit": "reaction_wheel_2",
+        "run_mode": "idle",
+        "after_mode": "idle"
+      },
+      {
+        "start": "2025-12-28T14:41:00",
+        "end": "2025-12-28T14:44:00",
+        "unit": "reaction_wheel_2",
+        "run_mode": "active",
+        "after_mode": "active"
+      },
+      {
+        "start": "2025-12-28T14:44:00",
+        "end": "2025-12-28T14:49:00",
+        "unit": "reaction_wheel_2",
+        "run_mode": "idle",
+        "after_mode": "idle"
+      },
+      {
+        "start": "2025-12-28T14:37:00",
+        "end": "2025-12-28T14:40:00",
+        "unit": "reaction_wheel_3",
+        "run_mode": "idle",
+        "after_mode": "idle"
+      },
+      {
+        "start": "2025-12-28T14:40:00",
+        "end": "2025-12-28T14:44:00",
+        "unit": "reaction_wheel_3",
+        "run_mode": "active",
+        "after_mode": "active"
+      },
+      {
+        "start": "2025-12-28T14:44:00",
+        "end": "2025-12-28T14:49:00",
+        "unit": "reaction_wheel_3",
+        "run_mode": "idle",
+        "after_mode": "idle"
+      }
+    ]
+  }
+}

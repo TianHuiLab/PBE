@@ -1,0 +1,151 @@
+{
+  "schema_version": "1.0",
+  "satellite_id": "YJ-3D",
+  "unit_id": "pl0",
+  "name": "磁强计 A",
+  "category": "load",
+  "channel_group": "yj_pl_channel",
+  "source": {
+    "power_column": "P_pl0_W",
+    "telemetry_basis": "aggregated_branch_power",
+    "source_codes": [
+      "TMPA001",
+      "TMPA002",
+      "TMPB001",
+      "TMPB002"
+    ],
+    "physical_branches": [
+      "pl0_a",
+      "pl0_b"
+    ]
+  },
+  "model": {
+    "model_type": "constant",
+    "usable_for_prediction": true,
+    "evidence_level": "observed_minute_proxy_constant",
+    "active_power_W": 0.571958,
+    "low_power_W": null,
+    "high_power_W": null,
+    "active_threshold_W": null,
+    "high_threshold_W": null,
+    "physical_branches": [
+      "pl0_a",
+      "pl0_b"
+    ],
+    "aggregation_mode": "sum",
+    "power_bands": [
+      {
+        "id": "constant",
+        "label": "单一功率观测层",
+        "n": 97859,
+        "fraction": 1.0,
+        "power_p05_W": 0.555925,
+        "power_p50_W": 0.571958,
+        "power_p95_W": 0.588829
+      }
+    ],
+    "modes": {},
+    "polynomial": {
+      "degree": 2,
+      "episodes": 32,
+      "active_samples": 97831,
+      "time_unit": "hours_since_active_episode_start",
+      "selected": false,
+      "runtime_clip_W": [
+        0.555925,
+        0.588829
+      ],
+      "coefficients_W_per_hour_power": [
+        0.573177502,
+        -1.2549e-05,
+        7.8e-08
+      ],
+      "support_hours": [
+        0.0,
+        367.133333
+      ],
+      "monotonic_within_support": false,
+      "endpoint_guard_passed": true,
+      "endpoint_mae_tolerance": 1.1,
+      "endpoint_polynomial_mae_W": 0.400055,
+      "endpoint_constant_mae_W": 0.399,
+      "cross_validation": {
+        "method": "episode-grouped-deterministic-folds",
+        "folds": 5,
+        "raw_polynomial_rmse_W": 0.087707,
+        "polynomial_rmse_W": 0.087042,
+        "clipped_polynomial_rmse_W": 0.087042,
+        "constant_rmse_W": 0.086877,
+        "relative_improvement": -0.001894
+      },
+      "extrapolation_policy": "clamp_to_support",
+      "runtime_clip_policy": "active_band_p05_p95",
+      "reason": "多项式在留出运行片段上的截断后误差改善不足 10%；支撑区间内预测非单调，端点稳定性不足"
+    },
+    "outlier_filter": {
+      "method": "configured_max_power",
+      "upper_limit_W": 26.0,
+      "robust_quantile": null,
+      "robust_multiplier": null,
+      "raw_nonnegative_samples": 104599,
+      "valid_samples": 104599,
+      "outlier_samples": 0,
+      "invalid_samples": 3138,
+      "raw_p99_W": 0.599205876,
+      "raw_tail_W": 0.599205876,
+      "raw_max_W": 21.999188634
+    },
+    "warnings": [
+      "未建立经确认的同机状态映射；按任务计划的 on/mode 选择功率",
+      "存在远高于 p99 的短时峰值；预测不使用未解释峰值做外推",
+      "未检测到 active/idle 分离阈值；active_label 与 episode_id 留空，不把恒定功率层伪造成开关状态"
+    ]
+  },
+  "sample_contract": {
+    "timezone": "Asia/Shanghai",
+    "timestamp_format": "ISO-8601 with +08:00",
+    "observed_power_definition": "分钟功率代理；非有限、负值或超过公共过滤上限的野值排除",
+    "target_definition": "target_power_W 等于可用 observed_power_W；缺测标签不填充为 0",
+    "active_definition": "仅当模型有 active_threshold_W 时，observed_power_W >= 阈值记为 active；若存在 high_threshold_W，则高功率瞬态仍属于 active，并在 power_band 中单列为 high；否则 active_label 为空",
+    "power_band_definition": "有 active 阈值时为 active/low；检测到分离高功率层时增加 high。无阈值为 unclassified_single_band。low 不等同于物理 off，high 也不等于独立硬件故障",
+    "episode_definition": "连续有效 active 样本组成片段；非 active 样本或时间间隔超过 5 分钟时重开片段",
+    "elapsed_hours_definition": "active 片段起点至当前样本的小时数；非 active 样本为空",
+    "fit_role_definition": "train=用于单机模型拟合；holdout_eval=云尖留出日期；excluded=缺测或负值"
+  },
+  "counts": {
+    "source_rows": 107737,
+    "valid_rows": 104599,
+    "raw_valid_rows": 104599,
+    "excluded_rows": 3138,
+    "missing_or_non_numeric_rows": 3138,
+    "negative_power_rows": 0,
+    "above_power_limit_rows": 0,
+    "zero_power_rows": 3,
+    "train_rows": 97859,
+    "eval_rows": 6740,
+    "validation_overlap_rows": 526,
+    "active_rows": null,
+    "low_rows": null,
+    "high_power_rows": null,
+    "active_episodes": null,
+    "missing_fraction_source": 0.029126,
+    "source_time_start": "2026-07-24T09:11:00",
+    "source_time_end": "2026-10-27T23:59:00",
+    "train_time_start": "2026-07-25T00:00:00",
+    "train_time_end": "2026-10-27T23:59:00",
+    "eval_time_start": "2026-07-24T09:11:00",
+    "eval_time_end": "2026-09-12T17:44:00",
+    "validation_overlap_time_start": "2026-07-24T09:11:00",
+    "validation_overlap_time_end": "2026-09-12T17:44:00",
+    "p05_W": 0.555989,
+    "p50_W": 0.572122,
+    "p95_W": 0.589548,
+    "mean_W": 0.589217
+  },
+  "artifacts": {
+    "train": "train.csv",
+    "eval": "eval.csv",
+    "validation_overlap": "validation_overlap.csv",
+    "excluded": "excluded_samples.csv"
+  }
+}

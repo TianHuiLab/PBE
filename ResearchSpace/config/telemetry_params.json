@@ -1,25 +1,112 @@
 {
   "_meta": {
-    "note": "遥测参数映射单一事实源。代号-名称-单位以《三体星_遥控遥测大表.xlsx》与 09 号框架文档 §2 为准；逻辑名（solar_I/bus_V/...）供 energy_balancer.py 引用，换星或参数改名只改本文件。",
-    "updated": "2026-10-21",
-    "source": "Data/002-三体星/三体星_遥控遥测大表.xlsx + chdb_3body.telemetry_raw_01 实测复核"
+    "note": "遥测参数映射单一事实源。代号-名称-单位以《三体星_遥控遥测大表.xlsx》与 09 号框架文档 §2 为准；逻辑名（solar_I/bus_V/...）供 energy_balancer.py 引用，换星或参数改名只改本文件。2026-11-02 口径变更：TMD017 改称太阳阵侧母线电流；TMD003-008 太阳阵电压遥测判为不可用，相关诊断不再计入。",
+    "updated": "2026-11-02",
+    "source": "Data/002-三体星/01星遥测大表.xlsx + chdb_3body.master_satellite_01 实测复核"
   },
   "satellite_id": "SCS-01-01",
-  "columns": {
-    "solar_I": { "code": "TMD009", "name": "太阳阵总电流", "unit": "A", "role": "发电功率计算 / 日照-地影判据" },
-    "bus_V":   { "code": "TMD016", "name": "母线电压", "unit": "V", "role": "功率计算基准 / 母线稳定度" },
-    "bus_I":   { "code": "TMD017", "name": "母线电流", "unit": "A", "role": "副口径·母线需求（含充电/分流，测量点定义待与遥测大表核对）" },
-    "load_I":  { "code": "TMD018", "name": "负载电流", "unit": "A", "role": "主负载口径（v2 采用）" },
-    "bat_V":   { "code": "TMD019", "name": "蓄电池电压", "unit": "V", "role": "SOC 电压锚定" }
+  "phase_state": {
+    "code": "TMK5315",
+    "name": "阳照区标志",
+    "sun": "阳照区",
+    "eclipse": "阴影区",
+    "role": "光照/地影主判据；分钟内切换不归入任一工况"
   },
-  "panel_voltage_codes": ["TMD003", "TMD004", "TMD005", "TMD006", "TMD007", "TMD008"],
-  "panel_current_codes": ["TMD010", "TMD011", "TMD012", "TMD013", "TMD014", "TMD015"],
-  "panel_names": ["A", "B", "C", "D", "E", "F"],
+  "battery_direction": {
+    "current_code": "TMH025",
+    "switch_code": "TMD074_b1",
+    "discharge_state": "通",
+    "current_limit_A": 100,
+    "role": "用户指定：开关通时电池电流赋放电正号；断或切换不推断充电"
+  },
+  "columns": {
+    "solar_I": {
+      "code": "TMD009",
+      "name": "太阳阵总电流",
+      "unit": "A",
+      "role": "TMK5315 缺测时的工况回退判据及帆板级差额诊断"
+    },
+    "bus_V": {
+      "code": "TMD016",
+      "name": "母线电压",
+      "unit": "V",
+      "role": "功率计算基准 / 母线稳定度"
+    },
+    "bus_I": {
+      "code": "TMD017",
+      "name": "太阳阵侧母线电流",
+      "unit": "A",
+      "role": "太阳阵侧母线电流：光照期母线功率≈六板端原值功率和（诊断）；地影期电流≈0（太阳阵不出力）"
+    },
+    "load_I": {
+      "code": "TMD018",
+      "name": "负载电流",
+      "unit": "A",
+      "role": "主负载口径（v2 采用）"
+    },
+    "bat_V": {
+      "code": "TMD019",
+      "name": "蓄电池电压",
+      "unit": "V",
+      "role": "SOC 电压锚定"
+    }
+  },
+  "panel_voltage_codes": [
+    "TMD003",
+    "TMD004",
+    "TMD005",
+    "TMD006",
+    "TMD007",
+    "TMD008"
+  ],
+  "panel_current_codes": [
+    "TMD010",
+    "TMD011",
+    "TMD012",
+    "TMD013",
+    "TMD014",
+    "TMD015"
+  ],
+  "panel_names": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F"
+  ],
+  "fetch_extra_codes": [
+    "TMD023",
+    "TMD024",
+    "TMD066",
+    "TMD067",
+    "TMC020",
+    "TMC021",
+    "TMC050",
+    "TMC051",
+    "TMC121",
+    "TMC122"
+  ],
   "other_params": {
-    "TMD023": "电推进A电流", "TMD024": "电推进B电流",
-    "TMD045": "飞轮1电流", "TMD046": "飞轮2电流", "TMD047": "飞轮3电流", "TMD048": "飞轮4电流",
-    "TMD066": "CXPD载荷电流", "TMD067": "光纤陀螺电流",
-    "TMD079": "PCDU温度1", "TMD080": "PCDU温度2", "TMD081": "PCDU温度3",
-    "TMD082": "PCDU温度4", "TMD083": "PCDU温度5"
-  }
+    "TMD023": "电推进A电流",
+    "TMD024": "电推进B电流",
+    "TMD045": "飞轮1电流",
+    "TMD046": "飞轮2电流",
+    "TMD047": "飞轮3电流",
+    "TMD048": "飞轮4电流",
+    "TMD066": "CXPD载荷电流",
+    "TMD067": "光纤陀螺电流",
+    "TMD079": "PCDU温度1",
+    "TMD080": "PCDU温度2",
+    "TMD081": "PCDU温度3",
+    "TMD082": "PCDU温度4",
+    "TMD083": "PCDU温度5",
+    "TMC020": "测控A机电压遥测",
+    "TMC021": "测控A机电流遥测",
+    "TMC050": "测控B机电压遥测",
+    "TMC051": "测控B机电流遥测",
+    "TMC121": "数传电压遥测",
+    "TMC122": "数传电流遥测"
+  },
+  "source_table": "master_satellite_01"
 }

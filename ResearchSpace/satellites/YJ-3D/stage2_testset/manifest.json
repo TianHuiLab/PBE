@@ -1,0 +1,570 @@
+{
+  "schema_version": "1.0",
+  "satellite_id": "YJ-3D",
+  "generated_at": "2026-11-05T15:56:56+08:00",
+  "n_cases": 10,
+  "case_ids": [
+    "W01",
+    "W02",
+    "W03",
+    "W04",
+    "W05",
+    "W06",
+    "W07",
+    "W08",
+    "W09",
+    "W10"
+  ],
+  "readme": "README.md",
+  "model_support": "model_support.json",
+  "evaluation_summary": "evaluation_summary.json",
+  "evaluation_cases": "evaluation_cases.csv",
+  "inputs": [
+    {
+      "path": "data_power_minute.csv",
+      "sha256": "6ef0dede4137df6d534e6928ec5a170dabd6ba1fae0d428499f68e5e45f92c35"
+    },
+    {
+      "path": "power_model\\physical_unit_power_minute.csv",
+      "sha256": "cd6f724657ab17d4c5d6b39c628b2de4593faaa44df5ecd2733c1b260a1f1433"
+    },
+    {
+      "path": "power_model\\physical_unit_holdout_models.json",
+      "sha256": "b8db28caf82ab7d22b89f778ca66487c3ba7216902583f0c0f1344b441a7457d"
+    },
+    {
+      "path": "power_model\\unit_task_holdout_models.json",
+      "sha256": "9efd23b1c45290043cd15b3312928c5be56f01961f1eedeb2dc3d85f6915ea1d"
+    },
+    {
+      "path": "power_model\\physical_unit_components.json",
+      "sha256": "3fca990269fcbd4e8820a156fd92dc96fed06ca463250abe80afe1ef7f8695ae"
+    },
+    {
+      "path": "power_model\\solar_power_model_holdout_20260728.json",
+      "sha256": "1ad8202a46023effd6ce44046982b69e52bc3019b19f46d8829067c00d755ad4"
+    },
+    {
+      "path": "power_model\\load_aware_comparison_windows.csv",
+      "sha256": "7f8b0ed5d218c67f2e0471b0add82378cafcf6cc4db478ee562c636b9bdc29f0"
+    },
+    {
+      "path": "power_model\\v_soc_curve.json",
+      "sha256": "24b9ba2e48e8600d31e44ae47f39e6a1c6c8cb6a4412e018f1d7b4b6c4eba97e"
+    },
+    {
+      "path": "power_model\\design_params.json",
+      "sha256": "c69c37464d4f81c0600aa1047fdaf3d0a684ece10ab8068c93f3b104b48752da"
+    },
+    {
+      "path": "bcr_output_minute.csv",
+      "sha256": "ed85dee65e84f55de817b238adf5b8503fc63ecea03d2148ae9e259fc86e4a56"
+    },
+    {
+      "path": "config\\stage2_profile.json",
+      "sha256": "5975813ec203b29d80b5caf9ad2f1fca664ef6554909844ef52a6352aa42f377"
+    },
+    {
+      "path": "config\\telemetry_params.json",
+      "sha256": "deb921a4db42329e697fd3674f3209a3efde845a3d5e49c3ceb2fbfbaf3c9af7"
+    },
+    {
+      "path": "config\\assessment_params.json",
+      "sha256": "7f6c9a86a78ed021ad0a4a5c17376e6212e4dcfdb23e83c223610c73f9d61385"
+    },
+    {
+      "path": "power_model\\validation_split.json",
+      "sha256": "0b5bb1a746c845a1621af700531e09c835563fdd14c328cbd11f23165564c0e3"
+    },
+    {
+      "path": "power_model\\ab_topology.json",
+      "sha256": "57b813c0b02aa93a2222c4a18a8b693ada6d181d72b7006476ae0a73c1b7266e"
+    }
+  ],
+  "code": [
+    {
+      "path": "D:\\Tianji\\project\\卫星能源评估\\ResearchSpace\\stage2_testset.py",
+      "sha256": "9bb4486a3ee9ab03705090dbbfac7ef246c24b52104c3cc629e8ae0868726b88"
+    },
+    {
+      "path": "D:\\Tianji\\project\\卫星能源评估\\ResearchSpace\\stage2_cases.py",
+      "sha256": "4e7f1035e8ce3bc22794fb07e9f5dfc10ce37b70e38c4c854760233d9f5d6d38"
+    },
+    {
+      "path": "D:\\Tianji\\project\\卫星能源评估\\ResearchSpace\\power_outlier_filter.py",
+      "sha256": "2160dd3717bcbd3eb577df9c3ce1ace8d9fadc08d9723915a25a23be82aa682d"
+    },
+    {
+      "path": "D:\\Tianji\\project\\卫星能源评估\\ResearchSpace\\branch_aggregation.py",
+      "sha256": "08d558988b3f8b004d8b1c50c932543d6131f0d719b1dcc7e35c2b5586279f1e"
+    },
+    {
+      "path": "D:\\Tianji\\project\\卫星能源评估\\ResearchSpace\\physical_unit_model.py",
+      "sha256": "264ce46003067c8453784c1fa8309d864b65ca88b3a98c85f0995137fb4074b1"
+    },
+    {
+      "path": "D:\\Tianji\\project\\卫星能源评估\\ResearchSpace\\unit_power_model.py",
+      "sha256": "6f1ac16f27aff426987d84bd4bcd34ba980128f9fb1e8199d9c42f7632ff289c"
+    },
+    {
+      "path": "D:\\Tianji\\project\\卫星能源评估\\ResearchSpace\\solar_power_calibration.py",
+      "sha256": "c59f6802be1fdf8a4e73af5b15ebd2545b9592dbb8a0cd2a3545d3ae0055d92b"
+    },
+    {
+      "path": "D:\\Tianji\\project\\卫星能源评估\\ResearchSpace\\yj3d_power_forecast.py",
+      "sha256": "54fc444d4106bfe53c8b147dfecc8cc6683ee84f13a8cc327e461eeb51dd554b"
+    },
+    {
+      "path": "D:\\Tianji\\project\\卫星能源评估\\ResearchSpace\\stage2_framework.py",
+      "sha256": "f970d2d1add8167794eb2f76b1319ad2a74cefbdfc3824a6e4d6ae3c9d68529c"
+    },
+    {
+      "path": "D:\\Tianji\\project\\卫星能源评估\\ResearchSpace\\stage2_quality.py",
+      "sha256": "cba43c715f53a9d0613cc4c1720842260d30e2ec0e2f96f79af70a61309d4584"
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "W01",
+      "path": "cases/W01",
+      "task_count": 7,
+      "season": "JJA",
+      "duration_band": "short",
+      "load_band": "low",
+      "label_quality": {
+        "soc_reference": "current_integrated_with_v_soc_endpoint_crosscheck",
+        "usable_for_absolute_soc": false,
+        "usable_for_trend": true,
+        "qc_status": "pass",
+        "soc_qc_status": "pass",
+        "solar_qc_status": "pass",
+        "load_qc_status": "pass",
+        "quality_reasons": {
+          "soc": {},
+          "load": {},
+          "solar": {
+            "above_cap": 0,
+            "missing": 0,
+            "gap": 0
+          }
+        },
+        "bcr_above_cap_count": 0,
+        "bcr_cap_W": 227.915766,
+        "has_v_soc_endpoint": false,
+        "observed_endpoint_saturated": true,
+        "solar_energy_reference": "bcr_output",
+        "solar_energy_primary_policy": "training_99p9_winsor_cap",
+        "load_energy_reference": "bus_measure",
+        "notes": "SOC按初始V-SOC锚点加TMEA006积分，仅当全部区间通过量程、时间连续性、相位和冻结检查时形成主标签；原始值和有效区间条件值均保留。BCR主能量使用训练同口径缩尾，原始尖峰保留为诊断指标"
+      },
+      "sha256": {
+        "input.json": "d108ebf4d073af7fb62615439e289f7c325ebdeb8b38b5e903693c71f5be0dd8",
+        "label.json": "e6f1addde02c6d84de1b9b6df701f1bbf709688a5c4d0f9f0f855c4affc047e1",
+        "prediction.json": "c6cd494dad3336d06a87c76d2e0dd61b92c9f5eeb4f4abc57bde445f9c572443",
+        "predicted_soc.csv": "a3077e847c886e02846be924292e43d1c95ab2c31a94120771fadc0418e8fe3d",
+        "observed_soc.csv": "05016d92e79c821ccc8cb5bbbd596a5535398e964e2a73ade9571d776055329f",
+        "task_plan.json": "a6c1fab5991645e4595a7909f0e1eabf0389e67a85dff0a3a4403ccdadef353c",
+        "metadata.json": "9f63cb8915c2d85ca5418947955244eea48a90e07447731678850da9c398ed55"
+      }
+    },
+    {
+      "case_id": "W02",
+      "path": "cases/W02",
+      "task_count": 15,
+      "season": "JJA",
+      "duration_band": "medium",
+      "load_band": "low",
+      "label_quality": {
+        "soc_reference": "current_integrated_with_v_soc_endpoint_crosscheck",
+        "usable_for_absolute_soc": false,
+        "usable_for_trend": true,
+        "qc_status": "pass",
+        "soc_qc_status": "pass",
+        "solar_qc_status": "pass",
+        "load_qc_status": "pass",
+        "quality_reasons": {
+          "soc": {},
+          "load": {},
+          "solar": {
+            "above_cap": 7,
+            "missing": 0,
+            "gap": 0
+          }
+        },
+        "bcr_above_cap_count": 7,
+        "bcr_cap_W": 227.915766,
+        "has_v_soc_endpoint": true,
+        "observed_endpoint_saturated": false,
+        "solar_energy_reference": "bcr_output",
+        "solar_energy_primary_policy": "training_99p9_winsor_cap",
+        "load_energy_reference": "bus_measure",
+        "notes": "SOC按初始V-SOC锚点加TMEA006积分，仅当全部区间通过量程、时间连续性、相位和冻结检查时形成主标签；原始值和有效区间条件值均保留。BCR主能量使用训练同口径缩尾，原始尖峰保留为诊断指标"
+      },
+      "sha256": {
+        "input.json": "c98af4f65422a68ead7fb54506c0469159a6413ca8c0bb6d4317420981f52965",
+        "label.json": "a466fe08ea5a5470ed3db172c5c72bb6da5cc6f55188ce6be4d87c336d1e0a3d",
+        "prediction.json": "576e9c8317ee589a3044ddebdb4e47629328f0cf1c965eec364445e3afecf8be",
+        "predicted_soc.csv": "3740ff771657580c7408e2fc2db2fd5a58e46445c29f58d0b53bc79655dba9d6",
+        "observed_soc.csv": "096665c334d516628d5afb3f17957063c31573656c5222b9806b3a241304a92e",
+        "task_plan.json": "a2e94dfe13a741cfbeecff594b866d045c297e0dbf95b0970d726aa1588a6aa0",
+        "metadata.json": "700952689a4161f70a7a5337d9af50894eb812d293d62ae441d2b9ccd70e7e4c"
+      }
+    },
+    {
+      "case_id": "W03",
+      "path": "cases/W03",
+      "task_count": 28,
+      "season": "JJA",
+      "duration_band": "long",
+      "load_band": "medium",
+      "label_quality": {
+        "soc_reference": "current_integrated_with_v_soc_endpoint_crosscheck",
+        "usable_for_absolute_soc": false,
+        "usable_for_trend": true,
+        "qc_status": "pass",
+        "soc_qc_status": "pass",
+        "solar_qc_status": "pass",
+        "load_qc_status": "pass",
+        "quality_reasons": {
+          "soc": {},
+          "load": {},
+          "solar": {
+            "above_cap": 0,
+            "missing": 0,
+            "gap": 0
+          }
+        },
+        "bcr_above_cap_count": 0,
+        "bcr_cap_W": 227.915766,
+        "has_v_soc_endpoint": false,
+        "observed_endpoint_saturated": true,
+        "solar_energy_reference": "bcr_output",
+        "solar_energy_primary_policy": "training_99p9_winsor_cap",
+        "load_energy_reference": "bus_measure",
+        "notes": "SOC按初始V-SOC锚点加TMEA006积分，仅当全部区间通过量程、时间连续性、相位和冻结检查时形成主标签；原始值和有效区间条件值均保留。BCR主能量使用训练同口径缩尾，原始尖峰保留为诊断指标"
+      },
+      "sha256": {
+        "input.json": "794bbe063bed0a3589a2a171ce1dac2636235e187e2ad0cdd04326f5488241fc",
+        "label.json": "4af8111f747ba97fc5913ee03b961f83dd04cc5412204168560dcf4fcbd81779",
+        "prediction.json": "341532611e7d658bf04b6a2b9c31db15587bd0d092f3162ee8679a914e53712b",
+        "predicted_soc.csv": "443332ed38f1fd5f18cb62f743d9e627919577152101e4f3fbe47c967addc172",
+        "observed_soc.csv": "67cc286fe987659a520356d309b21c171ac07825a25547b7101da7dfaac2b344",
+        "task_plan.json": "295982fdd82bab1bba0ca92114ff007df2792693bbc2e2f8a77e4171e0a54ef1",
+        "metadata.json": "8f3dfd403c957433f11f4c16a9d666afae44d34e96b486234d9f297f6b5a52dd"
+      }
+    },
+    {
+      "case_id": "W04",
+      "path": "cases/W04",
+      "task_count": 26,
+      "season": "JJA",
+      "duration_band": "long",
+      "load_band": "high",
+      "label_quality": {
+        "soc_reference": "current_integrated_with_v_soc_endpoint_crosscheck",
+        "usable_for_absolute_soc": false,
+        "usable_for_trend": true,
+        "qc_status": "pass",
+        "soc_qc_status": "pass",
+        "solar_qc_status": "pass",
+        "load_qc_status": "pass",
+        "quality_reasons": {
+          "soc": {},
+          "load": {},
+          "solar": {
+            "above_cap": 0,
+            "missing": 0,
+            "gap": 0
+          }
+        },
+        "bcr_above_cap_count": 0,
+        "bcr_cap_W": 227.915766,
+        "has_v_soc_endpoint": false,
+        "observed_endpoint_saturated": true,
+        "solar_energy_reference": "bcr_output",
+        "solar_energy_primary_policy": "training_99p9_winsor_cap",
+        "load_energy_reference": "bus_measure",
+        "notes": "SOC按初始V-SOC锚点加TMEA006积分，仅当全部区间通过量程、时间连续性、相位和冻结检查时形成主标签；原始值和有效区间条件值均保留。BCR主能量使用训练同口径缩尾，原始尖峰保留为诊断指标"
+      },
+      "sha256": {
+        "input.json": "2a25976fedbf109d62c2c1e41905206626c9da4106b7c9317c34ab58658ef2ba",
+        "label.json": "a6af8a1f05d1f5771d43afb5e44ad1b394a0748efeaca3d081a561f681274d74",
+        "prediction.json": "8df76fcbd33c2f3d6c9b9dbade1cb42c5824f835228cfa62bb8e3da1de2490ce",
+        "predicted_soc.csv": "ae320751ad4858a337e44d534442ffc41d96c2a2f8529a5f2e75fec766611943",
+        "observed_soc.csv": "9b98515012a276c0654b9071e8d62c467b20db2139a52ac92148914c78d9383b",
+        "task_plan.json": "111c7154b3780323749fd78bfb074772b46c4d2fe10294e979427c04896642e2",
+        "metadata.json": "117eaef69329b6fb2474c5a7e7b5c6c468819dec664079a5e41518d667a1e85c"
+      }
+    },
+    {
+      "case_id": "W05",
+      "path": "cases/W05",
+      "task_count": 26,
+      "season": "JJA",
+      "duration_band": "medium",
+      "load_band": "medium",
+      "label_quality": {
+        "soc_reference": "current_integrated_with_v_soc_endpoint_crosscheck",
+        "usable_for_absolute_soc": false,
+        "usable_for_trend": true,
+        "qc_status": "pass",
+        "soc_qc_status": "pass",
+        "solar_qc_status": "pass",
+        "load_qc_status": "pass",
+        "quality_reasons": {
+          "soc": {},
+          "load": {},
+          "solar": {
+            "above_cap": 0,
+            "missing": 0,
+            "gap": 0
+          }
+        },
+        "bcr_above_cap_count": 0,
+        "bcr_cap_W": 227.915766,
+        "has_v_soc_endpoint": false,
+        "observed_endpoint_saturated": true,
+        "solar_energy_reference": "bcr_output",
+        "solar_energy_primary_policy": "training_99p9_winsor_cap",
+        "load_energy_reference": "bus_measure",
+        "notes": "SOC按初始V-SOC锚点加TMEA006积分，仅当全部区间通过量程、时间连续性、相位和冻结检查时形成主标签；原始值和有效区间条件值均保留。BCR主能量使用训练同口径缩尾，原始尖峰保留为诊断指标"
+      },
+      "sha256": {
+        "input.json": "fc5862e3f9fe9b60d9677ba81c062955c321c3ba6e8f18b65ffbf6ad1cabc826",
+        "label.json": "3b856a19c282062c945bd8987c6d82dafd2a5662529a9b0c7aab83ee2fde242f",
+        "prediction.json": "e6819dacf7dcddf1c46d8a40f18c8cd0438a9afeb42dd4e6377d1e4a8f034716",
+        "predicted_soc.csv": "08e4794084250e7d721e1b43fd1cb9b93a2f036a3528df74c05e9728f7e91a43",
+        "observed_soc.csv": "86037309e543de464b6e3dde69f1aced964ca04295f5556f880d18339934d8c1",
+        "task_plan.json": "20beef822e67be51760204b2c5bfb3efd5d780f73f98583008ebdb8d4fbf336f",
+        "metadata.json": "94d045833b7286aa3bf072fe7aa6d407fe8e3887c2f447afd501b2ca4a61e326"
+      }
+    },
+    {
+      "case_id": "W06",
+      "path": "cases/W06",
+      "task_count": 21,
+      "season": "JJA",
+      "duration_band": "short",
+      "load_band": "high",
+      "label_quality": {
+        "soc_reference": "current_integrated_with_v_soc_endpoint_crosscheck",
+        "usable_for_absolute_soc": false,
+        "usable_for_trend": true,
+        "qc_status": "pass",
+        "soc_qc_status": "pass",
+        "solar_qc_status": "pass",
+        "load_qc_status": "pass",
+        "quality_reasons": {
+          "soc": {},
+          "load": {},
+          "solar": {
+            "above_cap": 0,
+            "missing": 0,
+            "gap": 0
+          }
+        },
+        "bcr_above_cap_count": 0,
+        "bcr_cap_W": 227.915766,
+        "has_v_soc_endpoint": false,
+        "observed_endpoint_saturated": false,
+        "solar_energy_reference": "bcr_output",
+        "solar_energy_primary_policy": "training_99p9_winsor_cap",
+        "load_energy_reference": "bus_measure",
+        "notes": "SOC按初始V-SOC锚点加TMEA006积分，仅当全部区间通过量程、时间连续性、相位和冻结检查时形成主标签；原始值和有效区间条件值均保留。BCR主能量使用训练同口径缩尾，原始尖峰保留为诊断指标"
+      },
+      "sha256": {
+        "input.json": "30e4d504a368a90ba8589b6179c1f6e8fafa72d512c1f47d6081b30d474bf69e",
+        "label.json": "1ce639dd205cf4d8b3521f16843e12ed45445ecfbeec2c227e277799f6736472",
+        "prediction.json": "11959065dbd0667d8dbc3822eed4d0acffa85cb9fa6054517619ca98e115cc46",
+        "predicted_soc.csv": "efc38bca1b420d96b5a50c9c84f494af1156b0b2d711e6fb9f97d6aca138d091",
+        "observed_soc.csv": "f130293fb9bf3e7c83ca869250454d7002629ddbe38760b4f798be32f90a4d13",
+        "task_plan.json": "dd5940b47462d74f612dd61249b84f01980eed158e7b26ea41c85ac84c6744f9",
+        "metadata.json": "758997c67eed9e89fd233b06b9194c52389364294f9a8f00010a2d50940b269c"
+      }
+    },
+    {
+      "case_id": "W07",
+      "path": "cases/W07",
+      "task_count": 27,
+      "season": "SON",
+      "duration_band": "medium",
+      "load_band": "high",
+      "label_quality": {
+        "soc_reference": "current_integrated_with_v_soc_endpoint_crosscheck",
+        "usable_for_absolute_soc": false,
+        "usable_for_trend": true,
+        "qc_status": "fail",
+        "soc_qc_status": "fail",
+        "solar_qc_status": "pass",
+        "load_qc_status": "fail",
+        "quality_reasons": {
+          "soc": {
+            "range_violation": 2
+          },
+          "load": {
+            "range_violation": 2
+          },
+          "solar": {
+            "above_cap": 0,
+            "missing": 0,
+            "gap": 0
+          }
+        },
+        "bcr_above_cap_count": 0,
+        "bcr_cap_W": 227.915766,
+        "has_v_soc_endpoint": false,
+        "observed_endpoint_saturated": false,
+        "solar_energy_reference": "bcr_output",
+        "solar_energy_primary_policy": "training_99p9_winsor_cap",
+        "load_energy_reference": "bus_measure",
+        "notes": "SOC按初始V-SOC锚点加TMEA006积分，仅当全部区间通过量程、时间连续性、相位和冻结检查时形成主标签；原始值和有效区间条件值均保留。BCR主能量使用训练同口径缩尾，原始尖峰保留为诊断指标"
+      },
+      "sha256": {
+        "input.json": "f7629dc714a76aa1be957d37c69cef82b99ae8bf41f9121a2be90a9cbc8429bd",
+        "label.json": "ff5bf690171041dadb056d116c87bc85df6cdd52b858897c83be074199b38bc1",
+        "prediction.json": "b338288e4beba32c5278a623d47e9d05249d0c9ea5a63747140b3ccbce192ac4",
+        "predicted_soc.csv": "dea972b27cfcad2876972723bd57e83945525fdde913232d01a64b40711926bd",
+        "observed_soc.csv": "ad6c146cd0834aab14c270e7a7ad1c2d717db8298b9ff3c45670a09538452002",
+        "task_plan.json": "3de574040bb6e92c5bc8cc31953264458b084f5cb4f097585b56f6e9c03a6231",
+        "metadata.json": "46ef9305a52550a64633c31cb9de04b571da326c51b16671cd25dff3d472c98c"
+      }
+    },
+    {
+      "case_id": "W08",
+      "path": "cases/W08",
+      "task_count": 15,
+      "season": "SON",
+      "duration_band": "medium",
+      "load_band": "medium",
+      "label_quality": {
+        "soc_reference": "current_integrated_with_v_soc_endpoint_crosscheck",
+        "usable_for_absolute_soc": false,
+        "usable_for_trend": true,
+        "qc_status": "fail",
+        "soc_qc_status": "fail",
+        "solar_qc_status": "pass",
+        "load_qc_status": "fail",
+        "quality_reasons": {
+          "soc": {
+            "range_violation": 4
+          },
+          "load": {
+            "range_violation": 6
+          },
+          "solar": {
+            "above_cap": 3,
+            "missing": 0,
+            "gap": 0
+          }
+        },
+        "bcr_above_cap_count": 3,
+        "bcr_cap_W": 227.915766,
+        "has_v_soc_endpoint": false,
+        "observed_endpoint_saturated": false,
+        "solar_energy_reference": "bcr_output",
+        "solar_energy_primary_policy": "training_99p9_winsor_cap",
+        "load_energy_reference": "bus_measure",
+        "notes": "SOC按初始V-SOC锚点加TMEA006积分，仅当全部区间通过量程、时间连续性、相位和冻结检查时形成主标签；原始值和有效区间条件值均保留。BCR主能量使用训练同口径缩尾，原始尖峰保留为诊断指标"
+      },
+      "sha256": {
+        "input.json": "d9d9b43d5c0828e344ea06ca55128cc330c4485c8c7d509df2ff1c5f96b4bec3",
+        "label.json": "7be3160c7a08ee4ae01eb7c6bd75fd6076b442e7af3090d4093d96041b82d6ca",
+        "prediction.json": "0a3301b0c101eef4550dcb6057f91b5b4bda5c0383b6f3f31876426df4f7424f",
+        "predicted_soc.csv": "ce968b7b6237b8ba3eecf64fa999d850da8fbe4a52ad860680484ec8301b0a40",
+        "observed_soc.csv": "a1f14544d98cc1cda93c86e31445a6ffc590f4c1e3455c9d52c4bc5cc6ddb685",
+        "task_plan.json": "9dd59be033e51d6d7a87e0da921b646c7ccec734b732c5a4226a23bff879377f",
+        "metadata.json": "b9993d304c27ed7278b8fd07e9c8294eac316d97647627ec6a80bc641019860c"
+      }
+    },
+    {
+      "case_id": "W09",
+      "path": "cases/W09",
+      "task_count": 14,
+      "season": "SON",
+      "duration_band": "short",
+      "load_band": "high",
+      "label_quality": {
+        "soc_reference": "current_integrated_with_v_soc_endpoint_crosscheck",
+        "usable_for_absolute_soc": false,
+        "usable_for_trend": true,
+        "qc_status": "fail",
+        "soc_qc_status": "fail",
+        "solar_qc_status": "pass",
+        "load_qc_status": "fail",
+        "quality_reasons": {
+          "soc": {
+            "range_violation": 8
+          },
+          "load": {
+            "range_violation": 9
+          },
+          "solar": {
+            "above_cap": 0,
+            "missing": 0,
+            "gap": 0
+          }
+        },
+        "bcr_above_cap_count": 0,
+        "bcr_cap_W": 227.915766,
+        "has_v_soc_endpoint": false,
+        "observed_endpoint_saturated": false,
+        "solar_energy_reference": "bcr_output",
+        "solar_energy_primary_policy": "training_99p9_winsor_cap",
+        "load_energy_reference": "bus_measure",
+        "notes": "SOC按初始V-SOC锚点加TMEA006积分，仅当全部区间通过量程、时间连续性、相位和冻结检查时形成主标签；原始值和有效区间条件值均保留。BCR主能量使用训练同口径缩尾，原始尖峰保留为诊断指标"
+      },
+      "sha256": {
+        "input.json": "9d611d6730d41896967ad2a4db68f8fd4ffa12fce58f6a515d0e8ecafd9951d3",
+        "label.json": "6e665b8c7f27573addd09d16f748a38b1a1effb9c126c2c4491e86afe894e42c",
+        "prediction.json": "e4385454824683467f74865c4a0d0c63eabcfb98adbd3a7eb251c2b8000b3853",
+        "predicted_soc.csv": "705517648f10191765a5c7cc185e470e39a3505c6f523ec2149481ad1c425675",
+        "observed_soc.csv": "4bad536cbfcc51781ff7a06e556dee9d1384221077648b20c26aa0dcfb88a4d0",
+        "task_plan.json": "a106b08e92186fa7b79aa95292787ba76bac058728018c6458da16af5c93269c",
+        "metadata.json": "bcbd07f5466c1664ec17cb751b6b426ddf2677ed4f6e349c5c01123408c22de6"
+      }
+    },
+    {
+      "case_id": "W10",
+      "path": "cases/W10",
+      "task_count": 37,
+      "season": "SON",
+      "duration_band": "long",
+      "load_band": "medium",
+      "label_quality": {
+        "soc_reference": "current_integrated_with_v_soc_endpoint_crosscheck",
+        "usable_for_absolute_soc": false,
+        "usable_for_trend": true,
+        "qc_status": "pass",
+        "soc_qc_status": "pass",
+        "solar_qc_status": "pass",
+        "load_qc_status": "pass",
+        "quality_reasons": {
+          "soc": {},
+          "load": {},
+          "solar": {
+            "above_cap": 0,
+            "missing": 0,
+            "gap": 0
+          }
+        },
+        "bcr_above_cap_count": 0,
+        "bcr_cap_W": 227.915766,
+        "has_v_soc_endpoint": false,
+        "observed_endpoint_saturated": false,
+        "solar_energy_reference": "bcr_output",
+        "solar_energy_primary_policy": "training_99p9_winsor_cap",
+        "load_energy_reference": "bus_measure",
+        "notes": "SOC按初始V-SOC锚点加TMEA006积分，仅当全部区间通过量程、时间连续性、相位和冻结检查时形成主标签；原始值和有效区间条件值均保留。BCR主能量使用训练同口径缩尾，原始尖峰保留为诊断指标"
+      },
+      "sha256": {
+        "input.json": "bcb36b84eb0b2e2ce9b367f13e94f35410292289f0f0c9822d1186636b24e913",
+        "label.json": "5d9d5bf6f35688eb0090d340c948e4832447155b5c08ea4ff7b4140742951fac",
+        "prediction.json": "5b7f80627f1cc270a8e7959c4cfa1daa10e25555f902edd4b4f7ce07c9379cec",
+        "predicted_soc.csv": "b049e2322c35ffac5ab8ecee438af1b9a13759205455c69cfadba33937386bd1",
+        "observed_soc.csv": "b9e2d26f771b01bf3b4bc7bff4edbb8b7aa5f70e94582ff1132892f645d871b7",
+        "task_plan.json": "0d45b917bcb61c8667c3d6650b762914d85214da96e0c3dd7416f09199d01d83",
+        "metadata.json": "6eb3311e1cb9e23084950cc62bfe49f9e4396e8a6e014b82fe1f809a73dd9009"
+      }
+    }
+  ]
+}

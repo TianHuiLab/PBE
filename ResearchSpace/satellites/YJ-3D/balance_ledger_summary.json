@@ -1,0 +1,303 @@
+{
+  "source": "chdb_3D.yc_history",
+  "window_start_inclusive_beijing": "2026-07-24 00:00:00",
+  "window_end_exclusive_beijing": "2026-10-28 00:00:00",
+  "time_contract": "source UTC timestamp, Beijing report minute, half-open window",
+  "basis": "Same-source-row bus versus 21 measured PL feeds per bank, ten heater currents, their conditional sums, or eight BCR output channels; source rows are averaged within each minute, then minutes are compared equally. Clear TMZS003 phase and no solar-current conflict only. Duplicated source rows may weight a minute mean. PL_25/29 lack current; PL_33 is outside the PL bank sum. A/B and heater topology and BCR/battery/bus boundary alignment are unverified. Power gaps are diagnostics, not verified losses or energy integrals.",
+  "minute_csv_sha256": "6ef0dede4137df6d534e6928ec5a170dabd6ba1fae0d428499f68e5e45f92c35",
+  "inventory_sha256": "b7cf45b743b3e2d2ce4433b37263f5dfafe95ca938aa5214d244c6284f476b9b",
+  "bcr_config_sha256": "6efc7201f7e0e9d0ba4e9d7ede4cf6a01f8080ca44fb685ed3db509329631a38",
+  "component_config_sha256": "87c08f2adf1336fc369bbd16a4eed1f45a7a4054c4ee2db430aee5f785d4fbce",
+  "comparisons_by_phase": {
+    "日照": {
+      "clear_phase_minutes": 101361,
+      "eps_source_rows": 6127196,
+      "valid_bus_source_rows": 6125869,
+      "valid_bus_minutes": 101354,
+      "comparisons": {
+        "A": {
+          "paired_minutes": 100877,
+          "paired_source_rows": 4375729,
+          "coverage_of_clear_phase_minutes": 0.9952249879144839,
+          "bus_W_p05_p50_p95": [
+            82.11035935696535,
+            108.69675698711015,
+            146.4323661434078
+          ],
+          "source_W_p05_p50_p95": [
+            37.92200751889047,
+            45.65486782273094,
+            71.2232699224904
+          ],
+          "bus_minus_source_W_p05_p50_p95": [
+            41.8696488783099,
+            60.472026063178156,
+            88.06193563148433
+          ],
+          "source_over_bus_ratio_p50": 0.4392131770306278
+        },
+        "B": {
+          "paired_minutes": 101278,
+          "paired_source_rows": 2122123,
+          "coverage_of_clear_phase_minutes": 0.9991811446216987,
+          "bus_W_p05_p50_p95": [
+            82.24532462338517,
+            108.80125988992938,
+            146.6878521759025
+          ],
+          "source_W_p05_p50_p95": [
+            24.029758647406908,
+            28.232512981823703,
+            43.17731023318202
+          ],
+          "bus_minus_source_W_p05_p50_p95": [
+            57.22871212484398,
+            79.36778992940705,
+            109.56119519153145
+          ],
+          "source_over_bus_ratio_p50": 0.2737052013280895
+        },
+        "AB": {
+          "paired_minutes": 100848,
+          "paired_source_rows": 1983526,
+          "coverage_of_clear_phase_minutes": 0.9949388818184509,
+          "bus_W_p05_p50_p95": [
+            82.11624015971557,
+            108.75382873167493,
+            146.4135477295585
+          ],
+          "source_W_p05_p50_p95": [
+            62.222095411896575,
+            73.32726263658165,
+            114.52609262937945
+          ],
+          "bus_minus_source_W_p05_p50_p95": [
+            15.98002461992888,
+            27.709966425193052,
+            55.381292894886165
+          ],
+          "source_over_bus_ratio_p50": 0.7168413283853874
+        },
+        "HEAT": {
+          "paired_minutes": 101325,
+          "paired_source_rows": 5467680,
+          "coverage_of_clear_phase_minutes": 0.9996448338118211,
+          "bus_W_p05_p50_p95": [
+            82.26806374578436,
+            108.69403627048533,
+            146.82467054105737
+          ],
+          "source_W_p05_p50_p95": [
+            1.2404947108580413,
+            10.970196925632825,
+            36.63380791585794
+          ],
+          "bus_minus_source_W_p05_p50_p95": [
+            77.53599981806016,
+            89.95821429303027,
+            133.54975835193054
+          ],
+          "source_over_bus_ratio_p50": 0.11570883939988115
+        },
+        "ABH": {
+          "paired_minutes": 100848,
+          "paired_source_rows": 1983515,
+          "coverage_of_clear_phase_minutes": 0.9949388818184509,
+          "bus_W_p05_p50_p95": [
+            82.11624015971557,
+            108.75382873167493,
+            146.4135477295585
+          ],
+          "source_W_p05_p50_p95": [
+            67.58051426664446,
+            92.40348190775205,
+            127.69799026116759
+          ],
+          "bus_minus_source_W_p05_p50_p95": [
+            13.817187853734737,
+            16.424257532055066,
+            19.66126180723291
+          ],
+          "source_over_bus_ratio_p50": 0.8490947748150264
+        },
+        "BCR": {
+          "paired_minutes": 101246,
+          "paired_source_rows": 1516559,
+          "coverage_of_clear_phase_minutes": 0.9988654413433175,
+          "bus_W_p05_p50_p95": [
+            82.12639185001929,
+            108.82860080339282,
+            146.5065355301306
+          ],
+          "source_W_p05_p50_p95": [
+            90.8042579185703,
+            113.51340191536372,
+            160.28818590332628
+          ],
+          "bus_minus_source_W_p05_p50_p95": [
+            -27.027131833493097,
+            -3.8427143324496242,
+            1.991670442099128
+          ],
+          "source_over_bus_ratio_p50": 1.0361270389848165,
+          "battery_terminal_signed_W_p05_p50_p95": [
+            -21.407845501111026,
+            0.09087530745965647,
+            5.452253970872349
+          ],
+          "bcr_plus_battery_minus_bus_W_p05_p50_p95": [
+            1.0457314036420797,
+            3.910820295324662,
+            7.182515205687125
+          ]
+        }
+      }
+    },
+    "地影": {
+      "clear_phase_minutes": 1648,
+      "eps_source_rows": 83226,
+      "valid_bus_source_rows": 83224,
+      "valid_bus_minutes": 1647,
+      "comparisons": {
+        "A": {
+          "paired_minutes": 1638,
+          "paired_source_rows": 28642,
+          "coverage_of_clear_phase_minutes": 0.9939320388349514,
+          "bus_W_p05_p50_p95": [
+            80.58396146584876,
+            133.3560616948134,
+            187.59748917981366
+          ],
+          "source_W_p05_p50_p95": [
+            31.053835319010016,
+            52.582675866865614,
+            94.51152592757248
+          ],
+          "bus_minus_source_W_p05_p50_p95": [
+            46.68252772651676,
+            75.26673728356425,
+            102.12251030273409
+          ],
+          "source_over_bus_ratio_p50": 0.4244133931190876
+        },
+        "B": {
+          "paired_minutes": 1647,
+          "paired_source_rows": 44498,
+          "coverage_of_clear_phase_minutes": 0.9993932038834952,
+          "bus_W_p05_p50_p95": [
+            81.04244702068198,
+            133.84396837842223,
+            185.13351595500603
+          ],
+          "source_W_p05_p50_p95": [
+            19.30881540843481,
+            32.415502574545805,
+            57.42270160291068
+          ],
+          "bus_minus_source_W_p05_p50_p95": [
+            59.5257669305264,
+            97.98640228872713,
+            131.00685618987163
+          ],
+          "source_over_bus_ratio_p50": 0.26244349101381764
+        },
+        "AB": {
+          "paired_minutes": 1638,
+          "paired_source_rows": 26841,
+          "coverage_of_clear_phase_minutes": 0.9939320388349514,
+          "bus_W_p05_p50_p95": [
+            80.58396146584876,
+            133.59394522970626,
+            187.59748917981366
+          ],
+          "source_W_p05_p50_p95": [
+            50.66802710965438,
+            85.85745210001309,
+            152.89450456812307
+          ],
+          "bus_minus_source_W_p05_p50_p95": [
+            18.8073707124895,
+            38.53476614729723,
+            62.712046742158684
+          ],
+          "source_over_bus_ratio_p50": 0.6851280189179221
+        },
+        "HEAT": {
+          "paired_minutes": 1647,
+          "paired_source_rows": 74324,
+          "coverage_of_clear_phase_minutes": 0.9993932038834952,
+          "bus_W_p05_p50_p95": [
+            80.79358475509116,
+            133.13137149196487,
+            183.15008702967305
+          ],
+          "source_W_p05_p50_p95": [
+            1.2711644983265742,
+            21.984466835310826,
+            44.51726609006652
+          ],
+          "bus_minus_source_W_p05_p50_p95": [
+            65.71402576986678,
+            100.74332074472781,
+            170.447192131251
+          ],
+          "source_over_bus_ratio_p50": 0.16213843090546828
+        },
+        "ABH": {
+          "paired_minutes": 1638,
+          "paired_source_rows": 26841,
+          "coverage_of_clear_phase_minutes": 0.9939320388349514,
+          "bus_W_p05_p50_p95": [
+            80.58396146584876,
+            133.59394522970626,
+            187.59748917981366
+          ],
+          "source_W_p05_p50_p95": [
+            65.82602474034846,
+            115.96496498342195,
+            165.84597117030918
+          ],
+          "bus_minus_source_W_p05_p50_p95": [
+            13.938259804233029,
+            17.873419256225674,
+            22.53931257016623
+          ],
+          "source_over_bus_ratio_p50": 0.8643948314616415
+        },
+        "BCR": {
+          "paired_minutes": 1647,
+          "paired_source_rows": 20658,
+          "coverage_of_clear_phase_minutes": 0.9993932038834952,
+          "bus_W_p05_p50_p95": [
+            80.61323441187848,
+            134.30380185640192,
+            188.14329474449906
+          ],
+          "source_W_p05_p50_p95": [
+            -0.08008304749794998,
+            -0.05743674316615385,
+            -0.05131613043802147
+          ],
+          "bus_minus_source_W_p05_p50_p95": [
+            78.103592831277,
+            133.870307873617,
+            188.21099731532306
+          ],
+          "source_over_bus_ratio_p50": -0.0004447410230196549,
+          "battery_terminal_signed_W_p05_p50_p95": [
+            79.60085404460635,
+            135.51362831225822,
+            190.12138311359794
+          ],
+          "bcr_plus_battery_minus_bus_W_p05_p50_p95": [
+            0.6452067298298488,
+            1.4633967048001466,
+            2.788770999117496
+          ]
+        }
+      }
+    }
+  },
+  "paired_minute_csv_sha256": "5ee79d94873b3d995d4db8ec75ece421fad185e1f143d869a81207ba0ccc3ca9",
+  "paired_minute_csv_rows": 102486
+}

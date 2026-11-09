@@ -62,7 +62,7 @@ class ClickHouseEnergyAnalyzer:
         password : str
             口令（默认取环境变量 CH_PASSWORD；无默认口令，见 ch_http.py 说明）
         database : str
-            数据库名称（默认取环境变量 CH_DB 或 chdb_3body.master_satellite_01）
+            数据库名称（默认取环境变量 CH_DB 或 chdb_3body；表名另选）
         """
         if not CLICKHOUSE_AVAILABLE:
             raise ImportError("clickhouse-driver未安装，请运行: pip install clickhouse-driver")
@@ -71,8 +71,8 @@ class ClickHouseEnergyAnalyzer:
         self.port = port or int(os.environ.get('CH_PORT', '9000'))
         self.user = user or os.environ.get('CH_USER', 'default')
         self.password = password if password is not None else os.environ.get('CH_PASSWORD', '')
-        self.database = database or os.environ.get(
-            'CH_DB', 'chdb_3body') + '.master_satellite_01'
+        self.database = database or os.environ.get('CH_DB', 'chdb_3body')
+        self.secure = os.environ.get('CH_NATIVE_SECURE', '').lower() in ('1', 'true', 'yes')
         self.conn = None
         self.telemetry_data = None
 
@@ -90,6 +90,9 @@ class ClickHouseEnergyAnalyzer:
     def connect_db(self) -> bool:
         """连接ClickHouse数据库"""
         try:
+            if (self.password and not self.secure and
+                    os.environ.get('CH_ALLOW_PLAINTEXT', '').lower() not in ('1', 'true', 'yes')):
+                raise ValueError('携带口令的原生明文连接已禁用；请使用 TLS 端点或加密隧道')
             print(f"正在连接ClickHouse数据库...")
             print(f"  节点: {self.host}:{self.port}")
             print(f"  数据库: {self.database}")
@@ -100,6 +103,7 @@ class ClickHouseEnergyAnalyzer:
                 user=self.user,
                 password=self.password,
                 database=self.database,
+                secure=self.secure,
                 settings={'connect_timeout': 10, 'receive_timeout': 60}
             )
             print("✅ 数据库连接成功！")

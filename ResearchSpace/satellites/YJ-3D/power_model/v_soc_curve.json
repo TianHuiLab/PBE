@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0",
+  "satellite_id": "YJ-3D",
+  "status": "conditional_discharge_mapping_only",
+  "source": {
+    "source": "D:\\Tianji\\project\\卫星能源评估\\Data\\0010-云尖3D星\\volt_capacity_3D_v0.csv",
+    "source_sha256": "013d6bf58e187b34dcbb01dac23b6a150da8b2d4cbe1b27057c4b34272142d5c",
+    "config_sha256": "ca41a5f2f65462ba158a31ec7fec084c2ddc0eb77c20e86291629f1642e49b98",
+    "source_csv": "D:\\Tianji\\project\\卫星能源评估\\Data\\0010-云尖3D星\\volt_capacity_3D_v0.csv"
+  },
+  "points": [
+    [
+      21.0,
+      0.1
+    ],
+    [
+      23.34,
+      0.2
+    ],
+    [
+      24.08,
+      0.3
+    ],
+    [
+      24.73,
+      0.4
+    ],
+    [
+      25.27,
+      0.5
+    ],
+    [
+      25.97,
+      0.6
+    ],
+    [
+      26.57,
+      0.7
+    ],
+    [
+      27.11,
+      0.8
+    ],
+    [
+      27.92,
+      0.9
+    ],
+    [
+      28.18,
+      1.0
+    ]
+  ],
+  "design": {
+    "rated_capacity_Ah": 37.69,
+    "calibration_current_A": 7.84,
+    "pack_config": "YJ-3D calibrated discharge table"
+  },
+  "caveats": [
+    "仅适用于7.84A放电曲线附近条件SOC映射",
+    "充电滞回、温度、倍率和老化未建模",
+    "不能从曲线推断在轨容量或SOH"
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Per-unit power-model training row",
+  "type": "object",
+  "required": [
+    "timestamp",
+    "observed_power_W",
+    "target_power_W",
+    "valid_power",
+    "active_label",
+    "power_band",
+    "episode_id",
+    "elapsed_hours",
+    "source_codes",
+    "fit_role"
+  ],
+  "properties": {
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "observed_power_W": {
+      "type": "number",
+      "minimum": 0
+    },
+    "target_power_W": {
+      "type": "number",
+      "minimum": 0
+    },
+    "valid_power": {
+      "const": true
+    },
+    "active_label": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "仅在有 active_threshold_W 时定义"
+    },
+    "power_band": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "active",
+        "high",
+        "low",
+        "unclassified_single_band",
+        null
+      ]
+    },
+    "episode_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "elapsed_hours": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "explicit_mode": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source_codes": {
+      "type": "string"
+    },
+    "excluded_reason": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "missing_or_non_numeric",
+        "negative_power",
+        "above_power_limit",
+        null
+      ]
+    },
+    "fit_role": {
+      "enum": [
+        "train",
+        "holdout_eval",
+        "excluded"
+      ]
+    },
+    "used_in_model_fit": {
+      "type": "boolean"
+    }
+  }
+}

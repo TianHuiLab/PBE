@@ -1,0 +1,13 @@
+{
+  "solar_phase_threshold_A": 1.0,
+  "maximum_integration_gap_seconds": 10.0,
+  "assessment_start_beijing": "2026-07-24 00:00:00",
+  "assessment_end_exclusive_beijing": "2026-10-28 00:00:00",
+  "physical_power_basis": {
+    "solar_bus_voltage_proxy": "TMEA003 × TMEA007；太阳阵端电压未提供，只是母线电压折算代理",
+    "bus_current_measurement": "TMEA003 × TMEA004；TMEA004 是否覆盖全部负载待核",
+    "battery_terminal_signed_trial": "TMEA005 × TMEA006；保留遥测原生符号，正号与地影放电相符但端口方向待连接图确认",
+    "residual_diagnostic": "太阳阵母线电压代理 + 电池端有符号试算 − 母线电流测点功率；测点边界不同，不视作损耗或物理闭合"
+  },
+  "soc_capacity_status": "已获得云尖3D星7.84A放电标定曲线及37.69Ah表内终点容量；仅做匹配工况条件SOC/DoD，不据此推算在轨容量或SOH"
+}

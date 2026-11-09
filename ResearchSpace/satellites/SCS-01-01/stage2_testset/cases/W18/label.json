@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "case_id": "W18",
+  "satellite_id": "SCS-01-01",
+  "window": {
+    "start": "2026-05-01T22:21:00+08:00",
+    "end": "2026-05-01T22:29:00+08:00"
+  },
+  "observed": {
+    "target_soc_pct": 77.0,
+    "remaining_Ah": 50.050000000000004,
+    "remaining_energy_nominal_kWh": 1.4014000000000002,
+    "solar_energy_kWh": 0.039396477523500006,
+    "load_energy_kWh": 0.039396477523500006
+  },
+  "label_quality": {
+    "soc_reference": "v_soc_minute_mapping",
+    "usable_for_absolute_soc": false,
+    "usable_for_trend": true,
+    "qc_status": "pass",
+    "soc_qc_status": "pass",
+    "solar_qc_status": "not_applicable",
+    "load_qc_status": "pass",
+    "quality_reasons": {},
+    "solar_energy_applicability": "not_applicable_eclipse",
+    "solar_energy_reference": "scheme_b_proxy",
+    "load_energy_reference": "tmd018_minute_power",
+    "notes": "SOC为TMD019逐分钟电压映射；方案B太阳能量与TMD018负载均为条件参考，不是独立硬件真值"
+  }
+}

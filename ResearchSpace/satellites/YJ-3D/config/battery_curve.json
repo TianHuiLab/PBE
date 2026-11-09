@@ -1,0 +1,9 @@
+{
+  "source_csv": "Data/0010-云尖3D星/volt_capacity_3D_v0.csv",
+  "calibration_discharge_current_A": 7.84,
+  "current_match_tolerance_A": 0.5,
+  "applicable_phase": "地影",
+  "voltage_telemetry_code": "TMEA005",
+  "current_telemetry_code": "TMEA006",
+  "status": "本星专属7.84 A放电标定；仅作匹配工况下的条件电压映射，未做在轨容量或SOH测定"
+}

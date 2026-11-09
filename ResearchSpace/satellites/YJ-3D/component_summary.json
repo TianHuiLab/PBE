@@ -1,0 +1,116 @@
+{
+  "source": "chdb_3D.yc_history",
+  "source_time_column": "timestamp",
+  "window_start_utc": "2026-07-23T16:00:00+00:00",
+  "window_end_exclusive_utc": "2026-10-27T16:00:00+00:00",
+  "basis": "TMEA003 × branch current, paired source rows in workbook physical ranges; duplicate rows may affect means and p95. This aggregate-only copy was recovered from the prior rendered report after the live source table rolled over; source-row totals and raw minima are intentionally unavailable.",
+  "balance_boundary_verified": false,
+  "configuration_sha256": "87c08f2adf1336fc369bbd16a4eed1f45a7a4054c4ee2db430aee5f785d4fbce",
+  "fetched_at_utc": null,
+  "recovered_from": [
+    "framework_documentation_YJ-3D.html (2026-11-05 12:39:54)",
+    "能源评估分析_YJ-3D.md (2026-11-05 12:39:54)"
+  ],
+  "components": {
+    "heater_battery_main": {
+      "name": "蓄电池加热主路",
+      "code": "TMEA130",
+      "source_rows": null,
+      "valid_source_rows": 5573322,
+      "raw_min_A": null,
+      "raw_max_A": 44.97,
+      "mean_bus_voltage_proxy_W": 8.98,
+      "p95_bus_voltage_proxy_W": 24.25
+    },
+    "heater_star_a_main": {
+      "name": "星敏A加热主路",
+      "code": "TMEA131",
+      "source_rows": null,
+      "valid_source_rows": 5573367,
+      "raw_min_A": null,
+      "raw_max_A": 44.97,
+      "mean_bus_voltage_proxy_W": 0.4,
+      "p95_bus_voltage_proxy_W": 0.14
+    },
+    "heater_star_b_main": {
+      "name": "星敏B加热主路",
+      "code": "TMEA132",
+      "source_rows": null,
+      "valid_source_rows": 5573332,
+      "raw_min_A": null,
+      "raw_max_A": 44.97,
+      "mean_bus_voltage_proxy_W": 5.73,
+      "p95_bus_voltage_proxy_W": 9.07
+    },
+    "heater_propulsion_main": {
+      "name": "推进加热主路",
+      "code": "TMEA116",
+      "source_rows": null,
+      "valid_source_rows": 5573401,
+      "raw_min_A": null,
+      "raw_max_A": 44.96,
+      "mean_bus_voltage_proxy_W": 1.67,
+      "p95_bus_voltage_proxy_W": 9.85
+    },
+    "heater_ir_camera_main": {
+      "name": "红外相机加热主路",
+      "code": "TMEA115",
+      "source_rows": null,
+      "valid_source_rows": 5573378,
+      "raw_min_A": null,
+      "raw_max_A": 40.8,
+      "mean_bus_voltage_proxy_W": 0.13,
+      "p95_bus_voltage_proxy_W": 0.14
+    },
+    "heater_optical_box_main": {
+      "name": "光机底部电箱加热主路",
+      "code": "TMEA114",
+      "source_rows": null,
+      "valid_source_rows": 5573367,
+      "raw_min_A": null,
+      "raw_max_A": 43.56,
+      "mean_bus_voltage_proxy_W": 0.13,
+      "p95_bus_voltage_proxy_W": 0.14
+    },
+    "heater_router_main": {
+      "name": "路由加热主路",
+      "code": "TMEA113",
+      "source_rows": null,
+      "valid_source_rows": 5573423,
+      "raw_min_A": null,
+      "raw_max_A": 39.33,
+      "mean_bus_voltage_proxy_W": 0.13,
+      "p95_bus_voltage_proxy_W": 0.14
+    },
+    "heater_compute_g1_main": {
+      "name": "智算机G1加热主路",
+      "code": "TMEA031",
+      "source_rows": null,
+      "valid_source_rows": 6243663,
+      "raw_min_A": null,
+      "raw_max_A": 44.97,
+      "mean_bus_voltage_proxy_W": 0.12,
+      "p95_bus_voltage_proxy_W": 0.14
+    },
+    "heater_compute_yx_main": {
+      "name": "智算机YX加热主路",
+      "code": "TMEA030",
+      "source_rows": null,
+      "valid_source_rows": 6243603,
+      "raw_min_A": null,
+      "raw_max_A": 44.97,
+      "mean_bus_voltage_proxy_W": 0.12,
+      "p95_bus_voltage_proxy_W": 0.14
+    },
+    "heater_laser_main": {
+      "name": "激光处理机加热主路",
+      "code": "TMEA029",
+      "source_rows": null,
+      "valid_source_rows": 6243603,
+      "raw_min_A": null,
+      "raw_max_A": 44.96,
+      "mean_bus_voltage_proxy_W": 0.13,
+      "p95_bus_voltage_proxy_W": 0.14
+    }
+  }
+}

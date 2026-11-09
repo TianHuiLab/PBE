@@ -1,0 +1,35 @@
+{
+  "source_minute_sha256": "6ef0dede4137df6d534e6928ec5a170dabd6ba1fae0d428499f68e5e45f92c35",
+  "candidate_config_sha256": "6efc7201f7e0e9d0ba4e9d7ede4cf6a01f8080ca44fb685ed3db509329631a38",
+  "eclipse_clear_valid_minutes": 1648,
+  "eclipse_discharge_switch_open_minutes": 1648,
+  "eclipse_battery_current_positive_over_0p2A_minutes": 1646,
+  "eclipse_solar_current_below_1A_minutes": 1628,
+  "eclipse_solar_current_outside_workbook_range_minutes": 1,
+  "sun_clear_valid_minutes": 101160,
+  "sun_discharge_switch_open_minutes": 101047,
+  "sun_battery_current_negative_below_minus_0p2A_minutes": 10729,
+  "sun_battery_current_positive_over_0p2A_minutes": 3945,
+  "eclipse_battery_current_nonpositive_examples": [
+    {
+      "t_beijing": "2026-08-09 04:58:00",
+      "battery_current_mean_A": -0.4140808333333333,
+      "solar_current_mean_A": 4.761828583333333
+    },
+    {
+      "t_beijing": "2026-09-10 07:38:00",
+      "battery_current_mean_A": -0.014941,
+      "solar_current_mean_A": 531.623828
+    }
+  ],
+  "eclipse_bus_battery_paired_minutes": 1647,
+  "eclipse_bus_minus_battery_current_median_A": -0.007992897959183676,
+  "eclipse_bus_minus_battery_current_p05_A": -0.04131313958333287,
+  "eclipse_bus_minus_battery_current_p95_A": 0.03108646475000067,
+  "observed_eclipse_runs": 149,
+  "longest_contiguous_observed_eclipse_minutes": 17,
+  "bcr_pv_input_voltage_channel_count": 8,
+  "bcr_output_voltage_current_pair_count": 8,
+  "bcr_pv_input_current_channel_count": 0,
+  "interpretation": "Telemetry is consistent with positive TMEA006 representing discharge in eclipse, but the switch is also open in sun and does not alone identify current direction. Electrical direction and bus-load coverage require the circuit topology. The observed eclipse runs and single-rate curve do not identify in-orbit capacity or SOH."
+}

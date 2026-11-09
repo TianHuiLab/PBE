@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.0",
+  "satellite_id": "SCS-01-01",
+  "model_type": "polynomial",
+  "selected_degree": 3,
+  "coefficients_W_per_hour_power": [
+    373.273535038,
+    500.648782134,
+    -2377.944746383,
+    1866.497702967
+  ],
+  "constant_power_W": 383.684,
+  "target_definition": {
+    "formula": "P_load + P_charge_est",
+    "p_load_basis": "TMD016 × TMD018 minute means",
+    "p_charge_basis": "P_charge_est = max(TMD016×TMD017 - TMD016×TMD018, 0); inferred, not independent battery-charge measurement",
+    "status": "user-confirmed provisional 01-star formula",
+    "excluded_alternative": "TMD016×TMD017 + battery charge"
+  },
+  "time_feature": {
+    "name": "elapsed_hours_since_sunlight_segment_start",
+    "reset_at": "every continuous sunlight segment"
+  },
+  "support_hours": [
+    0.0,
+    0.983333
+  ],
+  "extrapolation_policy": "clamp_to_support",
+  "shadow_power_W": 0.0,
+  "training": {
+    "n_valid_sun_samples": 11461,
+    "sun_segments": 2837,
+    "shadow_samples_in_source": 5531,
+    "time_start": "2025-12-26T00:12:00",
+    "time_end": "2026-11-05T09:45:00",
+    "winsor_quantile": 0.999,
+    "winsor_cap_W": 765.35578
+  },
+  "training_split": {
+    "method": "exclude_whole_dates",
+    "excluded_dates": [
+      "2025-12-27",
+      "2025-12-28",
+      "2025-12-29",
+      "2025-12-30",
+      "2025-12-31",
+      "2026-02-22",
+      "2026-03-01",
+      "2026-03-05",
+      "2026-05-01",
+      "2026-05-02",
+      "2026-05-23",
+      "2026-06-01",
+      "2026-06-02",
+      "2026-06-29",
+      "2026-07-11",
+      "2026-07-13"
+    ],
+    "source_rows": 21157,
+    "retained_rows": 17175,
+    "excluded_rows": 3982,
+    "source_time_start": "2025-12-26T00:05:00",
+    "source_time_end": "2026-11-05T09:45:00"
+  },
+  "target_stats_W": {
+    "min": 88.324,
+    "p05": 194.766,
+    "p50": 383.684,
+    "p95": 612.504,
+    "p99": 703.872,
+    "max": 783.114
+  },
+  "cross_validation": {
+    "method": "sunlight-episode-grouped-deterministic-folds",
+    "folds": 5,
+    "constant_rmse_W": 135.894669,
+    "candidate_rmse_W": {
+      "1": 130.440487,
+      "2": 129.506095,
+      "3": 128.152885
+    },
+    "selected_rmse_W": 128.152885
+  },
+  "warnings": [
+    "太阳阵功率为目标代理量，不是独立阵列功率测量",
+    "P_charge_est由母线测点差额推断，充电支路边界仍未验证",
+    "温度、太阳入射角、S3R工作点和阵列老化未显式建模"
+  ],
+  "source": {
+    "file": "satellites\\SCS-01-01\\power_model\\batch_validation_training_excluded.csv",
+    "sha256": "c39bdd78fb0cf7b01b906b27fa16bdda48df1ce5ea7705025953222c043b1a13"
+  },
+  "model_code": {
+    "file": "solar_power_calibration.py",
+    "sha256": "c59f6802be1fdf8a4e73af5b15ebd2545b9592dbb8a0cd2a3545d3ae0055d92b"
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "schema_version": "1.1",
+  "satellite_id": "YJ-3D",
+  "status": "completed_with_warnings",
+  "timezone": "Asia/Shanghai",
+  "provenance": {
+    "model_file": null,
+    "model_file_sha256": null,
+    "request_file": null,
+    "request_file_sha256": null,
+    "model_code_sha256": "6f1ac16f27aff426987d84bd4bcd34ba980128f9fb1e8199d9c42f7632ff289c"
+  },
+  "window": {
+    "start": "2026-09-10T18:41:00+08:00",
+    "end": "2026-09-10T19:30:00+08:00",
+    "duration_hours": 0.816667,
+    "step_seconds_max": 60
+  },
+  "initial_state": {
+    "time": "2026-09-10T18:41:00+08:00",
+    "soc": 1.0,
+    "soc_source": "battery_voltage_mapped_by_v_soc_curve",
+    "battery_voltage_V": 28.74115501960784,
+    "remaining_Ah": 37.69,
+    "remaining_energy_nominal_kWh": 0.952426
+  },
+  "target_end_state": {
+    "time": "2026-09-10T19:30:00+08:00",
+    "soc": 1.0,
+    "remaining_Ah": 37.69,
+    "remaining_energy_nominal_kWh": 0.952426,
+    "available_to_soc_floor_Ah": 37.69,
+    "available_to_soc_floor_nominal_kWh": 0.952426,
+    "battery_voltage_from_v_soc_V": 28.18,
+    "soc_half_spread_from_power_models": 0.000939
+  },
+  "minimum_state": {
+    "soc": 1.0,
+    "time": "2026-09-10T18:41:00+08:00",
+    "remaining_Ah": 37.69
+  },
+  "energy": {
+    "solar_to_bus_kWh": 0.116106,
+    "load_kWh": 0.112232,
+    "battery_charge_bus_kWh": 0.0,
+    "battery_discharge_stored_kWh": 0.0,
+    "unserved_energy_at_floor_kWh": 0.0,
+    "model_power_empirical_spread_kWh": 0.000894,
+    "unit_energy_kWh": {
+      "pl13": 0.003701,
+      "pl17": 0.003561,
+      "pl19": 0.00628,
+      "heater_battery_main": 0.007328,
+      "heater_star_a_main": 0.000213,
+      "heater_star_b_main": 0.003669,
+      "heater_propulsion_main": 0.007225
+    },
+    "unit_model_power_empirical_spread_kWh": {
+      "pl13": 0.000112,
+      "pl17": 2.3e-05,
+      "pl19": 0.000837,
+      "heater_battery_main": 0.0001,
+      "heater_star_a_main": 2.9e-05,
+      "heater_star_b_main": 0.000274,
+      "heater_propulsion_main": 5e-06
+    }
+  },
+  "limits": {
+    "floor_limited_seconds": 0.0,
+    "ceiling_limited_seconds": 2940.0
+  },
+  "assumptions": {
+    "battery_capacity_Ah": 37.69,
+    "nominal_voltage_V": 25.27,
+    "nominal_energy_kWh": 0.952426,
+    "eta_charge": 1.0,
+    "eta_discharge": 1.0,
+    "soc_floor": 0.0,
+    "battery_energy_basis": "rated capacity x nominal voltage; SOC is coulomb/energy bookkeeping"
+  },
+  "warnings": [
+    "背景负载按 time 时刻的遥测快照保持恒定；未列入任务的热控等负载变化未单独建模"
+  ],
+  "evidence": {
+    "power_model_status": "data-fitted minute proxies",
+    "battery_model_status": "bookkeeping prediction, not independent in-orbit validation",
+    "solar_input_status": "太阳阵功率模块: historical_polynomial",
+    "solar_bus_power_constraint": "unconstrained",
+    "background_load_status": "由精确分钟遥测的总负载减去任务单机当前功率推导",
+    "not_modeled": [
+      "temperature-dependent battery capacity",
+      "charge/discharge hysteresis and rate dependence",
+      "solar-array incidence and MPPT/S3R operating point",
+      "measurement-boundary overlap among unit power branches",
+      "unlisted load changes: background load is held constant at snapshot"
+    ]
+  },
+  "input_contract": {
+    "schema_version": "1.1-simplified",
+    "user_inputs": [
+      "time",
+      "prediction.end",
+      "prediction.step_seconds",
+      "prediction.phase_segments",
+      "prediction.tasks"
+    ],
+    "task_semantics": "run_mode applies on [start,end); after_mode applies from end until the next task for that unit or prediction end; omitted after_mode restores the current telemetry-derived power"
+  },
+  "derived_state": {
+    "snapshot_time": "2026-09-10T18:41:00+08:00",
+    "battery_voltage_V": 28.74115501960784,
+    "bus_voltage_V": 28.458439843137253,
+    "total_load_W": 142.14599626440045,
+    "phase": "日照",
+    "current_task_unit_power_W": {
+      "heater_battery_main": 24.198627524563367,
+      "heater_propulsion_main": 9.81721446102839,
+      "heater_star_a_main": 0.1225225561158332,
+      "heater_star_b_main": 0.1248193204470644,
+      "pl13": 3.891346493067088,
+      "pl17": 3.681193135994496,
+      "pl19": 2.0397740130637585
+    },
+    "background_load_W": 98.27049876012046,
+    "solar_source": "historical_polynomial",
+    "solar_bus_transfer_efficiency": 1.0,
+    "solar_load_following_charge_margin_W": null,
+    "solar_provider_file": "D:\\Tianji\\project\\卫星能源评估\\ResearchSpace\\satellites\\YJ-3D\\power_model\\solar_power_model_holdout_20260728.json",
+    "solar_provider_file_sha256": "1ad8202a46023effd6ce44046982b69e52bc3019b19f46d8829067c00d755ad4",
+    "phase_segments": [
+      {
+        "start": "2026-09-10T18:41:00+08:00",
+        "end": "2026-09-10T19:30:00+08:00",
+        "phase": "sun"
+      }
+    ]
+  },
+  "snapshot": {
+    "provider": "YJ3DHistoricalSnapshotProvider",
+    "selected_time_beijing": "2026-09-10T18:41:00"
+  },
+  "evaluation": {
+    "target_soc_error_pp": null,
+    "remaining_Ah_error": null,
+    "target_soc_error_raw_pp": 0.9823242557849454,
+    "remaining_Ah_error_raw": 0.3702380120053459,
+    "target_soc_error_valid_intervals_only_pp": 0.24327132493800718,
+    "solar_energy_relative_error_pct": 0.07236255171970402,
+    "solar_energy_relative_error_raw_pct": 0.07236255171970402,
+    "load_energy_relative_error_pct": null,
+    "load_energy_relative_error_raw_pct": -1.8033812001756189
+  }
+}

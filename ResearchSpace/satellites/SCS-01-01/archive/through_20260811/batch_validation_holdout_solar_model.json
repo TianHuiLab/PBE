@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0",
+  "satellite_id": "SCS-01-01",
+  "model_type": "polynomial",
+  "selected_degree": 3,
+  "coefficients_W_per_hour_power": [
+    367.949670102,
+    535.033613187,
+    -2437.720684997,
+    1897.146945597
+  ],
+  "constant_power_W": 377.436,
+  "target_definition": {
+    "formula": "P_load + P_charge_est",
+    "p_load_basis": "TMD016 × TMD018 minute means",
+    "p_charge_basis": "P_charge_est = max(TMD016×TMD017 - TMD016×TMD018, 0); inferred, not independent battery-charge measurement",
+    "status": "user-confirmed provisional 01-star formula",
+    "excluded_alternative": "TMD016×TMD017 + battery charge"
+  },
+  "time_feature": {
+    "name": "elapsed_hours_since_sunlight_segment_start",
+    "reset_at": "every continuous sunlight segment"
+  },
+  "support_hours": [
+    0.0,
+    0.983333
+  ],
+  "extrapolation_policy": "clamp_to_support",
+  "shadow_power_W": 0.0,
+  "training": {
+    "n_valid_sun_samples": 10487,
+    "sun_segments": 2723,
+    "shadow_samples_in_source": 5141,
+    "time_start": "2025-12-26T00:12:00",
+    "time_end": "2026-08-11T10:27:00",
+    "winsor_quantile": 0.999,
+    "winsor_cap_W": 765.52
+  },
+  "target_stats_W": {
+    "min": 88.324,
+    "p05": 191.62,
+    "p50": 377.436,
+    "p95": 616.848,
+    "p99": 705.461623,
+    "max": 783.114
+  },
+  "cross_validation": {
+    "method": "sunlight-episode-grouped-deterministic-folds",
+    "folds": 5,
+    "constant_rmse_W": 138.552554,
+    "candidate_rmse_W": {
+      "1": 133.398419,
+      "2": 132.384239,
+      "3": 130.960554
+    },
+    "selected_rmse_W": 130.960554
+  },
+  "warnings": [
+    "太阳阵功率为目标代理量，不是独立阵列功率测量",
+    "P_charge_est由母线测点差额推断，充电支路边界仍未验证",
+    "温度、太阳入射角、S3R工作点和阵列老化未显式建模"
+  ],
+  "source": {
+    "file": "ResearchSpace\\satellites\\SCS-01-01\\power_model\\batch_validation_training_excluded.csv",
+    "sha256": "486bebb9092f96278418f6a3cac10a1cb67a90ae20921ab981547447ded2f4b2"
+  },
+  "model_code": {
+    "file": "solar_power_calibration.py",
+    "sha256": "130f91ec0c87d7d7f85331ed113324d8815445cf909eca3c0e6300dd909b2a94"
+  }
+}

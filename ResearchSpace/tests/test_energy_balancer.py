@@ -13,8 +13,11 @@ v2.2 口径（用户决策 2026-10-23）：
 能量恒等式与帆板级-母线级独立差额、缺口诊断、健康度评分、向量化回归。
 """
 import sys
+import json
+import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 import numpy as np
 import pandas as pd
@@ -63,6 +66,44 @@ class LoadValidationTests(unittest.TestCase):
 
 
 class PhaseClassificationTests(unittest.TestCase):
+    def test_illumination_flag_overrides_low_panel_current_and_tracks_source(self):
+        wide = make_wide(minute_index(5), [0.4, 20, 0.3, 0.3, 0.3],
+                         [5] * 5, [0] * 5, [27] * 5)
+        wide['TMD009__mn'] = [0.4, 20, 0.3, 0.3, 0.3]
+        wide['TMD009__mx'] = [0.4, 20, 0.3, 0.3, 0.3]
+        wide['TMK5315__state'] = ['阳照区', '阴影区', '__mixed__', None, '异常状态']
+        ev = EnergyBalanceEvaluator(phase_code='TMK5315'); ev.load(wide)
+        d = ev.classify_phase(ev.compute_power())
+        self.assertEqual(d['phase'].tolist(), ['日照', '地影', '未判定', '地影', '未判定'])
+        self.assertEqual(d['phase_source'].tolist(),
+                         ['TMK5315', 'TMK5315', 'TMK5315_切换', 'TMD009_回退', 'TMK5315_异常'])
+        self.assertEqual(d['phase_conflict'].tolist(), [True, True, False, False, False])
+
+    def test_numeric_illumination_switch_does_not_fall_back_to_current(self):
+        wide = make_wide(minute_index(3), [20, 20, 20], [5] * 3,
+                         [8] * 3, [27] * 3)
+        wide['TMK5315'] = [1, 0, 0.5]
+        wide['TMK5315__mn'] = [1, 0, 0]
+        wide['TMK5315__mx'] = [1, 0, 1]
+        ev = EnergyBalanceEvaluator(phase_code='TMK5315'); ev.load(wide)
+        d = ev.classify_phase(ev.compute_power())
+        self.assertEqual(d['phase'].tolist(), ['日照', '地影', '未判定'])
+
+    def test_minute_extrema_preserve_pure_eclipse_and_mark_mixed(self):
+        wide = make_wide(minute_index(3), [0, 10, 10], [5] * 3,
+                         [0, 8, 8], [27] * 3)
+        wide['TMD009__mn'] = [0, 0, 10]
+        wide['TMD009__mx'] = [0, 20, 10]
+        ev = EnergyBalanceEvaluator(); ev.load(wide)
+        d = ev.classify_phase(ev.compute_power())
+        self.assertEqual(d['phase'].tolist(), ['地影', '未判定', '日照'])
+
+    def test_missing_solar_current_is_unknown(self):
+        wide = make_wide(minute_index(1), [np.nan], [5], [8], [27])
+        ev = EnergyBalanceEvaluator(); ev.load(wide)
+        d = ev.classify_phase(ev.compute_power())
+        self.assertEqual(d['phase'].tolist(), ['未判定'])
+
     def test_majority_vote_over_5_samples(self):
         # 光照标志 T T T T T F F F F F；中心滚动 5 样本均值>=0.5 判日照
         # 索引 4 的窗口 [2..6]=T,T,T,F,F → 0.6 日照；索引 5 的窗口 [3..7]=T,T,F,F,F → 0.4 地影
@@ -92,6 +133,28 @@ class PhaseClassificationTests(unittest.TestCase):
         self.assertEqual(list(d['phase']), ['日照'] * 5)
 
 
+class BatterySwitchDirectionTests(unittest.TestCase):
+    def test_closed_switch_assigns_positive_current_even_when_bus_difference_is_negative(self):
+        wide = make_wide(minute_index(4), [20] * 4, [8] * 4,
+                         [14] * 4, [28] * 4)
+        wide['TMH025'] = [26, 26, 26, 1000]
+        wide['TMH025__mn'] = [24, 24, 24, 24]
+        wide['TMH025__mx'] = [29, 29, 29, 1000]
+        wide['TMD074_b1__state'] = ['通', '断', '__mixed__', '通']
+        ev = EnergyBalanceEvaluator(battery_direction={
+            'current_code': 'TMH025', 'switch_code': 'TMD074_b1',
+            'discharge_state': '通'})
+        ev.load(wide)
+        d, metrics, _, _ = ev.run_all()
+        self.assertEqual(d['I_battery_switch_signed_A'].iloc[0], 26)
+        self.assertEqual(d['P_battery_terminal_switch_W'].iloc[0], 728)
+        self.assertTrue(d['battery_direction_conflict'].iloc[0])
+        self.assertTrue(pd.isna(d['I_battery_switch_signed_A'].iloc[1]))
+        self.assertTrue(pd.isna(d['I_battery_switch_signed_A'].iloc[2]))
+        self.assertTrue(pd.isna(d['I_battery_switch_signed_A'].iloc[3]))
+        self.assertEqual(metrics['n_battery_switch_discharge'], 2)
+
+
 class SocMappingTests(unittest.TestCase):
     """v2.2：V-SOC 主曲线为三体星设计放电表（22.82–29.31V ↔ 10%–100%）。"""
 
@@ -118,9 +181,9 @@ class SocMappingTests(unittest.TestCase):
         wide = make_wide(idx, [20, 20, 20], [5, 5, 5], [5, 5, 5], [np.nan, 28.55, 28.55])
         ev = EnergyBalanceEvaluator(); ev.load(wide)
         d = ev.estimate_battery(ev.classify_phase(ev.compute_power()))
-        self.assertAlmostEqual(d['SOC'].iloc[0], ev.design['soc_unknown'] * 100, places=6)
-        # 缺测样本不臆造充电/放电
-        self.assertEqual(d['P_charge'].iloc[0], 0.0)
+        self.assertTrue(np.isnan(d['SOC'].iloc[0]))
+        # 电池电压缺测不影响由独立功率测点计算的差额。
+        self.assertAlmostEqual(d['P_charge'].iloc[0], d['P_excess'].iloc[0])
         self.assertEqual(d['P_disch'].iloc[0], 0.0)
         self.assertFalse(d['SOC_observed'].iloc[0])
 
@@ -280,40 +343,37 @@ class VectorizationRegressionTests(unittest.TestCase):
         d = ev.estimate_battery(ev.classify_phase(ev.compute_power()))
 
         vb = d['V_bat'].to_numpy(); pex = d['P_excess'].to_numpy()
-        soc = np.array([(ev.design['soc_unknown'] if np.isnan(v) else eb._v_soc_map(v))
+        soc = np.array([(np.nan if np.isnan(v) else eb._v_soc_map(v))
                         for v in vb])
         soc = np.clip(soc, ev.design['soc_floor'], 1.0)
         pc = np.zeros(n); pd_ = np.zeros(n)
         for i in range(n):
-            if np.isnan(vb[i]):
-                continue
             p = pex[i]
             if p >= 0:
                 pc[i] = p
             else:
                 pd_[i] = p
-        self.assertTrue(np.allclose(d['SOC'], soc * 100))
+        self.assertTrue(np.allclose(d['SOC'], soc * 100, equal_nan=True))
         self.assertTrue(np.allclose(d['P_charge'], pc))
         self.assertTrue(np.allclose(d['P_disch'], pd_))
 
 
 # ---- 13 号审查报告确认缺陷的回归测试（2026-10-22） -----------------------
 class DefectRegressionTests(unittest.TestCase):
-    def test_pexcess_nan_does_not_leave_nan_in_p_disch(self):
-        """P_excess 缺测（V_bus/I_load/I_bus 缺测）时，charge/disch 必须清零，
-        不允许 NaN 渗入（修复前 P_disch=NaN，靠 esum skipna 才未炸）。"""
+    def test_pexcess_nan_is_explicitly_excluded_from_energy(self):
+        """功率缺测不能伪装为 0，能量统计只纳入完整功率样本。"""
         idx = minute_index(3)
         wide = make_wide(idx, [20, 20, 20], [5, np.nan, 5], [5, 5, 5],
                          [26.8, 27.0, 28.4])
         ev = EnergyBalanceEvaluator(); ev.load(wide)
-        d = ev.estimate_battery(ev.compute_power())
-        self.assertFalse(d['P_disch'].isna().any(),
-                         f"P_disch 仍含 NaN: {d['P_disch'].tolist()}")
-        self.assertFalse(d['P_charge'].isna().any())
+        d, _, _, res = ev.run_all()
+        self.assertTrue(np.isnan(d['P_disch'].iloc[1]))
+        self.assertTrue(np.isnan(d['P_charge'].iloc[1]))
+        self.assertEqual(res['e_sun']['n_excluded_power_samples'], 1)
+        self.assertAlmostEqual(res['e_sun']['e_residual_kWh'], 0.0)
 
-    def test_soc_placeholder_does_not_pollute_percentile_stats(self):
-        """V_bat 缺测样本落 soc_unknown 占位，但 dod_p95/soc_p5 统计必须只用
-        实测锚定样本（SOC_observed）。（修复前 90% 占位把统计往中间拉）"""
+    def test_missing_soc_does_not_pollute_percentile_stats(self):
+        """V_bat 缺测样本的 SOC/DoD 保持空值，分位数只用实测锚定样本。"""
         idx = minute_index(5)
         wide = make_wide(idx, [20] * 5, [5] * 5, [5] * 5,
                          [26.0, np.nan, np.nan, np.nan, 28.4])
@@ -361,12 +421,19 @@ class DefectRegressionTests(unittest.TestCase):
         self.assertAlmostEqual(h2['hs'], 100.0, places=6)
 
     def test_v_soc_empty_or_nonmonotonic_rejected(self):
-        """配置 v_soc_curve 非单调增时，np.interp 会静默出错——模块加载即拒绝。"""
-        bad = {"points": [[26.5, .2], [26.0, .4]]}  # 电压非单调
-        t = np.array(bad['points'], dtype=float)
-        with self.assertRaises(ValueError):
-            if not np.all(np.diff(t[:, 0]) > 0):
-                raise ValueError("电压点必须严格单调递增")
+        """真实配置加载边界拒绝空表、逆序、非有限和越界 SOC。"""
+        bad_tables = [[], [[26.5, .2], [26.0, .4]],
+                      [[26.0, .2], [27.0, float('nan')]],
+                      [[26.0, .2], [27.0, 1.2]]]
+        with tempfile.TemporaryDirectory() as folder:
+            cfg = Path(folder) / 'v_soc_curve.json'
+            with mock.patch.object(eb, 'CONFIG_DIR', Path(folder)):
+                for points in bad_tables:
+                    with self.subTest(points=points):
+                        cfg.write_text(json.dumps({'points': points}),
+                                       encoding='utf-8')
+                        with self.assertRaises(ValueError):
+                            eb._load_v_soc_table()
 
 
 if __name__ == '__main__':

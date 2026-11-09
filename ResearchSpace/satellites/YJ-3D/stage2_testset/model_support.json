@@ -1,0 +1,188 @@
+{
+  "satellite_id": "YJ-3D",
+  "task_extraction_rule": "3-point centered median smoothing; merge state runs shorter than 3 minutes into the adjacent state",
+  "supported_task_units": [
+    {
+      "unit_id": "pl9",
+      "active_threshold_W": 2.270479,
+      "high_threshold_W": null,
+      "active_power_W": 2.97187,
+      "high_power_W": null,
+      "low_power_W": 1.569089
+    },
+    {
+      "unit_id": "pl10",
+      "active_threshold_W": 2.00332,
+      "high_threshold_W": null,
+      "active_power_W": 2.634723,
+      "high_power_W": null,
+      "low_power_W": 1.371917
+    },
+    {
+      "unit_id": "pl13",
+      "active_threshold_W": 10.24319,
+      "high_threshold_W": null,
+      "active_power_W": 16.751291,
+      "high_power_W": null,
+      "low_power_W": 3.735089
+    },
+    {
+      "unit_id": "pl16",
+      "active_threshold_W": 3.925064,
+      "high_threshold_W": null,
+      "active_power_W": 7.850078,
+      "high_power_W": null,
+      "low_power_W": 5e-05
+    },
+    {
+      "unit_id": "pl17",
+      "active_threshold_W": 7.829133,
+      "high_threshold_W": null,
+      "active_power_W": 11.974853,
+      "high_power_W": null,
+      "low_power_W": 3.683413
+    },
+    {
+      "unit_id": "pl19",
+      "active_threshold_W": 9.729668,
+      "high_threshold_W": null,
+      "active_power_W": 17.418868,
+      "high_power_W": null,
+      "low_power_W": 2.040468
+    },
+    {
+      "unit_id": "pl21",
+      "active_threshold_W": 26.914898,
+      "high_threshold_W": null,
+      "active_power_W": 53.829766,
+      "high_power_W": null,
+      "low_power_W": 3.1e-05
+    },
+    {
+      "unit_id": "pl26",
+      "active_threshold_W": 11.466726,
+      "high_threshold_W": null,
+      "active_power_W": 22.933433,
+      "high_power_W": null,
+      "low_power_W": 2e-05
+    },
+    {
+      "unit_id": "pl27",
+      "active_threshold_W": 11.641349,
+      "high_threshold_W": null,
+      "active_power_W": 23.282674,
+      "high_power_W": null,
+      "low_power_W": 2.5e-05
+    },
+    {
+      "unit_id": "heater_battery_main",
+      "active_threshold_W": 12.169605,
+      "high_threshold_W": null,
+      "active_power_W": 24.216805,
+      "high_power_W": null,
+      "low_power_W": 0.122405
+    },
+    {
+      "unit_id": "heater_star_a_main",
+      "active_threshold_W": 1.260238,
+      "high_threshold_W": null,
+      "active_power_W": 2.398963,
+      "high_power_W": null,
+      "low_power_W": 0.121513
+    },
+    {
+      "unit_id": "heater_star_b_main",
+      "active_threshold_W": 4.583642,
+      "high_threshold_W": null,
+      "active_power_W": 9.04005,
+      "high_power_W": null,
+      "low_power_W": 0.127235
+    },
+    {
+      "unit_id": "heater_propulsion_main",
+      "active_threshold_W": 4.982182,
+      "high_threshold_W": null,
+      "active_power_W": 9.838278,
+      "high_power_W": null,
+      "low_power_W": 0.126085
+    }
+  ],
+  "constant_only_units": [
+    {
+      "unit_id": "pl0",
+      "active_power_W": 0.571958
+    },
+    {
+      "unit_id": "pl1",
+      "active_power_W": 3.610263
+    },
+    {
+      "unit_id": "pl3",
+      "active_power_W": 1.141285
+    },
+    {
+      "unit_id": "pl5",
+      "active_power_W": 2.603835
+    },
+    {
+      "unit_id": "pl6",
+      "active_power_W": 0.486186
+    },
+    {
+      "unit_id": "pl8",
+      "active_power_W": 1.556208
+    },
+    {
+      "unit_id": "pl11",
+      "active_power_W": 1.995693
+    },
+    {
+      "unit_id": "pl12",
+      "active_power_W": 0.166492
+    },
+    {
+      "unit_id": "pl20",
+      "active_power_W": 2.6e-05
+    },
+    {
+      "unit_id": "pl22",
+      "active_power_W": 37.34567
+    },
+    {
+      "unit_id": "pl28",
+      "active_power_W": 2.5e-05
+    },
+    {
+      "unit_id": "pl30",
+      "active_power_W": 1.9e-05
+    },
+    {
+      "unit_id": "pl33",
+      "active_power_W": 5e-06
+    },
+    {
+      "unit_id": "heater_ir_camera_main",
+      "active_power_W": 0.127233
+    },
+    {
+      "unit_id": "heater_optical_box_main",
+      "active_power_W": 0.123879
+    },
+    {
+      "unit_id": "heater_router_main",
+      "active_power_W": 0.124896
+    },
+    {
+      "unit_id": "heater_compute_g1_main",
+      "active_power_W": 0.121065
+    },
+    {
+      "unit_id": "heater_compute_yx_main",
+      "active_power_W": 0.120725
+    },
+    {
+      "unit_id": "heater_laser_main",
+      "active_power_W": 0.120674
+    }
+  ]
+}

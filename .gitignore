@@ -3,6 +3,9 @@ __pycache__/
 *.pyc
 *.pyo
 .pytest_cache/
+*.egg-info/
+.venv/
+venv/
 
 # 凭据（绝不入库）
 .env
@@ -13,11 +16,27 @@ out/
 demo_report.md
 *.pkl
 
-# 大数据文件（由 s1_fetch.py 从 ClickHouse 重新生成，约 6.4MB）
+# 生产遥测与取数清单（在本地重新生成，不提交）
 data_power_minute.csv
+data_power_minute.manifest.json
+data_power_raw.csv
+data_power_raw.manifest.json
+data_abs_current_minute.csv
+data_abs_current_minute.manifest.json
 
 # 资料区：卫星文档（xlsx/pdf/docx/yaml，约 43MB）另行归档，不入库
 Data/
+
+# 训练集、验证集与原始/派生遥测数据统一保存在数据服务器，不入库
+ResearchSpace/satellites/**/*.csv
+ResearchSpace/training_data
+
+# 本地实验快照与自动备份
+ResearchSpace/.yj-*/
+*.bak
+
+# 可重新生成的分析输出
+out_*/
 
 # 工作区记忆/会话数据
 .workbuddy/

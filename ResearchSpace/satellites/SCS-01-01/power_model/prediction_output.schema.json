@@ -1,0 +1,362 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.tianji/scs-01-01/prediction_output.schema.json",
+  "title": "SCS-01-01 出阴影期电池预测输出",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "satellite_id",
+    "status",
+    "window",
+    "initial_state",
+    "target_end_state",
+    "minimum_state",
+    "energy",
+    "assumptions",
+    "warnings",
+    "evidence",
+    "input_contract",
+    "derived_state",
+    "snapshot"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.1"
+    },
+    "satellite_id": {
+      "const": "SCS-01-01"
+    },
+    "status": {
+      "enum": [
+        "completed",
+        "completed_with_warnings",
+        "completed_with_shortfall"
+      ]
+    },
+    "timezone": {
+      "type": "string"
+    },
+    "provenance": {
+      "type": "object",
+      "properties": {
+        "model_file": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "model_file_sha256": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "request_file": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "request_file_sha256": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "model_code_sha256": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "input_contract": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "user_inputs",
+        "task_semantics"
+      ]
+    },
+    "derived_state": {
+      "type": "object",
+      "required": [
+        "snapshot_time",
+        "battery_voltage_V",
+        "bus_voltage_V",
+        "total_load_W",
+        "phase",
+        "current_task_unit_power_W",
+        "background_load_W",
+        "solar_source",
+        "phase_segments"
+      ],
+      "properties": {
+        "snapshot_time": {
+          "type": "string"
+        },
+        "battery_voltage_V": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "bus_voltage_V": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "total_load_W": {
+          "type": "number",
+          "minimum": 0
+        },
+        "phase": {
+          "type": "string"
+        },
+        "current_task_unit_power_W": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "background_load_W": {
+          "type": "number",
+          "minimum": 0
+        },
+        "solar_source": {
+          "type": "string"
+        },
+        "phase_segments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "start",
+              "end",
+              "phase"
+            ],
+            "properties": {
+              "start": {
+                "type": "string"
+              },
+              "end": {
+                "type": "string"
+              },
+              "phase": {
+                "enum": [
+                  "sun",
+                  "eclipse"
+                ]
+              }
+            }
+          }
+        },
+        "solar_provider_file": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "solar_provider_file_sha256": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "snapshot": {
+      "type": "object"
+    },
+    "window": {
+      "type": "object",
+      "required": [
+        "start",
+        "end",
+        "duration_hours",
+        "step_seconds_max"
+      ],
+      "properties": {
+        "start": {
+          "type": "string"
+        },
+        "end": {
+          "type": "string"
+        },
+        "duration_hours": {
+          "type": "number",
+          "minimum": 0
+        },
+        "step_seconds_max": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "additionalProperties": true
+    },
+    "initial_state": {
+      "$ref": "#/$defs/state"
+    },
+    "target_end_state": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/state"
+        },
+        {
+          "type": "object",
+          "required": [
+            "available_to_soc_floor_Ah",
+            "available_to_soc_floor_nominal_kWh",
+            "soc_half_spread_from_power_models"
+          ]
+        }
+      ]
+    },
+    "minimum_state": {
+      "type": "object",
+      "required": [
+        "soc",
+        "time",
+        "remaining_Ah"
+      ],
+      "properties": {
+        "soc": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "time": {
+          "type": "string"
+        },
+        "remaining_Ah": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": true
+    },
+    "energy": {
+      "type": "object",
+      "required": [
+        "solar_to_bus_kWh",
+        "load_kWh",
+        "battery_charge_bus_kWh",
+        "battery_discharge_stored_kWh",
+        "unserved_energy_at_floor_kWh",
+        "model_power_empirical_spread_kWh",
+        "unit_energy_kWh",
+        "unit_model_power_empirical_spread_kWh"
+      ],
+      "properties": {
+        "solar_to_bus_kWh": {
+          "type": "number",
+          "minimum": 0
+        },
+        "load_kWh": {
+          "type": "number",
+          "minimum": 0
+        },
+        "battery_charge_bus_kWh": {
+          "type": "number",
+          "minimum": 0
+        },
+        "battery_discharge_stored_kWh": {
+          "type": "number",
+          "minimum": 0
+        },
+        "unserved_energy_at_floor_kWh": {
+          "type": "number",
+          "minimum": 0
+        },
+        "model_power_empirical_spread_kWh": {
+          "type": "number",
+          "minimum": 0
+        },
+        "unit_energy_kWh": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "unit_model_power_empirical_spread_kWh": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number",
+            "minimum": 0
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "limits": {
+      "type": "object"
+    },
+    "assumptions": {
+      "type": "object"
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "required": [
+        "power_model_status",
+        "battery_model_status",
+        "solar_input_status",
+        "background_load_status",
+        "not_modeled"
+      ]
+    }
+  },
+  "$defs": {
+    "state": {
+      "type": "object",
+      "required": [
+        "time",
+        "soc",
+        "remaining_Ah",
+        "remaining_energy_nominal_kWh"
+      ],
+      "properties": {
+        "time": {
+          "type": "string"
+        },
+        "soc": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "soc_source": {
+          "type": "string"
+        },
+        "battery_voltage_V": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "battery_voltage_from_v_soc_V": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "remaining_Ah": {
+          "type": "number",
+          "minimum": 0
+        },
+        "remaining_energy_nominal_kWh": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

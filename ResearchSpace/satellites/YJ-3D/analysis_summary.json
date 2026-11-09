@@ -1,0 +1,73 @@
+{
+  "phase_stats": {
+    "日照": {
+      "minutes": 101628,
+      "solar_current_median_A": 4.3106961764705884,
+      "bus_current_median_A": 3.8166485909433963,
+      "battery_current_median_A": 0.0036994509803921,
+      "solar_bus_proxy_median_W": 122.72880762204346,
+      "bus_measure_median_W": 108.66544173011259,
+      "battery_signed_trial_median_W": 0.10634219164382469,
+      "residual_diag_median_W": 13.293213303254596
+    },
+    "地影": {
+      "minutes": 1717,
+      "solar_current_median_A": 0.4351558909090909,
+      "bus_current_median_A": 4.725551020408163,
+      "battery_current_median_A": 4.676654142857142,
+      "solar_bus_proxy_median_W": 12.218883211956662,
+      "bus_measure_median_W": 132.57536555101234,
+      "battery_signed_trial_median_W": 132.38046078384838,
+      "residual_diag_median_W": 13.59340942921866
+    },
+    "未判定": {
+      "minutes": 391,
+      "solar_current_median_A": 3.1550227924528302,
+      "bus_current_median_A": 4.170745875,
+      "battery_current_median_A": 1.0995605208333334,
+      "solar_bus_proxy_median_W": 101.75020712086572,
+      "bus_measure_median_W": 119.08765390028904,
+      "battery_signed_trial_median_W": 30.17095478123813,
+      "residual_diag_median_W": 13.45050868185327
+    }
+  },
+  "quality": {
+    "bus_voltage": {
+      "n_numeric_minutes": 103736,
+      "raw_min": 0.55,
+      "raw_max": 579.08125
+    },
+    "bus_current": {
+      "n_numeric_minutes": 103736,
+      "raw_min": -12.625,
+      "raw_max": 505.126953
+    },
+    "battery_voltage": {
+      "n_numeric_minutes": 103736,
+      "raw_min": 0.75,
+      "raw_max": 579.848437
+    },
+    "battery_current": {
+      "n_numeric_minutes": 103736,
+      "raw_min": -25.2,
+      "raw_max": 897.62373
+    },
+    "solar_current": {
+      "n_numeric_minutes": 103736,
+      "raw_min": -24.8,
+      "raw_max": 851.295215
+    }
+  },
+  "window": {
+    "start_beijing": "2026-07-26 02:04:00",
+    "end_beijing": "2026-07-26 04:04:00",
+    "focus_beijing": "2026-07-26 03:04:00",
+    "minutes": 121,
+    "phase_minutes": {
+      "日照": 104,
+      "地影": 16,
+      "未判定": 1
+    }
+  },
+  "days_with_observations": 93
+}

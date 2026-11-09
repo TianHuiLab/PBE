@@ -1,0 +1,158 @@
+{
+  "unit_plan": {
+    "laser_processor_1": [
+      {
+        "start": "2025-12-29T11:58:00",
+        "end": "2025-12-29T12:17:00",
+        "mode": "active"
+      },
+      {
+        "start": "2025-12-29T12:17:00",
+        "end": "2025-12-29T12:55:00",
+        "mode": "idle"
+      },
+      {
+        "start": "2025-12-29T12:55:00",
+        "end": "2025-12-29T12:57:00",
+        "mode": "active"
+      }
+    ],
+    "reaction_wheel_1": [
+      {
+        "start": "2025-12-29T11:58:00",
+        "end": "2025-12-29T12:48:00",
+        "mode": "idle"
+      },
+      {
+        "start": "2025-12-29T12:48:00",
+        "end": "2025-12-29T12:52:00",
+        "mode": "active"
+      },
+      {
+        "start": "2025-12-29T12:52:00",
+        "end": "2025-12-29T12:57:00",
+        "mode": "idle"
+      }
+    ],
+    "reaction_wheel_2": [
+      {
+        "start": "2025-12-29T11:58:00",
+        "end": "2025-12-29T12:48:00",
+        "mode": "idle"
+      },
+      {
+        "start": "2025-12-29T12:48:00",
+        "end": "2025-12-29T12:51:00",
+        "mode": "active"
+      },
+      {
+        "start": "2025-12-29T12:51:00",
+        "end": "2025-12-29T12:57:00",
+        "mode": "idle"
+      }
+    ],
+    "reaction_wheel_3": [
+      {
+        "start": "2025-12-29T11:58:00",
+        "end": "2025-12-29T12:48:00",
+        "mode": "idle"
+      },
+      {
+        "start": "2025-12-29T12:48:00",
+        "end": "2025-12-29T12:52:00",
+        "mode": "active"
+      },
+      {
+        "start": "2025-12-29T12:52:00",
+        "end": "2025-12-29T12:57:00",
+        "mode": "idle"
+      }
+    ]
+  },
+  "tasks": [
+    {
+      "start": "2025-12-29T11:58:00",
+      "end": "2025-12-29T12:17:00",
+      "unit": "laser_processor_1",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2025-12-29T12:17:00",
+      "end": "2025-12-29T12:55:00",
+      "unit": "laser_processor_1",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2025-12-29T12:55:00",
+      "end": "2025-12-29T12:57:00",
+      "unit": "laser_processor_1",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2025-12-29T11:58:00",
+      "end": "2025-12-29T12:48:00",
+      "unit": "reaction_wheel_1",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2025-12-29T12:48:00",
+      "end": "2025-12-29T12:52:00",
+      "unit": "reaction_wheel_1",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2025-12-29T12:52:00",
+      "end": "2025-12-29T12:57:00",
+      "unit": "reaction_wheel_1",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2025-12-29T11:58:00",
+      "end": "2025-12-29T12:48:00",
+      "unit": "reaction_wheel_2",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2025-12-29T12:48:00",
+      "end": "2025-12-29T12:51:00",
+      "unit": "reaction_wheel_2",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2025-12-29T12:51:00",
+      "end": "2025-12-29T12:57:00",
+      "unit": "reaction_wheel_2",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2025-12-29T11:58:00",
+      "end": "2025-12-29T12:48:00",
+      "unit": "reaction_wheel_3",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2025-12-29T12:48:00",
+      "end": "2025-12-29T12:52:00",
+      "unit": "reaction_wheel_3",
+      "run_mode": "active",
+      "after_mode": "active"
+    },
+    {
+      "start": "2025-12-29T12:52:00",
+      "end": "2025-12-29T12:57:00",
+      "unit": "reaction_wheel_3",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    }
+  ]
+}

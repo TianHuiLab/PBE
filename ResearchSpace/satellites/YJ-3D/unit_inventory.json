@@ -1,0 +1,941 @@
+{
+  "satellite_id": "YJ-3D",
+  "source_workbook": "Data/0010-云尖3D星/云尖3D星_遥测大表0813.xlsx",
+  "source_workbook_sha256": "e13e3d682dd93f426a0deddce5dbc3c804bfe35e307604ed5da5c51fa8fe0e45",
+  "boundary": "PL channel output telemetry; bank A/B physical relation not established",
+  "note": "PL channel is a power feed, not necessarily one independent physical box. The same box may have multiple feeds; A and B must not be summed or deduplicated without the power-distribution topology. Voltage-only feeds have no measured power.",
+  "units": [
+    {
+      "pl_channel": 0,
+      "group": "姿控",
+      "name": "磁强计 A",
+      "banks": {
+        "A": {
+          "voltage": {
+            "code": "TMPA001",
+            "sheet": "0301-PL_A",
+            "row": 2,
+            "workbook_name": "PL_0磁强计a电压",
+            "workbook_range": "11V~13V或0V~0.5V"
+          },
+          "current": {
+            "code": "TMPA002",
+            "sheet": "0301-PL_A",
+            "row": 3,
+            "workbook_name": "PL_0磁强计a电流",
+            "workbook_range": "0A~1A"
+          }
+        },
+        "B": {
+          "voltage": {
+            "code": "TMPB001",
+            "sheet": "0302-PL_B",
+            "row": 2,
+            "workbook_name": "PL_0磁强计a电压",
+            "workbook_range": "11V~13V或0V~0.5V"
+          },
+          "current": {
+            "code": "TMPB002",
+            "sheet": "0302-PL_B",
+            "row": 3,
+            "workbook_name": "PL_0磁强计a电流",
+            "workbook_range": "0A~1A"
+          }
+        }
+      },
+      "measurement_status": "paired_voltage_current"
+    },
+    {
+      "pl_channel": 1,
+      "group": "姿控",
+      "name": "光纤陀螺",
+      "banks": {
+        "A": {
+          "voltage": {
+            "code": "TMPA003",
+            "sheet": "0301-PL_A",
+            "row": 4,
+            "workbook_name": "PL_1光纤陀螺电压",
+            "workbook_range": "4.5V~5.5V或0V~0.5V"
+          },
+          "current": {
+            "code": "TMPA004",
+            "sheet": "0301-PL_A",
+            "row": 5,
+            "workbook_name": "PL_1光纤陀螺电流",
+            "workbook_range": "0A~1A"
+          }
+        },
+        "B": {
+          "voltage": {
+            "code": "TMPB003",
+            "sheet": "0302-PL_B",
+            "row": 4,
+            "workbook_name": "PL_1光纤陀螺电压",
+            "workbook_range": "4.5V~5.5V或0V~0.5V"
+          },
+          "current": {
+            "code": "TMPB004",
+            "sheet": "0302-PL_B",
+            "row": 5,
+            "workbook_name": "PL_1光纤陀螺电流",
+            "workbook_range": "0A~1A"
+          }
+        }
+      },
+      "measurement_status": "paired_voltage_current"
+    },
+    {
+      "pl_channel": 3,
+      "group": "姿控",
+      "name": "星敏 A",
+      "banks": {
+        "A": {
+          "voltage": {
+            "code": "TMPA007",
+            "sheet": "0301-PL_A",
+            "row": 8,
+            "workbook_name": "PL_3星敏A电压",
+            "workbook_range": "4.5V~5.5V或0V~0.5V"
+          },
+          "current": {
+            "code": "TMPA008",
+            "sheet": "0301-PL_A",
+            "row": 9,
+            "workbook_name": "PL_3星敏A电流",
+            "workbook_range": "0A~1A"
+          }
+        },
+        "B": {
+          "voltage": {
+            "code": "TMPB007",
+            "sheet": "0302-PL_B",
+            "row": 8,
+            "workbook_name": "PL_3星敏A电压",
+            "workbook_range": "4.5V~5.5V或0V~0.5V"
+          },
+          "current": {
+            "code": "TMPB008",
+            "sheet": "0302-PL_B",
+            "row": 9,
+            "workbook_name": "PL_3星敏A电流",
+            "workbook_range": "0A~1A"
+          }
+        }
+      },
+      "measurement_status": "paired_voltage_current"
+    },
+    {
+      "pl_channel": 5,
+      "group": "导航",
+      "name": "GNSS 接收机主",
+      "banks": {
+        "A": {
+          "voltage": {
+            "code": "TMPA011",
+            "sheet": "0301-PL_A",
+            "row": 12,
+            "workbook_name": "PL_5GNSS接收机主电压",
+            "workbook_range": "4.5V~5.5V或0V~0.5V"
+          },
+          "current": {
+            "code": "TMPA012",
+            "sheet": "0301-PL_A",
+            "row": 13,
+            "workbook_name": "PL_5GNSS接收机主电流",
+            "workbook_range": "0A~1A"
+          }
+        },
+        "B": {
+          "voltage": {
+            "code": "TMPB011",
+            "sheet": "0302-PL_B",
+            "row": 12,
+            "workbook_name": "PL_5GNSS接收机主电压",
+            "workbook_range": "4.5V~5.5V或0V~0.5V"
+          },
+          "current": {
+            "code": "TMPB012",
+            "sheet": "0302-PL_B",
+            "row": 13,
+            "workbook_name": "PL_5GNSS接收机主电流",
+            "workbook_range": "0A~1A"
+          }
+        }
+      },
+      "measurement_status": "paired_voltage_current"
+    },
+    {
+      "pl_channel": 6,
+      "group": "姿控",
+      "name": "星敏 B",
+      "banks": {
+        "A": {
+          "voltage": {
+            "code": "TMPA013",
+            "sheet": "0301-PL_A",
+            "row": 14,
+            "workbook_name": "PL_6星敏B电压",
+            "workbook_range": "4.5V~5.5V或0V~0.5V"
+          },
+          "current": {
+            "code": "TMPA014",
+            "sheet": "0301-PL_A",
+            "row": 15,
+            "workbook_name": "PL_6星敏B电流",
+            "workbook_range": "0A~1A"
+          }
+        },
+        "B": {
+          "voltage": {
+            "code": "TMPB013",
+            "sheet": "0302-PL_B",
+            "row": 14,
+            "workbook_name": "PL_6星敏B电压",
+            "workbook_range": "4.5V~5.5V或0V~0.5V"
+          },
+          "current": {
+            "code": "TMPB014",
+            "sheet": "0302-PL_B",
+            "row": 15,
+            "workbook_name": "PL_6星敏B电流",
+            "workbook_range": "0A~1A"
+          }
+        }
+      },
+      "measurement_status": "paired_voltage_current"
+    },
+    {
+      "pl_channel": 8,
+      "group": "姿控",
+      "name": "飞轮 X",
+      "banks": {
+        "A": {
+          "current": {
+            "code": "TMPA029",
+            "sheet": "0301-PL_A",
+            "row": 30,
+            "workbook_name": "PL_8飞轮X电流",
+            "workbook_range": "0A~1A"
+          },
+          "voltage": {
+            "code": "TMPA030",
+            "sheet": "0301-PL_A",
+            "row": 31,
+            "workbook_name": "PL_8飞轮X电压",
+            "workbook_range": "21V~29.2V或0V~0.5V"
+          }
+        },
+        "B": {
+          "current": {
+            "code": "TMPB029",
+            "sheet": "0302-PL_B",
+            "row": 30,
+            "workbook_name": "PL_8飞轮X电流",
+            "workbook_range": "0A~1A"
+          },
+          "voltage": {
+            "code": "TMPB030",
+            "sheet": "0302-PL_B",
+            "row": 31,
+            "workbook_name": "PL_8飞轮X电压",
+            "workbook_range": "21V~29.2V或0V~0.5V"
+          }
+        }
+      },
+      "measurement_status": "paired_voltage_current"
+    },
+    {
+      "pl_channel": 9,
+      "group": "姿控",
+      "name": "飞轮 Y",
+      "banks": {
+        "A": {
+          "current": {
+            "code": "TMPA031",
+            "sheet": "0301-PL_A",
+            "row": 32,
+            "workbook_name": "PL_9飞轮Y电流",
+            "workbook_range": "0A~1A"
+          },
+          "voltage": {
+            "code": "TMPA032",
+            "sheet": "0301-PL_A",
+            "row": 33,
+            "workbook_name": "PL_9飞轮Y电压",
+            "workbook_range": "21V~29.2V或0V~0.5V"
+          }
+        },
+        "B": {
+          "current": {
+            "code": "TMPB031",
+            "sheet": "0302-PL_B",
+            "row": 32,
+            "workbook_name": "PL_9飞轮Y电流",
+            "workbook_range": "0A~1A"
+          },
+          "voltage": {
+            "code": "TMPB032",
+            "sheet": "0302-PL_B",
+            "row": 33,
+            "workbook_name": "PL_9飞轮Y电压",
+            "workbook_range": "21V~29.2V或0V~0.5V"
+          }
+        }
+      },
+      "measurement_status": "paired_voltage_current"
+    },
+    {
+      "pl_channel": 10,
+      "group": "姿控",
+      "name": "飞轮 Z",
+      "banks": {
+        "A": {
+          "current": {
+            "code": "TMPA033",
+            "sheet": "0301-PL_A",
+            "row": 34,
+            "workbook_name": "PL_10飞轮Z电流",
+            "workbook_range": "0A~1A"
+          },
+          "voltage": {
+            "code": "TMPA034",
+            "sheet": "0301-PL_A",
+            "row": 35,
+            "workbook_name": "PL_10飞轮Z电压",
+            "workbook_range": "21V~29.2V或0V~0.5V"
+          }
+        },
+        "B": {
+          "current": {
+            "code": "TMPB033",
+            "sheet": "0302-PL_B",
+            "row": 34,
+            "workbook_name": "PL_10飞轮Z电流",
+            "workbook_range": "0A~1A"
+          },
+          "voltage": {
+            "code": "TMPB034",
+            "sheet": "0302-PL_B",
+            "row": 35,
+            "workbook_name": "PL_10飞轮Z电压",
+            "workbook_range": "21V~29.2V或0V~0.5V"
+          }
+        }
+      },
+      "measurement_status": "paired_voltage_current"
+    },
+    {
+      "pl_channel": 11,
+      "group": "姿控",
+      "name": "飞轮 S",
+      "banks": {
+        "A": {
+          "current": {
+            "code": "TMPA035",
+            "sheet": "0301-PL_A",
+            "row": 36,
+            "workbook_name": "PL_11飞轮S电流",
+            "workbook_range": "0A~1A"
+          },
+          "voltage": {
+            "code": "TMPA036",
+            "sheet": "0301-PL_A",
+            "row": 37,
+            "workbook_name": "PL_11飞轮S电压",
+            "workbook_range": "21V~29.2V或0V~0.5V"
+          }
+        },
+        "B": {
+          "current": {
+            "code": "TMPB035",
+            "sheet": "0302-PL_B",
+            "row": 36,
+            "workbook_name": "PL_11飞轮S电流",
+            "workbook_range": "0A~1A"
+          },
+          "voltage": {
+            "code": "TMPB036",
+            "sheet": "0302-PL_B",
+            "row": 37,
+            "workbook_name": "PL_11飞轮S电压",
+            "workbook_range": "21V~29.2V或0V~0.5V"
+          }
+        }
+      },
+      "measurement_status": "paired_voltage_current"
+    },
+    {
+      "pl_channel": 12,
+      "group": "姿控",
+      "name": "磁力矩器",
+      "banks": {
+        "A": {
+          "current": {
+            "code": "TMPA037",
+            "sheet": "0301-PL_A",
+            "row": 38,
+            "workbook_name": "PL_12磁力矩器电流",
+            "workbook_range": "0A~1A"
+          },
+          "voltage": {
+            "code": "TMPA038",
+            "sheet": "0301-PL_A",
+            "row": 39,
+            "workbook_name": "PL_12磁力矩器电压",
+            "workbook_range": "4.5V~5.5V或0V~0.5V"
+          }
+        },
+        "B": {
+          "current": {
+            "code": "TMPB037",
+            "sheet": "0302-PL_B",
+            "row": 38,
+            "workbook_name": "PL_12磁力矩器电流",
+            "workbook_range": "0A~1A"
+          },
+          "voltage": {
+            "code": "TMPB038",
+            "sheet": "0302-PL_B",
+            "row": 39,
+            "workbook_name": "PL_12磁力矩器电压",
+            "workbook_range": "4.5V~5.5V或0V~0.5V"
+          }
+        }
+      },
+      "measurement_status": "paired_voltage_current"
+    },
+    {
+      "pl_channel": 13,
+      "group": "测控",
+      "name": "X 测控主机",
+      "banks": {
+        "A": {
+          "current": {
+            "code": "TMPA017",
+            "sheet": "0301-PL_A",
+            "row": 18,
+            "workbook_name": "PL_13X测控主机电流",
+            "workbook_range": "0A~1A"
+          },
+          "voltage": {
+            "code": "TMPA018",
+            "sheet": "0301-PL_A",
+            "row": 19,
+            "workbook_name": "PL_13X测控主机电压",
+            "workbook_range": "11V~13V或0V~0.5V"
+          }
+        },
+        "B": {
+          "current": {
+            "code": "TMPB017",
+            "sheet": "0302-PL_B",
+            "row": 18,
+            "workbook_name": "PL_13X测控主机电流",
+            "workbook_range": "0A~1A"
+          },
+          "voltage": {
+            "code": "TMPB018",
+            "sheet": "0302-PL_B",
+            "row": 19,
+            "workbook_name": "PL_13X测控主机电压",
+            "workbook_range": "11V~13V或0V~0.5V"
+          }
+        }
+      },
+      "measurement_status": "paired_voltage_current"
+    },
+    {
+      "pl_channel": 16,
+      "group": "载荷",
+      "name": "红外相机",
+      "banks": {
+        "A": {
+          "current": {
+            "code": "TMPA023",
+            "sheet": "0301-PL_A",
+            "row": 24,
+            "workbook_name": "PL_16红外相机电流",
+            "workbook_range": "0A~1A"
+          },
+          "voltage": {
+            "code": "TMPA024",
+            "sheet": "0301-PL_A",
+            "row": 25,
+            "workbook_name": "PL_16红外相机电压",
+            "workbook_range": "11V~13V或0V~0.5V"
+          }
+        },
+        "B": {
+          "current": {
+            "code": "TMPB023",
+            "sheet": "0302-PL_B",
+            "row": 24,
+            "workbook_name": "PL_16红外相机电流",
+            "workbook_range": "0A~1A"
+          },
+          "voltage": {
+            "code": "TMPB024",
+            "sheet": "0302-PL_B",
+            "row": 25,
+            "workbook_name": "PL_16红外相机电压",
+            "workbook_range": "11V~13V或0V~0.5V"
+          }
+        }
+      },
+      "measurement_status": "paired_voltage_current"
+    },
+    {
+      "pl_channel": 17,
+      "group": "测控",
+      "name": "测控备",
+      "banks": {
+        "A": {
+          "current": {
+            "code": "TMPA025",
+            "sheet": "0301-PL_A",
+            "row": 26,
+            "workbook_name": "PL_17测控备电流",
+            "workbook_range": "0A~1A"
+          },
+          "voltage": {
+            "code": "TMPA026",
+            "sheet": "0301-PL_A",
+            "row": 27,
+            "workbook_name": "PL_17测控备电压",
+            "workbook_range": "11V~13V或0V~0.5V"
+          }
+        },
+        "B": {
+          "current": {
+            "code": "TMPB025",
+            "sheet": "0302-PL_B",
+            "row": 26,
+            "workbook_name": "PL_17测控备电流",
+            "workbook_range": "0A~1A"
+          },
+          "voltage": {
+            "code": "TMPB026",
+            "sheet": "0302-PL_B",
+            "row": 27,
+            "workbook_name": "PL_17测控备电压",
+            "workbook_range": "11V~13V或0V~0.5V"
+          }
+        }
+      },
+      "measurement_status": "paired_voltage_current"
+    },
+    {
+      "pl_channel": 19,
+      "group": "平台",
+      "name": "扩展板",
+      "banks": {
+        "A": {
+          "current": {
+            "code": "TMPA039",
+            "sheet": "0301-PL_A",
+            "row": 40,
+            "workbook_name": "PL_19扩展板电流",
+            "workbook_range": "0A~2A"
+          },
+          "voltage": {
+            "code": "TMPA040",
+            "sheet": "0301-PL_A",
+            "row": 41,
+            "workbook_name": "PL_19扩展板电压",
+            "workbook_range": "21V~29.2V或0V~0.5V"
+          }
+        },
+        "B": {
+          "current": {
+            "code": "TMPB039",
+            "sheet": "0302-PL_B",
+            "row": 40,
+            "workbook_name": "PL_19扩展板电流",
+            "workbook_range": "0A~2A"
+          },
+          "voltage": {
+            "code": "TMPB040",
+            "sheet": "0302-PL_B",
+            "row": 41,
+            "workbook_name": "PL_19扩展板电压",
+            "workbook_range": "21V~29.2V或0V~0.5V"
+          }
+        }
+      },
+      "measurement_status": "paired_voltage_current"
+    },
+    {
+      "pl_channel": 20,
+      "group": "计算与通信",
+      "name": "智算机 YX 28V1",
+      "banks": {
+        "A": {
+          "current": {
+            "code": "TMPA041",
+            "sheet": "0301-PL_A",
+            "row": 42,
+            "workbook_name": "PL_20智算机（YX）28V1电流",
+            "workbook_range": "0A~2A"
+          },
+          "voltage": {
+            "code": "TMPA042",
+            "sheet": "0301-PL_A",
+            "row": 43,
+            "workbook_name": "PL_20智算机（YX）28V1电压",
+            "workbook_range": "21V~29.2V或0V~0.5V"
+          }
+        },
+        "B": {
+          "current": {
+            "code": "TMPB041",
+            "sheet": "0302-PL_B",
+            "row": 42,
+            "workbook_name": "PL_20智算机（YX）28V1电流",
+            "workbook_range": "0A~2A"
+          },
+          "voltage": {
+            "code": "TMPB042",
+            "sheet": "0302-PL_B",
+            "row": 43,
+            "workbook_name": "PL_20智算机（YX）28V1电压",
+            "workbook_range": "21V~29.2V或0V~0.5V"
+          }
+        }
+      },
+      "measurement_status": "paired_voltage_current"
+    },
+    {
+      "pl_channel": 21,
+      "group": "载荷",
+      "name": "星间激光终端",
+      "banks": {
+        "A": {
+          "current": {
+            "code": "TMPA043",
+            "sheet": "0301-PL_A",
+            "row": 44,
+            "workbook_name": "PL_21星间激光-终端电流",
+            "workbook_range": "0A~3A"
+          },
+          "voltage": {
+            "code": "TMPA044",
+            "sheet": "0301-PL_A",
+            "row": 45,
+            "workbook_name": "PL_21星间激光-终端电压",
+            "workbook_range": "21V~29.2V或0V~0.5V"
+          }
+        },
+        "B": {
+          "current": {
+            "code": "TMPB043",
+            "sheet": "0302-PL_B",
+            "row": 44,
+            "workbook_name": "PL_21星间激光-终端电流",
+            "workbook_range": "0A~3A"
+          },
+          "voltage": {
+            "code": "TMPB044",
+            "sheet": "0302-PL_B",
+            "row": 45,
+            "workbook_name": "PL_21星间激光-终端电压",
+            "workbook_range": "21V~29.2V或0V~0.5V"
+          }
+        }
+      },
+      "measurement_status": "paired_voltage_current"
+    },
+    {
+      "pl_channel": 22,
+      "group": "载荷",
+      "name": "星间激光头",
+      "banks": {
+        "A": {
+          "current": {
+            "code": "TMPA045",
+            "sheet": "0301-PL_A",
+            "row": 46,
+            "workbook_name": "PL_22星间激光-激光头电流",
+            "workbook_range": "0A~3A"
+          },
+          "voltage": {
+            "code": "TMPA046",
+            "sheet": "0301-PL_A",
+            "row": 47,
+            "workbook_name": "PL_22星间激光-激光头电压",
+            "workbook_range": "21V~29.2V或0V~0.5V"
+          }
+        },
+        "B": {
+          "current": {
+            "code": "TMPB045",
+            "sheet": "0302-PL_B",
+            "row": 46,
+            "workbook_name": "PL_22星间激光-激光头电流",
+            "workbook_range": "0A~3A"
+          },
+          "voltage": {
+            "code": "TMPB046",
+            "sheet": "0302-PL_B",
+            "row": 47,
+            "workbook_name": "PL_22星间激光-激光头电压",
+            "workbook_range": "21V~29.2V或0V~0.5V"
+          }
+        }
+      },
+      "measurement_status": "paired_voltage_current"
+    },
+    {
+      "pl_channel": 25,
+      "group": "推进",
+      "name": "推进供电",
+      "banks": {
+        "A": {
+          "voltage": {
+            "code": "TMPA051",
+            "sheet": "0301-PL_A",
+            "row": 52,
+            "workbook_name": "PL_25推进电压",
+            "workbook_range": "21V~29.2V或0V~0.5V"
+          }
+        },
+        "B": {
+          "voltage": {
+            "code": "TMPB051",
+            "sheet": "0302-PL_B",
+            "row": 52,
+            "workbook_name": "PL_25推进电压",
+            "workbook_range": "21V~29.2V或0V~0.5V"
+          }
+        }
+      },
+      "measurement_status": "voltage_only"
+    },
+    {
+      "pl_channel": 26,
+      "group": "计算与通信",
+      "name": "路由器主",
+      "banks": {
+        "A": {
+          "voltage": {
+            "code": "TMPA053",
+            "sheet": "0301-PL_A",
+            "row": 54,
+            "workbook_name": "PL_26路由器主电压",
+            "workbook_range": "21V~29.2V或0V~0.5V"
+          },
+          "current": {
+            "code": "TMPA054",
+            "sheet": "0301-PL_A",
+            "row": 55,
+            "workbook_name": "PL_26路由器主电流",
+            "workbook_range": "0A~1A"
+          }
+        },
+        "B": {
+          "voltage": {
+            "code": "TMPB053",
+            "sheet": "0302-PL_B",
+            "row": 54,
+            "workbook_name": "PL_26路由器主电压",
+            "workbook_range": "21V~29.2V或0V~0.5V"
+          },
+          "current": {
+            "code": "TMPB054",
+            "sheet": "0302-PL_B",
+            "row": 55,
+            "workbook_name": "PL_26路由器主电流",
+            "workbook_range": "0A~1A"
+          }
+        }
+      },
+      "measurement_status": "paired_voltage_current"
+    },
+    {
+      "pl_channel": 27,
+      "group": "计算与通信",
+      "name": "智算机 G1",
+      "banks": {
+        "A": {
+          "voltage": {
+            "code": "TMPA055",
+            "sheet": "0301-PL_A",
+            "row": 56,
+            "workbook_name": "PL_27智算机（G1）电压",
+            "workbook_range": "21V~29.2V或0V~0.5V"
+          },
+          "current": {
+            "code": "TMPA056",
+            "sheet": "0301-PL_A",
+            "row": 57,
+            "workbook_name": "PL_27智算机（G1）电流",
+            "workbook_range": "0A~1A"
+          }
+        },
+        "B": {
+          "voltage": {
+            "code": "TMPB055",
+            "sheet": "0302-PL_B",
+            "row": 56,
+            "workbook_name": "PL_27智算机（G1）电压",
+            "workbook_range": "21V~29.2V或0V~0.5V"
+          },
+          "current": {
+            "code": "TMPB056",
+            "sheet": "0302-PL_B",
+            "row": 57,
+            "workbook_name": "PL_27智算机（G1）电流",
+            "workbook_range": "0A~1A"
+          }
+        }
+      },
+      "measurement_status": "paired_voltage_current"
+    },
+    {
+      "pl_channel": 28,
+      "group": "热控",
+      "name": "液冷回路",
+      "banks": {
+        "A": {
+          "voltage": {
+            "code": "TMPA057",
+            "sheet": "0301-PL_A",
+            "row": 58,
+            "workbook_name": "PL_28液冷回路电压",
+            "workbook_range": "21V~29.2V或0V~0.5V"
+          },
+          "current": {
+            "code": "TMPA058",
+            "sheet": "0301-PL_A",
+            "row": 59,
+            "workbook_name": "PL_28液冷回路电流",
+            "workbook_range": "0A~2A"
+          }
+        },
+        "B": {
+          "voltage": {
+            "code": "TMPB057",
+            "sheet": "0302-PL_B",
+            "row": 58,
+            "workbook_name": "PL_28液冷回路电压",
+            "workbook_range": "21V~29.2V或0V~0.5V"
+          },
+          "current": {
+            "code": "TMPB058",
+            "sheet": "0302-PL_B",
+            "row": 59,
+            "workbook_name": "PL_28液冷回路电流",
+            "workbook_range": "0A~2A"
+          }
+        }
+      },
+      "measurement_status": "paired_voltage_current"
+    },
+    {
+      "pl_channel": 29,
+      "group": "计算与通信",
+      "name": "智算机 YX 28V2",
+      "banks": {
+        "A": {
+          "voltage": {
+            "code": "TMPA052",
+            "sheet": "0301-PL_A",
+            "row": 53,
+            "workbook_name": "PL_29智算机（YX）28V2电压",
+            "workbook_range": "21V~29.2V或0V~0.5V"
+          }
+        },
+        "B": {
+          "voltage": {
+            "code": "TMPB052",
+            "sheet": "0302-PL_B",
+            "row": 53,
+            "workbook_name": "PL_29智算机（YX）28V2电压",
+            "workbook_range": "21V~29.2V或0V~0.5V"
+          }
+        }
+      },
+      "measurement_status": "voltage_only"
+    },
+    {
+      "pl_channel": 30,
+      "group": "计算与通信",
+      "name": "路由器备",
+      "banks": {
+        "A": {
+          "voltage": {
+            "code": "TMPA059",
+            "sheet": "0301-PL_A",
+            "row": 60,
+            "workbook_name": "PL_30路由器备电压",
+            "workbook_range": "21V~29.2V或0V~0.5V"
+          },
+          "current": {
+            "code": "TMPA060",
+            "sheet": "0301-PL_A",
+            "row": 61,
+            "workbook_name": "PL_30路由器备电流",
+            "workbook_range": "0A~1A"
+          }
+        },
+        "B": {
+          "voltage": {
+            "code": "TMPB059",
+            "sheet": "0302-PL_B",
+            "row": 60,
+            "workbook_name": "PL_30路由器备电压",
+            "workbook_range": "21V~29.2V或0V~0.5V"
+          },
+          "current": {
+            "code": "TMPB060",
+            "sheet": "0302-PL_B",
+            "row": 61,
+            "workbook_name": "PL_30路由器备电流",
+            "workbook_range": "0A~1A"
+          }
+        }
+      },
+      "measurement_status": "paired_voltage_current"
+    },
+    {
+      "pl_channel": 33,
+      "group": "导航",
+      "name": "GNSS 接收机备",
+      "banks": {
+        "A": {
+          "voltage": {
+            "code": "TMBA029",
+            "sheet": "0303-BCR_A",
+            "row": 30,
+            "workbook_name": "PL_33GNSS备电压",
+            "workbook_range": "1 == 1"
+          },
+          "current": {
+            "code": "TMBA030",
+            "sheet": "0303-BCR_A",
+            "row": 31,
+            "workbook_name": "PL_33GNSS备电流",
+            "workbook_range": "1 == 1"
+          }
+        },
+        "B": {
+          "voltage": {
+            "code": "TMBB029",
+            "sheet": "0304-BCR_B",
+            "row": 30,
+            "workbook_name": "PL_33GNSS备电压",
+            "workbook_range": "1 == 1"
+          },
+          "current": {
+            "code": "TMBB030",
+            "sheet": "0304-BCR_B",
+            "row": 31,
+            "workbook_name": "PL_33GNSS备电流",
+            "workbook_range": "1 == 1"
+          }
+        }
+      },
+      "measurement_status": "paired_voltage_current"
+    }
+  ]
+}

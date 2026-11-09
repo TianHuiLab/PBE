@@ -1,0 +1,296 @@
+{
+  "schema_version": "1.0",
+  "validation": "stratified_historical_forward_soc",
+  "satellite_id": "SCS-01-01",
+  "solar_target_formula": "P_load + P_charge_est",
+  "coverage": {
+    "seasons_available": [
+      "DJF",
+      "MAM",
+      "JJA"
+    ],
+    "seasons_missing": [
+      "SON"
+    ],
+    "duration_bands": [
+      "short",
+      "medium",
+      "long"
+    ],
+    "load_bands_W": {
+      "low": "<100",
+      "medium": "100..200",
+      "high": ">200"
+    },
+    "selected_windows": 19,
+    "validation_dates": [
+      "2025-12-27",
+      "2025-12-28",
+      "2025-12-29",
+      "2025-12-30",
+      "2025-12-31",
+      "2026-02-22",
+      "2026-03-01",
+      "2026-03-05",
+      "2026-05-01",
+      "2026-05-02",
+      "2026-05-23",
+      "2026-06-01",
+      "2026-06-02",
+      "2026-06-29",
+      "2026-07-11",
+      "2026-07-13"
+    ],
+    "missing_cells": [
+      {
+        "season": "MAM",
+        "duration_band": "medium",
+        "load_band": "low"
+      },
+      {
+        "season": "MAM",
+        "duration_band": "long",
+        "load_band": "low"
+      },
+      {
+        "season": "MAM",
+        "duration_band": "long",
+        "load_band": "medium"
+      },
+      {
+        "season": "MAM",
+        "duration_band": "long",
+        "load_band": "high"
+      },
+      {
+        "season": "JJA",
+        "duration_band": "medium",
+        "load_band": "low"
+      },
+      {
+        "season": "JJA",
+        "duration_band": "long",
+        "load_band": "low"
+      },
+      {
+        "season": "JJA",
+        "duration_band": "long",
+        "load_band": "medium"
+      },
+      {
+        "season": "JJA",
+        "duration_band": "long",
+        "load_band": "high"
+      },
+      {
+        "season": "SON",
+        "duration_band": "short",
+        "load_band": "low"
+      },
+      {
+        "season": "SON",
+        "duration_band": "short",
+        "load_band": "medium"
+      },
+      {
+        "season": "SON",
+        "duration_band": "short",
+        "load_band": "high"
+      },
+      {
+        "season": "SON",
+        "duration_band": "medium",
+        "load_band": "low"
+      },
+      {
+        "season": "SON",
+        "duration_band": "medium",
+        "load_band": "medium"
+      },
+      {
+        "season": "SON",
+        "duration_band": "medium",
+        "load_band": "high"
+      },
+      {
+        "season": "SON",
+        "duration_band": "long",
+        "load_band": "low"
+      },
+      {
+        "season": "SON",
+        "duration_band": "long",
+        "load_band": "medium"
+      },
+      {
+        "season": "SON",
+        "duration_band": "long",
+        "load_band": "high"
+      }
+    ]
+  },
+  "overall": {
+    "n": 19,
+    "soc_signed_error_median_pp": 1.3573185185185133,
+    "soc_abs_error_median_pp": 1.7270206349206174,
+    "soc_abs_error_mae_pp": 1.4601431913116072,
+    "soc_abs_error_p95_pp": 2.7041374074074063,
+    "solar_rmse_median_W": 74.6255281158214,
+    "solar_energy_relative_error_median_pct": -5.839821627556935,
+    "load_energy_relative_error_median_pct": 2.239932835801281
+  },
+  "task_usage": {
+    "windows_with_tasks": 19,
+    "total_task_units": 94,
+    "total_tasks": 254,
+    "median_tasks_per_window": 11.0,
+    "selected_unit_frequency": {
+      "laser_processor_1": 17,
+      "electric_propulsion_a": 13,
+      "reaction_wheel_1": 11,
+      "reaction_wheel_3": 10,
+      "reaction_wheel_4": 8,
+      "compute_nx1_f": 4,
+      "reaction_wheel_2": 4,
+      "compute_g1": 3,
+      "compute_g2": 3,
+      "cxpd_payload": 3,
+      "electric_propulsion_b": 3,
+      "microwave_1a": 3,
+      "microwave_1b": 3,
+      "transponder_a": 3,
+      "laser_processor_2": 2,
+      "microwave_2a": 2,
+      "compute_nx1_g": 1,
+      "science_payload": 1
+    }
+  },
+  "by_season": {
+    "DJF": {
+      "n": 9,
+      "soc_signed_error_median_pp": 0.47541851851851114,
+      "soc_abs_error_median_pp": 1.9856814814814827,
+      "soc_abs_error_mae_pp": 1.5395780717225125,
+      "soc_abs_error_p95_pp": 2.5926718518518443,
+      "solar_rmse_median_W": 142.81606486911684,
+      "solar_energy_relative_error_median_pct": -9.990803961497614,
+      "load_energy_relative_error_median_pct": 1.716247305387784
+    },
+    "JJA": {
+      "n": 5,
+      "soc_signed_error_median_pp": 1.3573185185185133,
+      "soc_abs_error_median_pp": 1.3573185185185133,
+      "soc_abs_error_mae_pp": 1.421524126984126,
+      "soc_abs_error_p95_pp": 2.5904789417989393,
+      "solar_rmse_median_W": 88.13160726325737,
+      "solar_energy_relative_error_median_pct": 0.33447883826536084,
+      "load_energy_relative_error_median_pct": 4.296674181005999
+    },
+    "MAM": {
+      "n": 5,
+      "soc_signed_error_median_pp": 1.7270206349206174,
+      "soc_abs_error_median_pp": 1.7270206349206174,
+      "soc_abs_error_mae_pp": 1.3557794708994588,
+      "soc_abs_error_p95_pp": 2.1939406349206148,
+      "solar_rmse_median_W": 46.558148167157285,
+      "solar_energy_relative_error_median_pct": -5.839821627556935,
+      "load_energy_relative_error_median_pct": 1.5963378249018798
+    }
+  },
+  "by_duration": {
+    "long": {
+      "n": 3,
+      "soc_signed_error_median_pp": 0.26345079365078794,
+      "soc_abs_error_median_pp": 1.9856814814814827,
+      "soc_abs_error_mae_pp": 1.4744798941798882,
+      "soc_abs_error_p95_pp": 2.155444814814803,
+      "solar_rmse_median_W": 142.81606486911684,
+      "solar_energy_relative_error_median_pct": -25.76903445439156,
+      "load_energy_relative_error_median_pct": 2.239932835801281
+    },
+    "medium": {
+      "n": 7,
+      "soc_signed_error_median_pp": 1.818020634920614,
+      "soc_abs_error_median_pp": 2.190179365079381,
+      "soc_abs_error_mae_pp": 1.879840816326522,
+      "soc_abs_error_p95_pp": 2.671371375661361,
+      "solar_rmse_median_W": 88.13160726325737,
+      "solar_energy_relative_error_median_pct": -0.695753360954921,
+      "load_energy_relative_error_median_pct": 1.5963378249018798
+    },
+    "short": {
+      "n": 9,
+      "soc_signed_error_median_pp": 0.6794539682539624,
+      "soc_abs_error_median_pp": 0.6794539682539624,
+      "soc_abs_error_mae_pp": 1.1289328042328026,
+      "soc_abs_error_p95_pp": 2.5049585185185186,
+      "solar_rmse_median_W": 46.558148167157285,
+      "solar_energy_relative_error_median_pct": -2.9326245644055957,
+      "load_energy_relative_error_median_pct": 3.2408520825640315
+    }
+  },
+  "by_load": {
+    "high": {
+      "n": 7,
+      "soc_signed_error_median_pp": 1.667020634920624,
+      "soc_abs_error_median_pp": 1.7270206349206174,
+      "soc_abs_error_mae_pp": 1.477384882842019,
+      "soc_abs_error_p95_pp": 2.193078253968249,
+      "solar_rmse_median_W": 57.17586159966995,
+      "solar_energy_relative_error_median_pct": -12.030893187095685,
+      "load_energy_relative_error_median_pct": -1.0988916793767445
+    },
+    "low": {
+      "n": 5,
+      "soc_signed_error_median_pp": 2.228118518518518,
+      "soc_abs_error_median_pp": 2.228118518518518,
+      "soc_abs_error_mae_pp": 2.0836959788359755,
+      "soc_abs_error_p95_pp": 2.80646962962962,
+      "solar_rmse_median_W": 172.12411450516447,
+      "solar_energy_relative_error_median_pct": 43.98160798454847,
+      "load_energy_relative_error_median_pct": 5.5583812971776565
+    },
+    "medium": {
+      "n": 7,
+      "soc_signed_error_median_pp": 0.47541851851851114,
+      "soc_abs_error_median_pp": 0.47541851851851114,
+      "soc_abs_error_mae_pp": 0.9975066515495037,
+      "soc_abs_error_p95_pp": 2.2538366666666487,
+      "solar_rmse_median_W": 40.00541647630608,
+      "solar_energy_relative_error_median_pct": 0.33447883826536084,
+      "load_energy_relative_error_median_pct": 3.2408520825640315
+    }
+  },
+  "evidence_boundaries": [
+    "单机任务由历史部件功率层或已配置模式压缩得到",
+    "背景负载由历史总负载减被任务覆盖单机的实测功率提取",
+    "无确认状态遥测的单机，其idle/active标签由校准功率层推断",
+    "验证窗口限制为单机模型 training_split.excluded_dates；新增数据不得自动扩入已冻结留出集",
+    "太阳阵观测/训练目标为P_load + P_charge_est",
+    "目标SOC观测值由TMD019与固定V-SOC曲线映射",
+    "验证窗口日期应从太阳阵训练集中排除"
+  ],
+  "holdout_training": {
+    "excluded_dates": [
+      "2025-12-27",
+      "2025-12-28",
+      "2025-12-29",
+      "2025-12-30",
+      "2025-12-31",
+      "2026-02-22",
+      "2026-03-01",
+      "2026-03-05",
+      "2026-05-01",
+      "2026-05-02",
+      "2026-05-23",
+      "2026-06-01",
+      "2026-06-02",
+      "2026-06-29",
+      "2026-07-11",
+      "2026-07-13"
+    ],
+    "n_train_rows": 17175,
+    "selected_degree": 3,
+    "cv_rmse_W": 128.152885
+  }
+}

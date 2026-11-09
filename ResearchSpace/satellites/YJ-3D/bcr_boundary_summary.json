@@ -1,0 +1,262 @@
+{
+  "source": "chdb_3D.yc_history",
+  "source_time_column": "timestamp",
+  "window_start_utc": "2026-07-23T16:00:00+00:00",
+  "window_end_exclusive_utc": "2026-10-27T16:00:00+00:00",
+  "source_rows": 29571263,
+  "basis": "BCR source rows; input-voltage and same-channel output-voltage/current are separate sides. Quantiles use numeric finite values without invented engineering limits. Duplicate source rows may affect quantiles. Output power is not array terminal power.",
+  "candidate_config_sha256": "6efc7201f7e0e9d0ba4e9d7ede4cf6a01f8080ca44fb685ed3db509329631a38",
+  "workbook_sha256": "e13e3d682dd93f426a0deddce5dbc3c804bfe35e307604ed5da5c51fa8fe0e45",
+  "fetched_at_utc": "2026-10-28T07:39:34.169794+00:00",
+  "all_eight_output_paired_source_rows": 3681866,
+  "all_eight_output_sum_p05_p50_p95_W": [
+    84.3737564086914,
+    113.743896484375,
+    164.291259765625
+  ],
+  "other_diagnostics": {
+    "battery_temperature_main_numeric_source_rows": 6245121,
+    "battery_temperature_main_workbook_range_source_rows": 6243925,
+    "battery_temperature_main_p05_p50_p95_C": [
+      14.943382263183594,
+      16.207168579101562,
+      17.3129825592041
+    ],
+    "battery_temperature_backup_numeric_source_rows": 6246009,
+    "battery_temperature_backup_p05_p50_p95_C": [
+      14.943382263183594,
+      16.180971145629883,
+      17.15500831604004
+    ],
+    "ttc_discharge_switch_source_rows": 6248624,
+    "ttc_discharge_switch_values": [
+      "开",
+      "关"
+    ],
+    "ttc_current_numeric_source_rows": 6248624,
+    "ttc_eps_current_same_source_row_pairs": 260,
+    "ttc_minus_eps_current_p05_p50_p95_A": [
+      -59.05324935913086,
+      -0.016203749924898148,
+      381.2743835449219
+    ],
+    "ttc_eps_both_within_10A_source_rows": 163,
+    "ttc_minus_eps_within_10A_p05_p50_p95_A": [
+      -0.22366300225257874,
+      -0.07864300161600113,
+      0.09860300272703171
+    ],
+    "ttc_eps_nonzero_within_10A_source_rows": 4,
+    "ttc_eps_same_sign_source_rows": 2
+  },
+  "channels": [
+    {
+      "name": "-Z 体装板 1",
+      "input_voltage_code": "TMBA019",
+      "output_voltage_code": "TMBA025",
+      "output_current_code": "TMBA031",
+      "source_types": {
+        "TMBA019": "Nullable(String)",
+        "TMBA025": "Nullable(String)",
+        "TMBA031": "Nullable(String)"
+      },
+      "input_numeric_source_rows": 6246845,
+      "output_paired_source_rows": 6246837,
+      "input_voltage_raw_min_V": 0.0,
+      "input_voltage_raw_max_V": 1091.711865,
+      "input_voltage_p05_p50_p95_V": [
+        36.98488235473633,
+        37.54335403442383,
+        38.55810546875
+      ],
+      "output_power_p05_p50_p95_W": [
+        1.097282886505127,
+        3.555746078491211,
+        12.071490287780762
+      ],
+      "negative_output_power_source_rows": 139540
+    },
+    {
+      "name": "-Z 体装板 2",
+      "input_voltage_code": "TMBA020",
+      "output_voltage_code": "TMBA026",
+      "output_current_code": "TMBA032",
+      "source_types": {
+        "TMBA020": "Nullable(String)",
+        "TMBA026": "Nullable(String)",
+        "TMBA032": "Nullable(String)"
+      },
+      "input_numeric_source_rows": 6246843,
+      "output_paired_source_rows": 6246837,
+      "input_voltage_raw_min_V": 0.0,
+      "input_voltage_raw_max_V": 1104.485669,
+      "input_voltage_p05_p50_p95_V": [
+        36.84470748901367,
+        37.28763961791992,
+        38.30826950073242
+      ],
+      "output_power_p05_p50_p95_W": [
+        0.0031443103216588497,
+        0.1758527308702469,
+        0.6935027837753296
+      ],
+      "negative_output_power_source_rows": 185071
+    },
+    {
+      "name": "-Z 体装板 3",
+      "input_voltage_code": "TMBA021",
+      "output_voltage_code": "TMBA027",
+      "output_current_code": "TMBA016",
+      "source_types": {
+        "TMBA021": "Nullable(String)",
+        "TMBA027": "Nullable(String)",
+        "TMBA016": "Nullable(String)"
+      },
+      "input_numeric_source_rows": 6246843,
+      "output_paired_source_rows": 6246839,
+      "input_voltage_raw_min_V": 0.0,
+      "input_voltage_raw_max_V": 1108.783081,
+      "input_voltage_p05_p50_p95_V": [
+        37.05741882324219,
+        37.509029388427734,
+        38.536251068115234
+      ],
+      "output_power_p05_p50_p95_W": [
+        -0.054614853113889694,
+        0.40723833441734314,
+        3.322935104370117
+      ],
+      "negative_output_power_source_rows": 561594
+    },
+    {
+      "name": "展开板 1",
+      "input_voltage_code": "TMBA022",
+      "output_voltage_code": "TMBA028",
+      "output_current_code": "TMBA015",
+      "source_types": {
+        "TMBA022": "Nullable(String)",
+        "TMBA028": "Nullable(String)",
+        "TMBA015": "Nullable(String)"
+      },
+      "input_numeric_source_rows": 6246841,
+      "output_paired_source_rows": 6246837,
+      "input_voltage_raw_min_V": 0.0,
+      "input_voltage_raw_max_V": 1108.783081,
+      "input_voltage_p05_p50_p95_V": [
+        41.960289001464844,
+        42.529232025146484,
+        43.61722946166992
+      ],
+      "output_power_p05_p50_p95_W": [
+        2.3072495460510254,
+        5.910425662994385,
+        16.81720733642578
+      ],
+      "negative_output_power_source_rows": 24868
+    },
+    {
+      "name": "展开板 2",
+      "input_voltage_code": "TMBB019",
+      "output_voltage_code": "TMBB025",
+      "output_current_code": "TMBB031",
+      "source_types": {
+        "TMBB019": "Nullable(String)",
+        "TMBB025": "Nullable(String)",
+        "TMBB031": "Nullable(String)"
+      },
+      "input_numeric_source_rows": 6246988,
+      "output_paired_source_rows": 6246948,
+      "input_voltage_raw_min_V": 0.0,
+      "input_voltage_raw_max_V": 1101.203394,
+      "input_voltage_p05_p50_p95_V": [
+        42.043357849121094,
+        42.57079315185547,
+        43.628631591796875
+      ],
+      "output_power_p05_p50_p95_W": [
+        3.460165500640869,
+        7.412866115570068,
+        15.77820873260498
+      ],
+      "negative_output_power_source_rows": 127790
+    },
+    {
+      "name": "展开板 3",
+      "input_voltage_code": "TMBB020",
+      "output_voltage_code": "TMBB026",
+      "output_current_code": "TMBB032",
+      "source_types": {
+        "TMBB020": "Nullable(String)",
+        "TMBB026": "Nullable(String)",
+        "TMBB032": "Nullable(String)"
+      },
+      "input_numeric_source_rows": 6246988,
+      "output_paired_source_rows": 6246948,
+      "input_voltage_raw_min_V": 0.0,
+      "input_voltage_raw_max_V": 1104.46875,
+      "input_voltage_p05_p50_p95_V": [
+        39.62697219848633,
+        41.331024169921875,
+        42.62208938598633
+      ],
+      "output_power_p05_p50_p95_W": [
+        23.54802131652832,
+        31.691312789916992,
+        38.00971603393555
+      ],
+      "negative_output_power_source_rows": 129671
+    },
+    {
+      "name": "展开板 4",
+      "input_voltage_code": "TMBB021",
+      "output_voltage_code": "TMBB027",
+      "output_current_code": "TMBB016",
+      "source_types": {
+        "TMBB021": "Nullable(String)",
+        "TMBB027": "Nullable(String)",
+        "TMBB016": "Nullable(String)"
+      },
+      "input_numeric_source_rows": 6246988,
+      "output_paired_source_rows": 6246980,
+      "input_voltage_raw_min_V": 0.0,
+      "input_voltage_raw_max_V": 882.712134,
+      "input_voltage_p05_p50_p95_V": [
+        41.80734634399414,
+        42.35586166381836,
+        43.39412307739258
+      ],
+      "output_power_p05_p50_p95_W": [
+        10.361175537109375,
+        15.717966079711914,
+        23.616352081298828
+      ],
+      "negative_output_power_source_rows": 56486
+    },
+    {
+      "name": "展开板 5",
+      "input_voltage_code": "TMBB022",
+      "output_voltage_code": "TMBB028",
+      "output_current_code": "TMBB015",
+      "source_types": {
+        "TMBB022": "Nullable(String)",
+        "TMBB028": "Nullable(String)",
+        "TMBB015": "Nullable(String)"
+      },
+      "input_numeric_source_rows": 6246986,
+      "output_paired_source_rows": 6246978,
+      "input_voltage_raw_min_V": 0.0,
+      "input_voltage_raw_max_V": 1108.783081,
+      "input_voltage_p05_p50_p95_V": [
+        39.68427658081055,
+        41.369144439697266,
+        42.448326110839844
+      ],
+      "output_power_p05_p50_p95_W": [
+        39.0800895690918,
+        47.24549865722656,
+        55.054622650146484
+      ],
+      "negative_output_power_source_rows": 129648
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Stage-2 simplified model input",
+  "type": "object",
+  "required": [
+    "time",
+    "prediction"
+  ],
+  "properties": {
+    "time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "prediction": {
+      "type": "object",
+      "required": [
+        "end",
+        "step_seconds",
+        "phase_segments",
+        "tasks"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "end": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "step_seconds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "phase_segments": {
+          "type": "array"
+        },
+        "tasks": {
+          "type": "array"
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

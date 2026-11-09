@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0",
+  "satellite_id": "SCS-01-01",
+  "validation_type": "out_of_sample_forward_soc",
+  "window": {
+    "start": "2025-12-29T05:39:00+08:00",
+    "end": "2025-12-29T06:10:00+08:00",
+    "duration_minutes": 31,
+    "phase": "sun",
+    "source_phase": "日照"
+  },
+  "holdout": {
+    "rule": "exclude_all_rows_on_2025-12-29_from_solar_model_training",
+    "training_sun_samples": 12156,
+    "training_sun_segments": 2994,
+    "selected_degree": 3,
+    "grouped_cv_rmse_W": 130.635424,
+    "model_file": "solar_power_model_holdout_20251229.json",
+    "model_sha256": "2cacd1044d6abd9412f98fe9c363ff6771ef443f92c4b06ddea302f3fc55343e"
+  },
+  "soc": {
+    "initial_predicted": 0.861905,
+    "observed_start": 0.8619047619047615,
+    "predicted_target": 0.910309,
+    "observed_target": 0.9148148148148149,
+    "absolute_error_percentage_points": 0.45058148148148236,
+    "signed_error_percentage_points": -0.45058148148148236,
+    "relative_error_to_initial_soc_pct": 0.522774,
+    "relative_error_to_observed_soc_change_pct": 8.516,
+    "predicted_remaining_Ah": 59.170081,
+    "observed_remaining_Ah": 59.462963,
+    "remaining_Ah_error": -0.292882,
+    "predicted_remaining_energy_nominal_kWh": 1.656762,
+    "observed_remaining_energy_nominal_kWh": 1.664963,
+    "remaining_energy_error_kWh": -0.008201
+  },
+  "power_and_energy": {
+    "observed_proxy_formula": "P_load + P_charge_est",
+    "predicted_solar_energy_kWh": 0.189008,
+    "observed_solar_proxy_energy_kWh": 0.222416,
+    "solar_energy_error_kWh": -0.033408,
+    "solar_energy_relative_error_pct": -15.021,
+    "solar_bias_W": -64.661,
+    "solar_MAE_W": 70.213,
+    "solar_RMSE_W": 86.684,
+    "predicted_load_energy_kWh": 0.098188,
+    "observed_load_energy_kWh": 0.092957,
+    "load_energy_error_kWh": 0.005231,
+    "load_energy_relative_error_pct": 5.628,
+    "predicted_load_W": 190.041,
+    "observed_load_mean_W": 178.631,
+    "observed_load_cv": 0.264044
+  },
+  "error_decomposition": {
+    "closed_loop_predicted_solar_and_predicted_load_soc": 0.910309,
+    "closed_loop_soc_error_percentage_points": -0.450581,
+    "predicted_solar_actual_load_soc": 0.913097,
+    "predicted_solar_actual_load_error_percentage_points": -0.171781,
+    "actual_solar_proxy_predicted_load_soc": 0.928114,
+    "actual_solar_proxy_predicted_load_error_percentage_points": 1.329919,
+    "actual_solar_proxy_actual_load_soc": 0.930902,
+    "actual_solar_proxy_actual_load_error_percentage_points": 1.608719,
+    "interpretation": "Solar underprediction shifts SOC down, while constant load overprediction shifts SOC down too; however the fixed load assumption differs from the varying actual load. With both observed solar proxy and observed load, battery/SOC bookkeeping still shows a positive 1.61 percentage-point residual. The closed-loop -0.45 percentage-point result benefits from partial error cancellation and is not sufficient to validate the solar model alone."
+  },
+  "evidence_boundaries": [
+    "Observed solar power is not independent: it uses the same user-confirmed B formula P_load + P_charge_est.",
+    "P_charge_est is inferred from TMD016/TMD017/TMD018 and remains sensitive to measurement boundaries.",
+    "Observed SOC is mapped from battery voltage using the project V-SOC discharge curve; charging hysteresis, temperature and rate effects are not modeled.",
+    "The load forecast holds initial background load constant because no future task list was available for this historical validation.",
+    "One validation window is an initial check, not a full-period accuracy or uncertainty bound."
+  ],
+  "artifacts": {
+    "input": "validation_solar_20251229_0539.json",
+    "forecast_output": "validation_solar_20251229_0539_output.json",
+    "forecast_timeline": "validation_solar_20251229_0539_timeline.csv",
+    "history_result_sha256": "48e671def5628cf0a7f11aa921054833176396f0b1ea0d589c1159188a465af2"
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0",
+  "satellite_id": "YJ-3D",
+  "primary": {
+    "evaluation_mode": "frozen_snapshot",
+    "background_policy": "window_start_snapshot",
+    "unit_model_split": "date_grouped_holdout",
+    "solar_model_split": "date_grouped_holdout",
+    "unit_model_path": "power_model/physical_unit_holdout_models.json",
+    "branch_unit_model_path": "power_model/unit_task_holdout_models.json",
+    "unit_data_path": "power_model/physical_unit_power_minute.csv",
+    "physical_config_path": "power_model/physical_unit_components.json",
+    "solar_model_path": "power_model/solar_power_model_holdout_20260728.json",
+    "usage": "条件历史留出主指标"
+  },
+  "quality": {
+    "max_gap_seconds": 90,
+    "frozen_sensor_min_samples": 10,
+    "soc_primary_policy": "all_intervals_pass",
+    "bcr_primary_policy": "training_99p9_winsor_cap",
+    "bcr_raw_values": "diagnostic_only"
+  },
+  "background": {
+    "primary": "window_start_snapshot",
+    "candidate_fallback_order": [
+      "rolling_60m_median",
+      "previous_day_same_phase_window_median",
+      "window_start_snapshot"
+    ],
+    "previous_day_tolerance_minutes": 15,
+    "orbit_phase_period_minutes": null
+  },
+  "bcr_structure": {
+    "status": "blocked_until_available_generation_inputs",
+    "required_features": [
+      "orbit_phase",
+      "sun_incidence_deg",
+      "array_temperature_C",
+      "battery_soc_pct",
+      "battery_temperature_C",
+      "charge_acceptance_W"
+    ],
+    "available_features": [
+      "elapsed_hours",
+      "load_W"
+    ],
+    "fallback_model": "load_aware_linear"
+  },
+  "topology_contract": "power_model/ab_topology.json",
+  "split": {
+    "unit": "date",
+    "expected_dates": 9
+  }
+}

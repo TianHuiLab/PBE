@@ -1,0 +1,156 @@
+{
+  "schema_version": "1.0",
+  "satellite_id": "SCS-01-01",
+  "unit_id": "science_payload",
+  "name": "科学载荷总电源",
+  "category": "load",
+  "channel_group": "scs_load_branch",
+  "source": {
+    "power_column": "P_science_payload_W",
+    "telemetry_basis": "vi",
+    "source_codes": [
+      "TMX020",
+      "TMX021"
+    ]
+  },
+  "model": {
+    "model_type": "mode_constant",
+    "usable_for_prediction": true,
+    "evidence_level": "observed_minute_proxy_mode_constant",
+    "active_power_W": 2.3115,
+    "low_power_W": 0.0,
+    "high_power_W": null,
+    "active_threshold_W": 1.15575,
+    "high_threshold_W": null,
+    "power_bands": [
+      {
+        "id": "low",
+        "label": "低功率观测层",
+        "n": 1972,
+        "fraction": 0.14919,
+        "power_p05_W": 0.0,
+        "power_p50_W": 0.0,
+        "power_p95_W": 0.0
+      },
+      {
+        "id": "active",
+        "label": "工作功率观测层",
+        "n": 11246,
+        "fraction": 0.85081,
+        "power_p05_W": 2.3115,
+        "power_p50_W": 2.3115,
+        "power_p95_W": 2.970285
+      }
+    ],
+    "modes": {
+      "上电未配置": {
+        "n": 11889,
+        "power_p05_W": 0.0,
+        "power_p50_W": 2.3115,
+        "power_p95_W": 2.3115,
+        "support": "normal"
+      },
+      "数传状态": {
+        "n": 16,
+        "power_p05_W": 2.965022,
+        "power_p50_W": 2.976373,
+        "power_p95_W": 4.811565,
+        "support": "normal"
+      },
+      "正常运行": {
+        "n": 1,
+        "power_p05_W": 4.812541,
+        "power_p50_W": 4.812541,
+        "power_p95_W": 4.812541,
+        "support": "sparse"
+      },
+      "预掉电": {
+        "n": 1198,
+        "power_p05_W": 2.257347,
+        "power_p50_W": 2.96957,
+        "power_p95_W": 2.97106,
+        "support": "normal"
+      },
+      "高压配置": {
+        "n": 111,
+        "power_p05_W": 4.106798,
+        "power_p50_W": 4.121588,
+        "power_p95_W": 4.812953,
+        "support": "normal"
+      }
+    },
+    "polynomial": {
+      "degree": 2,
+      "episodes": 0,
+      "active_samples": 13218,
+      "time_unit": "hours_since_active_episode_start",
+      "selected": false,
+      "reason": "显式状态模型优先，未用多项式覆盖"
+    },
+    "outlier_filter": {
+      "method": "configured_max_power",
+      "upper_limit_W": 50.0,
+      "robust_quantile": null,
+      "robust_multiplier": null,
+      "raw_nonnegative_samples": 16869,
+      "valid_samples": 16868,
+      "outlier_samples": 1,
+      "invalid_samples": 4288,
+      "raw_p99_W": 4.114897538,
+      "raw_tail_W": 4.114897538,
+      "raw_max_W": 1071.3281748
+    },
+    "warnings": [
+      "检测到低功率层与工作功率层；任务计划必须明确 on/mode",
+      "至少一个显式状态只有少于 5 个样本",
+      "已过滤 1 个超过配置筛选上限（50.0 W）的遥测野值"
+    ]
+  },
+  "sample_contract": {
+    "timezone": "Asia/Shanghai",
+    "timestamp_format": "ISO-8601 with +08:00",
+    "observed_power_definition": "分钟功率代理；非有限、负值或超过公共过滤上限的野值排除",
+    "target_definition": "target_power_W 等于可用 observed_power_W；缺测标签不填充为 0",
+    "active_definition": "仅当模型有 active_threshold_W 时，observed_power_W >= 阈值记为 active；若存在 high_threshold_W，则高功率瞬态仍属于 active，并在 power_band 中单列为 high；否则 active_label 为空",
+    "power_band_definition": "有 active 阈值时为 active/low；检测到分离高功率层时增加 high。无阈值为 unclassified_single_band。low 不等同于物理 off，high 也不等于独立硬件故障",
+    "episode_definition": "连续有效 active 样本组成片段；非 active 样本或时间间隔超过 5 分钟时重开片段",
+    "elapsed_hours_definition": "active 片段起点至当前样本的小时数；非 active 样本为空",
+    "fit_role_definition": "train=用于单机模型拟合；holdout_eval=云尖留出日期；excluded=缺测或负值"
+  },
+  "counts": {
+    "source_rows": 21157,
+    "valid_rows": 16868,
+    "raw_valid_rows": 16869,
+    "excluded_rows": 4289,
+    "missing_or_non_numeric_rows": 4288,
+    "negative_power_rows": 0,
+    "above_power_limit_rows": 1,
+    "zero_power_rows": 2139,
+    "train_rows": 13218,
+    "eval_rows": 3650,
+    "validation_overlap_rows": 376,
+    "active_rows": 14727,
+    "low_rows": 2141,
+    "high_power_rows": null,
+    "active_episodes": 4556,
+    "missing_fraction_source": 0.202723,
+    "source_time_start": "2025-12-26T00:05:00",
+    "source_time_end": "2026-11-05T09:45:00",
+    "train_time_start": "2025-12-26T00:05:00",
+    "train_time_end": "2026-11-05T09:45:00",
+    "eval_time_start": "2025-12-27T01:53:00",
+    "eval_time_end": "2026-07-13T14:46:00",
+    "validation_overlap_time_start": "2025-12-27T12:40:00",
+    "validation_overlap_time_end": "2026-07-13T13:15:00",
+    "p05_W": 0.0,
+    "p50_W": 2.3115,
+    "p95_W": 2.96957,
+    "mean_W": 2.075268
+  },
+  "artifacts": {
+    "train": "train.csv",
+    "eval": "eval.csv",
+    "validation_overlap": "validation_overlap.csv",
+    "excluded": "excluded_samples.csv"
+  }
+}

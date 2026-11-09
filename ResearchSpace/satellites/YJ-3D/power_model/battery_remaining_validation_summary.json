@@ -1,0 +1,179 @@
+{
+  "schema_version": "1.0",
+  "satellite_id": "YJ-3D",
+  "status": "conditional_validation_not_flight_grade",
+  "definitions": {
+    "capacity_Ah": 37.69,
+    "nominal_voltage_V": 25.27,
+    "nominal_energy_kWh": 0.9524263,
+    "observed_delta_soc": "negative integrated TMEA006 current / capacity; change only",
+    "absolute_soc": "only 2026-07-28 has start/end voltages inside the 7.84 A V-SOC table"
+  },
+  "absolute_window": {
+    "start": "2026-07-28T16:22:00+08:00",
+    "end": "2026-07-28T17:11:00+08:00",
+    "model": "cap_0W",
+    "predicted_target_soc": 0.75668,
+    "observed_conditional_soc": 0.7273738473167042,
+    "soc_error_pp": 2.930615268329584,
+    "predicted_remaining_Ah": 28.519285,
+    "observed_remaining_Ah": 27.41472030536658,
+    "remaining_Ah_error": 1.1045646946334209,
+    "remaining_kWh_nominal_error": 0.02791235410018352,
+    "note": "observed SOC is itself V-SOC mapped, not an independent hardware SOC anchor"
+  },
+  "multi_window": {
+    "bus_efficiency": {
+      "n": 10,
+      "signed_bias_pp": -2.460737819002788,
+      "mae_pp": 4.178019485816568,
+      "p95_abs_pp": 10.755579245530324,
+      "mae_Ah": 1.574695544204264,
+      "p95_abs_Ah": 4.053777817640379,
+      "mae_kWh": 0.039792556402041754,
+      "p95_abs_kWh": 0.10243896545177235
+    },
+    "cap_0W": {
+      "n": 10,
+      "signed_bias_pp": -3.2375346539933973,
+      "mae_pp": 3.778253394846857,
+      "p95_abs_pp": 10.755579245530324,
+      "mae_Ah": 1.4240237045177804,
+      "p95_abs_Ah": 4.053777817640379,
+      "mae_kWh": 0.0359850790131643,
+      "p95_abs_kWh": 0.10243896545177235
+    },
+    "cap_10W": {
+      "n": 10,
+      "signed_bias_pp": -2.969664288439212,
+      "mae_pp": 3.9294703253853145,
+      "p95_abs_pp": 10.755579245530324,
+      "mae_Ah": 1.4810173656377248,
+      "p95_abs_Ah": 4.053777817640379,
+      "mae_kWh": 0.037425308829665306,
+      "p95_abs_kWh": 0.10243896545177235
+    },
+    "cap_15W": {
+      "n": 10,
+      "signed_bias_pp": -2.8497949960155706,
+      "mae_pp": 4.003841784188304,
+      "p95_abs_pp": 10.755579245530324,
+      "mae_Ah": 1.5090479684605715,
+      "p95_abs_Ah": 4.053777817640379,
+      "mae_kWh": 0.03813364216299863,
+      "p95_abs_kWh": 0.10243896545177235
+    },
+    "cap_20W": {
+      "n": 10,
+      "signed_bias_pp": -2.775360542396603,
+      "mae_pp": 4.03277840418662,
+      "p95_abs_pp": 10.755579245530324,
+      "mae_Ah": 1.5199541805379366,
+      "p95_abs_Ah": 4.053777817640379,
+      "mae_kWh": 0.038409242142193656,
+      "p95_abs_kWh": 0.10243896545177235
+    },
+    "cap_30W": {
+      "n": 10,
+      "signed_bias_pp": -2.6441167915677983,
+      "mae_pp": 4.073026487774119,
+      "p95_abs_pp": 10.755579245530324,
+      "mae_Ah": 1.5351236832420654,
+      "p95_abs_Ah": 4.053777817640379,
+      "mae_kWh": 0.03879257547552699,
+      "p95_abs_kWh": 0.10243896545177235
+    },
+    "cap_50W": {
+      "n": 10,
+      "signed_bias_pp": -2.460737819002788,
+      "mae_pp": 4.178019485816568,
+      "p95_abs_pp": 10.755579245530324,
+      "mae_Ah": 1.574695544204264,
+      "p95_abs_Ah": 4.053777817640379,
+      "mae_kWh": 0.039792556402041754,
+      "p95_abs_kWh": 0.10243896545177235
+    },
+    "cap_5W": {
+      "n": 10,
+      "signed_bias_pp": -3.0922915697428537,
+      "mae_pp": 3.852340877702325,
+      "p95_abs_pp": 10.755579245530324,
+      "mae_Ah": 1.4519472768060062,
+      "p95_abs_Ah": 4.053777817640379,
+      "mae_kWh": 0.03669070768488777,
+      "p95_abs_kWh": 0.10243896545177235
+    },
+    "raw_proxy": {
+      "n": 10,
+      "signed_bias_pp": -2.381182167903843,
+      "mae_pp": 2.9607490590026293,
+      "p95_abs_pp": 8.736339238868853,
+      "mae_Ah": 1.115906320338091,
+      "p95_abs_Ah": 3.29272625912967,
+      "mae_kWh": 0.028198952714943555,
+      "p95_abs_kWh": 0.08320719256820676
+    }
+  },
+  "pass_rates": {
+    "raw_proxy": {
+      "within_1pp": "4/10",
+      "within_2pp": "5/10",
+      "within_3pp": "7/10",
+      "within_5pp": "8/10",
+      "within_10pp": "10/10"
+    },
+    "bus_efficiency": {
+      "within_1pp": "2/10",
+      "within_2pp": "4/10",
+      "within_3pp": "5/10",
+      "within_5pp": "7/10",
+      "within_10pp": "8/10"
+    },
+    "cap_0W": {
+      "within_1pp": "3/10",
+      "within_2pp": "6/10",
+      "within_3pp": "6/10",
+      "within_5pp": "7/10",
+      "within_10pp": "8/10"
+    }
+  },
+  "worst_windows": [
+    {
+      "season": "SON",
+      "duration_band": "long",
+      "load_band": "medium",
+      "start": "2026-09-12T16:13:00",
+      "battery_delta_soc_error_pp": -10.88444931500507,
+      "delta_Ah_error": -4.10234894682541,
+      "delta_kWh_nominal_error": -0.10366635788627811
+    },
+    {
+      "season": "JJA",
+      "duration_band": "long",
+      "load_band": "medium",
+      "start": "2026-08-01T21:49:00",
+      "battery_delta_soc_error_pp": -10.598071382838969,
+      "delta_Ah_error": -3.994413104192007,
+      "delta_kWh_nominal_error": -0.100938819142932
+    },
+    {
+      "season": "JJA",
+      "duration_band": "medium",
+      "load_band": "medium",
+      "start": "2026-08-05T17:02:00",
+      "battery_delta_soc_error_pp": -6.306492398711165,
+      "delta_Ah_error": -2.376916985074238,
+      "delta_kWh_nominal_error": -0.060064692212825996
+    },
+    {
+      "season": "JJA",
+      "duration_band": "long",
+      "load_band": "high",
+      "start": "2026-08-02T08:57:00",
+      "battery_delta_soc_error_pp": -4.176065525323889,
+      "delta_Ah_error": -1.5739590964945736,
+      "delta_kWh_nominal_error": -0.03977394636841788
+    }
+  ],
+  "verdict": "Conditional target SOC change is usable for trend analysis but not flight-grade. Only one segment has a V-SOC absolute reference; multi-window delta-SOC MAE is about 3.78 percentage points (1.42 Ah), while p95 is 10.76 points (4.05 Ah)."
+}

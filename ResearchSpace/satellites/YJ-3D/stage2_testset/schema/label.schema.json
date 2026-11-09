@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Stage-2 observation-derived label",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "case_id",
+    "satellite_id",
+    "window",
+    "observed",
+    "label_quality"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "case_id": {
+      "type": "string"
+    },
+    "satellite_id": {
+      "type": "string"
+    },
+    "window": {
+      "type": "object"
+    },
+    "observed": {
+      "type": "object"
+    },
+    "label_quality": {
+      "type": "object"
+    }
+  }
+}

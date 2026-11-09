@@ -1,0 +1,163 @@
+{
+  "time": "2026-08-10T17:39:00+08:00",
+  "prediction": {
+    "end": "2026-08-10T18:08:00+08:00",
+    "step_seconds": 60,
+    "phase_segments": [
+      {
+        "start": "2026-08-10T17:39:00+08:00",
+        "end": "2026-08-10T18:08:00+08:00",
+        "phase": "sun"
+      }
+    ],
+    "tasks": [
+      {
+        "start": "2026-08-10T17:39:00",
+        "end": "2026-08-10T18:03:00",
+        "unit": "pl13",
+        "run_mode": "idle",
+        "after_mode": "idle"
+      },
+      {
+        "start": "2026-08-10T18:03:00",
+        "end": "2026-08-10T18:08:00",
+        "unit": "pl13",
+        "run_mode": "active",
+        "after_mode": "active"
+      },
+      {
+        "start": "2026-08-10T17:39:00",
+        "end": "2026-08-10T18:01:00",
+        "unit": "pl17",
+        "run_mode": "idle",
+        "after_mode": "idle"
+      },
+      {
+        "start": "2026-08-10T18:01:00",
+        "end": "2026-08-10T18:08:00",
+        "unit": "pl17",
+        "run_mode": "active",
+        "after_mode": "active"
+      },
+      {
+        "start": "2026-08-10T17:39:00",
+        "end": "2026-08-10T17:41:00",
+        "unit": "pl19",
+        "run_mode": "idle",
+        "after_mode": "idle"
+      },
+      {
+        "start": "2026-08-10T17:41:00",
+        "end": "2026-08-10T17:44:00",
+        "unit": "pl19",
+        "run_mode": "active",
+        "after_mode": "active"
+      },
+      {
+        "start": "2026-08-10T17:44:00",
+        "end": "2026-08-10T17:54:00",
+        "unit": "pl19",
+        "run_mode": "idle",
+        "after_mode": "idle"
+      },
+      {
+        "start": "2026-08-10T17:54:00",
+        "end": "2026-08-10T17:59:00",
+        "unit": "pl19",
+        "run_mode": "active",
+        "after_mode": "active"
+      },
+      {
+        "start": "2026-08-10T17:59:00",
+        "end": "2026-08-10T18:08:00",
+        "unit": "pl19",
+        "run_mode": "idle",
+        "after_mode": "idle"
+      },
+      {
+        "start": "2026-08-10T17:39:00",
+        "end": "2026-08-10T18:03:00",
+        "unit": "pl21",
+        "run_mode": "idle",
+        "after_mode": "idle"
+      },
+      {
+        "start": "2026-08-10T18:03:00",
+        "end": "2026-08-10T18:06:00",
+        "unit": "pl21",
+        "run_mode": "active",
+        "after_mode": "active"
+      },
+      {
+        "start": "2026-08-10T18:06:00",
+        "end": "2026-08-10T18:08:00",
+        "unit": "pl21",
+        "run_mode": "idle",
+        "after_mode": "idle"
+      },
+      {
+        "start": "2026-08-10T17:39:00",
+        "end": "2026-08-10T18:03:00",
+        "unit": "pl27",
+        "run_mode": "idle",
+        "after_mode": "idle"
+      },
+      {
+        "start": "2026-08-10T18:03:00",
+        "end": "2026-08-10T18:08:00",
+        "unit": "pl27",
+        "run_mode": "active",
+        "after_mode": "active"
+      },
+      {
+        "start": "2026-08-10T17:39:00",
+        "end": "2026-08-10T17:51:00",
+        "unit": "heater_battery_main",
+        "run_mode": "active",
+        "after_mode": "active"
+      },
+      {
+        "start": "2026-08-10T17:51:00",
+        "end": "2026-08-10T18:08:00",
+        "unit": "heater_battery_main",
+        "run_mode": "idle",
+        "after_mode": "idle"
+      },
+      {
+        "start": "2026-08-10T17:39:00",
+        "end": "2026-08-10T17:42:00",
+        "unit": "heater_star_a_main",
+        "run_mode": "active",
+        "after_mode": "active"
+      },
+      {
+        "start": "2026-08-10T17:42:00",
+        "end": "2026-08-10T18:08:00",
+        "unit": "heater_star_a_main",
+        "run_mode": "idle",
+        "after_mode": "idle"
+      },
+      {
+        "start": "2026-08-10T17:39:00",
+        "end": "2026-08-10T17:59:00",
+        "unit": "heater_star_b_main",
+        "run_mode": "active",
+        "after_mode": "active"
+      },
+      {
+        "start": "2026-08-10T17:59:00",
+        "end": "2026-08-10T18:03:00",
+        "unit": "heater_star_b_main",
+        "run_mode": "idle",
+        "after_mode": "idle"
+      },
+      {
+        "start": "2026-08-10T18:03:00",
+        "end": "2026-08-10T18:08:00",
+        "unit": "heater_star_b_main",
+        "run_mode": "active",
+        "after_mode": "active"
+      }
+    ]
+  }
+}

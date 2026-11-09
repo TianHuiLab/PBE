@@ -1,0 +1,961 @@
+{
+  "schema_version": "1.0",
+  "satellite_id": "SCS-01-01",
+  "generated_at": "2026-11-09T15:53:13+08:00",
+  "inputs": [
+    {
+      "path": "power_model/batch_validation_windows.csv",
+      "sha256": "8b48bc99dadd6ce1c963a663ad688c2387711b4191d783d8f3d9c0875373749d",
+      "bytes": 9370
+    },
+    {
+      "path": "power_model/batch_validation_summary.json",
+      "sha256": "38666c1cc9735cfa8ffa5302a078ba2b9811d5ff0cbc4d3690b736b53a128ced",
+      "bytes": 8963
+    },
+    {
+      "path": "power_model/batch_validation_holdout_solar_model.json",
+      "sha256": "4a6b9babe85a07a70c9aa4a382e85aa5a0cafa5ec53df5cb6a03bd7e39e7c590",
+      "bytes": 2850
+    },
+    {
+      "path": "power_model/unit_power_holdout_models.json",
+      "sha256": "66dba4b9b0288f97ca103d91b012f39a2d29565563e553cf9003d8b74b0c0f90",
+      "bytes": 96354
+    },
+    {
+      "path": "stage2_testset/evaluation_summary.json",
+      "sha256": "bfee0d3dfda1dc7be86b86c92dcf39674e6e8d1c798b8c258d553e2b3e628b29",
+      "bytes": 60433
+    },
+    {
+      "path": "power_model/extended_data_coverage.json",
+      "sha256": "d3c0c24f37ad472aab0cae3365bb633ff91c2ccd5e699bed6799c6b7705d9449",
+      "bytes": 3401
+    },
+    {
+      "path": "stage2_testset/evaluation_cases.csv",
+      "sha256": "c5f4cb0eda7e1f2be743dbd7e1604fcd145bf0a6a83325b34dbeaea04dc29d2b",
+      "bytes": 6789
+    },
+    {
+      "path": "config/stage2_profile.json",
+      "sha256": "3329f1249aa8f055fe84cae0499202f4b7721799882ef249fc3fb055fa957068",
+      "bytes": 711
+    },
+    {
+      "path": "power_model/validation_split.json",
+      "sha256": "7e388feb534a0d35165deef7feb65b8b1ec8ee77c754c4d1f4ecf870ea96a755",
+      "bytes": 517
+    },
+    {
+      "path": "power_model/batch_validation_holdout_solar_model.json",
+      "sha256": "4a6b9babe85a07a70c9aa4a382e85aa5a0cafa5ec53df5cb6a03bd7e39e7c590",
+      "bytes": 2850
+    },
+    {
+      "path": "power_model/batch_validation_training_excluded.csv",
+      "sha256": "c39bdd78fb0cf7b01b906b27fa16bdda48df1ce5ea7705025953222c043b1a13",
+      "bytes": 968541
+    },
+    {
+      "path": "power_model/validation_solar_20251229_0539.json",
+      "sha256": "1d11b2ad0fb9a6eb6252fc5348ac9c86e2e13ac1ad5b74dcc316cb9b801d8b90",
+      "bytes": 265
+    },
+    {
+      "path": "power_model/validation_solar_20251229_0539_output.json",
+      "sha256": "bbebd140dcf4a83838893b46e8bcfa5917875edd48f687859122745c15b13c95",
+      "bytes": 5236
+    },
+    {
+      "path": "power_model/validation_solar_20251229_0539_timeline.csv",
+      "sha256": "c8bf2b6336daf2ad4d8c380789272a24c8440a1d444cd5f5ffefb5eae6e3bc4b",
+      "bytes": 10666
+    },
+    {
+      "path": "power_model/solar_validation_20251229_0539_summary.json",
+      "sha256": "1ebd67ae3326d183e90f782e774f559e6672bea31ff21aea37a0aa18a47d8de7",
+      "bytes": 3908
+    },
+    {
+      "path": "power_model/solar_power_model_holdout_20251229.json",
+      "sha256": "2cacd1044d6abd9412f98fe9c363ff6771ef443f92c4b06ddea302f3fc55343e",
+      "bytes": 2222
+    },
+    {
+      "path": "power_model/unit_power_holdout_models.json",
+      "sha256": "66dba4b9b0288f97ca103d91b012f39a2d29565563e553cf9003d8b74b0c0f90",
+      "bytes": 96354
+    },
+    {
+      "path": "power_model/unit_power_holdout_report.md",
+      "sha256": "c3457aada69c24dfb8e42610355228dd1299c672669ccf6764ee1f5c44bd4918",
+      "bytes": 15152
+    },
+    {
+      "path": "power_model/unit_power_holdout_summary.csv",
+      "sha256": "ec3aea2db4fbea625bf027b45dd115f6aef2a4c1659e2a2a88eac053ab2852a8",
+      "bytes": 9613
+    },
+    {
+      "path": "out/energy_v2_result.csv",
+      "sha256": "d606a8efbc09fd93cf2389e7f10a9a59a011594a1ddc87ebde33875f1402179f",
+      "bytes": 5039762
+    },
+    {
+      "path": "out/energy_v2_components.csv",
+      "sha256": "fffec9169c1e7a60cd45fbb93991f11af92e1713d129db4b9fb1eddaa675e8bd",
+      "bytes": 15044161
+    },
+    {
+      "path": "power_model/representative_case_scs/input.json",
+      "sha256": "8015fda08db9f633efe808efded798ebeb05eb67272b645093177cdd974b760a",
+      "bytes": 679
+    },
+    {
+      "path": "power_model/representative_case_scs/output.json",
+      "sha256": "7bd26a6af73ace2e57ebcbe17236b99f6476085d06bce6af1b26b5531f875aad",
+      "bytes": 4438
+    },
+    {
+      "path": "power_model/representative_case_scs/prediction_timeline.csv",
+      "sha256": "d5e655ccbb482963b6ae3658d2debe45a436e37b87d7434e9df00ce086096fbf",
+      "bytes": 4071
+    },
+    {
+      "path": "power_model/representative_case_scs/observed_soc.csv",
+      "sha256": "eaea801d2e8b8790f2b0c10ef064e2c1550a94ce299b9d43290d391e61bcb63f",
+      "bytes": 443
+    },
+    {
+      "path": "power_model/representative_case_scs/task_plan.json",
+      "sha256": "5a49b124e676d96fd9dc1cd856fd8646dc6b4ad38e890317edee5cacc05252e0",
+      "bytes": 429
+    },
+    {
+      "path": "unit_training/manifest.json",
+      "sha256": "0bceb257cf2c7ba38cfe8babf6dec145f8cbb1edf47de8e2e6c33e73febb398a",
+      "bytes": 50199
+    }
+  ],
+  "code": [
+    {
+      "path": "D:/Tianji/project/卫星能源评估/ResearchSpace/stage2_audit.py",
+      "sha256": "4a8b2971c9d8ecd917cddf715f8b62e790caae916d4f72904d59f4e00571e9d2",
+      "bytes": 51332
+    },
+    {
+      "path": "D:/Tianji/project/卫星能源评估/ResearchSpace/batch_validate_forecast.py",
+      "sha256": "94d47a3e2bacb4b95dd1d2ca3d3c743105cf2cdaf317a0de09ca7cc67451b08d",
+      "bytes": 34912
+    },
+    {
+      "path": "D:/Tianji/project/卫星能源评估/ResearchSpace/solar_power_calibration.py",
+      "sha256": "c59f6802be1fdf8a4e73af5b15ebd2545b9592dbb8a0cd2a3545d3ae0055d92b",
+      "bytes": 14655
+    },
+    {
+      "path": "D:/Tianji/project/卫星能源评估/ResearchSpace/unit_power_model.py",
+      "sha256": "6f1ac16f27aff426987d84bd4bcd34ba980128f9fb1e8199d9c42f7632ff289c",
+      "bytes": 119894
+    },
+    {
+      "path": "D:/Tianji/project/卫星能源评估/ResearchSpace/gen_charts.py",
+      "sha256": "e9fcd568a5b72f0aecfff7ecd1b9991d3994ea32559f3ccd5d6e50be3d56769f",
+      "bytes": 175564
+    },
+    {
+      "path": "D:/Tianji/project/卫星能源评估/ResearchSpace/yj3d_report.py",
+      "sha256": "795f9c57468d238f9d6ea5feece40ad8266ff980cca955d4a3be967252fa5a4e",
+      "bytes": 87015
+    },
+    {
+      "path": "D:/Tianji/project/卫星能源评估/ResearchSpace/report_style.css",
+      "sha256": "17970eb2019a79217442d8207a42b8c48ad737f340db89b425a9275bc4c72a2d",
+      "bytes": 17439
+    },
+    {
+      "path": "D:/Tianji/project/卫星能源评估/ResearchSpace/stage2_cases.py",
+      "sha256": "4e7f1035e8ce3bc22794fb07e9f5dfc10ce37b70e38c4c854760233d9f5d6d38",
+      "bytes": 25838
+    },
+    {
+      "path": "D:/Tianji/project/卫星能源评估/ResearchSpace/stage2_coverage.py",
+      "sha256": "013a1fa195e190145a70594fbb24c92be5513160d7e8ed41269d687acfeb65ad",
+      "bytes": 5443
+    },
+    {
+      "path": "D:/Tianji/project/卫星能源评估/ResearchSpace/stage2_framework.py",
+      "sha256": "f970d2d1add8167794eb2f76b1319ad2a74cefbdfc3824a6e4d6ae3c9d68529c",
+      "bytes": 16828
+    },
+    {
+      "path": "D:/Tianji/project/卫星能源评估/ResearchSpace/stage2_testset.py",
+      "sha256": "9bb4486a3ee9ab03705090dbbfac7ef246c24b52104c3cc629e8ae0868726b88",
+      "bytes": 36983
+    },
+    {
+      "path": "D:/Tianji/project/卫星能源评估/ResearchSpace/stage2_quality.py",
+      "sha256": "cba43c715f53a9d0613cc4c1720842260d30e2ec0e2f96f79af70a61309d4584",
+      "bytes": 14378
+    },
+    {
+      "path": "D:/Tianji/project/卫星能源评估/ResearchSpace/unit_training_export.py",
+      "sha256": "ca9b098cd0cb76fa00cff519ae2d6c4011a39bd7056fc8f881399ffbe3a05b92",
+      "bytes": 37075
+    },
+    {
+      "path": "D:/Tianji/project/卫星能源评估/ResearchSpace/power_outlier_filter.py",
+      "sha256": "2160dd3717bcbd3eb577df9c3ce1ace8d9fadc08d9723915a25a23be82aa682d",
+      "bytes": 3866
+    },
+    {
+      "path": "D:/Tianji/project/卫星能源评估/ResearchSpace/branch_aggregation.py",
+      "sha256": "08d558988b3f8b004d8b1c50c932543d6131f0d719b1dcc7e35c2b5586279f1e",
+      "bytes": 8971
+    },
+    {
+      "path": "D:/Tianji/project/卫星能源评估/ResearchSpace/physical_unit_model.py",
+      "sha256": "264ce46003067c8453784c1fa8309d864b65ca88b3a98c85f0995137fb4074b1",
+      "bytes": 5837
+    }
+  ],
+  "validation": {
+    "method": "date_grouped_holdout_frozen_snapshot",
+    "n_windows": 25,
+    "validation_dates": [
+      "2025-12-27",
+      "2025-12-28",
+      "2025-12-29",
+      "2025-12-30",
+      "2025-12-31",
+      "2026-02-22",
+      "2026-03-01",
+      "2026-03-05",
+      "2026-05-01",
+      "2026-05-02",
+      "2026-05-23",
+      "2026-06-01",
+      "2026-06-02",
+      "2026-06-29",
+      "2026-07-11",
+      "2026-07-13"
+    ],
+    "effective_dates": 16,
+    "coverage": {
+      "seasons_available": [
+        "DJF",
+        "MAM",
+        "JJA"
+      ],
+      "seasons_missing": [
+        "SON"
+      ],
+      "duration_bands": [
+        "short",
+        "medium",
+        "long"
+      ],
+      "load_bands_W": {
+        "low": "<100",
+        "medium": "100..200",
+        "high": ">200"
+      },
+      "selected_windows": 19,
+      "validation_dates": [
+        "2025-12-27",
+        "2025-12-28",
+        "2025-12-29",
+        "2025-12-30",
+        "2025-12-31",
+        "2026-02-22",
+        "2026-03-01",
+        "2026-03-05",
+        "2026-05-01",
+        "2026-05-02",
+        "2026-05-23",
+        "2026-06-01",
+        "2026-06-02",
+        "2026-06-29",
+        "2026-07-11",
+        "2026-07-13"
+      ],
+      "missing_cells": [
+        {
+          "season": "MAM",
+          "duration_band": "medium",
+          "load_band": "low"
+        },
+        {
+          "season": "MAM",
+          "duration_band": "long",
+          "load_band": "low"
+        },
+        {
+          "season": "MAM",
+          "duration_band": "long",
+          "load_band": "medium"
+        },
+        {
+          "season": "MAM",
+          "duration_band": "long",
+          "load_band": "high"
+        },
+        {
+          "season": "JJA",
+          "duration_band": "medium",
+          "load_band": "low"
+        },
+        {
+          "season": "JJA",
+          "duration_band": "long",
+          "load_band": "low"
+        },
+        {
+          "season": "JJA",
+          "duration_band": "long",
+          "load_band": "medium"
+        },
+        {
+          "season": "JJA",
+          "duration_band": "long",
+          "load_band": "high"
+        },
+        {
+          "season": "SON",
+          "duration_band": "short",
+          "load_band": "low"
+        },
+        {
+          "season": "SON",
+          "duration_band": "short",
+          "load_band": "medium"
+        },
+        {
+          "season": "SON",
+          "duration_band": "short",
+          "load_band": "high"
+        },
+        {
+          "season": "SON",
+          "duration_band": "medium",
+          "load_band": "low"
+        },
+        {
+          "season": "SON",
+          "duration_band": "medium",
+          "load_band": "medium"
+        },
+        {
+          "season": "SON",
+          "duration_band": "medium",
+          "load_band": "high"
+        },
+        {
+          "season": "SON",
+          "duration_band": "long",
+          "load_band": "low"
+        },
+        {
+          "season": "SON",
+          "duration_band": "long",
+          "load_band": "medium"
+        },
+        {
+          "season": "SON",
+          "duration_band": "long",
+          "load_band": "high"
+        }
+      ]
+    },
+    "unit_model_split": "date_grouped_holdout",
+    "solar_model_split": "date_grouped_holdout"
+  },
+  "model_selection": {
+    "solar_target": {
+      "formula": "P_load + P_charge_est",
+      "p_load_basis": "TMD016 × TMD018 minute means",
+      "p_charge_basis": "P_charge_est = max(TMD016×TMD017 - TMD016×TMD018, 0); inferred, not independent battery-charge measurement",
+      "status": "user-confirmed provisional 01-star formula",
+      "excluded_alternative": "TMD016×TMD017 + battery charge"
+    },
+    "solar_model_type": "polynomial",
+    "solar_selected_degree": 3,
+    "solar_cross_validation": {
+      "method": "sunlight-episode-grouped-deterministic-folds",
+      "folds": 5,
+      "constant_rmse_W": 135.894669,
+      "candidate_rmse_W": {
+        "1": 130.440487,
+        "2": 129.506095,
+        "3": 128.152885
+      },
+      "selected_rmse_W": 128.152885
+    },
+    "unit_model_counts": {
+      "constant": 23,
+      "polynomial": 1,
+      "mode_constant": 1
+    },
+    "unit_calibration_contract": {
+      "input": "enabled role=load component power columns from energy_v2_components.csv",
+      "power_basis": "minute-mean voltage times minute-mean current proxy unless configured otherwise",
+      "missing_policy": "missing/non-finite/negative/outlier samples are excluded, never treated as zero",
+      "outlier_policy": "configured max_power_W is a documented screening limit; without it, a wide robust power-tail guard removes implausible telemetry spikes before state and model fitting",
+      "band_policy": "deterministic 1-D two-means for low/active; a log-power second split creates active/high only with >=0.2% source support, >=5 samples and >=14x median separation",
+      "polynomial_policy": "degree 1-3 candidate; episode-grouped holdout uses the same active-band p05-p95 runtime clipping as deployment; selection also requires >=10% RMSE improvement, monotonic support and endpoint error no more than 10% worse than the constant baseline",
+      "off_policy": "off defaults to 0 W; low/idle uses the observed low-power band when present",
+      "shared_power_band_policy": "configured paired feeds may borrow a missing high band from a sibling feed in the same physical unit; local high-band evidence always takes precedence",
+      "date_split_policy": "explicit whole dates may be excluded before fitting; excluded dates are never replaced or backfilled"
+    },
+    "unit_training_split": {
+      "method": "exclude_whole_dates",
+      "excluded_dates": [
+        "2025-12-27",
+        "2025-12-28",
+        "2025-12-29",
+        "2025-12-30",
+        "2025-12-31",
+        "2026-02-22",
+        "2026-03-01",
+        "2026-03-05",
+        "2026-05-01",
+        "2026-05-02",
+        "2026-05-23",
+        "2026-06-01",
+        "2026-06-02",
+        "2026-06-29",
+        "2026-07-11",
+        "2026-07-13"
+      ],
+      "source_rows": 21157,
+      "retained_rows": 17175,
+      "excluded_rows": 3982
+    }
+  },
+  "metrics": {
+    "soc_abs_error_pp": {
+      "n_windows": 25,
+      "effective_dates": 16,
+      "window_equal": {
+        "mean": 1.9516252698412706,
+        "median": 1.7021206349206182,
+        "p95": 4.923108571428575,
+        "date_equal_mean": 1.6248361430776004,
+        "bootstrap_95_ci": [
+          1.175106800898372,
+          2.0810275326278673
+        ],
+        "bootstrap_date_cluster_95_ci": [
+          1.175106800898372,
+          2.0810275326278673
+        ],
+        "bootstrap": {
+          "mean": 1.6248361430776004,
+          "lower": 1.175106800898372,
+          "upper": 2.0810275326278673,
+          "confidence": 0.95,
+          "samples": 10000,
+          "seed": 20261104,
+          "sampling_unit": "date",
+          "n_dates": 16
+        }
+      },
+      "duration_weighted_mean": null,
+      "energy_weighted_mean": null
+    },
+    "solar_energy_abs_relative_error_pct": {
+      "n_windows": 19,
+      "effective_dates": 16,
+      "window_equal": {
+        "mean": 22.928395262507376,
+        "median": 12.031516873131865,
+        "p95": 74.41197129948004,
+        "date_equal_mean": 19.881817472309304,
+        "bootstrap_95_ci": [
+          10.888884281375972,
+          30.04225762297041
+        ],
+        "bootstrap_date_cluster_95_ci": [
+          10.888884281375972,
+          30.04225762297041
+        ],
+        "bootstrap": {
+          "mean": 19.881817472309304,
+          "lower": 10.888884281375972,
+          "upper": 30.04225762297041,
+          "confidence": 0.95,
+          "samples": 10000,
+          "seed": 20261104,
+          "sampling_unit": "date",
+          "n_dates": 16
+        }
+      },
+      "duration_weighted_mean": null,
+      "energy_weighted_mean": null
+    },
+    "load_energy_abs_relative_error_pct": {
+      "n_windows": 25,
+      "effective_dates": 16,
+      "window_equal": {
+        "mean": 15.52097833897496,
+        "median": 8.631780424501393,
+        "p95": 41.757907925135356,
+        "date_equal_mean": 17.663509842825825,
+        "bootstrap_95_ci": [
+          10.97377260968666,
+          25.171374421914454
+        ],
+        "bootstrap_date_cluster_95_ci": [
+          10.97377260968666,
+          25.171374421914454
+        ],
+        "bootstrap": {
+          "mean": 17.663509842825825,
+          "lower": 10.97377260968666,
+          "upper": 25.171374421914454,
+          "confidence": 0.95,
+          "samples": 10000,
+          "seed": 20261104,
+          "sampling_unit": "date",
+          "n_dates": 16
+        }
+      },
+      "duration_weighted_mean": null,
+      "energy_weighted_mean": null
+    }
+  },
+  "metrics_context": {
+    "evaluation_mode": "frozen_snapshot",
+    "background_policy": "window_start_snapshot",
+    "unit_model_split": "date_grouped_holdout",
+    "solar_model_split": "date_grouped_holdout",
+    "unit_model_path": "power_model/unit_power_holdout_models.json",
+    "solar_model_path": "power_model/batch_validation_holdout_solar_model.json",
+    "usage": "任务规划主指标",
+    "validation_split": {
+      "split_unit": "date",
+      "n_dates": 16,
+      "dates": [
+        "2025-12-27",
+        "2025-12-28",
+        "2025-12-29",
+        "2025-12-30",
+        "2025-12-31",
+        "2026-02-22",
+        "2026-03-01",
+        "2026-03-05",
+        "2026-05-01",
+        "2026-05-02",
+        "2026-05-23",
+        "2026-06-01",
+        "2026-06-02",
+        "2026-06-29",
+        "2026-07-11",
+        "2026-07-13"
+      ],
+      "source": "power_model/batch_validation_summary.json"
+    },
+    "source": "stage2_testset/evaluation_summary.json"
+  },
+  "diagnostic_metrics": {
+    "soc_abs_error_pp": {
+      "n_windows": 19,
+      "effective_dates": 16,
+      "date_values": [
+        "2025-12-27",
+        "2025-12-28",
+        "2025-12-29",
+        "2025-12-30",
+        "2025-12-31",
+        "2026-02-22",
+        "2026-03-01",
+        "2026-03-05",
+        "2026-05-01",
+        "2026-05-02",
+        "2026-05-23",
+        "2026-06-01",
+        "2026-06-02",
+        "2026-06-29",
+        "2026-07-11",
+        "2026-07-13"
+      ],
+      "window_equal": {
+        "mean": 1.4601431913116072,
+        "median": 1.7270206349206174,
+        "p95": 2.704137407407406,
+        "bootstrap_95_ci": [
+          1.050785639097743,
+          1.8543760157337719
+        ],
+        "bootstrap": {
+          "mean": 1.4601431913116072,
+          "lower": 1.050785639097743,
+          "upper": 1.8543760157337719,
+          "confidence": 0.95,
+          "samples": 10000,
+          "seed": 20261104
+        }
+      },
+      "duration_weighted_mean": 1.4962089503709564,
+      "energy_weighted_mean": 1.3658651047451644
+    },
+    "solar_energy_abs_relative_error_pct": {
+      "n_windows": 19,
+      "effective_dates": 16,
+      "date_values": [
+        "2025-12-27",
+        "2025-12-28",
+        "2025-12-29",
+        "2025-12-30",
+        "2025-12-31",
+        "2026-02-22",
+        "2026-03-01",
+        "2026-03-05",
+        "2026-05-01",
+        "2026-05-02",
+        "2026-05-23",
+        "2026-06-01",
+        "2026-06-02",
+        "2026-06-29",
+        "2026-07-11",
+        "2026-07-13"
+      ],
+      "window_equal": {
+        "mean": 22.928225807751357,
+        "median": 12.030893187095685,
+        "p95": 74.41128785014656,
+        "bootstrap_95_ci": [
+          12.451806007600375,
+          35.40993239907073
+        ],
+        "bootstrap": {
+          "mean": 22.928225807751357,
+          "lower": 12.451806007600375,
+          "upper": 35.40993239907073,
+          "confidence": 0.95,
+          "samples": 10000,
+          "seed": 20261104
+        }
+      },
+      "duration_weighted_mean": 22.90775900348617,
+      "energy_weighted_mean": 22.045136137415458
+    },
+    "load_energy_abs_relative_error_pct": {
+      "n_windows": 19,
+      "effective_dates": 16,
+      "date_values": [
+        "2025-12-27",
+        "2025-12-28",
+        "2025-12-29",
+        "2025-12-30",
+        "2025-12-31",
+        "2026-02-22",
+        "2026-03-01",
+        "2026-03-05",
+        "2026-05-01",
+        "2026-05-02",
+        "2026-05-23",
+        "2026-06-01",
+        "2026-06-02",
+        "2026-06-29",
+        "2026-07-11",
+        "2026-07-13"
+      ],
+      "window_equal": {
+        "mean": 5.123537841833968,
+        "median": 3.6800530730888332,
+        "p95": 13.192685115945519,
+        "bootstrap_95_ci": [
+          3.1373148548112226,
+          7.538105475375611
+        ],
+        "bootstrap": {
+          "mean": 5.123537841833968,
+          "lower": 3.1373148548112226,
+          "upper": 7.538105475375611,
+          "confidence": 0.95,
+          "samples": 10000,
+          "seed": 20261104
+        }
+      },
+      "duration_weighted_mean": 4.235150034746396,
+      "energy_weighted_mean": 4.291161009457246
+    }
+  },
+  "diagnostic_metrics_context": {
+    "evaluation_mode": "future_background_replay",
+    "background_policy": "historical_minute_residual",
+    "usage": "上界/诊断值，不是规划模式的精度",
+    "source": "power_model/batch_validation_windows.csv"
+  },
+  "data_coverage": {
+    "schema_version": "1.0",
+    "generated_at": "2026-11-05T11:43:53+08:00",
+    "time_start": "2025-12-26T00:05:00",
+    "time_end_inclusive": "2026-11-05T09:45:00",
+    "observed_minutes": 21157,
+    "phase_counts": {
+      "日照": 14039,
+      "地影": 6869,
+      "未判定": 249
+    },
+    "season_counts": {
+      "DJF": 17699,
+      "MAM": 740,
+      "JJA": 1826,
+      "SON": 892
+    },
+    "phase_transition_count": 1312,
+    "monthly": [
+      {
+        "month": "2025-12",
+        "observed_minutes": 3681,
+        "sun_minutes": 2317,
+        "eclipse_minutes": 1307,
+        "unknown_minutes": 57
+      },
+      {
+        "month": "2026-01",
+        "observed_minutes": 11411,
+        "sun_minutes": 7192,
+        "eclipse_minutes": 4092,
+        "unknown_minutes": 127
+      },
+      {
+        "month": "2026-02",
+        "observed_minutes": 2607,
+        "sun_minutes": 1679,
+        "eclipse_minutes": 904,
+        "unknown_minutes": 24
+      },
+      {
+        "month": "2026-03",
+        "observed_minutes": 134,
+        "sun_minutes": 82,
+        "eclipse_minutes": 52,
+        "unknown_minutes": 0
+      },
+      {
+        "month": "2026-05",
+        "observed_minutes": 606,
+        "sun_minutes": 568,
+        "eclipse_minutes": 31,
+        "unknown_minutes": 7
+      },
+      {
+        "month": "2026-06",
+        "observed_minutes": 493,
+        "sun_minutes": 451,
+        "eclipse_minutes": 35,
+        "unknown_minutes": 7
+      },
+      {
+        "month": "2026-07",
+        "observed_minutes": 714,
+        "sun_minutes": 647,
+        "eclipse_minutes": 58,
+        "unknown_minutes": 9
+      },
+      {
+        "month": "2026-08",
+        "observed_minutes": 619,
+        "sun_minutes": 454,
+        "eclipse_minutes": 152,
+        "unknown_minutes": 13
+      },
+      {
+        "month": "2026-09",
+        "observed_minutes": 535,
+        "sun_minutes": 428,
+        "eclipse_minutes": 102,
+        "unknown_minutes": 5
+      },
+      {
+        "month": "2026-10",
+        "observed_minutes": 309,
+        "sun_minutes": 182,
+        "eclipse_minutes": 127,
+        "unknown_minutes": 0
+      },
+      {
+        "month": "2026-11",
+        "observed_minutes": 48,
+        "sun_minutes": 39,
+        "eclipse_minutes": 9,
+        "unknown_minutes": 0
+      }
+    ],
+    "temperature_codes": {
+      "TMD079": {
+        "name": "PCDU温度1",
+        "valid_minutes": 17559,
+        "raw_min": 362.92,
+        "raw_median": 454.44,
+        "raw_max": 469.5
+      },
+      "TMD080": {
+        "name": "PCDU温度2",
+        "valid_minutes": 17559,
+        "raw_min": 375.12,
+        "raw_median": 463.59,
+        "raw_max": 469.5
+      },
+      "TMD081": {
+        "name": "PCDU温度3",
+        "valid_minutes": 17559,
+        "raw_min": 409.69,
+        "raw_median": 468.7,
+        "raw_max": 469.5
+      },
+      "TMD082": {
+        "name": "PCDU温度4",
+        "valid_minutes": 17559,
+        "raw_min": 398.59,
+        "raw_median": 468.04,
+        "raw_max": 469.5
+      },
+      "TMD083": {
+        "name": "PCDU温度5",
+        "valid_minutes": 17559,
+        "raw_min": 379.13,
+        "raw_median": 463.59,
+        "raw_max": 469.5
+      }
+    },
+    "temperature_semantics": "原始遥测数值；单位/比例变换和物理温度换算需依遥测大表确认，当前仅用于覆盖和变化审计，不标注为摄氏度",
+    "source": {
+      "result_csv": "satellites\\SCS-01-01\\out\\energy_v2_result.csv",
+      "minute_csv": "satellites\\SCS-01-01\\data_power_minute.csv"
+    }
+  },
+  "specialized_audits": {},
+  "representative_case": {
+    "schema_version": "1.0",
+    "case_id": "scs-task-sun-20260301-1056",
+    "satellite_id": "SCS-01-01",
+    "title": "2条历史提取任务，太阳阵由代理模型内部计算",
+    "window": {
+      "start": "2026-03-01T10:56:00+08:00",
+      "end": "2026-03-01T11:06:00+08:00",
+      "minutes": 10,
+      "phase": "sun"
+    },
+    "reference_mode": "conditional_v_soc_minute_curve",
+    "input_request": {
+      "time": "2026-03-01T10:56:00+08:00",
+      "prediction": {
+        "end": "2026-03-01T11:06:00+08:00",
+        "step_seconds": 60,
+        "phase_segments": [
+          {
+            "start": "10:56",
+            "end": "11:06",
+            "phase": "sun"
+          }
+        ],
+        "tasks": [
+          {
+            "start": "2026-03-01T10:56:00",
+            "end": "2026-03-01T11:00:00",
+            "unit": "laser_processor_1",
+            "run_mode": "active",
+            "after_mode": "active"
+          },
+          {
+            "start": "2026-03-01T11:00:00",
+            "end": "2026-03-01T11:06:00",
+            "unit": "laser_processor_1",
+            "run_mode": "idle",
+            "after_mode": "idle"
+          }
+        ]
+      }
+    },
+    "derived_inputs": {
+      "initial_soc_pct": 89.3651,
+      "battery_voltage_V": 28.19,
+      "background_load_W": 161.27508,
+      "phase": "日照",
+      "task_count": 2
+    },
+    "outputs": {
+      "predicted_target_soc_pct": 91.1324,
+      "observed_target_soc_pct": 89.36507936507938,
+      "soc_signed_error_pp": 1.7673206349206216,
+      "predicted_remaining_Ah": 59.23606,
+      "observed_remaining_Ah": 58.087301587301596,
+      "remaining_Ah_error": 1.148758412698404,
+      "predicted_solar_energy_kWh": 0.06586346696080166,
+      "observed_solar_proxy_energy_kWh": 0.06994832433333333,
+      "solar_energy_relative_error_pct": -5.839821627556935,
+      "predicted_load_energy_kWh": 0.032703046666666666,
+      "observed_load_energy_kWh": 0.033831996999999996,
+      "load_energy_relative_error_pct": -3.336930815326479
+    },
+    "series": {
+      "times": [
+        "2026-03-01T10:56:00",
+        "2026-03-01T10:57:00",
+        "2026-03-01T10:58:00",
+        "2026-03-01T10:59:00",
+        "2026-03-01T11:00:00",
+        "2026-03-01T11:01:00",
+        "2026-03-01T11:02:00",
+        "2026-03-01T11:03:00",
+        "2026-03-01T11:04:00",
+        "2026-03-01T11:05:00",
+        "2026-03-01T11:06:00"
+      ],
+      "predicted_soc_pct": [
+        89.3651,
+        89.51898645218576,
+        89.67915692330017,
+        89.84448637330654,
+        90.01391645179918,
+        90.19798070557347,
+        90.38416705115351,
+        90.57155530226449,
+        90.75927132734193,
+        90.94648704953168,
+        91.13242044668988
+      ],
+      "observed_soc_pct": [
+        89.36507936507938,
+        89.36507936507938,
+        89.36507936507938,
+        89.36507936507938,
+        89.36507936507938,
+        89.36507936507938,
+        89.36507936507938,
+        89.36507936507938,
+        89.36507936507938,
+        89.36507936507938,
+        89.36507936507938
+      ]
+    },
+    "sources": {
+      "input": "power_model/representative_case_scs/input.json",
+      "output": "power_model/representative_case_scs/output.json",
+      "predicted_timeline": "power_model/representative_case_scs/prediction_timeline.csv",
+      "observed_timeline": "out/energy_v2_result.csv",
+      "task_plan": "power_model/representative_case_scs/task_plan.json",
+      "observed_soc": "power_model/representative_case_scs/observed_soc.csv"
+    },
+    "boundaries": [
+      "实际SOC由TMD019与项目V-SOC曲线逐分钟映射，不是独立硬件SOC真值",
+      "太阳阵目标采用方案B条件代理，实际值不是独立阵列测量",
+      "2条任务由历史成分功率的3点中位平滑和3分钟去抖提取，是验证构造而非未来任务计划",
+      "输入不提供太阳阵功率，阳照功率由历史留出三次多项式按相位段内部生成",
+      "该单窗口解释误差形态，不替代19个窗口的总体审计"
+    ]
+  },
+  "evidence_boundaries": [
+    "目标SOC由TMD019与固定V-SOC曲线映射，不是独立硬件SOC基准",
+    "太阳阵目标采用方案B代理，不是独立太阳阵测量",
+    "主指标使用窗口起始冻结背景；单机和太阳阵均按验证日期整组留出",
+    "历史逐分钟背景残差回放只作为上界/诊断值，不能与主指标混用",
+    "25路负载支路未与TMD018总负载完全闭合"
+  ]
+}

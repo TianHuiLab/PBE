@@ -1,0 +1,157 @@
+{
+  "schema_version": "1.0",
+  "calibration_status": "provisional_conditional_directional",
+  "bin_width": 0.05,
+  "curves": {
+    "charge": [
+      [
+        26.165642969387754,
+        0.55
+      ],
+      [
+        27.45883849589796,
+        0.6000000000000001
+      ],
+      [
+        27.45883849689796,
+        0.65
+      ],
+      [
+        27.45883849789796,
+        0.7000000000000001
+      ],
+      [
+        27.45883849889796,
+        0.75
+      ],
+      [
+        28.76060428646003,
+        0.8
+      ],
+      [
+        28.76060428746003,
+        0.8500000000000001
+      ],
+      [
+        28.76060428846003,
+        0.9
+      ],
+      [
+        28.76060428946003,
+        0.9500000000000001
+      ],
+      [
+        28.76060429046003,
+        1.0
+      ]
+    ],
+    "discharge": [
+      [
+        25.835567285714284,
+        0.6000000000000001
+      ],
+      [
+        27.21011612712245,
+        0.8
+      ],
+      [
+        27.29621975710204,
+        0.8500000000000001
+      ],
+      [
+        28.19911409915385,
+        0.9500000000000001
+      ],
+      [
+        28.31249859668707,
+        1.0
+      ]
+    ]
+  },
+  "stats": {
+    "charge": {
+      "samples": 101345,
+      "bins": 10,
+      "soc_min": 0.55,
+      "soc_max": 1.0,
+      "voltage_min": 26.165642969387754,
+      "voltage_max": 28.76060429046003
+    },
+    "discharge": {
+      "samples": 1574,
+      "bins": 5,
+      "soc_min": 0.6000000000000001,
+      "soc_max": 1.0,
+      "voltage_min": 25.835567285714284,
+      "voltage_max": 28.31249859668707
+    }
+  },
+  "conditional_on": {
+    "capacity_Ah": 37.69,
+    "nominal_voltage_V": 25.27,
+    "eta_charge": 1.0,
+    "eta_discharge": 1.0,
+    "charge_power_source": "max(-TMEA005×TMEA006,0)",
+    "discharge_power_source": "max(TMEA005×TMEA006,0)"
+  },
+  "direction_gap_voltage": {
+    "definition": "V_charge - V_discharge at matched propagated SOC",
+    "soc_min": 0.6000000000000001,
+    "soc_max": 1.0,
+    "median_V": 1.0734516752204115,
+    "p05_V": 0.493459492386247,
+    "p95_V": 1.5407982799391888
+  },
+  "cross_validation": {
+    "charge": {
+      "n_validation": 101345,
+      "baseline_mae_V": 0.6638274044596431,
+      "directional_mae_V": 0.0158349666407642,
+      "baseline_rmse_V": 0.696739324480662,
+      "directional_rmse_V": 0.20464081685294278,
+      "baseline_soc_mae_pp": 3.23852175859028,
+      "directional_soc_mae_pp": 10.46851843633477,
+      "baseline_soc_rmse_pp": 4.423358982922185,
+      "directional_soc_rmse_pp": 12.57689815871148
+    },
+    "discharge": {
+      "n_validation": 1574,
+      "baseline_mae_V": 0.1509542150265408,
+      "directional_mae_V": 0.09593549648998281,
+      "baseline_rmse_V": 0.17545203624085745,
+      "directional_rmse_V": 0.163987646760888,
+      "baseline_soc_mae_pp": 1.2732497096078286,
+      "directional_soc_mae_pp": 1.958140132723785,
+      "baseline_soc_rmse_pp": 1.5617315550896884,
+      "directional_soc_rmse_pp": 2.973711302836575
+    }
+  },
+  "n_segments": 320,
+  "n_validation_samples": 102919,
+  "warnings": [
+    "方向曲线以能量递推SOC为伪标签，不是独立SOC真值",
+    "P_charge_est/P_disch_est与65Ah容量假设会同时影响方向曲线",
+    "交叉验证用于A/B比较，不证明充放电滞回已独立辨识"
+  ],
+  "adoption_decision": {
+    "baseline_overall_soc_mae_pp": 3.2084657125239713,
+    "directional_overall_soc_mae_pp": 10.338364281612282,
+    "overall_improvement_pp": -7.129898569088311,
+    "charge_improvement_pp": -7.229996677744491,
+    "discharge_improvement_pp": -0.6848904231159565,
+    "recommended_for_production": false,
+    "reason": "至少一个方向的SOC映射MAE未改善；保留现有单曲线"
+  },
+  "recommended_for_production": false,
+  "satellite_id": "YJ-3D",
+  "source": {
+    "result_csv": "ResearchSpace\\satellites\\YJ-3D\\power_model\\soc_direction_input.csv",
+    "result_sha256": "d8c6b8e3af1fed7e4d287f298487d8eb2c9ffb6382a7020b7304c1ccabbb31c8",
+    "base_v_soc_curve": "ResearchSpace\\satellites\\YJ-3D\\power_model\\v_soc_curve.json",
+    "base_v_soc_sha256": "24b9ba2e48e8600d31e44ae47f39e6a1c6c8cb6a4412e018f1d7b4b6c4eba97e"
+  },
+  "model_code": {
+    "file": "battery_soc_calibration.py",
+    "sha256": "a5fc3842226f96c35fd340ea200972a09648e659bf8aead4576d687fc3e35352"
+  }
+}

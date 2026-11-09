@@ -1,0 +1,72 @@
+{
+  "time": "2025-12-28T21:10:00+08:00",
+  "prediction": {
+    "end": "2025-12-28T21:43:00+08:00",
+    "step_seconds": 60,
+    "phase_segments": [
+      {
+        "start": "2025-12-28T21:10:00+08:00",
+        "end": "2025-12-28T21:43:00+08:00",
+        "phase": "eclipse"
+      }
+    ],
+    "tasks": [
+      {
+        "start": "2025-12-28T21:10:00",
+        "end": "2025-12-28T21:14:00",
+        "unit": "electric_propulsion_a",
+        "run_mode": "idle",
+        "after_mode": "idle"
+      },
+      {
+        "start": "2025-12-28T21:14:00",
+        "end": "2025-12-28T21:27:00",
+        "unit": "electric_propulsion_a",
+        "run_mode": "active",
+        "after_mode": "active"
+      },
+      {
+        "start": "2025-12-28T21:27:00",
+        "end": "2025-12-28T21:34:00",
+        "unit": "electric_propulsion_a",
+        "run_mode": "idle",
+        "after_mode": "idle"
+      },
+      {
+        "start": "2025-12-28T21:34:00",
+        "end": "2025-12-28T21:43:00",
+        "unit": "electric_propulsion_a",
+        "run_mode": "active",
+        "after_mode": "active"
+      },
+      {
+        "start": "2025-12-28T21:10:00",
+        "end": "2025-12-28T21:12:00",
+        "unit": "laser_processor_1",
+        "run_mode": "active",
+        "after_mode": "active"
+      },
+      {
+        "start": "2025-12-28T21:12:00",
+        "end": "2025-12-28T21:16:00",
+        "unit": "laser_processor_1",
+        "run_mode": "idle",
+        "after_mode": "idle"
+      },
+      {
+        "start": "2025-12-28T21:16:00",
+        "end": "2025-12-28T21:43:00",
+        "unit": "laser_processor_1",
+        "run_mode": "active",
+        "after_mode": "active"
+      },
+      {
+        "start": "2025-12-28T21:10:00",
+        "end": "2025-12-28T21:43:00",
+        "unit": "reaction_wheel_3",
+        "run_mode": "idle",
+        "after_mode": "idle"
+      }
+    ]
+  }
+}

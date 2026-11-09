@@ -1,0 +1,133 @@
+{
+  "schema_version": "1.1",
+  "satellite_id": "SCS-01-01",
+  "status": "completed_with_warnings",
+  "timezone": "Asia/Shanghai",
+  "provenance": {
+    "model_file": null,
+    "model_file_sha256": null,
+    "request_file": null,
+    "request_file_sha256": null,
+    "model_code_sha256": "6f1ac16f27aff426987d84bd4bcd34ba980128f9fb1e8199d9c42f7632ff289c"
+  },
+  "window": {
+    "start": "2026-06-29T11:12:00+08:00",
+    "end": "2026-06-29T11:22:00+08:00",
+    "duration_hours": 0.166667,
+    "step_seconds_max": 60
+  },
+  "initial_state": {
+    "time": "2026-06-29T11:12:00+08:00",
+    "soc": 0.914815,
+    "soc_source": "battery_voltage_mapped_by_v_soc_curve",
+    "battery_voltage_V": 28.39,
+    "remaining_Ah": 59.462963,
+    "remaining_energy_nominal_kWh": 1.664963
+  },
+  "target_end_state": {
+    "time": "2026-06-29T11:22:00+08:00",
+    "soc": 0.939313,
+    "remaining_Ah": 61.055354,
+    "remaining_energy_nominal_kWh": 1.70955,
+    "available_to_soc_floor_Ah": 57.805354,
+    "available_to_soc_floor_nominal_kWh": 1.61855,
+    "battery_voltage_from_v_soc_V": 28.654582,
+    "soc_half_spread_from_power_models": 7.5e-05
+  },
+  "minimum_state": {
+    "soc": 0.914815,
+    "time": "2026-06-29T11:12:00+08:00",
+    "remaining_Ah": 59.462963
+  },
+  "energy": {
+    "solar_to_bus_kWh": 0.065863,
+    "load_kWh": 0.019898,
+    "battery_charge_bus_kWh": 0.045966,
+    "battery_discharge_stored_kWh": 0.0,
+    "unserved_energy_at_floor_kWh": 0.0,
+    "model_power_empirical_spread_kWh": 0.000137,
+    "unit_energy_kWh": {
+      "electric_propulsion_a": 0.000612,
+      "reaction_wheel_1": 0.000352
+    },
+    "unit_model_power_empirical_spread_kWh": {
+      "electric_propulsion_a": 9e-05,
+      "reaction_wheel_1": 0.000104
+    }
+  },
+  "limits": {
+    "floor_limited_seconds": 0.0,
+    "ceiling_limited_seconds": 0.0
+  },
+  "assumptions": {
+    "battery_capacity_Ah": 65.0,
+    "nominal_voltage_V": 28.0,
+    "nominal_energy_kWh": 1.82,
+    "eta_charge": 0.97,
+    "eta_discharge": 0.97,
+    "soc_floor": 0.05,
+    "battery_energy_basis": "rated capacity x nominal voltage; SOC is coulomb/energy bookkeeping"
+  },
+  "warnings": [
+    "背景负载按 time 时刻的遥测快照保持恒定；未列入任务的热控等负载变化未单独建模"
+  ],
+  "evidence": {
+    "power_model_status": "data-fitted minute proxies",
+    "battery_model_status": "bookkeeping prediction, not independent in-orbit validation",
+    "solar_input_status": "太阳阵功率模块: historical_polynomial",
+    "solar_bus_power_constraint": "unconstrained",
+    "background_load_status": "由精确分钟遥测的总负载减去任务单机当前功率推导",
+    "not_modeled": [
+      "temperature-dependent battery capacity",
+      "charge/discharge hysteresis and rate dependence",
+      "solar-array incidence and MPPT/S3R operating point",
+      "measurement-boundary overlap among unit power branches",
+      "unlisted load changes: background load is held constant at snapshot"
+    ]
+  },
+  "input_contract": {
+    "schema_version": "1.1-simplified",
+    "user_inputs": [
+      "time",
+      "prediction.end",
+      "prediction.step_seconds",
+      "prediction.phase_segments",
+      "prediction.tasks"
+    ],
+    "task_semantics": "run_mode applies on [start,end); after_mode applies from end until the next task for that unit or prediction end; omitted after_mode restores the current telemetry-derived power"
+  },
+  "derived_state": {
+    "snapshot_time": "2026-06-29T11:12:00+08:00",
+    "battery_voltage_V": 28.39,
+    "bus_voltage_V": 28.4,
+    "total_load_W": 121.836,
+    "phase": "日照",
+    "current_task_unit_power_W": {
+      "electric_propulsion_a": 6.532,
+      "reaction_wheel_1": 1.704
+    },
+    "background_load_W": 113.6,
+    "solar_source": "historical_polynomial",
+    "solar_bus_transfer_efficiency": 1.0,
+    "solar_load_following_charge_margin_W": null,
+    "solar_provider_file": "D:\\Tianji\\project\\卫星能源评估\\ResearchSpace\\satellites\\SCS-01-01\\power_model\\batch_validation_holdout_solar_model.json",
+    "solar_provider_file_sha256": "4a6b9babe85a07a70c9aa4a382e85aa5a0cafa5ec53df5cb6a03bd7e39e7c590",
+    "phase_segments": [
+      {
+        "start": "2026-06-29T11:12:00+08:00",
+        "end": "2026-06-29T11:22:00+08:00",
+        "phase": "sun"
+      }
+    ]
+  },
+  "snapshot": {
+    "provider": "SCS historical exact-minute snapshot",
+    "selected_time": "2026-06-29T11:12:00"
+  },
+  "evaluation": {
+    "target_soc_error_pp": 2.449818518518512,
+    "remaining_Ah_error": 1.592382037037033,
+    "solar_energy_relative_error_pct": 43.98058717938606,
+    "load_energy_relative_error_pct": 36.39379509697554
+  }
+}

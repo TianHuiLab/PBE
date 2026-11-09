@@ -1,0 +1,32 @@
+{
+  "unit_plan": {
+    "electric_propulsion_a": [
+      {
+        "start": "2026-05-01T22:21:00",
+        "end": "2026-05-01T22:23:00",
+        "mode": "idle"
+      },
+      {
+        "start": "2026-05-01T22:23:00",
+        "end": "2026-05-01T22:29:00",
+        "mode": "active"
+      }
+    ]
+  },
+  "tasks": [
+    {
+      "start": "2026-05-01T22:21:00",
+      "end": "2026-05-01T22:23:00",
+      "unit": "electric_propulsion_a",
+      "run_mode": "idle",
+      "after_mode": "idle"
+    },
+    {
+      "start": "2026-05-01T22:23:00",
+      "end": "2026-05-01T22:29:00",
+      "unit": "electric_propulsion_a",
+      "run_mode": "active",
+      "after_mode": "active"
+    }
+  ]
+}

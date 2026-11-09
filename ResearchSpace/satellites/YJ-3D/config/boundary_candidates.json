@@ -1,0 +1,20 @@
+{
+  "source_workbook": "Data/0010-云尖3D星/云尖3D星_遥测大表0813.xlsx",
+  "bcr_definition": "BCR A/B 路每路分别有 PV 输入电压、BCR 输出电压、BCR 输出电流；未找到同侧 PV 输入电流代号。输入电压不能乘输出电流称为太阳阵端功率。",
+  "pv_channels": [
+    {"name": "-Z 体装板 1", "sheet": "0303-BCR_A", "input_voltage": "TMBA019", "output_voltage": "TMBA025", "output_current": "TMBA031"},
+    {"name": "-Z 体装板 2", "sheet": "0303-BCR_A", "input_voltage": "TMBA020", "output_voltage": "TMBA026", "output_current": "TMBA032"},
+    {"name": "-Z 体装板 3", "sheet": "0303-BCR_A", "input_voltage": "TMBA021", "output_voltage": "TMBA027", "output_current": "TMBA016"},
+    {"name": "展开板 1", "sheet": "0303-BCR_A", "input_voltage": "TMBA022", "output_voltage": "TMBA028", "output_current": "TMBA015"},
+    {"name": "展开板 2", "sheet": "0304-BCR_B", "input_voltage": "TMBB019", "output_voltage": "TMBB025", "output_current": "TMBB031"},
+    {"name": "展开板 3", "sheet": "0304-BCR_B", "input_voltage": "TMBB020", "output_voltage": "TMBB026", "output_current": "TMBB032"},
+    {"name": "展开板 4", "sheet": "0304-BCR_B", "input_voltage": "TMBB021", "output_voltage": "TMBB027", "output_current": "TMBB016"},
+    {"name": "展开板 5", "sheet": "0304-BCR_B", "input_voltage": "TMBB022", "output_voltage": "TMBB028", "output_current": "TMBB015"}
+  ],
+  "other_diagnostic_candidates": [
+    {"code": "TMEA010", "name": "蓄电池温度主", "sheet": "0305-EPSA_1", "row": 11},
+    {"code": "TMEB010", "name": "蓄电池温度备", "sheet": "0307-EPSB_1", "row": 11},
+    {"code": "TMUA020", "name": "放电开关状态", "sheet": "0201-TTC_A", "row": 21},
+    {"code": "TMUA021", "name": "充放电电流", "sheet": "0201-TTC_A", "row": 22}
+  ]
+}

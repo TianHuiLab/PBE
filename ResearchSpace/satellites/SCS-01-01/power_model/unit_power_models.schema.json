@@ -1,0 +1,216 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.tianji/scs-01-01/unit_power_models.schema.json",
+  "title": "SCS-01-01 单机功率模型库",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "satellite_id",
+    "models",
+    "calibration_contract"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "satellite_id": {
+      "const": "SCS-01-01"
+    },
+    "timezone": {
+      "type": "string"
+    },
+    "model_code": {
+      "type": "object",
+      "required": [
+        "file",
+        "sha256"
+      ]
+    },
+    "created_from": {
+      "type": "object"
+    },
+    "calibration_contract": {
+      "type": "object"
+    },
+    "model_counts": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 0
+      }
+    },
+    "models": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/unit_model"
+      }
+    }
+  },
+  "$defs": {
+    "band": {
+      "type": "object",
+      "required": [
+        "id",
+        "label",
+        "power_p50_W"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "n": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "fraction": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "power_p05_W": {
+          "type": "number",
+          "minimum": 0
+        },
+        "power_p50_W": {
+          "type": "number",
+          "minimum": 0
+        },
+        "power_p95_W": {
+          "type": "number",
+          "minimum": 0
+        },
+        "support": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "unit_model": {
+      "type": "object",
+      "required": [
+        "name",
+        "model_type",
+        "usable_for_prediction",
+        "source",
+        "warnings"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "model_type": {
+          "enum": [
+            "constant",
+            "polynomial",
+            "mode_constant",
+            "unavailable"
+          ]
+        },
+        "usable_for_prediction": {
+          "type": "boolean"
+        },
+        "source": {
+          "type": "object"
+        },
+        "observations": {
+          "type": "object"
+        },
+        "stats": {
+          "type": "object"
+        },
+        "power_bands": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/band"
+          }
+        },
+        "active_power_W": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "low_power_W": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "high_power_W": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "active_threshold_W": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "high_threshold_W": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "shared_power_band_source": {
+          "type": "object",
+          "required": [
+            "group_id",
+            "source_units"
+          ],
+          "properties": {
+            "group_id": {
+              "type": "string"
+            },
+            "source_units": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          },
+          "additionalProperties": false
+        },
+        "modes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "required": [
+              "n",
+              "power_p50_W"
+            ]
+          }
+        },
+        "polynomial": {
+          "type": "object",
+          "required": [
+            "degree",
+            "selected"
+          ]
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "evidence_level": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,59 @@
+{
+  "time": "2025-12-29T05:21:00+08:00",
+  "prediction": {
+    "end": "2025-12-29T05:45:00+08:00",
+    "step_seconds": 60,
+    "phase_segments": [
+      {
+        "start": "05:21",
+        "end": "05:45",
+        "phase": "eclipse"
+      }
+    ],
+    "tasks": [
+      {
+        "name": "激光处理",
+        "start": "05:21",
+        "end": "05:31",
+        "unit": "laser_processor_1",
+        "run_mode": "active"
+      },
+      {
+        "name": "科学载荷数传",
+        "start": "05:22",
+        "end": "05:27",
+        "unit": "science_payload",
+        "run_mode": "数传状态"
+      },
+      {
+        "name": "智算任务A",
+        "start": "05:24",
+        "end": "05:29",
+        "unit": "compute_nx1_f",
+        "run_mode": "active"
+      },
+      {
+        "name": "路由转发",
+        "start": "05:26",
+        "end": "05:34",
+        "unit": "router_main",
+        "run_mode": "active"
+      },
+      {
+        "name": "微波通信",
+        "start": "05:30",
+        "end": "05:35",
+        "unit": "microwave_2a",
+        "run_mode": "active",
+        "after_mode": "off"
+      },
+      {
+        "name": "备份路由任务",
+        "start": "05:35",
+        "end": "05:42",
+        "unit": "router_backup",
+        "run_mode": "active"
+      }
+    ]
+  }
+}
