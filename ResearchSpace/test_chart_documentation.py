@@ -454,6 +454,7 @@ class ChartDocumentationTests(unittest.TestCase):
         self.assertEqual(scatter_root.get('data-phase2-chart'), 'unit-scatter')
         self.assertEqual(len(scatter_root.findall(f'.//{SVG}circle')), 5)
 
+    @require_data
     def test_phase2_chapters_are_source_bound_and_link_resolvable(self):
         scs_root = BASE / 'satellites' / 'SCS-01-01'
         yj_root = BASE / 'satellites' / 'YJ-3D'

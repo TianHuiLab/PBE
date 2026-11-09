@@ -5,12 +5,20 @@ import json
 import tempfile
 import unittest
 
+try:
+    from ._data import require_local_data
+except ImportError:
+    from _data import require_local_data
 from stage2_testset import write_testset
 
 
 BASE = Path(__file__).resolve().parents[1]
 
 
+@require_local_data(
+    BASE / "satellites" / "SCS-01-01" / "out" / "energy_v2_result.csv",
+    BASE / "satellites" / "YJ-3D" / "data_power_minute.csv",
+)
 class Stage2TestsetTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):

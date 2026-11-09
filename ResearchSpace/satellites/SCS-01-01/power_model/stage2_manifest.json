@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "satellite_id": "SCS-01-01",
-  "generated_at": "2026-11-09T15:53:13+08:00",
+  "generated_at": "2026-11-09T16:03:55+08:00",
   "inputs": [
     {
       "path": "power_model/batch_validation_windows.csv",

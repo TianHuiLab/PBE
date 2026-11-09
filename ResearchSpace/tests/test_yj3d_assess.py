@@ -14,8 +14,19 @@ import yj3d_unit_power
 import yj3d_units
 import pandas as pd
 
+try:
+    from ._data import require_local_data
+except ImportError:
+    from _data import require_local_data
+
+
+BASE = Path(__file__).resolve().parents[1]
+
 
 class YJ3DAssessmentTests(unittest.TestCase):
+    @require_local_data(
+        BASE.parent / "Data" / "0010-云尖3D星" /
+        "volt_capacity_3D_v0.csv")
     def test_dedicated_battery_curve_parses_and_validates(self):
         curve = yj3d_soc.load_calibration()
         self.assertEqual(len(curve['points']), 10)
@@ -24,6 +35,9 @@ class YJ3DAssessmentTests(unittest.TestCase):
         self.assertEqual(curve['points'][0]['soc_pct'], 10)
         self.assertEqual(curve['points'][-1]['soc_pct'], 100)
 
+    @require_local_data(
+        BASE.parent / "Data" / "0010-云尖3D星" /
+        "volt_capacity_3D_v0.csv")
     def test_soc_interpolation_requires_matching_discharge_and_curve_range(self):
         curve = yj3d_soc.load_calibration()
         base = {'phase': '地影', 'phase_source': 'TMZS003', 'phase_conflict': 0,
@@ -157,6 +171,9 @@ class YJ3DAssessmentTests(unittest.TestCase):
         self.assertEqual(yj3d_unit_power.upper_limit('0A~3A', 'A'), 3)
         self.assertIsNone(yj3d_unit_power.upper_limit('1 == 1', 'V'))
 
+    @require_local_data(
+        BASE.parent / "Data" / "0010-云尖3D星" /
+        "云尖3D星_遥测大表0813.xlsx")
     def test_unit_inventory_keeps_partial_feeds_and_bcr_gnss_separate(self):
         with tempfile.TemporaryDirectory() as folder:
             inventory = yj3d_units.build_inventory(folder)

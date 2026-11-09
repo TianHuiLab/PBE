@@ -4,6 +4,10 @@ import unittest
 from pathlib import Path
 
 from gen_charts import phase2_yj_section
+try:
+    from ._data import require_local_data
+except ImportError:
+    from _data import require_local_data
 
 
 BASE = Path(__file__).resolve().parents[1]
@@ -11,6 +15,8 @@ PROFILE = BASE / "satellites" / "YJ-3D"
 
 
 class YJ3DHTMLTests(unittest.TestCase):
+    @require_local_data(
+        PROFILE / "power_model" / "physical_unit_power_minute.csv")
     def test_latest_physical_unit_results_are_rendered(self):
         html = phase2_yj_section(PROFILE)
         audit = json.loads(

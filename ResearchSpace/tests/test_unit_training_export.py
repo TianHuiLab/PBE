@@ -7,12 +7,22 @@ import unittest
 
 import pandas as pd
 
+try:
+    from ._data import require_local_data
+except ImportError:
+    from _data import require_local_data
 from unit_training_export import write_unit_training
 
 
 BASE = Path(__file__).resolve().parents[1]
 
 
+@require_local_data(
+    BASE / "satellites" / "SCS-01-01" / "out" /
+    "energy_v2_components.csv",
+    BASE / "satellites" / "YJ-3D" / "power_model" /
+    "physical_unit_power_minute.csv",
+)
 class UnitTrainingExportTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):

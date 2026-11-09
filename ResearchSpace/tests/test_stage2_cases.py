@@ -4,6 +4,10 @@ import unittest
 
 import pandas as pd
 
+try:
+    from ._data import require_local_data
+except ImportError:
+    from _data import require_local_data
 from stage2_cases import _extract_historical_tasks, load_representative_case
 
 
@@ -48,6 +52,8 @@ class Stage2RepresentativeCaseTests(unittest.TestCase):
             if item["mode"] == "active_high"
         ))
 
+    @require_local_data(
+        BASE / "satellites" / "SCS-01-01" / "out" / "energy_v2_result.csv")
     def test_scs_case_aligns_predicted_and_observed_soc(self):
         case = load_representative_case(BASE / "satellites" / "SCS-01-01")
         self.assertEqual(case["satellite_id"], "SCS-01-01")
@@ -75,6 +81,8 @@ class Stage2RepresentativeCaseTests(unittest.TestCase):
         self.assertEqual(case["reference_mode"],
                          "conditional_v_soc_minute_curve")
 
+    @require_local_data(
+        BASE / "satellites" / "YJ-3D" / "data_power_minute.csv")
     def test_yj_case_uses_extracted_tasks_and_current_integrated_soc(self):
         case = load_representative_case(BASE / "satellites" / "YJ-3D")
         self.assertEqual(case["satellite_id"], "YJ-3D")

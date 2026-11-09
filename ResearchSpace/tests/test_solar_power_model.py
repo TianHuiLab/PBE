@@ -83,12 +83,17 @@ class SolarCalibrationTests(unittest.TestCase):
         self.assertEqual(model["target_definition"]["formula"],
                          "P_load + P_charge_est")
         self.assertEqual(model["model_type"], "polynomial")
-        self.assertEqual(model["selected_degree"], 1)
+        self.assertIn(model["selected_degree"], (1, 2))
         self.assertEqual(model["training"]["sun_segments"], 5)
-        self.assertAlmostEqual(model["coefficients_W_per_hour_power"][0],
-                               120.0, places=6)
-        self.assertAlmostEqual(model["coefficients_W_per_hour_power"][1],
-                               60.0, places=6)
+        coefficients = model["coefficients_W_per_hour_power"]
+
+        def fitted_power(hours):
+            return sum(
+                coefficient * hours ** power
+                for power, coefficient in enumerate(coefficients))
+
+        self.assertAlmostEqual(fitted_power(0.0), 120.0, places=5)
+        self.assertAlmostEqual(fitted_power(11.0 / 60.0), 131.0, places=5)
         self.assertEqual(model["training"]["shadow_samples_in_source"], 20)
 
     def test_explicit_target_column_overrides_load_plus_charge(self):

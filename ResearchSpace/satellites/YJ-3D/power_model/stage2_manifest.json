@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "satellite_id": "YJ-3D",
-  "generated_at": "2026-11-09T15:53:18+08:00",
+  "generated_at": "2026-11-09T16:04:01+08:00",
   "inputs": [
     {
       "path": "stage2_testset/evaluation_summary.json",

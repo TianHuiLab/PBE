@@ -6,6 +6,10 @@ import json
 import tempfile
 import unittest
 
+try:
+    from ._data import require_local_data
+except ImportError:
+    from _data import require_local_data
 from stage2_audit import (
     ab_topology_audit,
     ab_coactivity,
@@ -270,6 +274,11 @@ class Stage2AuditTests(unittest.TestCase):
 
 
 class Stage2AuditIntegrationTests(unittest.TestCase):
+    @require_local_data(
+        BASE / "satellites" / "SCS-01-01" / "out" / "energy_v2_result.csv",
+        BASE / "satellites" / "SCS-01-01" / "power_model" /
+        "batch_validation_windows.csv",
+    )
     def test_scs_audit_reports_effective_dates_and_weighted_metrics(self):
         audit = build_stage2_audit(BASE / "satellites" / "SCS-01-01")
         self.assertEqual(audit["satellite_id"], "SCS-01-01")
@@ -305,6 +314,11 @@ class Stage2AuditIntegrationTests(unittest.TestCase):
         self.assertEqual(
             audit["representative_case"]["derived_inputs"]["task_count"], 2)
 
+    @require_local_data(
+        BASE / "satellites" / "YJ-3D" / "data_power_minute.csv",
+        BASE / "satellites" / "YJ-3D" / "power_model" /
+        "physical_unit_power_minute.csv",
+    )
     def test_yj_audit_contains_saturation_background_ab_and_bcr_checks(self):
         audit = build_stage2_audit(BASE / "satellites" / "YJ-3D")
         saturation = audit["soc_saturation"]
@@ -337,11 +351,24 @@ class Stage2AuditIntegrationTests(unittest.TestCase):
             audit["representative_case"]["derived_inputs"]["task_count"], 15)
 
     def test_manifest_hashes_match_declared_stage2_inputs(self):
+        missing = []
+        manifests = {}
         for folder in ("SCS-01-01", "YJ-3D"):
             root = BASE / "satellites" / folder
             manifest = json.loads(
                 (root / "power_model" / "stage2_manifest.json").read_text(
                     encoding="utf-8"))
+            manifests[folder] = (root, manifest)
+            for item in manifest["inputs"] + manifest["code"]:
+                path = Path(item["path"])
+                if not path.is_absolute():
+                    path = root / path
+                if not path.is_file():
+                    missing.append(str(path))
+        if missing:
+            self.skipTest(
+                "需要本地数据/代码清单中的文件；GitHub CI 不包含这些文件")
+        for folder, (root, manifest) in manifests.items():
             self.assertEqual(manifest["satellite_id"], folder)
             self.assertGreater(len(manifest["inputs"]), 0)
             self.assertGreater(len(manifest["code"]), 0)
